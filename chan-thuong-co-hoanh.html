@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chấn Thương Cơ Hoành</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>Chấn Thương Cơ Hoành</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/chan-thuong-co-hoanh/" target="_blank" rel="noopener">Xray.vn — xray.vn/chan-thuong-co-hoanh</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Chấn thương cơ hoành (traumatic diaphragmatic injury)</span> là tổn thương cơ hoành do chấn thương kín hoặc xuyên thấu, biểu hiện từ dập đến rách; chấn thương kín thường làm tăng đột ngột áp lực ổ bụng, còn chấn thương xuyên thấu gây rách trực tiếp.</p>
+<p><span class="c-xanh">– Dịch tễ:</span><br>+ Tổn thương cơ hoành gặp khoảng 1–7% trường hợp chấn thương kín vùng ngực-bụng.<br>+ Trong chấn thương xuyên thấu vùng ngực-bụng, tỷ lệ khoảng 10–15%; vết rách thường nhỏ nên dễ bị bỏ sót trên hình ảnh ban đầu.</p>
+<p><span class="c-xanh">– Nguyên nhân:</span><br>+ Tai nạn giao thông là nguyên nhân thường gặp nhất của chấn thương kín.<br>+ Lực ép bên sườn hoặc trước-sau truyền lực chấn thương lên cơ hoành, làm tăng nguy cơ rách.<br>+ Mảnh xương sườn gãy có thể gây rách trực tiếp cơ hoành.<br>+ Chấn thương xuyên thấu vùng ngực-bụng gây rách trực tiếp cơ hoành dọc theo đường đi của tác nhân.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span><br>+ Ở chấn thương kín, áp lực ổ bụng tăng đột ngột truyền lực lên cơ hoành, gây dập hoặc rách, thường tại vùng sau-bên.<br>+ Chênh lệch áp lực giữa ổ bụng và khoang màng phổi, cùng vận động liên tục của cơ hoành, thúc đẩy tạng ổ bụng thoát vị vào lồng ngực qua đường rách.<br>+ Đường rách thường không tự liền và có thể rộng dần theo thời gian do chênh lệch áp lực duy trì và cơ hoành vận động liên tục.</p>
+<p><span class="c-xanh">– Vị trí:</span><br>+ Tổn thương bên trái thường gặp hơn; trong chấn thương kín, bên trái chiếm khoảng 75% và bên phải 25%.<br>+ Gan che chở một phần cơ hoành phải; vì vậy, tổn thương bên phải ít gặp hơn và thường cần lực chấn thương mạnh, có thể kèm tổn thương gan hoặc mạch máu.<br>+ Vị trí rách thường gặp nhất ở vùng sau-bên, gần chỗ nối phần thắt lưng và phần sườn của cơ hoành.<br>+ Tổn thương hai bên hiếm gặp, chiếm khoảng 2% tổng số trường hợp.</p>
+<p><span class="c-xanh">– Kích thước:</span> Đường kính khuyết cơ hoành trung vị trong một nghiên cứu đa trung tâm là 5,7 cm sau chấn thương kín (khoảng dao động 2–10 cm) và 4,04 cm sau chấn thương xuyên thấu (1–10 cm); vết rách xuyên thấu thường nhỏ, dạng đường thẳng nên dễ bị bỏ sót trên hình ảnh ban đầu.</p>
+<p><span class="c-xanh">– Phân loại:</span> Các kiểu rách gồm rách hướng tâm, rách ngang, rách trung tâm và bong tách ngoại vi.</p>
+<figure><a class="o-anh" href="chan-thuong-co-hoanh_anh/g02oc14c7x.jpeg"><img src="chan-thuong-co-hoanh_anh/g02oc14c7x.jpeg" alt="Chấn thương cơ hoành" width="1216" height="1160" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Biến chứng:</span><br>+ Khi vết rách lớn bên trái, dạ dày, đại tràng, ruột non và đôi khi thùy trái gan có thể thoát vị vào lồng ngực.<br>+ Khi vết rách lớn bên phải, gan có thể thoát vị vào lồng ngực, gây xẹp phổi do chèn ép và đẩy trung thất sang trái.<br>+ Sốc và tử vong sớm thường liên quan đến các tổn thương phối hợp nặng hơn là tổn thương cơ hoành đơn độc.<br>+ Tạng thoát vị có thể bị kẹt hoặc nghẹt, gây tắc ruột, thiếu máu hoặc hoại tử tạng và suy hô hấp; tổn thương cơ hoành cần được sửa chữa sớm khi tình trạng người bệnh cho phép.</p>
+<figure><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_main-qimg-9fcf8a2915ffc451953526f21b8c9d8c.png"><img src="chan-thuong-co-hoanh_anh/2015_09_main-qimg-9fcf8a2915ffc451953526f21b8c9d8c.png" alt="" width="602" height="346" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h3 id="giai-phau-dai-the">* Giải phẫu đại thể</h3>
+<p>– Cơ hoành là một vách hình vòm ngăn cách khoang ngực với khoang bụng. Nó bao gồm hai phần: phần cơ ngoại vi bám vào bờ dưới lồng ngực và phần cân ở trung tâm.</p>
+<figure><a class="o-anh" href="chan-thuong-co-hoanh_anh/diaphragm-holes.jpg"><img src="chan-thuong-co-hoanh_anh/diaphragm-holes.jpg" alt="diaphragm-holes" width="1600" height="1084" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Các sợi cơ xếp thành 3 phần: </span><br>+ Phần cột sống: bám vào các trụ cơ hoành và các dây chằng cung. Trụ phải bám vào mặt trước của thân 3 đốt sống thắt lưng trên cùng và các đĩa gian đốt sống. Trụ trái chỉ bám vào 2 đốt sống thắt lưng trên cùng.<br>+ Phần sườn: bám vào mặt trong của 6 xương sườn và sụn sườn cuối cùng.<br>+ Phần ức: bao gồm 2 dải cơ nhỏ bám vào mặt sau mũi ức.<br>– Ở trung tâm gân cơ hoành (nơi bám tận của các sợi cơ), ba lá và dính một phần với mặt dưới ngoại tâm mạc.</p>
+<p><span class="c-xanh">– Cơ hoành có 3 lỗ chính:</span><br>+ Lỗ động mạch chủ (ở ngang mức N12): có động mạch chủ bụng, ống ngực và tĩnh mạch đơn đi qua.<br>+ Lỗ thực quản (ngang mức N10): ngoài thực quản nằm giữa các sợi cơ của trục phải cơ hoành còn có các nhánh động mạch và tĩnh mạch vị trái và 2 thần kinh 10 đi qua.<br>+ Lỗ tĩnh mạch chủ dưới (ngang mức N8): nằm ở trung tâm gân cơ hoành. Trong lỗ này có dây thần kinh hoành phải đi qua.</p>
+<figure><a class="o-anh" href="chan-thuong-co-hoanh_anh/115082fig01.jpeg"><img src="chan-thuong-co-hoanh_anh/115082fig01.jpeg" alt="115082fig01" width="1280" height="1178" loading="lazy" decoding="async"></a></figure>
+<h3 id="giai-phau-clvt">* Giải phẫu CLVT</h3>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-436.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-436.jpg" alt="" width="1024" height="895" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-427.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-427.jpg" alt="" width="985" height="825" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-415.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-415.jpg" alt="" width="952" height="824" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-376.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-376.jpg" alt="" width="906" height="825" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-265.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-265.jpg" alt="" width="1023" height="989" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_6-97.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_6-97.jpg" alt="" width="1023" height="985" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_7-39.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_7-39.jpg" alt="Trụ cơ hoành" width="1024" height="1012" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_8-30.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_8-30.jpg" alt="Trụ cơ hoành" width="869" height="684" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_9-4.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_9-4.jpg" alt="Dây chằng cung ngoài" width="728" height="691" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_10-4.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_10-4.jpg" alt="" width="766" height="693" loading="lazy" decoding="async"></a></div>
+<h2 id="ii-chan-doan-x-quang">II. Chẩn đoán x-quang</h2>
+<p>– Hình ảnh thay đổi theo vị trí, kích thước đường vỡ và tạng thoát vị.<br>– Phim ngực thẳng có thể bình thường trong khoảng 50% trường hợp, với khả năng phát hiện khoảng 27%-62% vỡ do chấn thương cơ hoành (traumatic diaphragmatic injury) bên trái và 17% bên phải nên phim bình thường không loại trừ được tổn thương.<br>– Vòm hoành nâng cao bất thường do tạng ổ bụng thoát vị đội lên và cơ hoành mất trương lực sau đường vỡ.<br>– Mất liên tục và xóa mờ đường viền cơ hoành do đường vỡ làm gián đoạn bờ cơ và tạng thoát vị cùng dịch che lấp ranh giới.<br>– Thoát vị bên trái thường tạo bóng mờ không đồng nhất do có mức khí-dịch trong các quai ruột thoát vị.<br>– Tạng rỗng thoát vị như dạ dày, đại tràng và ruột non có thể bị thắt eo khu trú tại vị trí vỡ.<br>– Thoát vị lớn có thể đẩy lệch trung thất sang bên đối diện.<br>– Đầu ống thông dạ dày có thể nằm trên vòm hoành và cuộn trong lồng ngực trái.<br>– Tổn thương phối hợp hay gặp gồm gãy xương sườn, xẹp phổi, tràn khí và tràn dịch màng phổi cùng đụng dập phổi.<br>– Vòm hoành nâng cao cần phân biệt với liệt cơ hoành và nhão hoành bẩm sinh vốn có vòm cong lồi liên tục mà không có tạng thoát vị hay mức khí-dịch.<br>– So sánh với phim trước chấn thương nếu có giúp nhận ra thay đổi mới của vòm hoành và trung thất.<br>– Cần chụp cả phim thẳng và nghiêng khi người bệnh đứng được vì phim nằm ngửa tại giường dễ bỏ sót tổn thương nhỏ và vỡ bên phải.<br>– Vỡ bên phải khó thấy hơn vì gan khó nhận ra chỉ tạo lồi khu trú, mọi nghi ngờ đều cần chụp cắt lớp vi tính ngay.<br>– Khi đã thấy thoát vị và thắt eo cần chụp cắt lớp vi tính ngay để xác định đường vỡ và biến chứng kẹt hay thiếu máu.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/3d605268563b5428304e4b254f4421_jumbo.jpg"><img src="chan-thuong-co-hoanh_anh/3d605268563b5428304e4b254f4421_jumbo.jpg" alt="" width="885" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/CXR2003-0001.jpg"><img src="chan-thuong-co-hoanh_anh/CXR2003-0001.jpg" alt="" width="1600" height="1525" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/diaf_inj_definition_2.jpg"><img src="chan-thuong-co-hoanh_anh/diaf_inj_definition_2.jpg" alt="" width="1200" height="983" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/thoracic_trauma_lge_19.jpg"><img src="chan-thuong-co-hoanh_anh/thoracic_trauma_lge_19.jpg" alt="" width="654" height="790" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/Acute-traumatic-rupture-left-diaphragm-1_Xray.vn_.jpg"><img src="chan-thuong-co-hoanh_anh/Acute-traumatic-rupture-left-diaphragm-1_Xray.vn_.jpg" alt="" width="990" height="990" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/FB_IMG_1486363175988_Xray.vn_.jpg"><img src="chan-thuong-co-hoanh_anh/FB_IMG_1486363175988_Xray.vn_.jpg" alt="" width="1024" height="890" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/g02oc14g8x.jpeg"><img src="chan-thuong-co-hoanh_anh/g02oc14g8x.jpeg" alt="" width="1600" height="1604" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/g02oc14g9x.jpeg"><img src="chan-thuong-co-hoanh_anh/g02oc14g9x.jpeg" alt="" width="1600" height="1522" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_DiapHernia40Mrta.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_DiapHernia40Mrta.jpg" alt="" width="874" height="854" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_469894.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_469894.jpg" alt="" width="813" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_469905.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_469905.jpg" alt="" width="970" height="758" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1.3.6.1.4.1.19179.1.114422618612138215.3.28534.191241.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_1.3.6.1.4.1.19179.1.114422618612138215.3.28534.191241.jpg" alt="" width="1500" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_screenshot_1740905705-1.png"><img src="chan-thuong-co-hoanh_anh/2015_09_screenshot_1740905705-1.png" alt="Sonde dạ dày vị trí bất thường" width="937" height="452" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_PA-chest-5.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_PA-chest-5.jpg" alt="" width="458" height="490" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_lateral-chest-3.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_lateral-chest-3.jpg" alt="" width="411" height="485" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Bild1-1.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_Bild1-1.jpg" alt="" width="1385" height="755" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Bild3-4.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_Bild3-4.jpg" alt="" width="1356" height="861" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-437.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-437.jpg" alt="" width="813" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-428.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-428.jpg" alt="" width="768" height="979" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_469902.png"><img src="chan-thuong-co-hoanh_anh/2015_09_469902.png" alt="" width="734" height="793" loading="lazy" decoding="async"></a></div>
+<p>– Thoát vị gan qua đường vỡ bên phải đôi khi chỉ tạo khối lồi khu trú của vòm hoành do nhu mô gan khó nhận ra trên phim thẳng, dễ nhầm với nâng cao vòm hoành đơn thuần nên dễ bỏ sót nếu không đối chiếu mặt cắt đứng ngang và đứng dọc.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="chan-thuong-co-hoanh_anh/jcs298w-g001.jpg"><img src="chan-thuong-co-hoanh_anh/jcs298w-g001.jpg" alt="" width="945" height="1108" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/jcs298w-g002.jpg"><img src="chan-thuong-co-hoanh_anh/jcs298w-g002.jpg" alt="" width="709" height="1093" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/jcs298w-g005.jpg"><img src="chan-thuong-co-hoanh_anh/jcs298w-g005.jpg" alt="Sau điều trị" width="891" height="849" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/115082fig02a.jpeg"><img src="chan-thuong-co-hoanh_anh/115082fig02a.jpeg" alt="" width="1280" height="1110" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/115082fig13.jpeg"><img src="chan-thuong-co-hoanh_anh/115082fig13.jpeg" alt="" width="1280" height="767" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/115082fig14a.jpeg"><img src="chan-thuong-co-hoanh_anh/115082fig14a.jpeg" alt="" width="1280" height="1261" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/661acd1c3d3089994cd971a735f2af_big_gallery.jpeg"><img src="chan-thuong-co-hoanh_anh/661acd1c3d3089994cd971a735f2af_big_gallery.jpeg" alt="" width="431" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2019_01_PA-chest3-1.jpg"><img src="chan-thuong-co-hoanh_anh/2019_01_PA-chest3-1.jpg" alt="" width="871" height="834" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2019_01_Lateral-chest-1.jpg"><img src="chan-thuong-co-hoanh_anh/2019_01_Lateral-chest-1.jpg" alt="" width="802" height="1007" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Bild5.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_Bild5.jpg" alt="Thời điểm chấn thương" width="1468" height="790" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-45.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-45.jpg" alt="Sau 2 năm" width="1453" height="778" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-43.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-43.jpg" alt="" width="1384" height="756" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2018_12_PA-chest-7.jpg"><img src="chan-thuong-co-hoanh_anh/2018_12_PA-chest-7.jpg" alt="" width="1600" height="1470" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2018_12_lateral-chest-6.jpg"><img src="chan-thuong-co-hoanh_anh/2018_12_lateral-chest-6.jpg" alt="" width="1600" height="1672" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2018_12_Bild1-9.jpg"><img src="chan-thuong-co-hoanh_anh/2018_12_Bild1-9.jpg" alt="" width="1460" height="719" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2018_12_Bild2-8.jpg"><img src="chan-thuong-co-hoanh_anh/2018_12_Bild2-8.jpg" alt="" width="1434" height="724" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-104.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-104.jpeg" alt="Ngày thứ 1" width="981" height="851" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-103.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-103.jpeg" alt="Ngày thứ 3" width="961" height="855" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-103.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-103.jpeg" alt="Ngày thứ 4" width="962" height="786" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-96.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-96.jpeg" alt="Ngày thứ 6" width="630" height="560" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-74.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-74.jpeg" alt="" width="509" height="561" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_cxr.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_cxr.jpg" alt="" width="900" height="897" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_ct1.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_ct1.jpg" alt="" width="800" height="580" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_ct2-copy-1.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_ct2-copy-1.jpg" alt="" width="800" height="826" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_ct3.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_ct3.jpg" alt="" width="800" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_ct4-copy.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_ct4-copy.jpg" alt="" width="750" height="1004" loading="lazy" decoding="async"></a></div>
+<p>– Vòm hoành nâng cao sau chấn thương cần phân biệt với liệt cơ hoành và nhão hoành bẩm sinh vốn có vòm cong lồi liên tục mà không có gián đoạn bờ cơ hay tạng thoát vị.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_08_elevated_hemidiaphragm_PA-1024x842.jpg"><img src="chan-thuong-co-hoanh_anh/2015_08_elevated_hemidiaphragm_PA-1024x842.jpg" alt="" width="1024" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_08_cdf3c3406e44c7cde2f6c2fe74217b_jumbo.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_08_cdf3c3406e44c7cde2f6c2fe74217b_jumbo.jpeg" alt="" width="894" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_08_5ea3ecdec1393e5d16beb61595a282_jumbo.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_08_5ea3ecdec1393e5d16beb61595a282_jumbo.jpeg" alt="" width="930" height="874" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_08_CalcFig1.jpg"><img src="chan-thuong-co-hoanh_anh/2015_08_CalcFig1.jpg" alt="" width="826" height="827" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_08_1-928.jpg"><img src="chan-thuong-co-hoanh_anh/2015_08_1-928.jpg" alt="" width="798" height="698" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_08_2-935.jpg"><img src="chan-thuong-co-hoanh_anh/2015_08_2-935.jpg" alt="" width="767" height="830" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_08_3-914.jpg"><img src="chan-thuong-co-hoanh_anh/2015_08_3-914.jpg" alt="" width="971" height="768" loading="lazy" decoding="async"></a></div>
+<h2 id="iii-chan-doan-clvt">III. Chẩn đoán CLVT</h2>
+<p>– Chụp cắt lớp vi tính là phương tiện chẩn đoán hình ảnh được lựa chọn để xác định vỡ cơ hoành do chấn thương kín (traumatic diaphragmatic injury), với độ nhạy được báo cáo khoảng 56-87% và độ đặc hiệu khoảng 75-100%.<br>– Dấu mất liên tục trực tiếp của cơ hoành có độ nhạy khoảng 17-80% và độ đặc hiệu khoảng 90-100%.<br>– Vỡ hay gặp ở bên trái, chiếm khoảng 70-90% trường hợp, thường ở vùng sau bên của cơ hoành.<br>– Đường vỡ do chấn thương kín thường lớn hơn 10 cm chiều dài, trong khi đường vỡ do tổn thương xuyên thấu thường ngắn 1-2 cm. Đường vỡ ngắn ban đầu có thể bị bỏ sót nhưng thường rộng dần theo thời gian.</p>
+<h3 id="dau-hieu-gian-tiep">* Dấu hiệu gián tiếp</h3>
+<p>– Tổn thương phổi gồm đụng dập nhu mô phổi cùng tràn khí và tràn dịch màng phổi.<br>– Có tràn khí trung thất và tràn khí dưới da.<br>– Có gãy xương sườn, xương ức và xương cột sống.<br>– Có tổn thương tạng ổ bụng đi kèm.<br>– Các tổn thương đi kèm dễ gây sao nhãng nên đường vỡ cơ hoành dễ bị bỏ sót khi chỉ đọc tổn thương rõ nhất.<br>– Khi có cơ chế lực tác động mạnh và nhiều tổn thương phối hợp cần chủ động tìm đường vỡ trên mặt cắt đứng ngang và đứng dọc.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-488.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-488.jpg" alt="" width="1303" height="562" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-482.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-482.jpg" alt="" width="1276" height="631" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-467.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-467.jpg" alt="" width="1268" height="736" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-421.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-421.jpg" alt="" width="1263" height="657" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-301.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-301.jpg" alt="" width="1271" height="656" loading="lazy" decoding="async"></a></div>
+<h3 id="thoat-vi-tang-o-bung">* Thoát vị tạng ổ bụng</h3>
+<p>– Các tạng ổ bụng thoát vị qua đường vỡ lên lồng ngực do chênh lệch áp lực dương trong ổ bụng và áp lực âm trong lồng ngực kết hợp cử động liên tục của cơ hoành.<br>– Hay gặp khi đường vỡ lớn bên trái với dạ dày, đại tràng, lách và ruột non, bên phải chủ yếu là gan nên khó nhận ra hơn.<br>– Cần đánh giá trên mặt cắt đứng ngang và đứng dọc để xác định tạng thoát vị, cuống mạch mạc treo và chỗ thắt eo tại bờ vỡ.<br>– Phân biệt với thoát vị khe hoành qua lỗ thực quản, nhão hoành bẩm sinh có vòm liên tục và tràn dịch màng phổi khu trú không có cuống từ ổ bụng lên.<br>– Cạm bẫy hay gặp là nhầm quai ruột có khí trong ngực với tràn khí màng phổi, nhầm gan thoát vị với nâng vòm đơn thuần và bỏ sót khi chỉ đọc mặt ngang trục.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u2.jpg"><img src="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u2.jpg" alt="" width="809" height="582" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u7.jpg"><img src="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u7.jpg" alt="" width="809" height="569" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/index-5-1.jpg"><img src="chan-thuong-co-hoanh_anh/index-5-1.jpg" alt="" width="981" height="778" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/Case_8b_Xray.vn_.jpg"><img src="chan-thuong-co-hoanh_anh/Case_8b_Xray.vn_.jpg" alt="" width="720" height="576" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/Case_10b_Xray.vn_.jpg"><img src="chan-thuong-co-hoanh_anh/Case_10b_Xray.vn_.jpg" alt="" width="1000" height="800" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/Rupt_HD_3c_Xray.vn_.jpg"><img src="chan-thuong-co-hoanh_anh/Rupt_HD_3c_Xray.vn_.jpg" alt="" width="960" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/xray.vn-0559_Xray.vn_.jpg"><img src="chan-thuong-co-hoanh_anh/xray.vn-0559_Xray.vn_.jpg" alt="" width="1200" height="832" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_399547.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_399547.jpg" alt="" width="956" height="860" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_399551.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_399551.jpg" alt="" width="800" height="600" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_399552.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_399552.jpg" alt="" width="1487" height="1027" loading="lazy" decoding="async"></a></div>
+<h3 id="day-co-hoanh">* Dày cơ hoành</h3>
+<p>– Cơ hoành dày khu trú so với bên đối diện do phù nề, tụ máu sau đụng dập và co rút bờ sau đường vỡ, thường thấy ngay tại mép khuyết.<br>– Hay gặp trong giai đoạn cấp sau chấn thương kín khi bờ vỡ còn phù nề và tụ máu, ít rõ khi đến muộn vì bờ đã xơ và teo.<br>– Cần so sánh trực tiếp với bên đối diện trên cùng một mặt cắt và đánh giá vuông góc với đường vỡ vì mặt cắt chếch dễ làm dày giả.<br>– Phân biệt với khuyết sinh lý vốn có bờ mỏng đều và không dày, cơ hoành xẹp do liệt lâu ngày bị mỏng và nhão hoành bẩm sinh có vòm mỏng liên tục.<br>– Cạm bẫy hay gặp là nhầm dày do thể tích riêng phần, nhầm phổi xẹp áp sát vòm hoành và nhầm dịch màng phổi khu trú với bờ cơ dày.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/5-1.png"><img src="chan-thuong-co-hoanh_anh/5-1.png" alt="" width="1021" height="393" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u12.jpg"><img src="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u12.jpg" alt="" width="809" height="605" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/115082fig12a.jpeg"><img src="chan-thuong-co-hoanh_anh/115082fig12a.jpeg" alt="" width="1280" height="926" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/115082fig12b.jpeg"><img src="chan-thuong-co-hoanh_anh/115082fig12b.jpeg" alt="" width="1280" height="1173" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/37ec2ee00ddc6c5c3a6ecdb166cb90_big_gallery.jpeg"><img src="chan-thuong-co-hoanh_anh/37ec2ee00ddc6c5c3a6ecdb166cb90_big_gallery.jpeg" alt="" width="630" height="571" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/86da9650f6a99b00f769759f85a0d4_big_gallery.jpg"><img src="chan-thuong-co-hoanh_anh/86da9650f6a99b00f769759f85a0d4_big_gallery.jpg" alt="" width="630" height="518" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/171a22614df64d971d885e99242fce_big_gallery.jpg"><img src="chan-thuong-co-hoanh_anh/171a22614df64d971d885e99242fce_big_gallery.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_399549.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_399549.jpg" alt="" width="956" height="740" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_day-co-hoanh.png"><img src="chan-thuong-co-hoanh_anh/2015_09_day-co-hoanh.png" alt="" width="875" height="601" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-225824.png"><img src="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-225824.png" alt="" width="1080" height="571" loading="lazy" decoding="async"></a></div>
+<h3 id="mat-lien-tuc-co-hoanh">* Mất liên tục cơ hoành</h3>
+<p>– Dấu hiệu mất liên tục trực tiếp của cơ hoành tại đường vỡ, do mô cơ bị xé rời và hai bờ tách xa nhau.<br>– Hay gặp ở đường vỡ lớn do chấn thương kín vùng sau bên, có thể ở trung tâm hoặc ngoại vi, thường đi kèm thoát vị.<br>– Cần đánh giá vuông góc với đường vỡ trên mặt cắt đứng ngang và đứng dọc vì mặt ngang trục dễ bỏ sót khuyết nhỏ.<br>– Phân biệt với khuyết sinh lý có bờ mỏng đều không dày, phổi xẹp áp sát và cắt chếch qua vòm hoành tạo mất liên tục giả.<br>– Cạm bẫy hay gặp là bỏ sót khi hai bờ còn sát nhau trong giai đoạn sớm, nhầm mất liên tục giả do chuyển động thở.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_mat-lien-tuc.png"><img src="chan-thuong-co-hoanh_anh/2015_09_mat-lien-tuc.png" alt="" width="874" height="601" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/115082fig03a.jpeg"><img src="chan-thuong-co-hoanh_anh/115082fig03a.jpeg" alt="" width="1280" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/7b487f1b19ad885caa6c408d244253_big_gallery.jpeg"><img src="chan-thuong-co-hoanh_anh/7b487f1b19ad885caa6c408d244253_big_gallery.jpeg" alt="" width="630" height="562" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/115082fig06a.jpeg"><img src="chan-thuong-co-hoanh_anh/115082fig06a.jpeg" alt="" width="1280" height="1059" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/g02oc14g10a.jpeg"><img src="chan-thuong-co-hoanh_anh/g02oc14g10a.jpeg" alt="" width="1600" height="1319" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_399539.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_399539.jpg" alt="" width="955" height="840" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-170.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-170.jpeg" alt="" width="630" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-171.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-171.jpeg" alt="" width="630" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-165.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-165.jpeg" alt="" width="630" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_8-15.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_8-15.jpeg" alt="" width="630" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-159.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-159.jpeg" alt="" width="630" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-126.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-126.jpeg" alt="" width="630" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_6-47.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_6-47.jpeg" alt="" width="630" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_7-18.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_7-18.jpeg" alt="" width="630" height="462" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-22.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-22.jpg" alt="" width="599" height="429" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-22.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-22.jpg" alt="" width="588" height="432" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-22.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-22.jpg" alt="" width="582" height="433" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-21.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-21.jpg" alt="" width="573" height="428" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-11.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-11.jpg" alt="" width="461" height="496" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_6-5.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_6-5.jpg" alt="" width="498" height="511" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_7-5.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_7-5.jpg" alt="" width="501" height="522" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_8-4.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_8-4.jpg" alt="" width="522" height="542" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-166.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-166.jpeg" alt="" width="630" height="487" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-167.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-167.jpeg" alt="" width="630" height="490" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-161.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-161.jpeg" alt="" width="630" height="486" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-155.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-155.jpeg" alt="" width="630" height="488" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-122.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-122.jpeg" alt="" width="630" height="487" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-167.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-167.jpeg" alt="" width="630" height="509" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-168.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-168.jpeg" alt="" width="630" height="509" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-162.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-162.jpeg" alt="" width="630" height="509" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-156.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-156.jpeg" alt="" width="630" height="509" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-123.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-123.jpeg" alt="" width="630" height="509" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-168.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-168.jpeg" alt="" width="630" height="562" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-169.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-169.jpeg" alt="" width="630" height="562" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-163.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-163.jpeg" alt="" width="630" height="562" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-157.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-157.jpeg" alt="" width="630" height="562" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-124.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-124.jpeg" alt="" width="630" height="562" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-169.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-169.jpeg" alt="" width="630" height="538" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-170.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-170.jpeg" alt="" width="630" height="538" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-164.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-164.jpeg" alt="" width="630" height="538" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-158.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-158.jpeg" alt="" width="630" height="538" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-125.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-125.jpeg" alt="" width="630" height="538" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 7:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-174.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-174.jpg" alt="" width="885" height="985" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-170.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-170.jpg" alt="" width="840" height="942" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-160.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-160.jpg" alt="" width="559" height="423" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-147.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-147.jpg" alt="" width="578" height="426" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-107.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-107.jpg" alt="" width="596" height="425" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 8:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-171.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-171.jpeg" alt="" width="630" height="571" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-172.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-172.jpeg" alt="" width="630" height="571" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-166.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-166.jpeg" alt="" width="630" height="571" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-160.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-160.jpeg" alt="" width="630" height="571" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-127.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-127.jpeg" alt="" width="630" height="571" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_6-48.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_6-48.jpeg" alt="" width="630" height="571" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_7-19.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_7-19.jpeg" alt="" width="630" height="571" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_8-16.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_8-16.jpeg" alt="" width="630" height="571" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 9:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-234.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-234.jpeg" alt="" width="770" height="852" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-233.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-233.jpeg" alt="" width="492" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-225.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-225.jpeg" alt="" width="492" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-215.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-215.jpeg" alt="" width="419" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-172.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-172.jpeg" alt="" width="419" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 10:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-255.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-255.jpeg" alt="" width="463" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-255.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-255.jpeg" alt="" width="463" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-250.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-250.jpeg" alt="" width="463" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-239.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-239.jpeg" alt="" width="463" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-192.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-192.jpeg" alt="" width="463" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_6-73.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_6-73.jpeg" alt="" width="463" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 11:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-507.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-507.jpeg" alt="" width="842" height="840" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-506.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-506.jpeg" alt="" width="552" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-495.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-495.jpeg" alt="" width="552" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-447.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-447.jpeg" alt="" width="552" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-348.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-348.jpeg" alt="" width="552" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_6-184.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_6-184.jpeg" alt="" width="552" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_7-69.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_7-69.jpeg" alt="" width="552" height="630" loading="lazy" decoding="async"></a></div>
+<h3 id="dau-hieu-dau-phay">* Dấu hiệu dấu phẩy</h3>
+<p>– Dấu hiệu cơ hoành đung đưa còn gọi là dấu hiệu dấu phẩy là bờ tự do sau đường vỡ co rút và cuộn vào trong tạo hình dấu phẩy, do sợi cơ mất chỗ bám và đàn hồi ngược vào ổ bụng.<br>– Hay gặp ở đường vỡ lớn do chấn thương kín khi hai bờ tách xa nhau, ít thấy ở vết xuyên thấu nhỏ vì bờ còn sát nhau.<br>– Cần đánh giá vuông góc với đường vỡ trên mặt cắt đứng ngang và đứng dọc vì mặt ngang trục dễ lẫn bờ cơ với quai ruột xẹp.<br>– Phân biệt với nếp phúc mạc dày, bờ gan nhọn và quai ruột áp sát vòm hoành vốn không kèm mất liên tục cơ hoành hay tạng lên lồng ngực.<br>– Cạm bẫy hay gặp là bỏ sót khi bờ cuộn nhỏ, nhầm bờ cuộn với thành ruột dày và nhầm khuyết sinh lý không dày bờ với đường vỡ có dày và co rút.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u4-1.jpg"><img src="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u4-1.jpg" alt="" width="809" height="654" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-223321.png"><img src="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-223321.png" alt="" width="1068" height="527" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-223920.png"><img src="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-223920.png" alt="" width="601" height="845" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_dau-phay.png"><img src="chan-thuong-co-hoanh_anh/2015_09_dau-phay.png" alt="" width="874" height="559" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-224755.png"><img src="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-224755.png" alt="" width="528" height="898" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-230112.png"><img src="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-230112.png" alt="" width="613" height="644" loading="lazy" decoding="async"></a></div>
+<h3 id="dau-hieu-co-ao">* Dấu hiệu cổ áo</h3>
+<p>– Dấu hiệu cổ áo còn gọi là dấu hiệu đồng hồ cát là vòng thắt eo khu trú của tạng thoát vị ngay tại bờ đường vỡ, do bờ vỡ chắc siết vào thành tạng khi tạng đi qua khuyết.<br>– Hay gặp khi thoát vị dạ dày, đại tràng và ruột non qua đường vỡ lớn bên trái, ít rõ khi thoát vị gan phải vì nhu mô gan đặc khó tạo eo.<br>– Cần đánh giá trên mặt cắt đứng dọc và đứng ngang vì mặt cắt ngang trục dễ bỏ sót thắt eo, dựng lại vuông góc với đường vỡ thấy rõ nhất.<br>– Phân biệt với nhu động sinh lý của dạ dày ruột và ngấn do dây chằng bình thường vốn không kèm mất liên tục cơ hoành hay tạng lên lồng ngực.<br>– Cạm bẫy hay gặp là nhầm thắt eo với quai ruột xẹp, nhầm gan lồi khu trú với nâng cao vòm hoành đơn thuần và bỏ sót khi chỉ đọc mặt ngang trục.<br>– Với gan phải, thắt eo có hai biến thể là dấu gù khi một phần gan đội lên thành khối gù và dấu đai khi bờ vỡ tạo dải sáng ngang qua nhu mô gan.<br>– Khi đọc cần nêu vị trí đường vỡ, tạng thoát vị, mức độ thắt eo và biến chứng kẹt hay thiếu máu đi kèm để phẫu thuật quyết định đường mổ và nguy cơ phải dùng mảnh ghép.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u9.jpg"><img src="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u9.jpg" alt="" width="809" height="653" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/The-hourglass-or-collar-sign-of-diaphragmatic-rupture-Reformatted-coronal.jpg"><img src="chan-thuong-co-hoanh_anh/The-hourglass-or-collar-sign-of-diaphragmatic-rupture-Reformatted-coronal.jpg" alt="" width="767" height="767" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/115082fig02a.jpeg"><img src="chan-thuong-co-hoanh_anh/115082fig02a.jpeg" alt="" width="1280" height="1110" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/91f0e4d540e3e2469d8dd162f9af17_big_gallery.jpeg"><img src="chan-thuong-co-hoanh_anh/91f0e4d540e3e2469d8dd162f9af17_big_gallery.jpeg" alt="" width="630" height="509" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_803033.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_803033.jpg" alt="" width="1303" height="558" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_321520.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_321520.jpg" alt="" width="856" height="1064" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-223753.png"><img src="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-223753.png" alt="" width="702" height="815" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_co-ao.png"><img src="chan-thuong-co-hoanh_anh/2015_09_co-ao.png" alt="" width="873" height="556" loading="lazy" decoding="async"></a></div>
+<h3 id="dich-tiep-xuc-tang-thoat-vi">* Dịch tiếp xúc tạng thoát vị</h3>
+<p>– Tràn dịch màng phổi sau vỡ cơ hoành do máu và dịch từ tổn thương phối hợp đọng lại, tạng thoát vị mất vách ngăn nên tiếp xúc trực tiếp với dịch.<br>– Hay gặp trong giai đoạn cấp sau chấn thương kín có tràn máu màng phổi đi kèm, nhất là khi đường vỡ lớn và thoát vị nhiều.<br>– Cần đánh giá trên mặt cắt ngang trục phối hợp đứng ngang và đứng dọc để xác định dịch bao quanh tạng thoát vị thay vì tạng nằm trong ổ bụng.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="chan-thuong-co-hoanh_anh/g02oc14g13a.jpeg"><img src="chan-thuong-co-hoanh_anh/g02oc14g13a.jpeg" alt="" width="1600" height="1377" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u11-1.jpg"><img src="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u11-1.jpg" alt="" width="741" height="543" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/27d1d3aad40979df1fda3df0e4d447_big_gallery.jpg"><img src="chan-thuong-co-hoanh_anh/27d1d3aad40979df1fda3df0e4d447_big_gallery.jpg" alt="" width="630" height="570" loading="lazy" decoding="async"></a></div>
+<h3 id="dau-hieu-tang-le-thuoc">* Dấu hiệu tạng lệ thuộc</h3>
+<p>– Dấu hiệu tạng lệ thuộc (dependent viscera sign) là tạng ổ bụng áp sát thành ngực sau khi mất sự nâng đỡ của cơ hoành sau trên phim chụp tư thế nằm ngửa.<br>– Bình thường khi cơ hoành còn nguyên vẹn, một phần ba trên của gan không tiếp xúc với thành ngực sau bên phải.<br>– Bình thường bên trái, dạ dày và các quai ruột nằm trước lách nên không tiếp xúc với thành ngực sau.<br>– Sau vỡ do chấn thương, mất sự nâng đỡ phía sau khiến tạng sa xuống thấp theo trọng lực và áp sát cung sau xương sườn trên phim nằm ngửa.<br>– Bệnh lý khi bên phải một phần ba trên của gan tiếp xúc cung sườn sau, bên trái khi dạ dày và ruột tiếp xúc cung sườn sau hoặc nằm sau lách.<br>– Cần đánh giá trên mặt cắt ngang trục ngang mức đáy phổi ở tư thế nằm ngửa, phối hợp đứng ngang và đứng dọc để xác định mất vách ngăn.<br>– Phân biệt với xẹp đáy phổi, dày màng phổi và tràn dịch khu trú vốn không kèm mất liên tục cơ hoành hay tạng thoát vị từ ổ bụng lên, cạm bẫy là dương tính giả khi xẹp phổi rộng và âm tính giả ở vết xuyên thấu nhỏ vì dấu này kém tin cậy trong xuyên thấu.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="chan-thuong-co-hoanh_anh/11_aa1422_02_new.jpeg"><img src="chan-thuong-co-hoanh_anh/11_aa1422_02_new.jpeg" alt="" width="1583" height="1287" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/11_aa1422_03.jpeg"><img src="chan-thuong-co-hoanh_anh/11_aa1422_03.jpeg" alt="" width="1600" height="1314" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/11_aa1422_04_new.jpeg"><img src="chan-thuong-co-hoanh_anh/11_aa1422_04_new.jpeg" alt="" width="1600" height="1376" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_657296.jpg"><img src="chan-thuong-co-hoanh_anh/2015_09_657296.jpg" alt="" width="848" height="646" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/11_aa1422_01.jpeg"><img src="chan-thuong-co-hoanh_anh/11_aa1422_01.jpeg" alt="" width="1600" height="1321" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/Dependent-viscera-sign-Axial-contrast-enhanced-CT-at-the-level-of-the-lower-lobes-at.jpg"><img src="chan-thuong-co-hoanh_anh/Dependent-viscera-sign-Axial-contrast-enhanced-CT-at-the-level-of-the-lower-lobes-at.jpg" alt="" width="767" height="626" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u6.jpg"><img src="chan-thuong-co-hoanh_anh/IndianJRadiolImaging_2015_25_3_226_161433_u6.jpg" alt="" width="809" height="583" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/image356.jpg"><img src="chan-thuong-co-hoanh_anh/image356.jpg" alt="" width="923" height="352" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-223032.png"><img src="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-223032.png" alt="" width="1071" height="496" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-223605.png"><img src="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-223605.png" alt="" width="1133" height="431" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-224947.png"><img src="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-224947.png" alt="" width="896" height="848" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-225635.png"><img src="chan-thuong-co-hoanh_anh/2015_09_Screenshot-2021-05-04-225635.png" alt="" width="702" height="720" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-254.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_1-254.jpeg" alt="" width="599" height="416" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-254.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_2-254.jpeg" alt="" width="597" height="419" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-249.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_3-249.jpeg" alt="" width="595" height="422" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_4-238.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_4-238.jpeg" alt="" width="594" height="424" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_5-191.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_5-191.jpeg" alt="" width="593" height="428" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_6-72.jpeg"><img src="chan-thuong-co-hoanh_anh/2015_09_6-72.jpeg" alt="" width="591" height="434" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_1-93.png"><img src="chan-thuong-co-hoanh_anh/2015_09_1-93.png" alt="" width="970" height="758" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_2-99.png"><img src="chan-thuong-co-hoanh_anh/2015_09_2-99.png" alt="" width="947" height="746" loading="lazy" decoding="async"></a><a class="o-anh" href="chan-thuong-co-hoanh_anh/2015_09_3-94.png"><img src="chan-thuong-co-hoanh_anh/2015_09_3-94.png" alt="" width="961" height="462" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-tien-luong-dieu-tri">IV. Tiên lượng &amp; Điều trị</h2>
+<p><span class="c-xanh">– Điều trị:</span><br>+ Nguyên tắc chung là mọi đường vỡ đều cần được phẫu thuật khâu phục hồi sớm khi đã hồi sức và xử trí tổn thương đe dọa tính mạng trước.<br>+ Đường bụng giữa là lựa chọn đầu cho tổn thương cấp và khi có tổn thương tạng ổ bụng đi kèm để khảo sát toàn ổ bụng.<br>+ Đường ngực là lựa chọn cho tổn thương mạn đến muộn, vỡ sau bên phải và khi đã có dính nhiều trong lồng ngực.<br>+ Mổ nội soi ổ bụng và lồng ngực chỉ chọn cho người bệnh huyết động ổn định, vỡ nhỏ đơn thuần và cơ sở đủ năng lực xử trí tổn thương phối hợp.<br>+ Kỹ thuật chuẩn là đưa tạng thoát vị về ổ bụng, cắt lọc mép bầm dập, khâu kín không căng bằng chỉ không tiêu, đặt dẫn lưu màng phổi bên tổn thương.<br>+ Khuyết lớn căng hoặc mất mô không khâu kín trực tiếp được thì dùng mảnh ghép gia cố theo quyết định của phẫu thuật viên.</p>
+<p><span class="c-xanh">– Theo dõi:</span><br>+ Tiên lượng sớm chủ yếu do tổn thương phối hợp nặng, vỡ bên phải và vỡ hai bên, tuổi cao và chẩn đoán muộn.<br>+ Chẩn đoán hình ảnh trước mổ cần nêu bên tổn thương, chiều dài đường vỡ, tên từng tạng thoát vị, dấu thắt eo và thiếu máu cùng tổn thương phối hợp để chọn đường mổ.<br>+ Sau mổ cần theo dõi lâm sàng và chụp lại khi có suy hô hấp, sốt, đau bụng và nôn để phát hiện sớm thoát vị tái phát, kẹt và nhiễm trùng.</p>
+<p><span class="c-xanh">– Biến chứng:</span><br>+ Tạng thoát vị để muộn có thể bị kẹt, thắt nghẹt, tắc ruột, thiếu máu và suy hô hấp.<br>+ Sau mổ có thể gặp tràn dịch màng phổi tồn lưu, nhiễm trùng, bục đường khâu và thoát vị tái phát.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Diaphragmatic Injury: A Diagnostic Challenge – Sandrine Iochum, MD, Thomas Ludig, MD</em></span><br><span class="c-xanh"><em>* CT of Blunt Diaphragmatic Rupture – Amandine Desir, MD, and Benoît Ghaye, MD<br><span class="c-xanh">* </span></em><em>The “Dependent Viscera” Sign in CT Diagnosis of Blunt Traumatic Diaphragmatic Rupture – </em><em><span class="c-xanh">Diane Bergin, Rachel Ennis, Ciaran Keogh<br></span>* Blunt traumatic diaphragmatic hernia: Pictorial review of CT signs – Ravinder Kaur, Anuj Prabhakar<br>* The diaphragm: Normal anatomy and pathology – J. C. Quintero Rivera, F. Cembellin, I. Guasch<br>* Blunt diaphragmatic injuries: imaging findings and possible pitfalls – M. Bonatti, F. Lombardo, N. Vezzali<br>* Diaphragmatic Injury in Emergency Radiology: A Case Based Review – Z. Jaleel, Z. AHMED, A. Al-Taie; Doha/QA<br>* Multiplanar 64-MDCT in the diagnostic evaluation of diaphragmatic injuries – N. Fotiadis, C. Patel, E. Magkanas<br>* Postraumatic diaphragmatic hernias – M. Garrido Blázquez, D. Vicente, J. Pereda<br>* Crossing the border: Blunt diaphragmatic rupture – M. Teixidor Viñas, N. Cañete, M. Febrer Febrer<br>* Diaphragmatic rupture and its complications following blunt trauma – Findings on helical CT – A. Prabhakar, R. Kaur, S. Kochar; Chandigarh/IN<br>* Imaging findings of blunt diaphragmatic rupture and delayed complications: A pictorial review – E. Parlorio de Andrés, E. Girela, M. Chans<br>* Traumatic injuries of the diaphragm: overview of imaging findings and diagnosis – Mark M. Hammer, Demetrios A. Raptis, Vincent M. Mellnick<br>* Traumatic diaphragmatic injury: a review of CT signs and the difference between blunt and penetrating injury – Ananya Panda, Atin Kumar, Shivanand Gamanagatti<br>* The Role of Computed Tomography in the Diagnostics of Diaphragmatic Injury After Blunt Thoraco-Abdominal Trauma – Agata Gmachowska, Ryszard Pacho, Agnieszka Anysz-Grodzicka<br>* Imaging of diaphragm injuries – Clint W Sliker</em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

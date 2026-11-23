@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bệnh Lý Mũi Xoang</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · TIM MẠCH</div>
+   <h1>Bệnh Lý Mũi Xoang</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/benh-ly-mui-xoang/" target="_blank" rel="noopener">Xray.vn — xray.vn/benh-ly-mui-xoang</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Bệnh lý mũi xoang</span> gồm các bệnh và bất thường cấu trúc ảnh hưởng đến hốc mũi, các xoang cạnh mũi và đường thông dẫn lưu:<br>+ Viêm mũi xoang là tình trạng viêm niêm mạc mũi và các xoang cạnh mũi; thuật ngữ này phản ánh sự liên tục của niêm mạc hai vùng.<br>+ Ở người lớn, các triệu chứng gợi ý viêm mũi xoang gồm ít nhất hai triệu chứng, trong đó có tắc nghẽn mũi hoặc chảy mũi; có thể kèm đau hoặc đè nặng mặt, giảm hoặc mất khứu giác.<br>+ Viêm mũi xoang mạn tính kéo dài trên 12 tuần; cần có triệu chứng phù hợp và bằng chứng viêm khách quan trên nội soi mũi hoặc CT.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Viêm mũi xoang là bệnh phổ biến:<br>+ Tỷ lệ hiện mắc trong một năm của viêm mũi xoang cấp được ước tính khoảng 6–15%.<br>+ Viêm mũi xoang mạn tính ảnh hưởng khoảng 5–12% dân số chung.</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Căn nguyên khác nhau giữa các thể bệnh:<br>+ Viêm mũi xoang cấp thường do virus; căn nguyên vi khuẩn được cân nhắc dựa trên diễn tiến lâm sàng.<br>+ Viêm mũi xoang mạn tính là bệnh viêm không đồng nhất; hen phế quản, xơ nang, suy giảm miễn dịch, rối loạn vận động lông chuyển và bệnh hô hấp tăng nặng do aspirin có thể ảnh hưởng đến kiểu hình hoặc diễn tiến bệnh.<br>+ Các bệnh lý khác có thể do nấm, liên quan bất thường cấu trúc hoặc tắc nghẽn dẫn lưu, chấn thương hay khối u.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Viêm và rối loạn thanh thải niêm dịch làm phù nề, hẹp hoặc tắc đường thông xoang, giảm thông khí và dẫn lưu, gây ứ đọng dịch và duy trì phản ứng viêm:<br>+ Viêm kéo dài có thể gây tái cấu trúc thành xương; hủy xương hoặc lan ra ngoài xoang không đặc hiệu, cần đánh giá các nguyên nhân xâm lấn và khối u.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Triệu chứng thường gặp gồm tắc nghẽn mũi, chảy mũi trước hoặc sau, đau hoặc đè nặng mặt, giảm hoặc mất khứu giác:<br>+ Triệu chứng có thể chồng lấp với viêm mũi và các nguyên nhân khác; không thể chỉ dựa vào triệu chứng để xác nhận viêm mũi xoang mạn tính.<br>+ Bệnh nặng hoặc xâm lấn có thể lan đến ổ mắt, nền sọ hoặc nội sọ.</p>
+<p><span class="c-xanh">– Phân bố:</span> Bệnh có thể khu trú ở một xoang, ảnh hưởng nhiều xoang hoặc lan tỏa; tổn thương có thể ở một bên hoặc hai bên:<br>+ Viêm mũi xoang mạn tính được phân nhóm nguyên phát hoặc thứ phát, khu trú hoặc lan tỏa, có hoặc không có polyp mũi.<br>+ Phổ bệnh mũi xoang còn gồm viêm do nấm, nang nhầy, bất thường cấu trúc và các khối u lành tính hoặc ác tính.</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span> CĐHA giúp xác nhận khách quan viêm mũi xoang mạn tính, xác định vị trí và phạm vi tổn thương, đánh giá biến thể giải phẫu, thay đổi xương, biến chứng và khối u nghi ngờ:<br>+ CT đánh giá chi tiết cấu trúc xương, phạm vi bệnh và giải phẫu trước phẫu thuật; MRI bổ sung khi cần đánh giá khối u, phân biệt khối với dịch tiết hoặc khảo sát lan rộng vào ổ mắt và nội sọ.<br>+ Không chụp hình ảnh thường quy trong viêm mũi xoang cấp không biến chứng; chỉ định hình ảnh khi nghi ngờ biến chứng hoặc chẩn đoán khác.<br>+ Hình ảnh đơn thuần không xác định chắc chắn căn nguyên virus hay vi khuẩn; cần đối chiếu với diễn tiến lâm sàng.</p>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_936532-scaled.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_936532-scaled.jpg" alt="" width="1600" height="541" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-giai-phau">II. Giải phẫu</h2>
+<p><span class="c-xanh"><strong>* Xoang hàm</strong></span></p>
+<p><span class="c-xanh">– Vị trí:</span> Xoang hàm nằm trong thân xương hàm trên, có dạng tháp; đáy hướng về thành bên hốc mũi, đỉnh hướng ra mỏm gò má.</p>
+<p><span class="c-xanh">– Thành xoang:</span> Xoang hàm có các thành trước, sau, trong, trên và dưới:<br>+ Thành trước là mặt trước (mặt má) của xương hàm trên.<br>+ Thành sau là mặt dưới thái dương của xương hàm trên, liên quan với hố chân bướm–khẩu cái.<br>+ Thành trong là thành bên hốc mũi, ngăn cách xoang với hốc mũi.<br>+ Trần xoang là mặt ổ mắt của xương hàm trên, tạo phần lớn sàn ổ mắt; rãnh và ống dưới ổ mắt chạy trong thành này.<br>+ Nền xoang được tạo bởi mỏm huyệt răng và mỏm khẩu cái xương hàm trên; chân các răng hàm nhỏ và răng hàm lớn trên có thể áp sát nền xoang.</p>
+<p><span class="c-xanh">– Đường dẫn lưu:</span> Lỗ thông tự nhiên nằm cao ở phần trên thành trong:<br>+ Lỗ thông mở vào phễu sàng; dịch đi qua khe bán nguyệt rồi đổ vào ngách mũi giữa.<br>+ Do lỗ thông nằm cao hơn nền xoang, sự thanh thải dịch phụ thuộc chủ yếu vào vận chuyển niêm dịch nhờ lông chuyển.</p>
+<p><span class="c-xanh"><strong>* Xoang trán</strong></span></p>
+<p><span class="c-xanh">– Vị trí:</span> Xoang trán nằm trong xương trán, giữa bản ngoài và bản trong, phía trên phần trước-trong của hốc mắt.</p>
+<p><span class="c-xanh">– Thành xoang:</span><br>+ Thành trước là bản ngoài xương trán.<br>+ Thành sau là bản trong xương trán, ngăn cách xoang với hố sọ trước và thùy trán.<br>+ Thành dưới tạo một phần mái hốc mắt; liên quan ổ mắt chủ yếu qua thành này.</p>
+<p><span class="c-xanh">– Phân bố:</span> Gồm xoang phải và trái, ngăn cách bởi vách liên xoang; mức độ phát triển hai bên có thể không đối xứng, xoang có thể thiểu sản.</p>
+<p><span class="c-xanh">– Đường dẫn lưu:</span> Đường dẫn lưu gồm lỗ thông xoang trán và ngách trán:<br>+ Ngách trán nối xoang trán với ngách mũi giữa.<br>+ Tùy vị trí bám của mỏm móc, đường thoát có thể đi qua phễu sàng hoặc thông trực tiếp với ngách mũi giữa.</p>
+<p><span class="c-xanh"><strong>* Xoang bướm</strong></span></p>
+<p><span class="c-xanh">– Vị trí:</span> Xoang bướm nằm trong thân xương bướm, ở trung tâm nền sọ.</p>
+<p><span class="c-xanh">– Phân bố:</span> Gồm xoang phải và trái, thường được ngăn cách bởi vách liên xoang:<br>+ Vách có thể lệch khỏi đường giữa, có vách phụ hoặc bám vào lồi ống động mạch cảnh trong hay ống thị giác.<br>+ Mức độ khí hóa biến thiên từ dạng xốp (conchal), trước yên (presellar), kiểu yên (sellar) đến sau yên (postsellar); khí hóa rộng có thể làm thay đổi tương quan hoặc làm lồi các cấu trúc mạch–thần kinh vào lòng xoang.</p>
+<p><span class="c-xanh">– Liên quan:</span><br>+ Phía trên xoang liên quan với hố yên và tuyến yên; phía sau liên quan với dốc nền.<br>+ Thành bên liên quan với xoang hang, động mạch cảnh trong và ống thị giác.</p>
+<p><span class="c-xanh">– Đường dẫn lưu:</span> Lỗ thông tự nhiên nằm trên thành trước và mở vào ngách bướm-sàng:<br>+ Ngách bướm-sàng nằm phía trên và sau cuốn mũi trên.<br>+ Lỗ thông thường ở phía trong cuốn mũi trên, gần đầu sau dưới của cuốn mũi trên.</p>
+<p><span class="c-xanh"><strong>* Xoang sàng</strong></span></p>
+<p>– Thuộc xương sàng, gồm nhiều tế bào khí trong mê đạo sàng hai bên, nằm giữa hốc mũi ở phía trong và ổ mắt ở phía ngoài.<br>– Thành ngoài là mảnh giấy, ngăn cách mê đạo sàng với ổ mắt; mái xoang liên quan nền sọ trước.</p>
+<p><span class="c-xanh">– Phân nhóm:</span> Có thể mô tả các tế bào sàng thành nhóm trước, giữa và sau; trong cách chia hai nhóm, nhóm trước bao gồm các tế bào trước và giữa.</p>
+<p><span class="c-xanh">– Đường dẫn lưu:</span><br>+ Tế bào sàng trước và giữa đổ vào ngách mũi giữa, thường qua phễu sàng.<br>+ Tế bào sàng sau đổ vào ngách mũi trên.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_giaiphauxoang.png"><img src="benh-ly-mui-xoang_anh/2015_08_giaiphauxoang.png" alt="" width="1600" height="976" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_2-28.png"><img src="benh-ly-mui-xoang_anh/2015_08_2-28.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_3-28.png"><img src="benh-ly-mui-xoang_anh/2015_08_3-28.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_4-22.png"><img src="benh-ly-mui-xoang_anh/2015_08_4-22.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_5-12.png"><img src="benh-ly-mui-xoang_anh/2015_08_5-12.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_6-5.png"><img src="benh-ly-mui-xoang_anh/2015_08_6-5.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_7-2.png"><img src="benh-ly-mui-xoang_anh/2015_08_7-2.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_8-2.png"><img src="benh-ly-mui-xoang_anh/2015_08_8-2.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_9.png"><img src="benh-ly-mui-xoang_anh/2015_08_9.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_10.png"><img src="benh-ly-mui-xoang_anh/2015_08_10.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_11.png"><img src="benh-ly-mui-xoang_anh/2015_08_11.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_12.png"><img src="benh-ly-mui-xoang_anh/2015_08_12.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_13.png"><img src="benh-ly-mui-xoang_anh/2015_08_13.png" alt="" width="1072" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_14.png"><img src="benh-ly-mui-xoang_anh/2015_08_14.png" alt="" width="1080" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_15.png"><img src="benh-ly-mui-xoang_anh/2015_08_15.png" alt="" width="874" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_17.png"><img src="benh-ly-mui-xoang_anh/2015_08_17.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_18.png"><img src="benh-ly-mui-xoang_anh/2015_08_18.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_19.png"><img src="benh-ly-mui-xoang_anh/2015_08_19.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_20.png"><img src="benh-ly-mui-xoang_anh/2015_08_20.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_21.png"><img src="benh-ly-mui-xoang_anh/2015_08_21.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_22.png"><img src="benh-ly-mui-xoang_anh/2015_08_22.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_23.png"><img src="benh-ly-mui-xoang_anh/2015_08_23.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_24.png"><img src="benh-ly-mui-xoang_anh/2015_08_24.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_25.png"><img src="benh-ly-mui-xoang_anh/2015_08_25.png" alt="" width="1216" height="842" loading="lazy" decoding="async"></a></div>
+<h2 id="iii-trieu-chung-x-quang">III. Triệu chứng x-quang</h2>
+<h3 id="1-mo-xoang">1. Mờ xoang</h3>
+<p><span class="c-xanh">– Đặc điểm:</span> Mờ xoang biểu hiện giảm hoặc mất độ thấu quang bình thường khi khí trong lòng xoang bị thay thế một phần hoặc gần hoàn toàn.</p>
+<p><span class="c-xanh">– Đánh giá:</span> So sánh với xoang đối bên tương ứng; có thể dùng vùng ổ mắt làm mốc tham chiếu, đồng thời lưu ý tư thế chụp, độ xuyên tia, mức phát triển và bất đối xứng sinh lý của xoang.</p>
+<p><span class="c-xanh">– Mức độ:</span> Mờ có thể nhẹ, một phần hoặc toàn bộ:<br>+ Mờ một phần có thể biểu hiện dày niêm mạc hoặc đám mờ khu trú.<br>+ Mờ toàn bộ xảy ra khi phần lớn lòng xoang mất khí.<br>+ Mờ hoàn toàn một bên, nhất là khi kéo dài, cần khảo sát thêm để đánh giá tắc nghẽn hoặc tổn thương chiếm chỗ.</p>
+<p><span class="c-xanh">– Nguyên nhân</span>: Có thể do viêm và dịch tiết, xuất huyết, chất nấm hoặc tổn thương chiếm chỗ như polyp, nang nhầy hay u.</p>
+<p><span class="c-xanh">– Giới hạn:</span> Hình mờ trên X-quang không phân biệt tin cậy các nguyên nhân; cần phối hợp lâm sàng và CT để xác định bản chất, phạm vi tổn thương và thay đổi xương kèm theo.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_mo.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_mo.jpg" alt="" width="657" height="570" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_sinus_jumbo.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_sinus_jumbo.jpg" alt="" width="929" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_396b7c675cf6d6cb0459af39b28d72.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_396b7c675cf6d6cb0459af39b28d72.jpg" alt="" width="627" height="773" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_20160224_095040_Xray.vn_.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_20160224_095040_Xray.vn_.jpg" alt="" width="787" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_20160225_105432_Xray.vn_.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_20160225_105432_Xray.vn_.jpg" alt="" width="779" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_20160701_093809_Xray.vn_.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_20160701_093809_Xray.vn_.jpg" alt="" width="743" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_20171208_084856_xray.vn_.png"><img src="benh-ly-mui-xoang_anh/2015_08_20171208_084856_xray.vn_.png" alt="" width="758" height="880" loading="lazy" decoding="async"></a></div>
+<h3 id="2-muc-dich-khi">2. Mức dịch – khí</h3>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Trên phim tư thế đứng, mức dịch–khí là đường phân cách ngang giữa dịch ở phần thấp và khí ở phần cao trong lòng xoang.</p>
+<p><span class="c-xanh">– Điều kiện ghi hình:</span> Dùng tia X nằm ngang, song song với mặt phẳng mức dịch–khí; nếu người bệnh không đứng được, có thể chụp nằm nghiêng với tia ngang.</p>
+<p><span class="c-xanh">– Nguyên nhân:</span> Có thể gặp trong viêm xoang cấp; sau chấn thương, mức dịch–khí có thể do máu trong xoang.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Dấu hiệu không đặc hiệu, không đủ để kết luận viêm xoang do vi khuẩn; cần đối chiếu với triệu chứng và diễn tiến lâm sàng.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_dichkhi-1.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_dichkhi-1.jpg" alt="" width="648" height="545" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_1781b25be02a1a50d9a196bf434cc0_jumbo.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_1781b25be02a1a50d9a196bf434cc0_jumbo.jpg" alt="" width="1023" height="929" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_9188bcda8669d4fb8abcebfb50ba2b.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_9188bcda8669d4fb8abcebfb50ba2b.jpg" alt="" width="1600" height="1951" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_577627bf2beab2186014681453e6bd.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_577627bf2beab2186014681453e6bd.jpg" alt="" width="1600" height="1731" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_sinusitis.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_sinusitis.jpg" alt="" width="490" height="490" loading="lazy" decoding="async"></a></div>
+<h3 id="3-day-niem-mac">3. Dày niêm mạc</h3>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Niêm mạc xoang bình thường rất mỏng, thường khó thấy rõ trên X-quang; khi dày, tạo dải mờ mô mềm dọc thành xoang, có thể khu trú hoặc lan tỏa, trong khi lòng xoang vẫn còn khí nếu chưa bị lấp đầy.</p>
+<p><span class="c-xanh">– Nguyên nhân:</span> Thường do phù nề niêm mạc trong viêm; mức độ và hình thái bờ không đặc hiệu cho căn nguyên.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Đám mờ khu trú dạng vòm có thể là nang giữ dịch hoặc polyp, khác với dày niêm mạc dạng viền; X-quang thường không phân biệt chắc chắn các tổn thương này.</p>
+<p><span class="c-xanh">– Giới hạn:</span> X-quang khó phát hiện dày nhẹ và đo chính xác độ dày; CT nhạy hơn để xác định vị trí, phạm vi và tổn thương kèm theo.</p>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_370103_1_En_17_Fig1_HTML.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_370103_1_En_17_Fig1_HTML.jpg" alt="" width="1600" height="858" loading="lazy" decoding="async"></a></figure>
+<h3 id="4-thay-doi-thanh-xuong">4. Thay đổi thành xương</h3>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Thành xoang bình thường tạo đường viền xương mảnh; trên X-quang, độ rõ thay đổi theo vị trí và hiện tượng chồng hình.</p>
+<p><span class="c-xanh">– Viêm mạn:</span> Viêm xương phản ứng có thể gây dày và xơ cứng thành xương.</p>
+<p><span class="c-xanh">– Tái cấu trúc:</span> Tổn thương phát triển chậm hoặc tắc nghẽn kéo dài, như nang nhầy, có thể làm xoang giãn rộng, thành xương mỏng và bào mòn trơn láng.</p>
+<p><span class="c-xanh">– Hủy xương:</span> Hủy xương không đều, bờ không rõ hoặc kiểu thấm gợi ý quá trình xâm lấn do nhiễm trùng hoặc u; dấu hiệu này không đặc hiệu và không đủ để kết luận ác tính.</p>
+<p><span class="c-xanh">– Chấn thương:</span> Gãy xương biểu hiện mất liên tục thành xoang, có thể kèm di lệch hoặc biến dạng.</p>
+<p><span class="c-xanh">– Giới hạn:</span> X-quang hạn chế đánh giá do chồng hình; CT nhạy hơn trong phát hiện mỏng, bào mòn và tái cấu trúc thành xoang, đồng thời xác định phạm vi tổn thương.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_lightbox_449fabe04ea711e88ca9d180055cd12e-3.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_lightbox_449fabe04ea711e88ca9d180055cd12e-3.jpg" alt="" width="1600" height="2000" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_Radiological-observation-A-Waters-view-showing-diffuse-haziness-arrows-in-the-left.png"><img src="benh-ly-mui-xoang_anh/2015_08_Radiological-observation-A-Waters-view-showing-diffuse-haziness-arrows-in-the-left.png" alt="" width="850" height="615" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1: u xoang hàm</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_1-881.jpeg"><img src="benh-ly-mui-xoang_anh/2015_08_1-881.jpeg" alt="" width="868" height="942" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_2-875.jpeg"><img src="benh-ly-mui-xoang_anh/2015_08_2-875.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_3-860.jpeg"><img src="benh-ly-mui-xoang_anh/2015_08_3-860.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_4-803.jpeg"><img src="benh-ly-mui-xoang_anh/2015_08_4-803.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_5-653.jpeg"><img src="benh-ly-mui-xoang_anh/2015_08_5-653.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_6-330.jpeg"><img src="benh-ly-mui-xoang_anh/2015_08_6-330.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-hinh-anh-benh-ly">IV. Hình ảnh bệnh lý</h2>
+<h3 id="1-viem-xoang">1. Viêm xoang</h3>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_Sinusitis.png"><img src="benh-ly-mui-xoang_anh/2015_08_Sinusitis.png" alt="" width="1554" height="352" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"><strong>* Viêm xoang cấp</strong></span></p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Trên X-quang có thể thấy dày niêm mạc, mờ một phần hoặc toàn bộ xoang, mức dịch–khí; CT thể hiện rõ hơn phạm vi tổn thương.</p>
+<p><span class="c-xanh">– Diễn giải:</span> Mức dịch–khí hoặc mờ toàn bộ có thể gợi ý viêm xoang cấp trong bối cảnh phù hợp nhưng không đặc hiệu; dày niêm mạc đơn độc không xác định căn nguyên, và hình ảnh không phân biệt tin cậy viêm do virus với vi khuẩn.</p>
+<p><span class="c-xanh">– Biến chứng:</span> Khi nghi ngờ lan vào ổ mắt hoặc nội sọ, CT có tiêm thuốc cản quang và/hoặc MRI có tiêm thuốc cản quang giúp đánh giá phạm vi lan rộng.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_488015.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_488015.jpg" alt="" width="1386" height="695" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_DSC_7895_Xray.vn_.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_DSC_7895_Xray.vn_.jpg" alt="" width="878" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_DSC_8038_Xray.vn_.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_DSC_8038_Xray.vn_.jpg" alt="" width="805" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_DSC_8054_Xray.vn_.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_DSC_8054_Xray.vn_.jpg" alt="" width="823" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_DSC_8523_Xray.vn_.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_DSC_8523_Xray.vn_.jpg" alt="" width="860" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_DSC_9030_Xray.vn_.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_DSC_9030_Xray.vn_.jpg" alt="" width="844" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_DSC_9508_Xray.vn_.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_DSC_9508_Xray.vn_.jpg" alt="" width="875" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_DSC_12146_Xray.vn_.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_DSC_12146_Xray.vn_.jpg" alt="" width="827" height="880" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_1-1030.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_1-1030.jpg" alt="" width="630" height="619" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_2-1034.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_2-1034.jpg" alt="" width="630" height="619" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_3-1013.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_3-1013.jpg" alt="" width="630" height="619" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_4-889.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_4-889.jpg" alt="" width="630" height="619" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_5-573.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_5-573.jpg" alt="" width="630" height="619" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_6-287.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_6-287.jpg" alt="" width="630" height="619" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_7-143.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_7-143.jpg" alt="" width="630" height="619" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Viêm xoang mạn</strong></span></p>
+<p><span class="c-xanh">– Đặc điểm CT:</span> Dày niêm mạc, mờ một phần hoặc toàn bộ xoang; có thể kèm hẹp hoặc tắc đường dẫn lưu. CT đánh giá rõ hơn X-quang về phạm vi bệnh, đường dẫn lưu và cấu trúc xương.</p>
+<p><span class="c-xanh">– Tính không đặc hiệu:</span> Dày niêm mạc hoặc mờ xoang có thể gặp ở người không có triệu chứng; phạm vi bất thường trên CT không luôn tương ứng với mức độ triệu chứng, cần đối chiếu lâm sàng và nội soi.</p>
+<p><span class="c-xanh">– Viêm xương:</span> Tái cấu trúc, tân tạo xương có thể làm thành xoang và các vách xương dày, xơ cứng.</p>
+<p><span class="c-xanh">– Tái cấu trúc do áp lực:</span> Polyp lớn, chất nhầy dị ứng hoặc nang nhầy có thể làm xoang giãn rộng, thành xương mỏng và bào mòn tương đối trơn láng.</p>
+<p><span class="c-xanh">– Hủy xương xâm lấn:</span> Hủy xương không đều, bờ không rõ hoặc kèm mô mềm lan ra ngoài xoang cần nghĩ đến nhiễm trùng xâm lấn hay u, không nên quy cho viêm mạn đơn thuần.</p>
+<p><span class="c-xanh">– Vai trò MRI:</span> MRI bổ sung cho CT khi cần đánh giá tổn thương mô mềm, bệnh nấm, khối đặc hoặc lan rộng vào ổ mắt và nền sọ.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_565737.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_565737.jpg" alt="" width="960" height="457" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_viem-xoang-man.jpeg"><img src="benh-ly-mui-xoang_anh/2015_08_viem-xoang-man.jpeg" alt="" width="1576" height="1332" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_390666.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_390666.jpg" alt="" width="1430" height="478" loading="lazy" decoding="async"></a></div>
+<h3 id="2-viem-xoang-do-nam">2. Viêm xoang do nấm</h3>
+<p><span class="c-xanh">– Phân loại:</span> Gồm thể không xâm lấn (nấm cầu trong xoang, thể dị ứng do nấm) và thể xâm lấn (cấp, mạn hoặc thể u hạt).</p>
+<p><span class="c-xanh">– Tác nhân:</span> Aspergillus là nhóm nấm thường gặp; Mucorales cũng là tác nhân quan trọng trong thể xâm lấn cấp. Thành phần loài thay đổi theo thể bệnh và quần thể.</p>
+<p><span class="c-xanh">– Nấm cầu trong xoang (fungal ball):</span> CT thường thấy chất nấm tăng tỷ trọng không đồng nhất, có thể kèm các ổ vôi hóa; MRI có thể thấy giảm tín hiệu rõ trên T2W.</p>
+<p><span class="c-xanh">– Viêm mũi xoang dị ứng do nấm (allergic fungal rhinosinusitis):</span> Nấm không xâm nhập mô; dịch nhầy giàu bạch cầu ái toan có thể làm nhiều xoang giãn rộng, chứa chất tăng tỷ trọng không đồng nhất, kèm mỏng hoặc bào mòn thành xương.</p>
+<p><span class="c-xanh">– Viêm xoang xâm lấn do nấm (invasive fungal rhinosinusitis):</span> Thể cấp thường gặp ở người suy giảm miễn dịch, giảm bạch cầu hoặc đái tháo đường kiểm soát kém:<br>+ CT có thể thấy dày niêm mạc mũi xoang một bên; thâm nhiễm mỡ quanh xoang hoặc hủy xương gợi ý xâm lấn nhưng có thể chưa xuất hiện ở giai đoạn sớm.<br>+ MRI đánh giá tốt hơn mức độ lan vào mô mềm, ổ mắt và nội sọ; niêm mạc cuốn mũi giảm hoặc mất ngấm thuốc có thể gợi ý hoại tử.<br>+ Bệnh có thể lan đến ổ mắt, hố chân bướm-khẩu cái, xoang hang hoặc nội sọ; không nên chờ thấy hủy xương mới nghi ngờ xâm lấn.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_25366.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_25366.jpg" alt="" width="640" height="480" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_570585.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_570585.jpg" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_41598_2020_69446_Fig1_HTML.webp"><img src="benh-ly-mui-xoang_anh/2015_08_41598_2020_69446_Fig1_HTML.webp" alt="" width="1436" height="1040" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_41598_2020_69446_Fig2_HTML.webp"><img src="benh-ly-mui-xoang_anh/2015_08_41598_2020_69446_Fig2_HTML.webp" alt="" width="1506" height="1013" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_F2.large_-12.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_F2.large_-12.jpg" alt="" width="1600" height="1333" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_F3.large_-9.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_F3.large_-9.jpg" alt="" width="1600" height="1337" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_1-1031.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_1-1031.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_2-1035.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_2-1035.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_3-1014.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_3-1014.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_4-890.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_4-890.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_5-574.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_5-574.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_6-288.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_6-288.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_7-144.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_7-144.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<h3 id="3-polyp-mui-xoang">3. Polyp mũi xoang</h3>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_24601191_l-e1640696566920.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_24601191_l-e1640696566920.jpg" alt="" width="1600" height="1021" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Bản chất:</span> Polyp mũi xoang là tổn thương viêm phù nề của niêm mạc, không phải u tân sinh; thường gặp trong viêm mũi xoang mạn có polyp.</p>
+<p><span class="c-xanh">– Liên quan:</span> Có thể đồng mắc hen phế quản hoặc bệnh hô hấp tăng nặng do aspirin; nhiễm khuẩn có thể gây đợt cấp nhưng không xác định bản chất polyp.</p>
+<p><span class="c-xanh">– Đặc điểm CT:</span> Polyp biểu hiện mô mềm dạng khối lồi vào hốc mũi hoặc lòng xoang, có thể đơn độc hay nhiều khối; polyp viêm thường hai bên và có thể gây mờ một phần hoặc toàn bộ các xoang.</p>
+<p><span class="c-xanh">– Polyp xoang hàm–mũi sau:</span> Thường là tổn thương một bên, xuất phát từ xoang hàm, đi qua lỗ thông xoang và lan ra cửa mũi sau.</p>
+<p><span class="c-xanh">– Thay đổi xương:</span> Polyp lớn hoặc bệnh lan rộng có thể gây giãn xoang, mỏng thành xương và tái cấu trúc hoặc bào mòn tương đối trơn láng.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Hủy xương không đều, bờ phá hủy không rõ hoặc mô mềm lan ra ngoài xoang cần đánh giá khả năng u hay nhiễm trùng xâm lấn; bào mòn xương đơn thuần không đủ để kết luận ác tính.</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span> CT đánh giá tốt phạm vi tổn thương và cấu trúc xương; MRI bổ sung khi cần phân biệt khối mô mềm hoặc đánh giá lan rộng vào ổ mắt, nền sọ.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_850674.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_850674.jpg" alt="" width="1357" height="988" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_567304.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_567304.jpg" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_564752.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_564752.jpg" alt="" width="959" height="449" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_2-301.png"><img src="benh-ly-mui-xoang_anh/2015_08_2-301.png" alt="" width="878" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_3-296.png"><img src="benh-ly-mui-xoang_anh/2015_08_3-296.png" alt="" width="730" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_6-147.png"><img src="benh-ly-mui-xoang_anh/2015_08_6-147.png" alt="" width="804" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_1-1029.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_1-1029.jpg" alt="" width="812" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_4-888.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_4-888.jpg" alt="" width="820" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_5-572.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_5-572.jpg" alt="" width="830" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_7-142.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_7-142.jpg" alt="" width="820" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_8-113.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_8-113.jpg" alt="" width="852" height="882" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_703914.png"><img src="benh-ly-mui-xoang_anh/2015_08_703914.png" alt="" width="958" height="370" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_25367.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_25367.jpg" alt="" width="611" height="449" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_25368.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_25368.jpg" alt="" width="567" height="423" loading="lazy" decoding="async"></a></div>
+<h3 id="4-nang-nhay">4. Nang nhầy</h3>
+<p><span class="c-xanh">– Nang nhầy mũi xoang (paranasal sinus mucocele)</span> là tổn thương dạng nang lành tính, lót bởi biểu mô hô hấp và chứa dịch nhầy; hình thành khi đường dẫn lưu xoang bị tắc.</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Tắc nghẽn có thể liên quan viêm mạn, phẫu thuật, chấn thương hoặc tổn thương chèn ép đường dẫn lưu như polyp hay u xương.</p>
+<p><span class="c-xanh">– Diễn tiến:</span> Dịch nhầy ứ đọng làm nang tăng kích thước, giãn rộng xoang và gây mỏng, tái cấu trúc hoặc bào mòn thành xương do áp lực; tổn thương có thể đẩy các cấu trúc lân cận.</p>
+<p><span class="c-xanh">– Phân bố:</span> Nang nhầy thường gặp nhất ở xoang trán (60–65%), tiếp đến xoang sàng (20–25%); xoang hàm chiếm khoảng 10% và xoang bướm ít gặp (1–2%).</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_09_1-26.png"><img src="benh-ly-mui-xoang_anh/2015_09_1-26.png" alt="" width="1222" height="962" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_09_2-28.png"><img src="benh-ly-mui-xoang_anh/2015_09_2-28.png" alt="" width="1219" height="955" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_09_3-27.png"><img src="benh-ly-mui-xoang_anh/2015_09_3-27.png" alt="" width="1222" height="970" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">* Đặc điểm cắt lớp vi tính:</span></p>
+<p>– Xoang giãn rộng, chứa đầy dịch nhầy; thành xoang mỏng, phồng và tái cấu trúc, có thể kèm tiêu xương khu trú hoặc mất liên tục. Tổn thương có thể lan vào các cấu trúc lân cận.<br>– Đậm độ dịch nhầy thay đổi theo hàm lượng nước và protein: có thể gần đậm độ nước, đẳng tỷ trọng hoặc tăng tỷ trọng khi dịch cô đặc; thường tương đối đồng nhất.<br>– Có thể gặp vôi hóa ngoại vi, nhưng đây là dấu hiệu hiếm.<br>– Sau tiêm, chất nhầy thường không ngấm thuốc; đôi khi có ngấm thuốc dạng viền mỏng ở niêm mạc ngoại vi. Viền ngấm thuốc có thể rõ hơn khi có bội nhiễm.</p>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_09_011-2.jpg"><img src="benh-ly-mui-xoang_anh/2015_09_011-2.jpg" alt="011-2" width="1600" height="769" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">* Đặc điểm MRI</span></p>
+<p>– Tín hiệu dịch nhầy thay đổi theo hàm lượng nước, protein và mức độ cô đặc.<br>– T1W: Thường giảm tín hiệu khi dịch giàu nước; tăng tín hiệu khi hàm lượng protein cao hoặc dịch cô đặc.<br>– T2W: Thường tăng tín hiệu khi dịch giàu nước; có thể giảm tín hiệu khi dịch cô đặc, giàu protein.<br>– DWI/ADC: Tín hiệu thay đổi; có thể hạn chế khuếch tán, đặc biệt khi dịch nhầy rất nhớt hoặc có bội nhiễm.<br>– Sau tiêm gadolinium: Thành phần dịch nhầy thường không ngấm thuốc; có thể thấy ngấm thuốc viền mỏng ở niêm mạc ngoại vi. Viền có thể rõ hơn khi bội nhiễm. Ngấm thuốc dạng nốt hoặc khối bên trong không phải đặc điểm điển hình.</p>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_564584.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_564584.jpg" alt="" width="960" height="720" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_09_1-211.jpg"><img src="benh-ly-mui-xoang_anh/2015_09_1-211.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_09_2-206.jpg"><img src="benh-ly-mui-xoang_anh/2015_09_2-206.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_09_3-195.jpg"><img src="benh-ly-mui-xoang_anh/2015_09_3-195.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_09_4-176.jpg"><img src="benh-ly-mui-xoang_anh/2015_09_4-176.jpg" alt="" width="897" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_09_5-131.jpg"><img src="benh-ly-mui-xoang_anh/2015_09_5-131.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<h3 id="5-u-nhu-lanh-tinh">5. U nhú lành tính</h3>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_a5097978dba6b7_TEK-inverted.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_a5097978dba6b7_TEK-inverted.jpg" alt="" width="740" height="390" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– U nhú Schneiderian</span> là nhóm u biểu mô lành tính xuất phát từ niêm mạc mũi xoang, chiếm khoảng 0,5–4% các u mũi xoang. Gồm ba thể: đảo ngược, lồi và oncocytic; thể đảo ngược thường gặp nhất.</p>
+<p><span class="c-xanh">– Thể đảo ngược</span> thường xuất phát từ thành bên hốc mũi, có thể lan vào các xoang. U có tính chất xâm lấn tại chỗ, dễ tái phát và có nguy cơ chuyển dạng thành ung thư biểu mô tế bào vảy; nguy cơ chuyển dạng ác tính được báo cáo khoảng 5–15%.</p>
+<p><span class="c-xanh">– Liên quan HPV thay đổi theo thể:</span> HPV nguy cơ thấp, đặc biệt típ 6 và 11, liên quan rõ với thể lồi; HPV cũng có thể gặp ở thể đảo ngược nhưng vai trò bệnh sinh chưa hoàn toàn thống nhất. Không nên mặc định HPV típ 16 hoặc 18 là nguyên nhân gây ung thư hóa u nhú đảo ngược.</p>
+<p><span class="c-xanh">– Hình ảnh CT:</span> Khối mô mềm thường một bên, hay ở thành bên hốc mũi hoặc vùng khe giữa, có thể lan vào xoang và ngấm thuốc. Dày xương khu trú tại điểm bám có thể giúp xác định vị trí xuất phát; khối cũng có thể gây phồng, tái cấu trúc hoặc bào mòn xương.</p>
+<p><span class="c-xanh">– Hình ảnh MRI:</span> Có thể thấy hình ảnh “vân não cuộn” (convoluted cerebriform pattern) trên T2W và T1W sau tiêm, giúp nhận diện u và phân biệt với dịch tiết bị ứ trong xoang.</p>
+<p>– Bào mòn xương có thể gặp cả khi u còn lành tính. Hủy xương rộng, lan ra ngoài xoang hoặc mất hình ảnh vân não cuộn làm tăng nghi ngờ chuyển dạng ác tính, nhưng không đủ để khẳng định; cần đối chiếu mô bệnh học.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_a5097978dbd3ad_invert-pap3.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_a5097978dbd3ad_invert-pap3.jpg" alt="" width="800" height="432" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_EgyptJOtolaryngol_2015_31_1_4_152702_f4.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_EgyptJOtolaryngol_2015_31_1_4_152702_f4.jpg" alt="" width="796" height="386" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_377739.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_377739.jpg" alt="" width="875" height="887" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_559120.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_559120.jpg" alt="" width="553" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_25374.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_25374.jpg" alt="" width="640" height="480" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_703915.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_703915.jpg" alt="" width="1100" height="1080" loading="lazy" decoding="async"></a></div>
+<h3 id="6-u-ac-tinh">6. U ác tính</h3>
+<p><span class="c-xanh">– Ung thư biểu mô tế bào vảy</span> là loại mô học thường gặp nhất, chiếm khoảng 70–80% các u ác tính mũi xoang.</p>
+<p><span class="c-xanh">– Vị trí:</span> Xoang hàm thường gặp nhất; xoang sàng ít gặp hơn. Tỷ lệ thay đổi tùy quần thể và cách phân nhóm; không nên xem các con số 80% và 10% là cố định.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Mờ xoang một bên hoặc khối mô mềm, thường kèm hủy xương không đều, xâm lấn qua thành xoang. Xơ đặc xương không phải dấu hiệu đặc trưng; chỉ dựa vào có hoặc không có xơ đặc không đủ để xác định hay loại trừ ác tính.<br>+ U có thể xâm lấn hốc mắt, nền sọ và hố sọ trước. U xoang hàm có thể lan qua thành sau vào hố chân bướm-khẩu cái và hố dưới thái dương.<br>+ CT đánh giá tốt tổn thương xương; MRI bổ sung để xác định mức độ lan vào mô mềm, hốc mắt, nền sọ và đường lan theo thần kinh.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_559190.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_559190.jpg" alt="" width="613" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_559193.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_559193.jpg" alt="" width="512" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_564794.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_564794.jpg" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_565833.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_565833.jpg" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_11604_2018_739_Fig2_HTML.webp"><img src="benh-ly-mui-xoang_anh/2015_08_11604_2018_739_Fig2_HTML.webp" alt="" width="600" height="913" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_703916.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_703916.jpg" alt="" width="1344" height="1032" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_703917.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_703917.jpg" alt="" width="786" height="766" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_703918.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_703918.jpg" alt="" width="966" height="1008" loading="lazy" decoding="async"></a></div>
+<h3 id="7-phi-dai-cuon-mui">7. Phì đại cuốn mũi</h3>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_493077_1_En_31_Fig4_HTML.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_493077_1_En_31_Fig4_HTML.jpg" alt="" width="1382" height="816" loading="lazy" decoding="async"></a></figure>
+<p>– Là tình trạng tăng thể tích cuốn mũi, thường gặp ở cuốn mũi dưới. Có thể do phù nề, dày niêm mạc trong viêm mũi dị ứng hoặc không dị ứng; đôi khi có phì đại thành xương. Lệch vách ngăn có thể gây phì đại bù trừ cuốn mũi dưới bên đối diện.</p>
+<p>– Đặc điểm hình ảnh: Cuốn mũi to, làm hẹp khoang mũi hoặc đường thở bên tương ứng; có thể đánh giá thành phần phì đại niêm mạc, xương hoặc cả hai.</p>
+<p>– Biểu hiện thường gặp là nghẹt mũi; chảy mũi hoặc giảm khứu giác có thể đi kèm tùy nguyên nhân nền. Chẩn đoán chủ yếu dựa vào khám và nội soi mũi; CT giúp đánh giá giải phẫu và bệnh lý phối hợp khi có chỉ định.</p>
+<p><span class="c-xanh">– Nguyên nhân và yếu tố liên quan:</span><br>+ Viêm mũi dị ứng hoặc không dị ứng kéo dài có thể gây phù nề, sung huyết và tăng thể tích cuốn mũi, thường gặp ở cuốn mũi dưới.<br>+ Dùng kéo dài hoặc lạm dụng thuốc co mạch xịt/nhỏ mũi có thể gây viêm mũi do thuốc, dẫn đến nghẹt mũi hồi ứng và phù nề niêm mạc.<br>+ Lệch vách ngăn có thể đi kèm phì đại bù trừ cuốn mũi dưới ở bên đối diện; thành phần phì đại có thể gồm niêm mạc, xương hoặc cả hai.<br>+ Khói thuốc, bụi và các chất kích ứng có thể khởi phát hoặc làm nặng triệu chứng viêm mũi; không nên xem rượu bia là nguyên nhân trực tiếp đã được xác lập của phì đại cuốn mũi.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_1-1028.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_1-1028.jpg" alt="" width="533" height="626" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_3-295.png"><img src="benh-ly-mui-xoang_anh/2015_08_3-295.png" alt="" width="1024" height="839" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_5-571.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_5-571.jpg" alt="" width="1500" height="1091" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_7-141.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_7-141.jpg" alt="" width="1384" height="596" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2020_12_23287a994505d0c13b11ed1715ae9db4.jpg"><img src="benh-ly-mui-xoang_anh/2020_12_23287a994505d0c13b11ed1715ae9db4.jpg" alt="" width="993" height="740" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_2-1033.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_2-1033.jpg" alt="" width="919" height="830" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_6-286.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_6-286.jpg" alt="" width="919" height="914" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_8-112.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_8-112.jpg" alt="" width="1600" height="1361" loading="lazy" decoding="async"></a></div>
+<h3 id="8-xoang-hoi-cuon-mui">8. Xoang hơi cuốn mũi</h3>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_1-297.png"><img src="benh-ly-mui-xoang_anh/2015_08_1-297.png" alt="" width="1505" height="1118" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Xoang hơi cuốn mũi giữa (concha bullosa)</span> là biến thể giải phẫu do tế bào sàng khí hóa vào cuốn mũi giữa. Có thể chỉ khí hóa phần lá cuốn, phần bóng cuốn hoặc cả hai; có thể một bên hoặc hai bên.</p>
+<p>– Biến thể này thường không triệu chứng và được phát hiện tình cờ. Khi cuốn hơi lớn, đặc biệt nếu phối hợp với lệch vách ngăn hoặc biến thể khác, có thể gây hẹp khe giữa và ảnh hưởng đường dẫn lưu xoang trước.</p>
+<p>– Ý nghĩa lâm sàng phụ thuộc mức độ hẹp và sự phù hợp với triệu chứng; không phải mọi trường hợp xoang hơi cuốn giữa đều gây viêm xoang hoặc rối loạn khứu giác.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Thấy khoang chứa khí bên trong cuốn mũi giữa, làm cuốn giãn rộng. CT giúp xác định kích thước, mức độ khí hóa và ảnh hưởng của cuốn đến khe giữa, phức hợp lỗ thông-ngách.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_xoang-hoi.jpeg"><img src="benh-ly-mui-xoang_anh/2015_08_xoang-hoi.jpeg" alt="" width="1600" height="1746" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2020_12_34a803b008597d5d4e6aab86403b464f.jpg"><img src="benh-ly-mui-xoang_anh/2020_12_34a803b008597d5d4e6aab86403b464f.jpg" alt="" width="640" height="480" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_488070.png"><img src="benh-ly-mui-xoang_anh/2015_08_488070.png" alt="" width="839" height="442" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_605579.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_605579.jpg" alt="" width="819" height="631" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_892208.png"><img src="benh-ly-mui-xoang_anh/2015_08_892208.png" alt="" width="755" height="771" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_4-887.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_4-887.jpg" alt="" width="919" height="781" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_5-570.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_5-570.jpg" alt="" width="968" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_6-285.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_6-285.jpg" alt="" width="799" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_1-296.png"><img src="benh-ly-mui-xoang_anh/2015_08_1-296.png" alt="" width="859" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_2-300.png"><img src="benh-ly-mui-xoang_anh/2015_08_2-300.png" alt="" width="945" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_3-294.png"><img src="benh-ly-mui-xoang_anh/2015_08_3-294.png" alt="" width="766" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_7-140.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_7-140.jpg" alt="" width="880" height="880" loading="lazy" decoding="async"></a></div>
+<h3 id="9-veo-vach-ngan-mui">9. Vẹo vách ngăn mũi</h3>
+<p>– Vách ngăn mũi chia hốc mũi thành hai bên, gồm phần sụn ở trước và phần xương ở sau (chủ yếu là mảnh thẳng xương sàng và xương lá mía), được phủ bởi niêm mạc.<br>– Vẹo vách ngăn là tình trạng vách ngăn lệch khỏi đường giữa, có thể cong hình chữ C, chữ S hoặc kèm mào/gai xương. Nguyên nhân có thể do phát triển hoặc chấn thương.<br>– Vẹo nhẹ thường không triệu chứng. Khi gây hẹp đáng kể, người bệnh có thể nghẹt mũi, thở ồn khi ngủ hoặc chảy máu mũi.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Thấy vách ngăn lệch, có thể gây hẹp một bên hốc mũi; đánh giá thêm gai xương, cuốn mũi và phức hợp lỗ thông-ngách.</p>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_09_ff136081ce4ed144d8f966ac838e6243.jpg"><img src="benh-ly-mui-xoang_anh/2015_09_ff136081ce4ed144d8f966ac838e6243.jpg" alt="ff136081ce4ed144d8f966ac838e6243" width="919" height="503" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Phân loại theo hình thái:</span><br>+ Vẹo cong dạng chữ C: Vách ngăn cong về một bên; có thể ở phần sụn, phần xương hoặc cả hai.<br>+ Vẹo dạng chữ S: Vách ngăn cong theo hai hướng khác nhau ở các đoạn hoặc tầng khác nhau.<br>+ Vẹo góc hoặc có mào/gai vách ngăn: Biến dạng khu trú nhô vào hốc mũi, có thể làm hẹp đường thở hoặc tiếp xúc với cuốn mũi/thành bên hốc mũi.<br>+ Vẹo sau chấn thương: Có thể gây di lệch hoặc biến dạng không đều ở phần sụn, phần xương hoặc cả hai; hình thái thay đổi, không nhất thiết tạo thành một kiểu mào xương cố định.<br>– Khi mô tả trên CT, nên ghi vị trí, hướng và hình thái vẹo, thành phần liên quan, gai/mào xương nếu có, mức độ hẹp hốc mũi và mối liên quan với cuốn mũi.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_892246.png"><img src="benh-ly-mui-xoang_anh/2015_08_892246.png" alt="" width="847" height="391" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_3-1012.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_3-1012.jpg" alt="" width="996" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_605577.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_605577.jpg" alt="" width="588" height="268" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_1-1027.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_1-1027.jpg" alt="" width="1480" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_6-284.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_6-284.jpg" alt="" width="1069" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_4-886.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_4-886.jpg" alt="" width="864" height="418" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_2-1032.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_2-1032.jpg" alt="" width="1198" height="879" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_5-569.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_5-569.jpg" alt="" width="1027" height="880" loading="lazy" decoding="async"></a></div>
+<h3 id="10-te-bao-xoang">10. Tế bào xoang</h3>
+<p><span class="c-xanh"><strong>* Tế bào Haller</strong></span></p>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_caf261782fb1e781b75ad8386e44a5.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_caf261782fb1e781b75ad8386e44a5.jpg" alt="" width="1506" height="1205" loading="lazy" decoding="async"></a></figure>
+<p>– Là tế bào sàng trước phát triển xuống dưới sàn ổ mắt, nằm phía trên xoang hàm và sát ngoài phễu sàng/lỗ thông xoang hàm.<br>– Tế bào lớn có thể làm hẹp phễu sàng hoặc đường dẫn lưu xoang hàm. Khi đọc phim, cần đánh giá mức độ hẹp và tình trạng niêm mạc xoang cùng bên.<br>– Nhiều trường hợp không gây triệu chứng và được phát hiện tình cờ.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Thấy khoang chứa khí ở vùng sàn ổ mắt, sát trần xoang hàm và phễu sàng. Tế bào có thể một hoặc hai bên, thay đổi về số lượng, hình dạng và kích thước.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_haller-cell.jpeg"><img src="benh-ly-mui-xoang_anh/2015_08_haller-cell.jpeg" alt="" width="1600" height="1565" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_892284.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_892284.jpg" alt="" width="738" height="592" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_4-269.png"><img src="benh-ly-mui-xoang_anh/2015_08_4-269.png" alt="" width="880" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_2-299.png"><img src="benh-ly-mui-xoang_anh/2015_08_2-299.png" alt="" width="848" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_1-295.png"><img src="benh-ly-mui-xoang_anh/2015_08_1-295.png" alt="" width="807" height="778" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_5-233.png"><img src="benh-ly-mui-xoang_anh/2015_08_5-233.png" alt="" width="978" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_3-293.png"><img src="benh-ly-mui-xoang_anh/2015_08_3-293.png" alt="" width="1125" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-ly-mui-xoang_anh/505ca58fb2f75cb1e00a0535678f96_big_gallery.jpg"><img src="benh-ly-mui-xoang_anh/505ca58fb2f75cb1e00a0535678f96_big_gallery.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Tế bào Agger narsi<br></strong></span></p>
+<p>– Là tế bào sàng trước nằm ở vị trí trước nhất, ngay trước chỗ bám trước của cuốn mũi giữa; tạo giới hạn trước của ngách trán.<br>– Kích thước thay đổi.<br>– Tế bào lớn có thể làm hẹp ngách trán hoặc phần thấp của đường dẫn lưu xoang trán.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> hình ảnh các khoang khí, đặc biệt mặt phẳng đứng dọc và đứng ngang, giúp xác định tế bào và mối liên quan với đường dẫn lưu xoang trán.</p>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_488016.png"><img src="benh-ly-mui-xoang_anh/2015_08_488016.png" alt="" width="1448" height="654" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"><strong>* Tế bào Onodi<br></strong></span></p>
+<p>– Là tế bào sàng sau nằm ở vị trí sau nhất; tế bào khí hóa lên trên và/hoặc ra ngoài so với xoang bướm, có thể nằm sát ống thần kinh thị giác và ống động mạch cảnh trong.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Nhận diện tế bào ở phía trên hoặc trên-ngoài xoang bướm; đánh giá mối liên quan với ống thần kinh thị giác, ống động mạch cảnh trong và tình trạng mỏng hoặc mất liên tục thành xương.<br>+ Cần phân biệt với xoang bướm và lưu ý biến thể này khi lập kế hoạch phẫu thuật vùng sàng sau, xoang bướm hoặc nền sọ.</p>
+<figure><a class="o-anh" href="benh-ly-mui-xoang_anh/2015_08_123-30.jpg"><img src="benh-ly-mui-xoang_anh/2015_08_123-30.jpg" alt="" width="1600" height="995" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Radiologic Features of Sinonasal Tumors – Kelly K. Koeller<br>* The opacified paranasal sinus: Approach and differential – Daniel F. Broderick, MD, FACR<br>* Evaluation of paranasal sinus diseases by computed tomography and its histopathological correlation – Sarabpreet Singh Kanwar, Mukta Mital, Prashant K Gupta, Sonal Saran, Nishtha Parashar, Akanksha Singh<br>* Imaging the Paranasal Sinuses: Where We Are and Where We Are Going – GIRISH M. FATTERPEKAR<br>* Radiologic Imaging in the Management of Sinusitis – KOLAWOLE S. OKUYEMI, M.D., M.P.H., and TERANCE T. TSUE, M.D.<br>* The Preoperative Sinus CT: Avoiding a “CLOSE” Call with Surgical Complications – William T. O’Brien, Sr , Stefan Hamelin, Erik K. Weitzel<br>* Imaging features of benign mass lesions in the nasal cavity and paranasal sinuses according to the 2017 WHO classification – Hiroyuki Tatekawa, Taro Shimono, Masahiko Ohsawa, Satoshi Doishita, Shinichi Sakamoto &amp; Yukio Miki<br>* Digital Volume Tomography of the paranasal sinuses – T. Rodt, C. von Falck, S. Stolle, J. Weidemann, H. Rosenthal, F. Wacker; Hannover/DE<br>* Nasal Cavity Masses: clinico-radiologic collaborations, differential diagnosis by special clues – D. Yildirim, B. Gurpinar, O. Saglam; Istanbul/TR<br>* Anatomic variants of paranasal sinuses – A. Mesquita, S. Amante, M. Chaves<br>* Normal Anatomy and Anatomic Variants of the Paranasal Sinuses on Computed Tomog raphy – Sanjay Vaid<br>* Communication issue – What should the radiologist report before functional endoscopic sinus surgery – A. M. Dobra, C. A. Badiu, A. Balint<br>* Patología de senos paranasales – A. I. Fernández Martín, R. Galvan Florez, J. F. Molina Granados<br>* Frontal sinsusitis and the relationship with frontal recess, concha bullosa and uncinate process: Multidetector computed tomography assisted study – J. K. Han, Y. T. Kim, S. S. Jo, S. W. Kim; Cheonan/KR<br>* High-density paranasal sinus images: CT evaluation – X. Pruna, V. Garriga, N. Ros, M. Cuadrado<br>* Paranasal sinus tumors: from small to extensive and everything in between – C. E. Desaga; Cluj Napoca/RO<br>* Paranasal sinus opacification: Imaging patterns in tumours and histological correlation – P. Hota, A. Nagadi, H. C. Chadaga</em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

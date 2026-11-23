@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tràn Khí Màng Tim</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · TIM MẠCH</div>
+   <h1>Tràn Khí Màng Tim</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/tran-khi-mang-tim/" target="_blank" rel="noopener">Xray.vn — xray.vn/tran-khi-mang-tim</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Tràn khí màng tim (pneumopericardium)</span> là tình trạng có khí tự do trong khoang màng ngoài tim.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Đây là tình trạng hiếm gặp, thường liên quan đến chấn thương, can thiệp hoặc phẫu thuật tim-ngực, và thông khí áp lực dương.</p>
+<p><span class="c-xanh">– Căn nguyên:</span><br>+ Thông khí áp lực dương, có thể gây tổn thương do áp lực.<br>+ Nhiễm trùng sinh khí trong khoang màng ngoài tim.<br>+ Rò bất thường giữa màng ngoài tim với thực quản, dạ dày hoặc phế quản.<br>+ Chấn thương ngực gây tổn thương tim hoặc màng ngoài tim.<br>+ Phẫu thuật hoặc thủ thuật tim-ngực, như phẫu thuật tim, chọc dò hay dẫn lưu màng ngoài tim.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span><br>+ Khí có thể vào khoang màng ngoài tim trực tiếp qua tổn thương hoặc đường rò; trong barotrauma, khí từ phế nang có thể lan theo mô kẽ đến trung thất rồi vào khoang màng ngoài tim.<br>+ Khi khí tiếp tục tích tụ mà không thoát được, áp lực trong khoang màng ngoài tim tăng, hạn chế đổ đầy tâm trương và có thể gây chèn ép tim.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span><br>+ Người bệnh có thể không triệu chứng hoặc biểu hiện khó thở, đau ngực.<br>+ Thể tăng áp lực có thể gây tụt huyết áp, sốc tắc nghẽn, ngừng tim và tử vong.</p>
+<p><span class="c-xanh">– Phân bố:</span> Khí có thể khu trú trong khoang màng ngoài tim hoặc phối hợp với tràn khí trung thất, tràn khí màng phổi hay các khoang khác tùy căn nguyên.</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span> X-quang ngực có thể phát hiện khí quanh bóng tim; CT giúp xác định vị trí khí, đánh giá mức độ lan rộng và tìm tổn thương phối hợp hoặc nguyên nhân. Khi có dấu hiệu chèn ép tim trên lâm sàng, không trì hoãn xử trí để chờ chẩn đoán hình ảnh.</p>
+<figure><a class="o-anh" href="tran-khi-mang-tim_anh/Pneumopericardiumcrop.jpg"><img src="tran-khi-mang-tim_anh/Pneumopericardiumcrop.jpg" alt="" width="1192" height="1059" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-hinh-anh-x-quang">II. Hình ảnh x-quang</h2>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Trên phim ngực thẳng, khí trong khoang màng ngoài tim tạo dải tăng thấu quang hình liềm bao quanh một phần hoặc toàn bộ bóng tim; khi lượng khí nhiều, dải này có thể tạo thành viền liên tục, tách rõ bờ tim khỏi nhu mô phổi.<br>+ Khí thường khu trú quanh tim và dừng ở mức các cuống mạch lớn; dấu hiệu này giúp định khu khí trong khoang màng ngoài tim.</p>
+<p><span class="c-xanh">– Cơ chế tạo hình ảnh:</span> Đường viền màng ngoài tim trở nên nhìn thấy được do tương phản giữa khí trong khoang màng ngoài tim và nhu mô phổi chứa khí bên ngoài; đường viền thường mảnh, liên tục và cong theo bờ tim.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Lượng khí ít có thể chỉ tạo viền sáng khu trú hoặc khó nhận thấy do chồng lấp với bóng tim và trung thất, nhất là trên phim di động tư thế nằm; không thấy viền khí không loại trừ tràn khí màng tim.<br>+ Khí lan vượt lên trên mức cuống mạch lớn hoặc chạy dọc các cấu trúc trung thất gợi ý tràn khí trung thất phối hợp; hai tình trạng có thể đồng thời hiện diện nên phim X-quang đôi khi không xác định chắc chắn khoang chứa khí.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_F1.large_-1-1.jpg"><img src="tran-khi-mang-tim_anh/2015_08_F1.large_-1-1.jpg" alt="" width="1516" height="1516" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_pneumopericardium-AEMC.jpg"><img src="tran-khi-mang-tim_anh/2015_08_pneumopericardium-AEMC.jpg" alt="" width="587" height="563" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_pneumopericardium1.jpg"><img src="tran-khi-mang-tim_anh/2015_08_pneumopericardium1.jpg" alt="" width="600" height="493" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_http___1.bp_.blogspot.com_-jTFrOeZZN70_UBFuvhAtolI_AAAAAAAAEAQ_9hYFwuvjfkA_s1600_pneumopericardium_badamgiak23.jpg"><img src="tran-khi-mang-tim_anh/2015_08_http___1.bp_.blogspot.com_-jTFrOeZZN70_UBFuvhAtolI_AAAAAAAAEAQ_9hYFwuvjfkA_s1600_pneumopericardium_badamgiak23.jpg" alt="" width="1160" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_Hydropneumopericardium_1_jumbo.jpeg"><img src="tran-khi-mang-tim_anh/2015_08_Hydropneumopericardium_1_jumbo.jpeg" alt="" width="960" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_9d44a5ef164a88805cce57313589ba_jumbo.jpeg"><img src="tran-khi-mang-tim_anh/2015_08_9d44a5ef164a88805cce57313589ba_jumbo.jpeg" alt="" width="992" height="933" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_69c869f7c16b8be95164fb71e49979_jumbo.jpeg"><img src="tran-khi-mang-tim_anh/2015_08_69c869f7c16b8be95164fb71e49979_jumbo.jpeg" alt="" width="962" height="871" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_1-796.jpeg"><img src="tran-khi-mang-tim_anh/2015_08_1-796.jpeg" alt="" width="1023" height="993" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu cơ hoành liên tục (continuous diaphragm sign):</span><br>+ Trên phim ngực thẳng, khí nằm giữa tim và mặt trên cơ hoành làm bờ cơ hoành hiện liên tục qua vùng thường bị bóng tim che khuất; trên phim nghiêng đứng, khí có thể viền rõ phần trước của vòm hoành trái.<br>+ Dấu hiệu này có thể gặp trong tràn khí màng tim nhưng không đặc hiệu, thường gợi ý tràn khí trung thất hơn; hai tình trạng có thể đồng thời, nên không dùng dấu hiệu đơn độc để định khu khí.</p>
+<figure><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_115123fig01_Xray.vn_.jpg"><img src="tran-khi-mang-tim_anh/2015_08_115123fig01_Xray.vn_.jpg" alt="" width="1280" height="1269" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Dấu hiệu tim nhỏ (small heart sign):</span><br>+ Đây là dấu hiệu hiếm gặp nhưng quan trọng trên X-quang ngực, biểu hiện bằng sự giảm đột ngột kích thước bóng tim do chèn ép tim thứ phát bởi tràn khí màng tim tăng áp lực hoặc tràn khí trung thất tăng áp lực.<br>+ Mức giảm đột ngột &gt; 2 cm đường kính ngang bóng tim được xem là dấu hiệu rất gợi ý chèn ép tim.<br>+ Để đo chính xác, cần có sẵn phim X-quang gần đây trước đó với điều kiện chụp tương đương để so sánh. Tuy vậy, dấu hiệu này vẫn hữu ích khi theo dõi tràn khí màng tim hoặc tràn khí trung thất đã biết, giúp nhận diện sớm khi tình trạng tiến triển thành thể tăng áp lực.<br>+ Cần phân biệt dấu hiệu tim nhỏ với hội chứng tim nhỏ, đặc trưng bởi tỷ số tim-ngực giảm bất thường.</p>
+<figure><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_pneumomediastinum-and-pneumopericardium.jpeg"><img src="tran-khi-mang-tim_anh/2015_08_pneumomediastinum-and-pneumopericardium.jpeg" alt="" width="702" height="652" loading="lazy" decoding="async"></a></figure>
+<h2 id="iii-hinh-anh-clvt">III. Hình ảnh CLVT</h2>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Khí trong khoang màng ngoài tim có đậm độ rất thấp, nằm giữa lá thành và lá tạng màng tim; trên mặt phẳng ngang, thường hiện thành dải hoặc các túi khí ôm sát bờ tim, có thể bao quanh một phần hoặc toàn bộ tim.<br>+ Màng ngoài tim có thể hiện thành đường mảnh bao quanh dải khí. Khí trong khoang này thường bị giới hạn bởi các chỗ phản chiếu màng ngoài tim ở gốc các mạch máu lớn; dựng hình đa mặt phẳng giúp theo dõi ranh giới và mức độ lan rộng.</p>
+<p><span class="c-xanh">– Phân biệt:</span><br>+ Tràn khí màng ngoài tim thường tạo một dải khí rộng, trơn láng, chạy sát và ôm theo bờ tim, kết thúc ở mức gốc các mạch máu lớn. Tràn khí trung thất thường tạo nhiều dải khí mảnh dọc khí quản, phế quản, thực quản hoặc mạch máu, có thể lan lên trung thất trên và cổ; hai tình trạng có thể đồng thời hiện diện.</p>
+<p><span class="c-xanh">– Đánh giá tổn thương phối hợp:</span> CLVT giúp phát hiện khí trung thất, tràn khí màng phổi, khí dưới da và tổn thương có thể là nguyên nhân như chấn thương hoặc đường rò với cấu trúc lân cận.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Màng ngoài tim rất mỏng và có thể không nhìn rõ ở một số đoạn, nhất là quanh thất trái; không dùng riêng việc không thấy đường viền màng tim để loại trừ tràn khí màng tim.<br>+ Túi màng ngoài tim căng hoặc buồng tim bị ép làm tăng nghi ngờ tràn khí màng tim tăng áp lực. Cần đối chiếu khẩn với tình trạng huyết động; không trì hoãn xử trí khi nghi ngờ chèn ép tim trên lâm sàng.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_images_g07nv13g12x.jpeg"><img src="tran-khi-mang-tim_anh/2015_08_images_g07nv13g12x.jpeg" alt="" width="1600" height="1160" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_bmjcr-2018-September-2018-F1.large_.jpg"><img src="tran-khi-mang-tim_anh/2015_08_bmjcr-2018-September-2018-F1.large_.jpg" alt="" width="1280" height="1049" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_gr1-1-1.jpeg"><img src="tran-khi-mang-tim_anh/2015_08_gr1-1-1.jpeg" alt="" width="1473" height="1806" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_images-1.jpg"><img src="tran-khi-mang-tim_anh/2015_08_images-1.jpg" alt="" width="539" height="371" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_gr1-2.jpeg"><img src="tran-khi-mang-tim_anh/2015_08_gr1-2.jpeg" alt="" width="950" height="1158" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2015_08_images.jpg"><img src="tran-khi-mang-tim_anh/2015_08_images.jpg" alt="" width="481" height="415" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="tran-khi-mang-tim_anh/2020_06_6.png"><img src="tran-khi-mang-tim_anh/2020_06_6.png" alt="" width="982" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2020_06_0.png"><img src="tran-khi-mang-tim_anh/2020_06_0.png" alt="" width="977" height="752" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2020_06_1-3.png"><img src="tran-khi-mang-tim_anh/2020_06_1-3.png" alt="" width="978" height="749" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2020_06_2-3.png"><img src="tran-khi-mang-tim_anh/2020_06_2-3.png" alt="" width="976" height="749" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2020_06_3-3.png"><img src="tran-khi-mang-tim_anh/2020_06_3-3.png" alt="" width="981" height="887" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-mang-tim_anh/2020_06_4-3.png"><img src="tran-khi-mang-tim_anh/2020_06_4-3.png" alt="" width="826" height="885" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-phan-biet">IV. Chẩn đoán phân biệt</h2>
+<p><span class="c-xanh"><strong>* Tràn khí trung thất</strong></span></p>
+<p>– Tràn khí màng tim (pneumopericardium) thường tạo một dải thấu quang rộng, trơn láng, ôm theo bờ tim và bị giới hạn ở mức phản chiếu màng tim tại gốc các mạch máu lớn.<br>– Tràn khí trung thất thường tạo nhiều dải thấu quang mảnh, không đều, chạy dọc hoặc viền quanh khí quản, phế quản, thực quản và các mạch máu; khí có thể lan lên trung thất trên hoặc cổ.<br><span class="c-xanh">– </span>Hai tình trạng có thể đồng thời hiện diện; vì vậy, dấu hiệu khí vượt lên trên giới hạn màng tim gợi ý thành phần tràn khí trung thất nhưng không loại trừ tràn khí màng tim phối hợp.</p>
+<figure><a class="o-anh" href="tran-khi-mang-tim_anh/PneumoPericardium_PneumoMediastinum.png"><img src="tran-khi-mang-tim_anh/PneumoPericardium_PneumoMediastinum.png" alt="" width="960" height="660" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Phân biệt:</span><br>+ Khí tự do trong khoang màng tim có xu hướng dồn về phần cao: khi người bệnh đứng, khí thường tụ ở phần trên của túi màng tim; khi nằm ngửa, khí có xu hướng phân bố ra phía trước.<br>+ Vì vậy, dải khí quanh tim có thể đổi vị trí trên các phim chụp ở tư thế khác nhau. Khí trung thất thường bị giữ dọc các khoang mô liên kết nên ít thay đổi vị trí rõ rệt trong thời gian ngắn.<br>+ Đây chỉ là dấu hiệu gợi ý; lượng khí ít hoặc khí khu trú có thể làm sự dịch chuyển khó nhận thấy, và hai tình trạng có thể đồng thời hiện diện.</p>
+<figure><a class="o-anh" href="tran-khi-mang-tim_anh/98002656.224.gr1_.jpeg"><img src="tran-khi-mang-tim_anh/98002656.224.gr1_.jpeg" alt="" width="1219" height="521" loading="lazy" decoding="async"></a></figure>
+<h2 id="v-tien-luong-dieu-tri">V. Tiên lượng &amp; Điều trị</h2>
+<p><span class="c-xanh">– Tiên lượng:</span><br>+ Tiên lượng phụ thuộc vào mức độ tích tụ khí, tình trạng huyết động và căn nguyên. Thể không tăng áp lực, không gây chèn ép tim có thể ổn định và tự hấp thu khi nguyên nhân được kiểm soát.<br>+ Thể tăng áp lực có thể hạn chế đổ đầy tim, gây chèn ép tim, sốc tắc nghẽn, ngừng tim và tử vong; tổn thương tim, mạch máu hoặc các chấn thương phối hợp cũng ảnh hưởng đáng kể đến tiên lượng.</p>
+<p><span class="c-xanh">– Điều trị:</span><br>+ Khi huyết động ổn định và không có chèn ép tim: theo dõi sát lâm sàng, huyết động và diễn tiến hình ảnh; đánh giá lặp lại bằng siêu âm tim khi phù hợp. Không chỉ định can thiệp xâm lấn chỉ dựa trên sự hiện diện của khí nếu chưa có chỉ định lâm sàng khác.<br>+ Khi có dấu hiệu tràn khí màng tim tăng áp lực hoặc suy giảm huyết động: giải áp khoang màng ngoài tim khẩn cấp bằng chọc tháo hoặc dẫn lưu phẫu thuật, tùy tình huống và nguồn lực chuyên môn; không trì hoãn xử trí khi nghi ngờ chèn ép tim.<br>+ Đồng thời xử trí căn nguyên và tổn thương phối hợp: kiểm soát nhiễm trùng, xử trí đường rò hoặc tổn thương tim-màng tim, điều chỉnh thông khí áp lực dương khi phù hợp và điều trị tràn khí màng phổi nếu có.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Pneumopericardium and Pneumomediastinum After Implantation of a Cardiac Resynchronization Pacemaker – Peregrine G. Green, MA(Oxon), BM BCh and Neil Herring, MA(Oxon), BM BCh, DPhil<br>* Tension Pneumopericardium: Case Report – Patrick Macgoey, Markus Schamm, Elias Degiannis<br>* Spontaneous pneumopericardium an unusual complication in a patient of HIV and pulmonary tuberculosis – Vishal Chopra, Nishi Garg and Parul Mrigpuri<br>* A Rare Case of Pneumopericardium in the Setting of Tuberculous Constrictive Pericarditis – Lauro L. Abrahan IV, Stephanie Martha O. Obillos, Jaime Alfonso M. Aherrera<br>* Cancer-Related Pneumopericardium: A Case Report and Literature Review – Hirani S.a · Velez Martinez C.S.a · Patan S.b · Kavanaugh M<br>* An Extremely Rare Combination: Pneumopericardium, Pneumoperitoneum, and Subcutanous Emphysema—A Case Report – Melek Zekiye Uluçam</em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

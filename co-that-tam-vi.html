@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Co Thắt Tâm Vị</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · TIÊU HÓA</div>
+   <h1>Co Thắt Tâm Vị</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/co-that-tam-vi/" target="_blank" rel="noopener">Xray.vn — xray.vn/co-that-tam-vi</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Co thắt tâm vị (Achalasia)</span> hay co thắt tâm vị nguyên phát là rối loạn vận động thực quản nguyên phát, đặc trưng bởi mất nhu động thân thực quản và suy giảm hoặc mất khả năng giãn của cơ thắt thực quản dưới khi nuốt:<br>+ Tình trạng tắc nghẽn chức năng tại chỗ nối thực quản – dạ dày dẫn đến ứ đọng thức ăn, dịch tiết và giãn thực quản tiến triển.<br>+ Tắc nghẽn đoạn xa thực quản do các nguyên nhân thực thể khác (đặc biệt là tổn thương ác tính) biểu hiện tương tự được gọi là co thắt tâm vị thứ phát hay giả co thắt tâm vị (pseudoachalasia).</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Bệnh hiếm gặp với tỷ lệ mới mắc khoảng 1–2/100.000 dân/năm, thường khởi phát ở độ tuổi trung niên (30–60 tuổi) và không có sự khác biệt về giới tính.</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Phần lớn là vô căn; một số trường hợp liên quan đến thoái hóa thần kinh tự miễn sau nhiễm virus, yếu tố di truyền hoặc bệnh Chagas (do Trypanosoma cruzi gây tổn thương tương tự).</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Thoái hóa và mất chọn lọc các tế bào thần kinh ức chế (tiết nitric oxide và VIP) trong đám rối cơ ruột Auerbach tại đoạn xa thực quản và cơ thắt thực quản dưới:<br>+ Mất cân bằng giữa tín hiệu kích thích (cholinergic) và ức chế làm cơ thắt thực quản dưới tăng trương lực lúc nghỉ và không giãn ra được khi nuốt.<br>+ Mất phối hợp nhu động tiến triển ở 2/3 dưới thực quản (vùng cơ trơn) do tổn thương đám rối Auerbach kết hợp thoái hóa dây thần kinh phế vị, dẫn đến giãn thân thực quản và ứ đọng mạn tính.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Triệu chứng khởi phát âm thầm, tiến triển chậm và thường gián đoạn ở giai đoạn đầu:<br>+ Khó nuốt (triệu chứng hằng định nhất): xuất hiện đồng thời với cả thức ăn đặc và chất lỏng ngay từ đầu (khác với hẹp cơ học do ung thư thường chỉ khó nuốt thức ăn đặc trước).<br>+ Trào ngược thức ăn chưa tiêu hóa và nước bọt: tăng lên khi nằm hoặc khi bệnh tiến triển, dễ chẩn đoán nhầm với bệnh trào ngược dạ dày – thực quản.<br>+ Đau ngực sau xương ức và sụt cân: đau ngực gặp nhiều hơn ở thể co thắt (typ III) và có xu hướng giảm dần khi thực quản giãn lớn ở giai đoạn muộn.</p>
+<p><span class="c-xanh">– Biến chứng:</span><br>+ Viêm phổi hít và biến chứng phổi mạn tính: ứ đọng kéo dài dịch và mảnh vụn thức ăn làm tăng nguy cơ hít sặc vào đường thở, gây viêm phổi tái diễn, áp xe phổi hoặc giãn phế quản.<br>+ Viêm thực quản ứ đọng và nhiễm nấm Candida: kích thích hóa học mạn tính và lên men thức ăn gây viêm loét niêm mạc, dày thành thứ phát và bội nhiễm nấm.<br>+ Ung thư biểu mô tế bào vảy thực quản: nguy cơ tăng cao ở bệnh nhân mắc bệnh kéo dài (&gt; 10–15 năm) với tỷ lệ tích lũy khoảng 3–5%, thường gặp ở 1/3 giữa thực quản do kích thích niêm mạc mạn tính.<br>+ Chèn ép và tắc nghẽn đường thở cấp tính: biến chứng hiếm gặp nhưng đe dọa tính mạng khi thực quản giãn khổng lồ chèn ép mặt sau khí quản, cần đặt ống thông dẫn lưu thực quản giải áp khẩn cấp.</p>
+<p><span class="c-xanh">– Phân bố và phân loại:</span> Tổn thương tập trung ở cơ thắt thực quản dưới và thân thực quản đoạn cơ trơn; phân loại Chicago (cập nhật v4.0, 2021) dựa trên đo áp lực thực quản độ phân giải cao chia thành 3 typ có giá trị tiên lượng đáp ứng điều trị (typ I kinh điển, typ II có nén áp lực toàn thực quản đáp ứng tốt nhất, typ III co thắt đoạn xa đáp ứng kém nhất).</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span> Chụp thực quản cản quang (đặc biệt chụp thực quản cản quang có định giờ) đánh giá hình thái, mức độ ứ đọng và loại trừ tắc nghẽn cơ học; cắt lớp vi tính giúp loại trừ giả co thắt tâm vị ác tính và đánh giá biến chứng hô hấp, trong khi đo áp lực thực quản độ phân giải cao là tiêu chuẩn vàng chẩn đoán xác định.</p>
+<figure><a class="o-anh" href="co-that-tam-vi_anh/2015_09_cb0efa631b8ee31284fc7f6834dc539a.png"><img src="co-that-tam-vi_anh/2015_09_cb0efa631b8ee31284fc7f6834dc539a.png" alt="Co thắt tâm vị" width="656" height="491" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-chan-doan-x-quang">II. Chẩn đoán x-quang</h2>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Thực quản giãn lớn, kéo dài và uốn khúc (dạng sigma ở giai đoạn muộn) thường lệch sang phải tạo dải hoặc khối mờ trung thất không đồng nhất chồng lên bờ phải tim và trung thất:<br>+ Giải phẫu tự nhiên của cung động mạch chủ ở bên trái đẩy thực quản giãn lệch sang phải; hiếm gặp khối mờ lồi bờ trái trung thất khi động mạch chủ ngực xuống vồng hoặc giãn xoắn.<br>+ Không xóa bờ phải tim trên phim thẳng (dấu hiệu bóng bờ âm tính) do thực quản nằm ở trung thất sau, giúp phân biệt với tổn thương trung thất giữa hoặc thùy giữa phổi phải.<br>+ Giới hạn độ nhạy thấp ở giai đoạn sớm hoặc khi thực quản chưa giãn đáng kể (hình ảnh X-quang ngực có thể hoàn toàn bình thường), dễ chẩn đoán nhầm với u trung thất sau hoặc phình động mạch chủ ngực.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_0235e085539cf2d855b4a48b2337a9cf13a8e9ba7da28c4514e63a36429b8e54_jumbo.jpeg"><img src="co-that-tam-vi_anh/2015_09_0235e085539cf2d855b4a48b2337a9cf13a8e9ba7da28c4514e63a36429b8e54_jumbo.jpeg" alt="" width="1002" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_c3a45052dc0ae01f7002c08ceb3346_jumbo.jpg"><img src="co-that-tam-vi_anh/2015_09_c3a45052dc0ae01f7002c08ceb3346_jumbo.jpg" alt="" width="841" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_ff10731ecee05a9a3681deeeada3a8_jumbo.jpg"><img src="co-that-tam-vi_anh/2015_09_ff10731ecee05a9a3681deeeada3a8_jumbo.jpg" alt="" width="881" height="872" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_FB_IMG_1606227380135_xray.vn_.jpg"><img src="co-that-tam-vi_anh/2015_09_FB_IMG_1606227380135_xray.vn_.jpg" alt="" width="743" height="862" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_Fig-5.png"><img src="co-that-tam-vi_anh/2015_09_Fig-5.png" alt="" width="720" height="435" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_Fig-6.png"><img src="co-that-tam-vi_anh/2015_09_Fig-6.png" alt="" width="791" height="342" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-50.jpg"><img src="co-that-tam-vi_anh/2015_09_1-50.jpg" alt="" width="1512" height="1347" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-49.jpg"><img src="co-that-tam-vi_anh/2015_09_2-49.jpg" alt="" width="1134" height="1602" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-45.jpg"><img src="co-that-tam-vi_anh/2015_09_3-45.jpg" alt="" width="1476" height="764" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-42.jpg"><img src="co-that-tam-vi_anh/2015_09_4-42.jpg" alt="" width="1420" height="764" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_PA-chest3.jpg"><img src="co-that-tam-vi_anh/2015_09_PA-chest3.jpg" alt="" width="1600" height="1581" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_lateral-chest1-1.jpg"><img src="co-that-tam-vi_anh/2015_09_lateral-chest1-1.jpg" alt="" width="1600" height="1746" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_Bild11.png"><img src="co-that-tam-vi_anh/2015_09_Bild11.png" alt="" width="1479" height="757" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_Bild2.jpg"><img src="co-that-tam-vi_anh/2015_09_Bild2.jpg" alt="" width="1394" height="863" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_PA-chest-7.jpg"><img src="co-that-tam-vi_anh/2015_09_PA-chest-7.jpg" alt="" width="933" height="941" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_Lateral-chest.jpg"><img src="co-that-tam-vi_anh/2015_09_Lateral-chest.jpg" alt="" width="822" height="1192" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_123-1.jpg"><img src="co-that-tam-vi_anh/2015_09_123-1.jpg" alt="" width="1600" height="1045" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_Answer-case5_Seite_2.jpg"><img src="co-that-tam-vi_anh/2015_09_Answer-case5_Seite_2.jpg" alt="" width="1103" height="917" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-122.jpg"><img src="co-that-tam-vi_anh/2015_09_1-122.jpg" alt="" width="800" height="833" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-121.jpg"><img src="co-that-tam-vi_anh/2015_09_2-121.jpg" alt="" width="800" height="833" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-112.jpg"><img src="co-that-tam-vi_anh/2015_09_3-112.jpg" alt="" width="800" height="594" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-102.jpg"><img src="co-that-tam-vi_anh/2015_09_4-102.jpg" alt="" width="800" height="910" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Bóng khí thực quản hoặc mức dịch – khí trong trung thất</span> xuất hiện trên phim chụp tư thế đứng do thực quản giãn mất nhu động ứ đọng hỗn hợp khí, dịch tiết và cặn thức ăn phía trên cơ thắt thực quản dưới không giãn:<br>+ Bề mặt phân cách giữa dịch – thức ăn và lớp khí phía trên thường lởm chởm hoặc tạo dải lốm đốm không đồng nhất do mảnh vụn thức ăn chưa tiêu hóa nổi trên bề mặt dịch.<br>+ Thường quan sát rõ ở vùng trung thất sau – trên hoặc cạnh phải khí quản trên phim thẳng và sau khí quản trên phim nghiêng, có giá trị phân biệt với khối u đặc trung thất hoặc phình mạch máu lớn.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_12345678.jpg"><img src="co-that-tam-vi_anh/2015_09_12345678.jpg" alt="" width="880" height="797" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_Achalasia-a_Xray.vn_-1.jpg"><img src="co-that-tam-vi_anh/2015_09_Achalasia-a_Xray.vn_-1.jpg" alt="" width="1200" height="741" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-1.png"><img src="co-that-tam-vi_anh/2015_09_1-1.png" alt="" width="803" height="382" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-3.png"><img src="co-that-tam-vi_anh/2015_09_2-3.png" alt="" width="701" height="247" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_Fig-10.png"><img src="co-that-tam-vi_anh/2015_09_Fig-10.png" alt="" width="849" height="319" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_Fig-9.png"><img src="co-that-tam-vi_anh/2015_09_Fig-9.png" alt="" width="832" height="441" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-7.jpg"><img src="co-that-tam-vi_anh/2015_09_1-7.jpg" alt="" width="812" height="909" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-6.jpg"><img src="co-that-tam-vi_anh/2015_09_3-6.jpg" alt="" width="927" height="975" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-6.jpg"><img src="co-that-tam-vi_anh/2015_09_4-6.jpg" alt="" width="928" height="978" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_5-4.jpg"><img src="co-that-tam-vi_anh/2015_09_5-4.jpg" alt="" width="927" height="974" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1.png"><img src="co-that-tam-vi_anh/2015_09_1.png" alt="" width="779" height="780" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-2.png"><img src="co-that-tam-vi_anh/2015_09_2-2.png" alt="" width="598" height="780" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-2.png"><img src="co-that-tam-vi_anh/2015_09_3-2.png" alt="" width="803" height="445" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-2.png"><img src="co-that-tam-vi_anh/2015_09_4-2.png" alt="" width="790" height="437" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-82.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-82.jpeg" alt="" width="995" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-81.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-81.jpeg" alt="" width="947" height="956" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-81.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-81.jpeg" alt="" width="630" height="542" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-76.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-76.jpeg" alt="" width="620" height="556" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_5-57.jpeg"><img src="co-that-tam-vi_anh/2015_09_5-57.jpeg" alt="" width="620" height="561" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-87.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-87.jpeg" alt="" width="902" height="969" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-86.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-86.jpeg" alt="" width="600" height="999" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-86.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-86.jpeg" alt="" width="598" height="999" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-81.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-81.jpeg" alt="" width="597" height="1000" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_0-4.jpeg"><img src="co-that-tam-vi_anh/2015_09_0-4.jpeg" alt="" width="915" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-408.jpg"><img src="co-that-tam-vi_anh/2015_09_1-408.jpg" alt="" width="915" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-332.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-332.jpeg" alt="" width="332" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-326.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-326.jpeg" alt="" width="317" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-307.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-307.jpeg" alt="" width="501" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_5-242.jpeg"><img src="co-that-tam-vi_anh/2015_09_5-242.jpeg" alt="" width="495" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_a-20.jpg"><img src="co-that-tam-vi_anh/2015_09_a-20.jpg" alt="" width="951" height="961" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_b-15.jpg"><img src="co-that-tam-vi_anh/2015_09_b-15.jpg" alt="" width="907" height="853" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Bóng hơi dạ dày thu nhỏ hoặc biến mất hoàn toàn trên phim X-quang ngực hoặc bụng tư thế đứng:</span><br>+ Lớp cột dịch và thức ăn ứ đọng thường xuyên ở đoạn xa thực quản đóng vai trò như nút bịt kín ngăn khí nuốt vào đi qua cơ thắt thực quản dưới không giãn để xuống dạ dày.<br>+ Thường đi kèm dấu hiệu giãn thực quản tạo dải mờ trung thất sau trên cùng phim chụp, củng cố chẩn đoán co thắt tâm vị và gợi ý mức độ tắc nghẽn chức năng đáng kể tại tâm vị.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-7.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-7.jpeg" alt="" width="1024" height="985" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-6.jpg"><img src="co-that-tam-vi_anh/2015_09_2-6.jpg" alt="" width="458" height="963" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-5.jpg"><img src="co-that-tam-vi_anh/2015_09_3-5.jpg" alt="" width="463" height="951" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-5.jpg"><img src="co-that-tam-vi_anh/2015_09_4-5.jpg" alt="" width="461" height="956" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_5-3.jpg"><img src="co-that-tam-vi_anh/2015_09_5-3.jpg" alt="" width="462" height="941" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_6-3.jpg"><img src="co-that-tam-vi_anh/2015_09_6-3.jpg" alt="" width="468" height="943" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_7-3.jpg"><img src="co-that-tam-vi_anh/2015_09_7-3.jpg" alt="" width="462" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_8-2.jpg"><img src="co-that-tam-vi_anh/2015_09_8-2.jpg" alt="" width="890" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Khí quản bị đẩy dịch chuyển ra phía trước và thu hẹp nhẹ dải sáng hậu khí quản trên phim X-quang ngực tư thế nghiêng:</span><br>+ Thực quản nằm ngay sau khí quản trong trung thất sau nên khi giãn lớn chứa đầy dịch và thức ăn sẽ trực tiếp chèn ép thành sau khí quản (phần màng sụn mềm).<br>+ Dấu hiệu này thường đi kèm dải mờ trung thất sau hoặc mức dịch – khí sau khí quản trên phim nghiêng, giúp định vị tổn thương thuộc thực quản và phân biệt với khối u trung thất trước – giữa đẩy khí quản ra sau.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-105.png"><img src="co-that-tam-vi_anh/2015_09_1-105.png" alt="" width="995" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-463.jpg"><img src="co-that-tam-vi_anh/2015_09_3-463.jpg" alt="" width="995" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-113.png"><img src="co-that-tam-vi_anh/2015_09_2-113.png" alt="" width="1024" height="956" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-418.jpg"><img src="co-that-tam-vi_anh/2015_09_4-418.jpg" alt="" width="1024" height="956" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Biến chứng:</span> Tổn thương nhu mô phổi hai bên trên phim X-quang ngực do hít sặc dịch tiết và cặn thức ăn ứ đọng từ thực quản giãn lớn vào đường thở:<br>+ Viêm phổi hít cấp tính biểu hiện bằng các đám mờ phế nang hoặc đông đặc tập trung ở vùng thấp của phổi (thùy dưới hai bên khi đứng hoặc phân thùy sau thùy trên, phân thùy đỉnh thùy dưới khi nằm).<br>+ Viêm phổi hít mạn tính tái diễn gây tổn thương mô kẽ dạng lưới – nốt lan tỏa, dày thành phế quản và xơ hóa ưu thế ở vùng đáy phổi.</p>
+<h2 id="iii-chup-tq-can-quang">III. Chụp TQ cản quang</h2>
+<p><span class="c-xanh">– Chụp thực quản cản quang đường uống bằng hỗn dịch Barium sulfate cho thấy thân thực quản phía trên giãn lớn, thuôn nhỏ đều đặn và đối xứng tại chỗ nối thực quản – dạ dày, tạo hình ảnh kinh điển dạng mỏ chim (bird’s beak sign) hoặc đuôi chuột (rat-tail sign):</span><br>+ Đoạn hẹp vùng tâm vị trong co thắt tâm vị nguyên phát có bờ nhẵn, đồng tâm, thẳng trục và thường có chiều dài &lt; 3,5 cm.<br>+ Niêm mạc vùng chuyển tiếp vẫn mềm mại và liên tục, phân biệt với đoạn hẹp ngắn lệch tâm, bờ nham nhở, gập góc hoặc chiều dài &gt; 3,5 cm của giả co thắt tâm vị do nguyên nhân ác tính.<br>+ Lưu ý kỹ thuật ưu tiên dùng thuốc cản quang tan trong nước không ion hóa (tránh Barium) nếu nghi ngờ biến chứng thủng thực quản hoặc nguy cơ hít sặc nặng vào đường thở.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_787732.jpg"><img src="co-that-tam-vi_anh/2015_09_787732.jpg" alt="" width="1234" height="533" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_692e8fd5fb4bd442e6c4dc70f06353_jumbo.jpeg"><img src="co-that-tam-vi_anh/2015_09_692e8fd5fb4bd442e6c4dc70f06353_jumbo.jpeg" alt="" width="804" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_index-20.jpg"><img src="co-that-tam-vi_anh/2015_09_index-20.jpg" alt="" width="1600" height="798" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_665531.png"><img src="co-that-tam-vi_anh/2015_09_665531.png" alt="" width="419" height="606" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-403.jpg"><img src="co-that-tam-vi_anh/2015_09_3-403.jpg" alt="" width="949" height="851" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_665532.png"><img src="co-that-tam-vi_anh/2015_09_665532.png" alt="" width="501" height="580" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_172850.jpg"><img src="co-that-tam-vi_anh/2015_09_172850.jpg" alt="" width="779" height="768" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Thực quản giãn thẳng trục, bờ đều, ứ đọng thuốc cản quang kèm dịch tiết và cặn thức ăn cũ khi thân thực quản mất trương lực hoặc vô nhu động ở giai đoạn tiến triển:</span><br>+ Các mảnh thức ăn chưa tiêu hóa tạo khuyết sáng lởm chởm nổi trên bề mặt hoặc lơ lửng trong cột thuốc cản quang, giúp phân biệt với dịch ứ đọng đơn thuần.<br>+ Không ghi nhận sóng nhu động nguyên phát lan truyền bình thường dọc thân thực quản trên chiếu tăng sáng truyền hình; ở giai đoạn muộn thực quản giãn lớn và uốn khúc tạo hình ảnh thực quản dạng sigma (sigmoid esophagus).</p>
+<p><span class="c-xanh">– Đánh giá định lượng:</span> Kỹ thuật chụp thực quản cản quang có định giờ (timed barium esophagogram) đo chiều cao và chiều rộng tối đa của cột thuốc cản quang tại các mốc 1 phút, 2 phút và 5 phút sau khi uống nhanh 100–250 mL hỗn dịch Barium sulfate nồng độ thấp ở tư thế đứng thẳng:<br>+ Chiều cao cột thuốc được đo từ chỗ nối thực quản – dạ dày (đỉnh mỏ chim) lên đến mặt phân cách trên cùng giữa cột thuốc cản quang và lớp dịch nổi phía trên.<br>+ Chiều cao cột thuốc sau 5 phút &gt; 5 cm (hoặc &gt; 2 cm tùy ngưỡng quy ước) cho thấy chậm làm rỗng thực quản đáng kể, giúp lượng giá khách quan mức độ ứ đọng trước điều trị.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_738034.jpg"><img src="co-that-tam-vi_anh/2015_09_738034.jpg" alt="" width="1249" height="731" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_738035.jpg"><img src="co-that-tam-vi_anh/2015_09_738035.jpg" alt="" width="804" height="728" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_index-3-1.jpg"><img src="co-that-tam-vi_anh/2015_09_index-3-1.jpg" alt="" width="1072" height="624" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_index-4-1.jpg"><img src="co-that-tam-vi_anh/2015_09_index-4-1.jpg" alt="" width="778" height="727" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_index-2-6.jpg"><img src="co-that-tam-vi_anh/2015_09_index-2-6.jpg" alt="" width="1177" height="538" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-78.png"><img src="co-that-tam-vi_anh/2015_09_1-78.png" alt="" width="427" height="817" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-83.png"><img src="co-that-tam-vi_anh/2015_09_2-83.png" alt="" width="457" height="816" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-81.png"><img src="co-that-tam-vi_anh/2015_09_3-81.png" alt="" width="468" height="819" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-71.png"><img src="co-that-tam-vi_anh/2015_09_4-71.png" alt="" width="510" height="819" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-326.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-326.jpeg" alt="" width="580" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-323.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-323.jpeg" alt="" width="568" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-317.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-317.jpeg" alt="" width="806" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-331.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-331.jpeg" alt="" width="439" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-328.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-328.jpeg" alt="" width="457" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-322.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-322.jpeg" alt="" width="443" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-303.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-303.jpeg" alt="" width="550" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-361.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-361.jpeg" alt="" width="521" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-362.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-362.jpeg" alt="" width="509" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-357.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-357.jpeg" alt="" width="552" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-334.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-334.jpeg" alt="" width="540" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_5-262.jpeg"><img src="co-that-tam-vi_anh/2015_09_5-262.jpeg" alt="" width="555" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-503.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-503.jpeg" alt="" width="560" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-501.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-501.jpeg" alt="" width="605" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-491.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-491.jpeg" alt="" width="539" height="1003" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-444.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-444.jpeg" alt="" width="513" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu đuôi chuột (rat-tail sign) hoặc dấu hiệu mỏ chim (bird’s beak sign) đặc trưng bởi thân thực quản đoạn trên giãn rộng, thuôn nhỏ đều đặn và đối xứng tại chỗ nối thực quản – dạ dày:</span><br>+ Tạo nên do cơ thắt thực quản dưới không giãn được khi nuốt, khiến cột thuốc cản quang Barium sulfate dừng lại ở tâm vị và chỉ lách qua một khe hẹp đồng tâm, bờ nhẵn.<br>+ Hình thái thuôn nhọn đối xứng này giúp phân biệt với hẹp đột ngột, lệch tâm và bờ nham nhở dạng lõi táo (apple-core sign) của ung thư thực quản đoạn xa.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_index-1-10.jpg"><img src="co-that-tam-vi_anh/2015_09_index-1-10.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_681807.jpg"><img src="co-that-tam-vi_anh/2015_09_681807.jpg" alt="" width="1600" height="563" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_cb0efa631b8ee31284fc7f6834dc539a.png"><img src="co-that-tam-vi_anh/2015_09_cb0efa631b8ee31284fc7f6834dc539a.png" alt="" width="656" height="491" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_index-25.jpg"><img src="co-that-tam-vi_anh/2015_09_index-25.jpg" alt="" width="1600" height="900" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-443.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-443.jpeg" alt="" width="494" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-440.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-440.jpeg" alt="" width="479" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-436.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-436.jpeg" alt="" width="482" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-404.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-404.jpeg" alt="" width="557" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Thực quản ứ đọng cột thuốc cản quang kéo dài phía trên tâm vị, lượng thuốc thoát xuống dạ dày rất ít và chậm khi theo dõi trên các phim chụp nối tiếp tư thế đứng:</span><br>+ Trên chiếu tăng sáng truyền hình, cột thuốc dừng lại tại chỗ nối thực quản – dạ dày và chỉ rỉ từng đợt nhỏ xuống dạ dày khi áp lực thủy tĩnh của cột dịch vượt ngưỡng kháng trở của cơ thắt thực quản dưới.<br>+ Mức độ ứ đọng thuốc cản quang phản ánh trực tiếp tình trạng suy giảm làm rỗng thực quản do mất nhu động đẩy và không giãn cơ thắt tâm vị, giúp phân biệt với hẹp thực quản do khối u vốn thường còn duy trì nhu động đoạn trên.</p>
+<figure><a class="o-anh" href="co-that-tam-vi_anh/2015_09_index-30.jpg"><img src="co-that-tam-vi_anh/2015_09_index-30.jpg" alt="" width="836" height="709" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-237.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-237.jpeg" alt="" width="577" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-236.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-236.jpeg" alt="" width="568" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-230.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-230.jpeg" alt="" width="493" height="1016" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-220.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-220.jpeg" alt="" width="615" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-499.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-499.jpeg" alt="" width="553" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-497.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-497.jpeg" alt="" width="564" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-486.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-486.jpeg" alt="" width="528" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-439.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-439.jpeg" alt="" width="570" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Lưu thông qua chỗ nối thực quản – dạ dày diễn ra gián đoạn do chỉ xảy ra khi áp lực thủy tĩnh của cột dịch và thức ăn ứ đọng vượt ngưỡng kháng trở của cơ thắt thực quản dưới không giãn:</span><br>+ Khi cột thuốc cản quang hoặc thức ăn đủ nặng để thắng trương lực cơ thắt, thuốc mới rỉ qua tâm vị thành từng đợt nhỏ rồi van chức năng này lập tức đóng lại.<br>+ Cơ chế này giải thích đồng thời tình trạng thuốc cản quang xuống dạ dày ít trên chiếu tăng sáng và dấu hiệu thu nhỏ hoặc mất bóng hơi dạ dày do lớp dịch ứ đọng ngăn khí nuốt đi xuống.</p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/1-157.jpeg"><img src="co-that-tam-vi_anh/1-157.jpeg" alt="" width="471" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2-159.jpeg"><img src="co-that-tam-vi_anh/2-159.jpeg" alt="" width="525" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/3-151.jpeg"><img src="co-that-tam-vi_anh/3-151.jpeg" alt="" width="521" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/4-133.jpeg"><img src="co-that-tam-vi_anh/4-133.jpeg" alt="" width="475" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-69.png"><img src="co-that-tam-vi_anh/2015_09_1-69.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-73.png"><img src="co-that-tam-vi_anh/2015_09_2-73.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-69.png"><img src="co-that-tam-vi_anh/2015_09_3-69.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-60.png"><img src="co-that-tam-vi_anh/2015_09_4-60.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_5-54.png"><img src="co-that-tam-vi_anh/2015_09_5-54.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Theo dõi:</span> Chụp thực quản cản quang có định giờ đánh giá khách quan hiệu quả làm rỗng thực quản sau nong bóng, phẫu thuật Heller hoặc cắt cơ thực quản qua nội soi đường miệng (POEM):<br>+ Đáp ứng tốt thể hiện qua chiều cao cột thuốc cản quang ở phút thứ 5 giảm đáng kể (thường giảm &gt; 50% so với trước điều trị hoặc &lt; 2 cm) và thuốc lưu thông nhanh xuống dạ dày.<br>+ Loại trừ biến chứng rò rỉ thuốc cản quang sớm sau can thiệp (dùng thuốc cản quang tan trong nước không ion hóa trước) và phát hiện tái phát tắc nghẽn khi cột thuốc ứ đọng tăng trở lại.</p>
+<figure><a class="o-anh" href="co-that-tam-vi_anh/2015_09_sd1.jpg"><img src="co-that-tam-vi_anh/2015_09_sd1.jpg" alt="" width="1177" height="1037" loading="lazy" decoding="async"></a></figure>
+<h2 id="iv-chan-doan-clvt">IV. Chẩn đoán CLVT</h2>
+<p><span class="c-xanh">– Đặc điểm hình ảnh cắt lớp vi tính:</span> Thân thực quản giãn rộng lan tỏa với thành mỏng đều và nhẵn (thường &lt; 3 mm khi căng giãn), lòng chứa đầy dịch tiết, cặn thức ăn không đồng nhất và các bóng khí nhỏ:<br>+ Thường tạo mức dịch – khí trong lòng thực quản trên các lát cắt ngang, với bề mặt phân cách lởm chởm do mảnh vụn thức ăn nổi trên lớp dịch ứ đọng.<br>+ Chỗ nối thực quản – dạ dày thu hẹp khẩu kính đối xứng, thành mỏng đều hoặc chỉ dày nhẹ đồng tâm lan tỏa (&lt; 5 mm) và ngấm thuốc đồng nhất sau tiêm, không có khối choán chỗ hay dày thành khu trú lệch tâm.<br>+ Giai đoạn muộn có thể thấy thực quản giãn khổng lồ, kéo dài, gập khúc (dạng sigma) lệch sang phải và đè đẩy khí quản ra trước hoặc chèn ép các cấu trúc trung thất lân cận.</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span> Cắt lớp vi tính ngực – bụng có tiêm thuốc cản quang giữ vai trò cốt lõi trong việc loại trừ giả co thắt tâm vị (đặc biệt là ung thư biểu mô chỗ nối thực quản – dạ dày, ung thư dạ dày xâm lấn dưới niêm mạc hoặc u trung thất chèn ép từ ngoài):<br>+ Dấu hiệu gợi ý tổn thương ác tính cần cảnh giác gồm dày thành khu trú không đối xứng (&gt; 10 mm), ngấm thuốc không đồng nhất, thâm nhiễm lớp mỡ quanh thực quản – tâm vị hoặc hạch to vùng trung thất và thân tạng.<br>+ Đánh giá toàn diện các biến chứng hô hấp đi kèm do hít sặc mạn tính như viêm phổi hít thùy dưới, nốt mờ trung tâm tiểu thùy dạng chồi cây, giãn phế quản hoặc áp xe phổi.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Cặn thức ăn đặc ứ đọng sát vùng tâm vị hoặc thành thực quản gấp nếp ở giai đoạn chưa giãn căng có thể giả khối u nội lòng hoặc dày thành giả tạo, cần đối chiếu với tư thế chụp hoặc làm sạch thực quản khi nghi ngờ.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_696669.jpg"><img src="co-that-tam-vi_anh/2015_09_696669.jpg" alt="" width="720" height="234" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_Achalasia-3_Xray.vn_.jpg"><img src="co-that-tam-vi_anh/2015_09_Achalasia-3_Xray.vn_.jpg" alt="" width="990" height="751" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-90.png"><img src="co-that-tam-vi_anh/2015_09_1-90.png" alt="" width="580" height="811" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-96.png"><img src="co-that-tam-vi_anh/2015_09_2-96.png" alt="" width="579" height="847" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-8.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-8.jpeg" alt="" width="630" height="430" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-6.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-6.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-7.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-7.jpeg" alt="" width="630" height="489" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-6.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-6.jpeg" alt="" width="630" height="508" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_5-5.jpeg"><img src="co-that-tam-vi_anh/2015_09_5-5.jpeg" alt="" width="630" height="516" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_6-5.jpeg"><img src="co-that-tam-vi_anh/2015_09_6-5.jpeg" alt="" width="598" height="524" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_7-1.jpeg"><img src="co-that-tam-vi_anh/2015_09_7-1.jpeg" alt="" width="574" height="516" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_8-1.jpeg"><img src="co-that-tam-vi_anh/2015_09_8-1.jpeg" alt="" width="627" height="582" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-108.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-108.jpeg" alt="" width="1018" height="944" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-108.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-108.jpeg" alt="" width="683" height="924" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_123454g.jpeg"><img src="co-that-tam-vi_anh/2015_09_123454g.jpeg" alt="" width="531" height="379" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-101.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-101.jpeg" alt="" width="611" height="556" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-349.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-349.jpeg" alt="" width="585" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-347.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-347.jpeg" alt="" width="585" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-342.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-342.jpeg" alt="" width="585" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-320.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-320.jpeg" alt="" width="585" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_5-253.jpeg"><img src="co-that-tam-vi_anh/2015_09_5-253.jpeg" alt="" width="585" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_6-113.jpeg"><img src="co-that-tam-vi_anh/2015_09_6-113.jpeg" alt="" width="585" height="630" loading="lazy" decoding="async"></a></div>
+<h2 id="v-phan-biet">V. Phân biệt</h2>
+<h3 id="1-gia-co-that-tam-vi">1. Giả co thắt tâm vị</h3>
+<p><span class="c-xanh">– Giả co thắt tâm vị (pseudoachalasia)</span> hay co thắt tâm vị thứ phát là tình trạng giãn thực quản kèm rối loạn làm rỗng giống co thắt tâm vị nguyên phát nhưng do tắc nghẽn thực thể hoặc tổn thương thần kinh – cơ thứ phát tại đoạn xa thực quản hay chỗ nối thực quản – dạ dày:<br>+ Khác với co thắt tâm vị nguyên phát do thoái hóa đám rối cơ ruột Auerbach vô căn, giả co thắt tâm vị bắt nguồn từ khối u, xâm lấn thần kinh, sẹo hẹp hoặc bệnh hệ thống.<br>+ Biểu hiện lâm sàng (khó nuốt tiến triển nhanh, sụt cân, trào ngược) và một số dấu hiệu hình ảnh (giãn thân thực quản, ứ đọng dịch/thức ăn, thuôn hẹp vùng tâm vị) dễ chồng lấp với co thắt tâm vị nguyên phát.</p>
+<p><span class="c-xanh">– Nguyên nhân:</span> Khối u ác tính chiếm ưu thế (đặc biệt ung thư biểu mô tuyến tâm vị – đáy vị xâm lấn dưới niêm mạc lên đoạn xa thực quản), bên cạnh các nhóm nguyên nhân thực thể và thần kinh khác:<br>+ Bệnh lý ác tính: ung thư thực quản 1/3 dưới, ung thư dạ dày (tâm vị và đáy vị lan rộng dưới niêm mạc), lymphoma, ung thư phổi hoặc trung thất xâm lấn trực tiếp và hội chứng cận ung thư.<br>+ Bệnh lý thần kinh trung ương hoặc ngoại biên và chuyển hóa: nhồi máu thân não, xâm lấn hoặc tổn thương dây thần kinh phế vị (kể cả sau cắt dây thần kinh phế vị hai bên), bệnh lý thần kinh do đái tháo đường và thoái hóa thần kinh.<br>+ Hẹp thực quản lành tính và bệnh mô liên kết: sẹo hẹp do trào ngược dạ dày – thực quản, bỏng thực quản do nuốt hóa chất ăn mòn (axit hoặc kiềm), thiếu máu cục bộ thực quản và xơ cứng bì.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Hình ảnh chụp thực quản cản quang và cắt lớp vi tính gợi ý giả co thắt tâm vị thứ phát khi đoạn hẹp tâm vị kém đối xứng và thực quản giãn thường ở mức nhẹ đến trung bình:<br>+ Thân thực quản đoạn trên thường giãn nhẹ (đường kính thường &lt; 4 cm) và diễn tiến nhanh hơn so với giãn thực quản khổng lồ hoặc dạng sigma mạn tính của co thắt tâm vị nguyên phát.<br>+ Giảm hoặc mất nhu động thực quản thứ phát do tắc nghẽn cơ học kéo dài hoặc xâm lấn đám rối thần kinh – thành thực quản.<br>+ Đoạn hẹp ở chỗ nối thực quản – dạ dày thường lệch tâm, bờ không đều hoặc nham nhở, gập góc, có thể kèm cứng thành hoặc phá vỡ cấu trúc niêm mạc trên cản quang.<br>+ Chiều dài đoạn hẹp thường &gt; 3,5 cm (đặc biệt trong u xâm lấn vùng tâm vị – đáy vị), tuy nhiên trường hợp u nhỏ khu trú vẫn có thể có đoạn hẹp ngắn &lt; 3,5 cm.<br>+ Trên cắt lớp vi tính ngực – bụng có tiêm thuốc cản quang, có thể thấy khối choán chỗ, dày thành không đối xứng hoặc lệch tâm, xóa mờ lớp mỡ quanh thực quản – tâm vị, hạch vùng hoặc tổn thương phổi/trung thất nguyên phát đi kèm.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Dựa đơn thuần vào hình ảnh cản quang hoặc chiều dài đoạn hẹp dễ bỏ sót giả co thắt tâm vị ác tính ở giai đoạn sớm hoặc khi khối u ngầm dưới niêm mạc:<br>+ Khối u nhỏ vùng tâm vị hoặc u lan rộng dưới niêm mạc có thể tạo hình ảnh thuôn nhọn tương đối nhẵn giống dấu hiệu mỏ chim của co thắt tâm vị nguyên phát.<br>+ Ngược lại, co thắt tâm vị nguyên phát giãn uốn khúc hoặc có cặn thức ăn ứ đọng ở tâm vị có thể bị đọc nhầm là hẹp không đều hay khối choán chỗ trên chụp thực quản cản quang hoặc cắt lớp vi tính; cần phối hợp cắt lớp vi tính, nội soi tiêu hóa trên kèm sinh thiết sâu và siêu âm nội soi khi nghi ngờ.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="co-that-tam-vi_anh/2015_08_1-15.webp"><img src="co-that-tam-vi_anh/2015_08_1-15.webp" alt="" width="543" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_2-14.webp"><img src="co-that-tam-vi_anh/2015_08_2-14.webp" alt="" width="620" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_3-12.webp"><img src="co-that-tam-vi_anh/2015_08_3-12.webp" alt="" width="554" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_4-12.webp"><img src="co-that-tam-vi_anh/2015_08_4-12.webp" alt="" width="546" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_a-50.jpeg"><img src="co-that-tam-vi_anh/2015_08_a-50.jpeg" alt="" width="630" height="487" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_b-46.jpeg"><img src="co-that-tam-vi_anh/2015_08_b-46.jpeg" alt="" width="630" height="487" loading="lazy" decoding="async"></a></div>
+<h3 id="2-ung-thu-thuc-quan">2. Ung thư thực quản</h3>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Ung thư thực quản đoạn xa hoặc vùng tâm vị gây hẹp lòng thực quản kèm giãn nhẹ đoạn trên trên chụp thực quản cản quang và cắt lớp vi tính, nhưng có hình thái đoạn hẹp và lưu thông khác biệt với co thắt tâm vị nguyên phát:<br>+ Thực quản đoạn trên giãn nhẹ đến trung bình, ít khi giãn lớn kéo dài hay uốn khúc dạng sigma như co thắt tâm vị mạn tính.<br>+ Đoạn hẹp chuyển tiếp đột ngột, bờ không đều, nham nhở, gập góc và lệch trục tạo dấu hiệu lõi táo do khối u xâm lấn thành và phá vỡ niêm mạc.<br>+ Thuốc cản quang thường vẫn lưu thông qua đoạn hẹp xuống dạ dày và tá tràng, khác với tình trạng ứ đọng kéo dài và chỉ rỉ gián đoạn qua khe hẹp đồng tâm của co thắt tâm vị.<br>+ Bóng khí trong phình vị dạ dày thường vẫn rõ vì u xâm lấn khu trú thường chưa tạo nút dịch ứ đọng bít kín liên tục qua tâm vị như co thắt tâm vị.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Đối chiếu với co thắt tâm vị nguyên phát:<br>+ Khác biệt cốt lõi nằm ở đoạn hẹp lệch tâm, bờ nham nhở, phá hủy niêm mạc và lưu thông thuốc/khí xuống dạ dày còn bảo tồn tương đối trong ung thư thực quản, trái ngược với đoạn hẹp thuôn nhọn đồng tâm, bờ nhẵn và ứ đọng nặng trong co thắt tâm vị.<br>+ Điểm chồng lấp và cạm bẫy xảy ra khi ung thư xâm lấn dưới niêm mạc vùng tâm vị tạo bờ tương đối nhẵn giống dấu hiệu mỏ chim, hoặc khi dịch/thức ăn ứ đọng nhiều ở co thắt tâm vị làm khó đánh giá bờ đoạn hẹp; cần kết hợp cắt lớp vi tính có tiêm thuốc cản quang, nội soi tiêu hóa trên sinh thiết và siêu âm nội soi để xác định.</p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-9.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-9.jpeg" alt="" width="856" height="982" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-7.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-7.jpeg" alt="" width="424" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-8.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-8.jpeg" alt="" width="466" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-7.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-7.jpeg" alt="" width="785" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_5-6.jpeg"><img src="co-that-tam-vi_anh/2015_09_5-6.jpeg" alt="" width="661" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-408.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-408.jpeg" alt="" width="528" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-407.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-407.jpeg" alt="" width="557" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-403.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-403.jpeg" alt="" width="925" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-374.jpeg"><img src="co-that-tam-vi_anh/2015_09_4-374.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_5-289.jpeg"><img src="co-that-tam-vi_anh/2015_09_5-289.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_6-140.jpeg"><img src="co-that-tam-vi_anh/2015_09_6-140.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_7-49.jpeg"><img src="co-that-tam-vi_anh/2015_09_7-49.jpeg" alt="" width="415" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="co-that-tam-vi_anh/2015_08_1-345.png"><img src="co-that-tam-vi_anh/2015_08_1-345.png" alt="" width="609" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_2-349.png"><img src="co-that-tam-vi_anh/2015_08_2-349.png" alt="" width="609" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_3-340.png"><img src="co-that-tam-vi_anh/2015_08_3-340.png" alt="" width="609" height="1024" loading="lazy" decoding="async"></a></div>
+<h3 id="3-sau-phau-thuat">3. Sau phẫu thuật</h3>
+<p><span class="c-xanh">– Phẫu thuật cắt thực quản tạo hình bằng ống dạ dày</span> (tiêu biểu là phẫu thuật Ivor Lewis mô tả năm 1944 cho ung thư thực quản 1/3 giữa và 1/3 dưới) cắt bỏ đoạn thực quản bệnh lý và tái lập lưu thông tiêu hóa bằng miệng nối thực quản – ống dạ dày: Có thể gây rối loạn vận động hoặc ứ đọng tại ống dạ dày hay miệng nối giống co thắt tâm vị sau phẫu thuật do cắt dây thần kinh phế vị hai bên, hẹp miệng nối, ứ đọng dịch dạ dày hoặc u tái phát.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Chụp thực quản cản quang và cắt lớp vi tính sau mổ giúp đánh giá hình thái ống dạ dày, khẩu kính miệng nối và sự lưu thông thuốc cản quang:<br>+ Ống dạ dày đưa lên trung thất hoặc khoang ngực thường nằm dọc bên phải hoặc trung thất sau, thành mỏng đều nếu không có biến chứng.<br>+ Trên chụp thực quản cản quang, thuốc cản quang đi qua miệng nối vào ống dạ dày chậm hoặc ứ đọng kéo dài khi có hẹp miệng nối hay liệt dạ dày sau cắt dây thần kinh phế vị, trong khi đoạn hẹp do hẹp sẹo thường gọn và bờ đều hơn u tái phát.<br>+ Trên cắt lớp vi tính ngực – bụng có tiêm thuốc cản quang, hẹp miệng nối do xơ sẹo thường có thành đều, không thấy khối mô mềm hay hạch vùng mới xuất hiện, trái ngược với khối choán chỗ hoặc dày thành khu trú gợi ý tái phát khối u.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Đối chiếu với co thắt tâm vị nguyên phát và các biến chứng sau phẫu thuật thực quản – dạ dày:<br>+ Khác với co thắt tâm vị nguyên phát có cơ thắt tâm vị không giãn trên thực quản nguyên vẹn, tình trạng ứ đọng sau phẫu thuật xảy ra trên cấu trúc giải phẫu đã cắt đoạn thực quản và tạo hình ống dạ dày, đồng thời có thể kèm rò miệng nối, hẹp miệng nối hoặc liệt dạ dày do cắt thần kinh phế vị.<br>+ Cạm bẫy thường gặp là dịch/thức ăn ứ đọng trong ống dạ dày hoặc nếp niêm mạc vùng miệng nối giả khối u, cần đối chiếu kỹ với mốc phẫu thuật, chụp cản quang có định giờ, cắt lớp vi tính và nội soi tiêu hóa khi nghi ngờ hẹp thực thể hoặc tái phát.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_CDR433428-scaled.jpg"><img src="co-that-tam-vi_anh/2015_09_CDR433428-scaled.jpg" alt="" width="1600" height="994" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_screenshot_1741193427-1.png"><img src="co-that-tam-vi_anh/2015_09_screenshot_1741193427-1.png" alt="" width="1093" height="527" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_screenshot_1741193436-1.png"><img src="co-that-tam-vi_anh/2015_09_screenshot_1741193436-1.png" alt="" width="1093" height="528" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_d4ac4cf2f7e597394677264cb73524_jumbo.jpg"><img src="co-that-tam-vi_anh/2015_09_d4ac4cf2f7e597394677264cb73524_jumbo.jpg" alt="" width="755" height="835" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_e6a33131166b745c5410ae70d7e3ac_jumbo.jpeg"><img src="co-that-tam-vi_anh/2015_09_e6a33131166b745c5410ae70d7e3ac_jumbo.jpeg" alt="" width="818" height="797" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_39c0a728c69a2624598961e21704fa_jumbo.jpeg"><img src="co-that-tam-vi_anh/2015_09_39c0a728c69a2624598961e21704fa_jumbo.jpeg" alt="" width="858" height="928" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_876db85666345de99acc8ce3219ea4_jumbo.jpeg"><img src="co-that-tam-vi_anh/2015_09_876db85666345de99acc8ce3219ea4_jumbo.jpeg" alt="" width="973" height="972" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_123-1-2.jpg"><img src="co-that-tam-vi_anh/2015_09_123-1-2.jpg" alt="" width="1500" height="1800" loading="lazy" decoding="async"></a></div>
+<h3 id="4-co-that-thuc-quan">4. Co thắt thực quản</h3>
+<p><span class="c-xanh">– Co thắt thực quản lan tỏa hay co thắt thực quản đoạn xa (diffuse/distal esophageal spasm)</span> là rối loạn vận động thực quản nguyên phát hiếm gặp, đặc trưng bởi các cơn co thắt không nhu động hoặc co thắt sớm bất thường ở đoạn xa thực quản:<br>+ Khác với co thắt tâm vị nguyên phát có tình trạng cơ thắt thực quản dưới không giãn kéo dài và giãn thân thực quản mạn tính, bệnh lý này biểu hiện chính bằng rối loạn phối hợp co bóp ở đoạn xa thực quản và thường giãn thực quản nhẹ hoặc không giãn.<br>+ Chẩn đoán xác định dựa trên đo áp lực thực quản độ phân giải cao (ghi nhận các cơn co thắt sớm/nhanh ở đoạn xa thực quản), trong khi chụp thực quản cản quang giúp phát hiện bất thường hình thái và loại trừ tổn thương hẹp thực thể.</p>
+<p><span class="c-xanh">– Dịch tễ và biểu hiện lâm sàng:</span> Bệnh ít gặp, thường xuất hiện ở người lớn tuổi (thường &gt; 50 tuổi nhưng có thể gặp ở mọi lứa tuổi), biểu hiện bằng đau ngực không do tim hoặc khó nuốt:<br>+ Đau ngực không do tim và khó nuốt có thể khởi phát không liên tục và dễ nhầm lẫn với đau thắt ngực hoặc khó nuốt do co thắt tâm vị.<br>+ Tỷ lệ co thắt thực quản đoạn xa chiếm tỷ lệ nhỏ trong các trường hợp đau ngực không do tim hoặc khó nuốt nói chung.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Chụp thực quản cản quang có thể bình thường ở một tỷ lệ đáng kể trường hợp hoặc bộc lộ rối loạn vận động đoạn xa thực quản:<br>+ Khoảng 60% trường hợp có bất thường trên phim chụp thực quản cản quang, phần còn lại có thể bình thường khi ghi hình ngoài cơn co thắt.<br>+ Hình ảnh thực quản xoắn ốc hoặc thực quản tràng hạt tạo nên do nhu động lan truyền bình thường bị gián đoạn bởi các vòng co thắt cơ vòng dày lên tạo khía ngang ở phần thấp thực quản, gặp ở &lt; 5% trường hợp.<br>+ Các cơn co thắt không nhu động hoặc đẩy thuốc cản quang hai hướng (lên trên và xuống dưới) có thể là dấu hiệu đơn độc duy nhất quan sát được trên chiếu tăng sáng truyền hình.<br>+ Túi thừa giả hoặc phình lồi thành thực quản có thể xuất hiện ở đoạn xa do tăng áp lực cục bộ trong lòng thực quản.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Đối chiếu trực tiếp với co thắt tâm vị nguyên phát trên hình ảnh và cơ chế vận động:<br>+ Co thắt tâm vị nguyên phát nổi bật với giãn thân thực quản rõ rệt, thuôn nhọn đồng tâm dạng mỏ chim hoặc đuôi chuột tại tâm vị và mất hoàn toàn nhu động đẩy, trong khi co thắt thực quản đoạn xa có các vòng co thắt phân đoạn hoặc đẩy thuốc hai hướng không tạo thuôn hẹp tâm vị cố định kéo dài.<br>+ Cần phân biệt với co thắt thực quản thứ phát do trào ngược dạ dày – thực quản, hẹp thực quản hoặc tắc nghẽn cơ học đoạn xa vì co thắt thứ phát có thể bắt chước rối loạn vận động trên cản quang.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_images_09_07_3747_01a.jpeg"><img src="co-that-tam-vi_anh/2015_09_images_09_07_3747_01a.jpeg" alt="" width="924" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_images_09_07_3747_02a.jpeg"><img src="co-that-tam-vi_anh/2015_09_images_09_07_3747_02a.jpeg" alt="" width="925" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_images_09_07_3747_03a.jpeg"><img src="co-that-tam-vi_anh/2015_09_images_09_07_3747_03a.jpeg" alt="" width="915" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_corkscrew-oesophagus-4-1.png"><img src="co-that-tam-vi_anh/2015_09_corkscrew-oesophagus-4-1.png" alt="" width="482" height="855" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_diffuse-oesophageal-spasm-3-1-scaled.jpg"><img src="co-that-tam-vi_anh/2015_09_diffuse-oesophageal-spasm-3-1-scaled.jpg" alt="" width="1449" height="2560" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_diffuse-oesophageal-spasm-5-1-scaled.jpg"><img src="co-that-tam-vi_anh/2015_09_diffuse-oesophageal-spasm-5-1-scaled.jpg" alt="" width="1473" height="2560" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_diffuse-oesophageal-spasm-corkscrew-oesophagus.jpeg"><img src="co-that-tam-vi_anh/2015_09_diffuse-oesophageal-spasm-corkscrew-oesophagus.jpeg" alt="" width="545" height="817" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-550.jpg"><img src="co-that-tam-vi_anh/2015_09_2-550.jpg" alt="" width="1452" height="2092" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-563.jpg"><img src="co-that-tam-vi_anh/2015_09_1-563.jpg" alt="" width="1600" height="2229" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-539-scaled.jpg"><img src="co-that-tam-vi_anh/2015_09_3-539-scaled.jpg" alt="" width="1473" height="2560" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-475-scaled.jpg"><img src="co-that-tam-vi_anh/2015_09_4-475-scaled.jpg" alt="" width="1351" height="2560" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-122.png"><img src="co-that-tam-vi_anh/2015_09_1-122.png" alt="" width="608" height="854" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-130.png"><img src="co-that-tam-vi_anh/2015_09_2-130.png" alt="" width="706" height="856" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-120.png"><img src="co-that-tam-vi_anh/2015_09_3-120.png" alt="" width="429" height="857" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_4-100.png"><img src="co-that-tam-vi_anh/2015_09_4-100.png" alt="" width="482" height="855" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_5-89.png"><img src="co-that-tam-vi_anh/2015_09_5-89.png" alt="" width="441" height="859" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="co-that-tam-vi_anh/2015_09_1-533.jpeg"><img src="co-that-tam-vi_anh/2015_09_1-533.jpeg" alt="" width="503" height="815" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_2-530.jpeg"><img src="co-that-tam-vi_anh/2015_09_2-530.jpeg" alt="" width="523" height="815" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_09_3-520.jpeg"><img src="co-that-tam-vi_anh/2015_09_3-520.jpeg" alt="" width="545" height="817" loading="lazy" decoding="async"></a></div>
+<h3 id="5-viem-thuc-quan">5. Viêm thực quản</h3>
+<p><strong><span class="c-xanh">* Viêm thực quản do chất ăn mòn (Caustic Esophagitis / Corrosive esophagitis):</span> </strong></p>
+<p>– Tổn thương thành thực quản do nuốt phải hóa chất ăn mòn mạnh (như kiềm mạnh hoặc axit mạnh):<br>+ Mức độ hoại tử và tổn thương phụ thuộc vào bản chất hóa chất, nồng độ, thể tích nuốt vào và thời gian tiếp xúc với niêm mạc thực quản.<br>+ Dung dịch kiềm thường gây hoại tử hóa lỏng xuyên thành mạnh hơn ở thực quản, trong khi axit có xu hướng gây hoại tử đông kết và tạo vảy cứng, dù cả hai đều có thể gây thủng thực quản hoặc hẹp thứ phát.</p>
+<p><span class="c-xanh">– Nguyên nhân:</span> Chủ yếu do nuốt nhầm hóa chất tẩy rửa/ăn mòn hoặc tự sát/cố ý nuốt hóa chất:<br>+ Nuốt tình cờ thường gặp ở trẻ em do tò mò hoặc bảo quản hóa chất không an toàn.<br>+ Nuốt cố ý thường gặp ở thanh thiếu niên hoặc người lớn, thường có bệnh cảnh tâm thần kèm theo và tổn thương nặng hơn do lượng nuốt lớn.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Khởi phát cấp tính với đau rát dữ dội ở miệng, họng, sau xương ức hoặc thượng vị, kèm khó nuốt, đau khi nuốt, tăng tiết nước bọt và nôn:<br>+ Các trường hợp nặng có thể xuất hiện nôn ra máu, dấu hiệu viêm trung thất hoặc viêm phúc mạc khi thủng thực quản – dạ dày, và suy hô hấp do phù nề thanh quản hoặc hít sặc hóa chất.</p>
+<p><span class="c-xanh">– Phân loại:</span> Diễn tiến mô bệnh học và tổn thương chia thành ba giai đoạn theo thời gian:<br>+ Giai đoạn cấp tính (trong 10 ngày đầu): đặc trưng bởi phù nề, viêm và hoại tử cấp tính, kèm mờ niêm mạc, giãn thực quản và giảm/mất trương lực thành thực quản.<br>+ Giai đoạn bán cấp (10–20 ngày): hoại tử bong tróc và loét thực quản chiếm ưu thế, mô hạt bắt đầu hình thành trên nền thành thực quản còn yếu và dễ thủng.<br>+ Giai đoạn mạn tính (sau 21 ngày): quá trình tái tạo mô và xơ hóa sẹo tiến triển, dẫn đến co rút và hẹp thực quản mạn tính.</p>
+<figure><a class="o-anh" href="co-that-tam-vi_anh/2015_08_screenshot_1741144065-1.png"><img src="co-that-tam-vi_anh/2015_08_screenshot_1741144065-1.png" alt="" width="1092" height="529" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Biến đổi theo từng giai đoạn bệnh lý và lựa chọn chất cản quang phù hợp để bảo đảm an toàn:<br>+ Giai đoạn cấp tính ưu tiên dùng thuốc cản quang tan trong nước (tránh Barium nếu nguy cơ thủng hoặc rò), ghi nhận phù nề niêm mạc, ổ loét nông/sâu, bong tróc niêm mạc, lòng thực quản thu hẹp với viền không đều, giãn mất trương lực hoặc dấu hiệu thủng/rò ra trung thất.<br>+ Giai đoạn bán cấp có hình ảnh tương tự giai đoạn cấp tính, có thể kèm co thắt hẹp thực quản trên nền thành thực quản còn nhạy cảm với biến chứng thủng.<br>+ Giai đoạn mạn tính có thể dùng thuốc cản quang Barium sau khi loại trừ thủng/rò, thấy đoạn hẹp dài liên tục hoặc hẹp nhiều đoạn ở 1/3 giữa và 1/3 dưới thực quản, bờ có thể nhẵn hoặc không đều/lệch tâm, kèm túi thừa giả, phình thành hoặc kéo dạ dày lên ngực do rút ngắn thực quản.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Đối chiếu với co thắt tâm vị nguyên phát trên bệnh sử, hình thái đoạn hẹp và động học thực quản:<br>+ Viêm thực quản do chất ăn mòn có bệnh sử nuốt hóa chất ăn mòn, khởi phát cấp tính và tiến triển hẹp xơ sẹo dài hoặc đa ổ (thường kèm rút ngắn thực quản ở giai đoạn mạn), khác với co thắt tâm vị nguyên phát diễn tiến mạn tính do mất nhu động và không giãn cơ thắt tâm vị với đoạn hẹp ngắn đồng tâm vùng tâm vị.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="co-that-tam-vi_anh/2015_08_corrosive-oesophagitis-1-1-1.jpg"><img src="co-that-tam-vi_anh/2015_08_corrosive-oesophagitis-1-1-1.jpg" alt="" width="1600" height="1720" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_corrosive-oesophagitis-1-2.jpg"><img src="co-that-tam-vi_anh/2015_08_corrosive-oesophagitis-1-2.jpg" alt="" width="1600" height="1673" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_corrosive-oesophagitis-2.jpeg"><img src="co-that-tam-vi_anh/2015_08_corrosive-oesophagitis-2.jpeg" alt="" width="404" height="620" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_caustic-esophageal-stricture.png"><img src="co-that-tam-vi_anh/2015_08_caustic-esophageal-stricture.png" alt="" width="251" height="591" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_chronic-corrosive-oesophagitis-1-1.jpg"><img src="co-that-tam-vi_anh/2015_08_chronic-corrosive-oesophagitis-1-1.jpg" alt="" width="883" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_corrosive-oesophageal-stricture-1.jpg"><img src="co-that-tam-vi_anh/2015_08_corrosive-oesophageal-stricture-1.jpg" alt="" width="953" height="1800" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="co-that-tam-vi_anh/2015_08_1-1168.jpg"><img src="co-that-tam-vi_anh/2015_08_1-1168.jpg" alt="" width="586" height="669" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_2-1162.jpg"><img src="co-that-tam-vi_anh/2015_08_2-1162.jpg" alt="" width="658" height="668" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_3-1127.jpg"><img src="co-that-tam-vi_anh/2015_08_3-1127.jpg" alt="" width="644" height="666" loading="lazy" decoding="async"></a><a class="o-anh" href="co-that-tam-vi_anh/2015_08_4-975.jpg"><img src="co-that-tam-vi_anh/2015_08_4-975.jpg" alt="" width="644" height="665" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Viêm thực quản do bức xạ (Radiation-induced esophagitis)</strong></span></p>
+<p>– Tổn thương thực quản do tác dụng gây độc tế bào của bức xạ ion hóa trong xạ trị vùng cổ, ngực hoặc trung thất, dẫn đến các biểu hiện cấp tính và/hoặc mạn tính:<br>+ Mức độ tổn thương phụ thuộc vào tổng liều xạ, phân liều, thể tích thực quản nằm trong chùm tia và phối hợp hóa trị đồng thời.</p>
+<p><span class="c-xanh">– Phân loại:</span> Chia theo mốc thời gian sau khởi đầu hoặc kết thúc liệu pháp xạ trị:<br>+ Viêm thực quản cấp tính: thường xuất hiện sau 2–4 tuần bắt đầu xạ trị và có thể kéo dài ≤ 3 tháng sau khi kết thúc xạ trị.<br>+ Viêm thực quản mạn tính: xuất hiện sau &gt; 3 tháng kể từ khi hoàn thành xạ trị do xơ hóa và tổn thương vi mạch tiến triển.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Biến đổi theo từng giai đoạn trên chụp thực quản cản quang và cắt lớp vi tính:<br>+ Giai đoạn cấp tính có thể bình thường trên hình ảnh ở nhiều trường hợp do tổn thương chủ yếu giới hạn ở lớp niêm mạc nông.<br>+ Khi có biểu hiện trên cản quang ở giai đoạn cấp tính, thường thấy rối loạn nhu động thực quản, viền lượn sóng do phù nề thành, bề mặt dạng hạt không có loét rõ, nhiều ổ loét nông nhỏ giới hạn trong trường chiếu xạ, bong tróc niêm mạc hoặc hẹp lòng thực quản cục bộ do co thắt và phù nề.<br>+ Thủng hoặc rò thực quản ở giai đoạn cấp tính hiếm gặp hơn nhưng cần lưu ý khi có đau ngực dữ dội hoặc tràn khí/dịch trung thất.<br>+ Giai đoạn muộn đặc trưng bởi đoạn hẹp xơ hóa dài, viền nhẵn và đồng tâm tương ứng đúng vùng chiếu xạ, kèm rối loạn nhu động kéo dài vĩnh viễn.<br>+ Ổ loét sâu tồn tại hoặc tiến triển ở giai đoạn muộn có nguy cơ gây rò thực quản – khí phế quản, rò thực quản – trung thất hoặc rò mạch máu lớn.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Đối chiếu với co thắt tâm vị nguyên phát trên hình ảnh và cơ chế:<br>+ Viêm thực quản do bức xạ có tiền sử xạ trị, hẹp dài theo vùng chiếu xạ và có thể biến chứng rò.<br>+ Co thắt tâm vị nguyên phát hẹp ngắn đồng tâm ở tâm vị, giãn thực quản do mất nhu động và không giãn cơ thắt.</p>
+<figure><a class="o-anh" href="co-that-tam-vi_anh/2015_08_screenshot_1741179643-1.png"><img src="co-that-tam-vi_anh/2015_08_screenshot_1741179643-1.png" alt="" width="1094" height="528" loading="lazy" decoding="async"></a></figure>
+<h2 id="vi-tien-luong-dieu-tri">VI. Tiên lượng &amp; Điều trị</h2>
+<h3 id="tien-luong">* Tiên lượng</h3>
+<p>– Tiên lượng phụ thuộc mức độ giãn thực quản, phân typ vận động và thời điểm can thiệp, với bệnh diễn tiến mạn tính không điều trị có thể dẫn đến suy kiệt, viêm phổi hít tái diễn và giãn thực quản dạng sigma khó hồi phục:<br>+ Theo phân loại Chicago (v4.0, 2021), typ II thường đáp ứng điều trị tốt nhất, trong khi typ III có tiên lượng đáp ứng kém hơn.<br>+ Thực quản dạng sigma giai đoạn muộn thường kém đáp ứng hơn và ít khả năng phục hồi khẩu kính bình thường.<br>+ Biến chứng muộn gồm trào ngược dạ dày – thực quản sau điều trị, viêm thực quản ứ đọng/nấm Candida và nguy cơ ung thư biểu mô tế bào vảy thực quản.</p>
+<h3 id="nguyen-tac-dieu-tri">* Nguyên tắc điều trị</h3>
+<p>– Mục tiêu điều trị là giảm áp lực cơ thắt thực quản dưới để cải thiện làm rỗng thực quản và kiểm soát triệu chứng (theo hướng dẫn ACG/ASGE/ISDE về quản lý co thắt tâm vị):<br>+ Nong bóng khí nén thực quản, phẫu thuật cắt cơ Heller và cắt cơ thực quản qua nội soi đường miệng (POEM) là các phương pháp điều trị hiệu quả chính.</p>
+<figure><a class="o-anh" href="co-that-tam-vi_anh/2015_09_454786_1_En_48_Fig2_HTML.png"><img src="co-that-tam-vi_anh/2015_09_454786_1_En_48_Fig2_HTML.png" alt="" width="1278" height="715" loading="lazy" decoding="async"></a></figure>
+<p>+ Phẫu thuật cắt cơ Heller thường kết hợp tạo van chống trào ngược (như tạo van Dor hoặc Toupet) để hạn chế trào ngược dạ dày – thực quản sau mổ.</p>
+<figure><a class="o-anh" href="co-that-tam-vi_anh/2015_09_Screenshot-2021-04-07-223724.png"><img src="co-that-tam-vi_anh/2015_09_Screenshot-2021-04-07-223724.png" alt="" width="1197" height="975" loading="lazy" decoding="async"></a></figure>
+<p>+ Lựa chọn giữa nong bóng, phẫu thuật Heller và POEM dựa vào phân typ bệnh, mức độ giãn/uốn khúc thực quản, biến chứng sau can thiệp và kinh nghiệm cơ sở.<br>+ Nong bằng ống thông thủy ngân khẩu kính to hoặc nong ép áp lực cao có nguy cơ thủng thực quản, chảy máu và viêm trung thất, còn điều trị nội khoa hoặc tiêm độc tố botulinum thường chỉ có hiệu quả ngắn hạn.</p>
+<h3 id="vai-tro-cdha">* Vai trò CĐHA</h3>
+<p>– Chẩn đoán hình ảnh hỗ trợ lập kế hoạch can thiệp, đánh giá đáp ứng điều trị và phát hiện sớm biến chứng sau can thiệp/phẫu thuật:<br>+ Chụp thực quản cản quang có định giờ và cắt lớp vi tính đánh giá mức độ giãn/gập khúc thực quản, loại trừ giả co thắt tâm vị trước can thiệp và đo chiều cao/chiều rộng cột thuốc cản quang sau điều trị.<br>+ Chụp thực quản cản quang (ưu tiên thuốc cản quang tan trong nước khi nghi rò) và cắt lớp vi tính ngực có thuốc cản quang phát hiện thủng thực quản, rò miệng nối/đường rò, tràn khí/dịch trung thất hoặc viêm phổi hít.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Esophagus – Part I- Terrence C. Demos, MD, Harold V. Posniak, MD, Wayde Nagamine<br><span class="c-xanh">* </span></em><em>Achalasia with Complete Relaxation of Lower Esophageal Sphincter – Raghu Amaravadi, Marc S. Levine, Stephen E. Rubesin<br>* Timed barium swallow in the assessment of esophageal emptying in patients with achalasia: How to do it and what to look for – M. A. Serrano, I. V. Toledo Coronado, D. Butrón Hernández<br>* Efficacy of Peroral Endoscopic Myotomy for Achalasia: Evaluation of Treatment Effect using Timed Barium Esophagography according to the Diameter of Lower Esophageal Sphincter – J.-J. Chung, J. H. Kim, E.-S. Cho, J.-S. Yu; Seoul/KR<br>* Primary versus secondary achalasia: New signs on barium esophagogram – Pankaj Gupta, Uma Debi, Saroj Kant Sinha, Kaushal Kishor Prasad<br>* Findings of Esophagography for 25 Patients After Peroral Endoscopic Myotomy for Achalasia – Jennifer L Levy, Marc S Levine, Stephen E Rubesin<br>* Utility of chest CT for differentiating primary and secondary achalasia – M Y Licurse, M S Levine, D A Torigian, E M Barbosa Jr<br>* Achalasia with Complete Relaxation of Lower Esophageal Sphincter: Radiographic-Manometric Correlation – Raghu Amaravadi, Marc S. Levine, Stephen E. Rubesin, Igor Laufer<br>* Diagnosis of Primary Versus Secondary Achalasia Reassessment of Clinical and Radiographic Criteria – Courtney A. Woodfield, Marc S. Levine, Stephen E. Rubesin<br>* CT and MRI of the Whole Body, 6e – John R. Haaga, MD<br></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

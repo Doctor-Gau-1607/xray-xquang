@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vi Sỏi Phế Nang</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>Vi Sỏi Phế Nang</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/vi-soi-phe-nang/" target="_blank" rel="noopener">Xray.vn — xray.vn/vi-soi-phe-nang</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Sỏi phế nang (pulmonary alveolar microlithiasis, PAM)</span> là bệnh phổi hiếm gặp, đặc trưng bởi các vi sỏi calci phosphat lắng đọng lan tỏa trong lòng phế nang.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Một số loạt ca ghi nhận tuổi phát hiện thường gặp là 4–9 ở Nhật Bản và 30–50 ở các nước phương Tây; bệnh có thể gặp ở nhiều lứa tuổi và chưa có ưu thế giới nhất quán. Phần lớn người bệnh không có triệu chứng hoặc chỉ biểu hiện nhẹ dù tổn thương hình ảnh lan rộng; sự không tương xứng giữa lâm sàng và hình ảnh là điểm thực hành quan trọng.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Bệnh liên quan đến đột biến mất chức năng hai alen gen SLC34A2, di truyền lặn trên nhiễm sắc thể thường:<br>+ Gen SLC34A2 mã hóa protein vận chuyển natri–phosphat NaPi-IIb ở tế bào biểu mô phế nang type II; rối loạn chức năng protein này làm giảm thải phosphat vào lòng phế nang.<br>+ Phosphat tích tụ kết hợp với calci, tạo thành các vi sỏi calci phosphat và tăng lắng đọng theo thời gian. Rối loạn chủ yếu khu trú tại phổi; nồng độ calci và phosphat huyết thường không tăng.</p>
+<figure><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_vi-soi-phe-nang-dai-cuong-ngang.jpg"><img src="vi-soi-phe-nang_anh/2016_08_vi-soi-phe-nang-dai-cuong-ngang.jpg" alt="Vi sỏi phế nang" width="1200" height="800" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Đặc điểm mô bệnh học:</span> Vi sỏi nằm và phát triển trong lòng phế nang, có cấu trúc nhiều lớp đồng tâm:<br>+ Vi sỏi thường có kích thước 0,01–0,03 mm, hình tròn, bầu dục hoặc không đều; gồm nhân trung tâm vô định hình và các lớp calci hóa bao quanh.<br>+ Ở giai đoạn sớm, vách phế nang có thể còn tương đối bảo tồn. Khi bệnh tiến triển, vách phế nang dày lên do xơ hóa mô kẽ; đôi khi có đại bào dị vật.</p>
+<p><span class="c-xanh">– Lâm sàng:</span><br>+ Khi có triệu chứng, người bệnh thường bị khó thở tăng dần, lúc đầu khi gắng sức, và ho khan. Khi tổn thương tiến triển, chức năng hô hấp có thể giảm kiểu hạn chế, kèm giảm khả năng khuếch tán carbon monoxide (DLCO).<br>+ Một số người bệnh tiến triển đến xơ hóa phổi, suy hô hấp mạn và tăng áp phổi, có thể kèm tím tái, ngón tay dùi trống và tâm phế mạn. Vi sỏi có thể tiếp tục hình thành và tăng kích thước, nhưng tốc độ tiến triển khác nhau giữa các người bệnh.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Đã có báo cáo người bệnh sống 48 năm sau chẩn đoán; đây là ghi nhận ở cá thể, không phải mốc tiên lượng chung.</p>
+<figure><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_Capture-1.jpg"><img src="vi-soi-phe-nang_anh/2016_08_Capture-1.jpg" alt="Vi sỏi phế nang" width="1500" height="486" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-chan-doan-x-quang">II. Chẩn đoán x-quang</h2>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Biểu hiện thay đổi theo mức độ lắng đọng vi sỏi trong phế nang và mô kẽ:<br>+ Đặc trưng là các vi nốt vôi hóa đậm độ cao, lan tỏa hai phổi, thường tương đối đối xứng và rõ ở vùng giữa, vùng dưới. Khi dày đặc, các nốt tạo hình ảnh bão cát (sandstorm appearance).<br>+ Nốt thường bờ rõ, kích thước dưới 1 mm; ở vùng thấp của phổi, đậm độ tổn thương có thể tăng hơn so với vùng cao.<br>+ Khi các nốt chồng lấp dày đặc, nhu mô phổi tạo đám mờ lan tỏa khá đồng nhất, làm mờ bờ tim và vòm hoành theo dấu hiệu xóa bờ (silhouette sign).</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Không khẳng định ưu thế đậm độ ở vùng thấp là do vi sỏi lắng theo trọng lực hoặc tưới máu đáy phổi; cơ chế của phân bố này chưa được xác lập chỉ từ hình ảnh X-quang.</p>
+<figure><a class="o-anh" href="vi-soi-phe-nang_anh/cover_article_2528_en_US.jpg"><img src="vi-soi-phe-nang_anh/cover_article_2528_en_US.jpg" alt="Nốt mờ =&gt; hình ảnh bão cát (mũi tên xanh) / Xoá bờ tim và cơ hoành phải (mũi tên đỏ)" width="1246" height="586" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Màng phổi có thể dày hoặc vôi hóa khi bệnh tiến triển:</span><br>+ Dấu hiệu đường màng phổi đen (black pleural line) là dải thấu quang mảnh giữa thành ngực và nhu mô phổi vôi hóa, có giá trị gợi ý PAM. Trên CLVT, dải này có thể tương ứng với các biến đổi dạng nang nhỏ dưới màng phổi hoặc một lớp tỷ trọng mỡ mỏng giữa xương sườn và nhu mô vôi hóa.<br>+ Dày hoặc vôi hóa màng phổi do di chứng lao thường khu trú, có thể kèm các dấu di chứng nhu mô; không giải thích được các vi nốt vôi hóa lan tỏa hai phổi của PAM.<br>+ Tràn dịch màng phổi khu trú thường tạo đám mờ dạng thấu kính ở ngoại vi, khác với dải thấu quang của đường màng phổi đen; siêu âm hoặc CLVT có thể xác định bản chất dịch.<br>+ Khi X-quang chưa đủ rõ, CLVT ngực lát mỏng giúp khảo sát phân bố vi sỏi và các biến đổi dưới màng phổi; đây là đánh giá hình thái, không phải quan sát trực tiếp ở cấp độ vi cấu trúc.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Đường màng phổi đen là dấu hiệu gợi ý, không đặc hiệu tuyệt đối; không nên quy dấu hiệu này chỉ cho dày màng phổi hoặc vôi hóa màng phổi.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_df1d195d1a499cbc404c4241eae2fe_jumbo.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_df1d195d1a499cbc404c4241eae2fe_jumbo.jpeg" alt="" width="928" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_16c4bd17b60288a2de187e59c558ed-2-scaled.jpg"><img src="vi-soi-phe-nang_anh/2016_08_16c4bd17b60288a2de187e59c558ed-2-scaled.jpg" alt="" width="1600" height="1489" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_1-1.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_1-1.jpeg" alt="" width="939" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_2-1.jpg"><img src="vi-soi-phe-nang_anh/2016_08_2-1.jpg" alt="" width="916" height="949" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_Chest-radiography-of-two-patients-with-pulmonary-alveolar-microlithiasis-a-Patient-1.jpg"><img src="vi-soi-phe-nang_anh/2016_08_Chest-radiography-of-two-patients-with-pulmonary-alveolar-microlithiasis-a-Patient-1.jpg" alt="" width="850" height="946" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_F1.large_.jpg"><img src="vi-soi-phe-nang_anh/2016_08_F1.large_.jpg" alt="" width="1600" height="1528" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_F1.large3_.jpg"><img src="vi-soi-phe-nang_anh/2016_08_F1.large3_.jpg" alt="" width="1280" height="1087" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_gr1.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_gr1.jpeg" alt="" width="1023" height="1023" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_lungs-ot-stone.jpg"><img src="vi-soi-phe-nang_anh/2016_08_lungs-ot-stone.jpg" alt="" width="1384" height="778" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_nihms798585f3.jpg"><img src="vi-soi-phe-nang_anh/2016_08_nihms798585f3.jpg" alt="" width="1025" height="514" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_1-3.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_1-3.jpeg" alt="" width="788" height="788" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_2-2.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_2-2.jpeg" alt="" width="787" height="788" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_3-2.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_3-2.jpeg" alt="" width="900" height="719" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_4-1.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_4-1.jpeg" alt="" width="718" height="707" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_1-3.jpg"><img src="vi-soi-phe-nang_anh/2016_08_1-3.jpg" alt="" width="1208" height="1039" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_2-4.jpg"><img src="vi-soi-phe-nang_anh/2016_08_2-4.jpg" alt="" width="690" height="561" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_3-3.jpg"><img src="vi-soi-phe-nang_anh/2016_08_3-3.jpg" alt="" width="705" height="566" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_4-3.jpg"><img src="vi-soi-phe-nang_anh/2016_08_4-3.jpg" alt="" width="701" height="558" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_5-2.jpg"><img src="vi-soi-phe-nang_anh/2016_08_5-2.jpg" alt="" width="683" height="567" loading="lazy" decoding="async"></a></div>
+<h2 id="iii-chan-doan-clvt">III. Chẩn đoán CLVT</h2>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Các dấu hiệu thay đổi theo mức độ lắng đọng vi sỏi và tổn thương mô kẽ:<br>+ Các vi nốt vôi hóa đậm độ cao, thường dưới 1 mm, lan tỏa hai phổi; có thể phân bố dưới màng phổi, quanh bó mạch–phế quản và dọc vách liên tiểu thùy. Tổn thương thường rõ ở các vùng sau của thùy dưới và vùng trước của thùy trên.<br>+ Đám mờ kính mờ (ground-glass opacity) có thể gặp, nhất là khi vi sỏi còn nhỏ hoặc chưa vôi hóa rõ. Kiểu hình lát đá (crazy-paving pattern) hình thành khi dày vách liên tiểu thùy và các đường trong tiểu thùy chồng lên nền kính mờ.<br>+ Vách liên tiểu thùy có thể dày và vôi hóa; trên cửa sổ trung thất, vôi hóa có thể thấy dọc theo các vách. Xơ hóa kẽ tiến triển có thể kèm dày dưới màng phổi, dạng lưới hoặc giãn phế quản co kéo.<br>+ Khí phế thũng cạnh vách và các nang nhỏ dưới màng phổi có thể xuất hiện dưới dạng vùng giảm đậm độ ngoại vi; không nên quy kết các dấu hiệu này mặc nhiên do tắc nghẽn tiểu phế quản.<br>+ Vôi hóa màng phổi có thể gặp khi tổn thương kẽ dưới màng phổi tiến triển, nhưng ít gặp ở lần chẩn đoán ban đầu. Đường màng phổi đen (black pleural line) có thể tương ứng trên CLVT với các biến đổi dạng nang nhỏ dưới màng phổi hoặc một dải tỷ trọng mỡ mỏng giữa xương sườn và nhu mô vôi hóa.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Kiểu hình lát đá không đặc hiệu cho PAM và không đồng nghĩa với ứ đọng phế nang; cần đánh giá cùng các vi nốt vôi hóa và phân bố tổn thương.<br>+ CLVT độ phân giải cao (HRCT) là phương tiện hình ảnh có giá trị nhất để phát hiện và đánh giá phạm vi tổn thương; lựa chọn liều thấp tùy chỉ định và cần bảo đảm chất lượng ảnh. CLVT mô tả hình thái, không quan sát trực tiếp vi sỏi ở cấp độ vi cấu trúc.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_1-s2.0-S1930043319301141-gr2_lrg.jpg"><img src="vi-soi-phe-nang_anh/2016_08_1-s2.0-S1930043319301141-gr2_lrg.jpg" alt="" width="1250" height="886" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_1-s2.0-S1930043319301141-gr3_lrg.jpg"><img src="vi-soi-phe-nang_anh/2016_08_1-s2.0-S1930043319301141-gr3_lrg.jpg" alt="" width="1333" height="841" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_Capture.jpg"><img src="vi-soi-phe-nang_anh/2016_08_Capture.jpg" alt="" width="1279" height="447" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_kjr-14-859-g001-l.jpg"><img src="vi-soi-phe-nang_anh/2016_08_kjr-14-859-g001-l.jpg" alt="" width="862" height="967" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_jrcr-10-1-14f2.jpg"><img src="vi-soi-phe-nang_anh/2016_08_jrcr-10-1-14f2.jpg" alt="" width="741" height="1018" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_F1.large_-1.jpg"><img src="vi-soi-phe-nang_anh/2016_08_F1.large_-1.jpg" alt="" width="1280" height="1087" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_778452.png"><img src="vi-soi-phe-nang_anh/2016_08_778452.png" alt="" width="722" height="660" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_678554.jpg"><img src="vi-soi-phe-nang_anh/2016_08_678554.jpg" alt="" width="572" height="384" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_678555.jpg"><img src="vi-soi-phe-nang_anh/2016_08_678555.jpg" alt="" width="537" height="336" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_1-4.jpg"><img src="vi-soi-phe-nang_anh/2016_08_1-4.jpg" alt="" width="484" height="342" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_F2.large_.jpg"><img src="vi-soi-phe-nang_anh/2016_08_F2.large_.jpg" alt="" width="1600" height="609" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_F3.large_.jpg"><img src="vi-soi-phe-nang_anh/2016_08_F3.large_.jpg" alt="" width="1600" height="1410" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_vi-soi-phe-nang.jpg"><img src="vi-soi-phe-nang_anh/2016_08_vi-soi-phe-nang.jpg" alt="" width="1033" height="362" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1: dấu hiệu màng phổi đen<br></span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_1.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_1.jpeg" alt="" width="527" height="299" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_2.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_2.jpeg" alt="" width="526" height="323" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_3.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_3.jpeg" alt="" width="513" height="347" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_4.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_4.jpeg" alt="" width="495" height="357" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_5.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_5.jpeg" alt="" width="478" height="371" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_6.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_6.jpeg" alt="" width="504" height="514" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2: dấu hiệu màng phổi đen<br></span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_1.jpg"><img src="vi-soi-phe-nang_anh/2016_08_1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_2.jpg"><img src="vi-soi-phe-nang_anh/2016_08_2.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_3.jpg"><img src="vi-soi-phe-nang_anh/2016_08_3.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_4.jpg"><img src="vi-soi-phe-nang_anh/2016_08_4.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_5.jpg"><img src="vi-soi-phe-nang_anh/2016_08_5.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_6.jpg"><img src="vi-soi-phe-nang_anh/2016_08_6.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_7.jpg"><img src="vi-soi-phe-nang_anh/2016_08_7.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_8.jpg"><img src="vi-soi-phe-nang_anh/2016_08_8.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_1-2.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_1-2.jpeg" alt="" width="897" height="895" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_2-1.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_2-1.jpeg" alt="" width="630" height="524" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_3-1.jpeg"><img src="vi-soi-phe-nang_anh/2016_08_3-1.jpeg" alt="" width="630" height="525" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_1-2.jpg"><img src="vi-soi-phe-nang_anh/2016_08_1-2.jpg" alt="" width="600" height="431" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_2-3.jpg"><img src="vi-soi-phe-nang_anh/2016_08_2-3.jpg" alt="" width="600" height="431" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_3-2.jpg"><img src="vi-soi-phe-nang_anh/2016_08_3-2.jpg" alt="" width="600" height="431" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_4-2.jpg"><img src="vi-soi-phe-nang_anh/2016_08_4-2.jpg" alt="" width="600" height="431" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_1-1.jpg"><img src="vi-soi-phe-nang_anh/2016_08_1-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_2-2.jpg"><img src="vi-soi-phe-nang_anh/2016_08_2-2.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_3-1.jpg"><img src="vi-soi-phe-nang_anh/2016_08_3-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_4-1.jpg"><img src="vi-soi-phe-nang_anh/2016_08_4-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_5-1.jpg"><img src="vi-soi-phe-nang_anh/2016_08_5-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_6-1.jpg"><img src="vi-soi-phe-nang_anh/2016_08_6-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-phan-biet">IV. Phân biệt</h2>
+<figure><a class="o-anh" href="vi-soi-phe-nang_anh/2016_08_F5.large_.jpg"><img src="vi-soi-phe-nang_anh/2016_08_F5.large_.jpg" alt="" width="1280" height="659" loading="lazy" decoding="async"></a></figure>
+<h3 id="bui-phoi-silic">* Bụi phổi silic</h3>
+<p><span class="c-xanh">– Bụi phổi silic (silicosis) là bệnh phổi kẽ xơ hóa do hít bụi silica tinh thể:</span><br>+ Nguy cơ nghề nghiệp gặp ở người khai thác, khoan, cắt hoặc mài đá; phun cát; khai khoáng, kể cả mỏ than khi có phơi nhiễm silica; sản xuất thủy tinh và gốm sứ.<br>+ Đại thực bào phế nang thực bào các hạt silica nhưng không loại bỏ được, dẫn đến tổn thương tế bào, viêm mạn và hình thành các nốt xơ hóa. Cơ chế này khác với vi sỏi calci phosphat lắng trong lòng phế nang ở sỏi phế nang.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Thể đơn thuần thường có nhiều nốt bờ rõ, tròn hoặc không đều, kích thước 1–10 mm, ưu thế thùy trên và có thể phân bố theo đường bạch huyết; nốt có thể vôi hóa.<br>+ Khi tiến triển thành xơ hóa khối tiến triển (progressive massive fibrosis, PMF), các nốt hợp lưu thành khối xơ hóa lớn hơn 1 cm, thường ở thùy trên, gây biến dạng cấu trúc phổi và giảm thể tích; đôi khi có hang.<br>+ Hạch rốn phổi hoặc trung thất có thể to, đôi khi vôi hóa ngoại vi dạng vỏ trứng (eggshell calcification).<br>+ Hội chứng Caplan (Caplan syndrome) là bệnh bụi phổi kèm viêm khớp dạng thấp, có thể biểu hiện bằng các nốt ngoại vi lớn, đôi khi hoại tử hoặc tạo hang.<br>+ Thể cấp tính (acute silicosis, silicoproteinosis) thường liên quan phơi nhiễm silica cường độ cao, gây tổn thương khoảng khí lan tỏa, có thể có kính mờ hoặc kiểu hình lát đá và giống bệnh protein phế nang.</p>
+<p><span class="c-xanh">– Phân biệt với sỏi phế nang:</span> Bụi phổi silic được ủng hộ bởi tiền sử phơi nhiễm nghề nghiệp, nốt ưu thế thùy trên theo phân bố quanh bạch huyết, hạch vôi hóa và/hoặc PMF; sỏi phế nang thường có vô số vi nốt vôi hóa trong phế nang lan tỏa hai phổi, thường rõ ở vùng giữa và dưới, không có bối cảnh phơi nhiễm silica. Hai bệnh có thể cùng biểu hiện bằng nốt phổi vôi hóa; CLVT ngực lát mỏng giúp đánh giá phân bố nốt, hạch và khối xơ hóa, nhưng cần đối chiếu với tiền sử nghề nghiệp.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_480004.png"><img src="vi-soi-phe-nang_anh/2016_05_480004.png" alt="" width="1600" height="824" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_480009.jpg"><img src="vi-soi-phe-nang_anh/2016_05_480009.jpg" alt="" width="1422" height="553" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_Silicosis_simple.jpg"><img src="vi-soi-phe-nang_anh/2016_05_Silicosis_simple.jpg" alt="" width="1516" height="1347" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_391949.png"><img src="vi-soi-phe-nang_anh/2016_05_391949.png" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_1-60.jpeg"><img src="vi-soi-phe-nang_anh/2016_05_1-60.jpeg" alt="" width="1280" height="935" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_2-58.jpeg"><img src="vi-soi-phe-nang_anh/2016_05_2-58.jpeg" alt="" width="1280" height="862" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_3-57.jpeg"><img src="vi-soi-phe-nang_anh/2016_05_3-57.jpeg" alt="" width="1280" height="1185" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_4-56.jpeg"><img src="vi-soi-phe-nang_anh/2016_05_4-56.jpeg" alt="" width="1280" height="912" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_614433.jpg"><img src="vi-soi-phe-nang_anh/2016_05_614433.jpg" alt="" width="725" height="585" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_614434.jpg"><img src="vi-soi-phe-nang_anh/2016_05_614434.jpg" alt="" width="843" height="702" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_614538.jpg"><img src="vi-soi-phe-nang_anh/2016_05_614538.jpg" alt="" width="880" height="703" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_614561.jpg"><img src="vi-soi-phe-nang_anh/2016_05_614561.jpg" alt="" width="859" height="768" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Cạm bẫy:</span> Vôi hóa hạch dạng vỏ trứng gợi ý bụi phổi silic nhưng không đặc hiệu tuyệt đối; dấu hiệu này cũng có thể gặp trong các bệnh khác. Không dùng riêng dấu hiệu này để phân biệt với sỏi phế nang.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_681459.jpg"><img src="vi-soi-phe-nang_anh/2016_05_681459.jpg" alt="" width="1460" height="504" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_5-48.jpeg"><img src="vi-soi-phe-nang_anh/2016_05_5-48.jpeg" alt="" width="1280" height="1083" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_6-18.jpeg"><img src="vi-soi-phe-nang_anh/2016_05_6-18.jpeg" alt="" width="1280" height="1178" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_7-2.jpeg"><img src="vi-soi-phe-nang_anh/2016_05_7-2.jpeg" alt="" width="1201" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_8-2.jpeg"><img src="vi-soi-phe-nang_anh/2016_05_8-2.jpeg" alt="" width="1280" height="1278" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2016_05_837925.jpg"><img src="vi-soi-phe-nang_anh/2016_05_837925.jpg" alt="" width="1500" height="657" loading="lazy" decoding="async"></a></div>
+<h3 id="viem-phoi-thuy-dau">* Viêm phổi thủy đậu</h3>
+<p><span class="c-xanh">– Viêm phổi thủy đậu (varicella pneumonia)</span> là biến chứng của nhiễm virus varicella-zoster (VZV), thường do virus lan theo đường máu đến phổi:<br>+ Nguy cơ cao hơn ở người lớn chưa có miễn dịch, người suy giảm miễn dịch, phụ nữ mang thai, người hút thuốc và người có bệnh phổi mạn.<br>+ Tổn thương mô học có thể gồm viêm kẽ, hoại tử biểu mô phế nang và tổn thương mao mạch; khác với sỏi phế nang là các vi sỏi calci phosphat lắng trong lòng phế nang.<br>+ Triệu chứng hô hấp thường xuất hiện trong vòng 1–6 ngày sau phát ban, nhưng đôi khi khởi phát trước ban; cần khai thác tiền sử tiếp xúc và phát ban dạng mụn nước.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Giai đoạn cấp thường có nhiều nốt mờ hai phổi, bờ không rõ, thường kích thước 5–10 mm, có thể hợp lưu thành đám đông đặc hoặc kèm kính mờ. Hạch rốn phổi và tràn dịch màng phổi lượng ít có thể gặp.<br>+ Tổn thương có thể giảm nhanh sau khi ban lui nhưng cũng có thể tồn tại nhiều tháng; diễn tiến hình ảnh này khác với vi sỏi vôi hóa dai dẳng của sỏi phế nang.<br>– Di chứng muộn: Viêm phổi thủy đậu đã lành có thể để lại các nốt vôi hóa nhỏ, thường khoảng 1–3 mm, rải rác hai phổi và có thể ưu thế vùng đáy; thường không kèm vôi hóa hạch.</p>
+<p><span class="c-xanh">– Phân biệt với sỏi phế nang:</span> Tiền sử thủy đậu từ nhiều năm trước và các nốt vôi hóa 1–3 mm gợi ý di chứng viêm phổi thủy đậu; sỏi phế nang thường có vô số vi nốt vôi hóa nhỏ hơn, phân bố lan tỏa trong phế nang, có thể kèm vôi hóa vách liên tiểu thùy hoặc biến đổi dạng nang dưới màng phổi. Hai bệnh có thể chồng lấp về hình ảnh nốt vôi hóa; cần đối chiếu bệnh sử, phim cũ và các dấu hiệu phối hợp, không dựa vào vôi hóa đơn độc.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Nốt vôi hóa lan tỏa không đặc hiệu cho sỏi phế nang; di chứng thủy đậu có thể xuất hiện nhiều năm sau đợt nhiễm và dễ bị bỏ sót tiền sử.<br>+ Khi bệnh sử và hình ảnh điển hình, CLVT ngực lát mỏng giúp đánh giá kích thước, phân bố và các dấu hiệu phối hợp, có thể hạn chế sinh thiết không cần thiết. Liều chụp cần tối ưu theo chỉ định; CLVT không xác định vi sỏi ở cấp độ vi cấu trúc.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="vi-soi-phe-nang_anh/2015_08_1-480.jpg"><img src="vi-soi-phe-nang_anh/2015_08_1-480.jpg" alt="" width="690" height="641" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2015_08_2-476.jpg"><img src="vi-soi-phe-nang_anh/2015_08_2-476.jpg" alt="" width="1600" height="1686" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2015_08_3-456.jpg"><img src="vi-soi-phe-nang_anh/2015_08_3-456.jpg" alt="" width="1600" height="1433" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="vi-soi-phe-nang_anh/2015_08_1-346.jpeg"><img src="vi-soi-phe-nang_anh/2015_08_1-346.jpeg" alt="" width="955" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2015_08_2-350.jpeg"><img src="vi-soi-phe-nang_anh/2015_08_2-350.jpeg" alt="" width="698" height="997" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2015_08_3-349.jpeg"><img src="vi-soi-phe-nang_anh/2015_08_3-349.jpeg" alt="" width="1017" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="vi-soi-phe-nang_anh/2015_08_1-481.jpg"><img src="vi-soi-phe-nang_anh/2015_08_1-481.jpg" alt="" width="454" height="505" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2015_08_2-477.jpg"><img src="vi-soi-phe-nang_anh/2015_08_2-477.jpg" alt="" width="492" height="600" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2015_08_3-457.jpg"><img src="vi-soi-phe-nang_anh/2015_08_3-457.jpg" alt="" width="512" height="461" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2015_08_4-406.jpg"><img src="vi-soi-phe-nang_anh/2015_08_4-406.jpg" alt="" width="512" height="474" loading="lazy" decoding="async"></a><a class="o-anh" href="vi-soi-phe-nang_anh/2015_08_5-245.jpg"><img src="vi-soi-phe-nang_anh/2015_08_5-245.jpg" alt="" width="512" height="484" loading="lazy" decoding="async"></a></div>
+<h2 id="v-tien-luong-dieu-tri">V. Tiên lượng &amp; Điều trị</h2>
+<p><span class="c-xanh">– Tiên lượng:</span> Diễn tiến thay đổi đáng kể giữa các người bệnh, thường chậm trong nhiều năm hoặc nhiều thập niên:<br>+ Giai đoạn sớm có thể ít triệu chứng dù tổn thương hình ảnh lan rộng; mức độ bất thường trên hình ảnh không luôn tương ứng với suy giảm chức năng hô hấp.<br>+ Một số người bệnh tiến triển đến xơ hóa phổi, giảm thông khí kiểu hạn chế, giảm khả năng khuếch tán, giảm oxy máu và tăng áp phổi; giai đoạn muộn có thể dẫn đến suy hô hấp mạn và tâm phế mạn. Chưa có mô hình tiên lượng đã được xác nhận để dự đoán chính xác diễn tiến ở từng người bệnh.</p>
+<p><span class="c-xanh">– Điều trị:</span><br>+ Hiện chưa có thuốc được chứng minh làm tan hoặc loại bỏ vi sỏi. Etidronate và các bisphosphonate khác, corticosteroid, sodium thiosulfate, hạn chế phosphat trong chế độ ăn và rửa toàn bộ phổi mới chỉ được khảo sát qua các báo cáo nhỏ, kết quả không nhất quán; không sử dụng thường quy. Rửa phế quản–phế nang không phải phương pháp điều trị loại bỏ vi sỏi.<br>+ Điều trị hỗ trợ gồm tiêm chủng theo khuyến cáo, ngừng hút thuốc, tránh phơi nhiễm bụi có hại, phục hồi chức năng hô hấp và bổ sung oxy khi có giảm oxy máu lúc nghỉ hoặc gắng sức. Phát hiện và xử trí các biến chứng tim phổi theo tình trạng lâm sàng.<br>+ Ghép phổi là phương pháp duy nhất đã chứng minh hiệu quả ở bệnh giai đoạn cuối. Cân nhắc chuyển đánh giá ghép khi chức năng hô hấp suy giảm tiến triển, nhu cầu oxy tăng, xơ hóa lan rộng hoặc xuất hiện tăng áp phổi; quyết định dựa trên đánh giá đa chuyên khoa và tiêu chuẩn chọn ứng viên ghép hiện hành. Vôi hóa nhu mô và dính màng phổi có thể làm phẫu thuật phức tạp hơn.</p>
+<p><span class="c-xanh">– Theo dõi:</span><br>+ Đánh giá triệu chứng, chức năng hô hấp gồm hô hấp ký và khả năng khuếch tán, oxy hóa máu và khả năng gắng sức; siêu âm tim khi nghi ngờ tăng áp phổi hoặc suy tim phải.<br>+ Theo dõi X-quang hoặc CLVT độ phân giải cao khi kết quả có khả năng ảnh hưởng đến đánh giá tiến triển hoặc xử trí; chọn thời điểm và liều chụp phù hợp, không có khoảng chụp định kỳ chuẩn được xác lập riêng cho PAM.<br>+ Trước khi đánh giá ghép phổi, đối chiếu CLVT với chức năng hô hấp, mức độ giảm oxy máu và đánh giá tim phổi. Tư vấn di truyền có thể được cân nhắc cho người bệnh và gia đình khi xác định biến thể gây bệnh SLC34A2.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Sỏi phế nang – PGS.TS Phạm Ngọc Hoa<br>* Pulmonary alveolar microlithiasis presenting with crazy- paving pattern on high resolution CT – E L GASPARETTO<br>* Pulmonary Alveolar Microlithiasis: A Case Report with Emphasis on Imaging Findings – Guilherme Abdalla<br>* Pulmonary alveolar microlithiasis diagnosed with radiography, CT, and bone scintigraphy – EmadAlkhankanMD<br>* Pulmonary Alveolar Microlithiasis – Clinico-Radiological dissociation – A case report with Radiological review – Sanjay Mhalasakant Khaladkar<br>* Pulmonary alveolar microlithiasis: review of the 1022 cases reported worldwide – Giuseppe Castellana, Giorgio Castellana, Mattia Gentile, Roberto Castellana, Onofrio Resta<br>* Pulmonary Alveolar Microlithiasis: AIRP Best Cases in Radiologic-Pathologic Correlation – Joseph A. Delic , Carl R. Fuhrman, Humberto E. Trejo Bittar<br>* Interlobular septal thickening at high-resolution computed tomography – I. Herr<br>* Pulmonary calcifications: Imaging features and differential diagnosis – L. Mazzamurro<br>* Chest-X-ray and HRCT findings in the diagnosis of pulmonary alveolar microlithiasis – M. Calabrese; Nocera Inferiore, SA/IT<br>* Diagnosis of Pulmonary Alveolar Microlithiasis, Can Imaging Alone Help? – D. Alhassan, S. Al Subaie, Z. Ahmed; Dhahran/SA<br>* Pulmonary alveolar microlithiasis – I. Willekens, B. Ilsen, J. de Mey; Brussels/BE<br>* CT and MRI of the Whole Body, 6e – John R. Haaga, MD<br></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

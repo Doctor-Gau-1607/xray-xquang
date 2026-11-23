@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Xơ Phổi</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>Xơ Phổi</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/xo-phoi/" target="_blank" rel="noopener">Xray.vn — xray.vn/xo-phoi</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Xơ phổi (pulmonary fibrosis)</span> là kiểu tổn thương của nhiều bệnh phổi mô kẽ, đặc trưng bởi sự tích tụ quá mức chất nền ngoại bào trong mô kẽ phổi, gây biến dạng cấu trúc, giảm độ giãn nở của phổi và cản trở trao đổi khí; bệnh có thể tiến triển đến suy hô hấp nhưng diễn tiến khác nhau tùy nguyên nhân và người bệnh.</p>
+<p><span class="c-xanh">– Dịch tễ:</span><br>+ IPF chủ yếu gặp ở người lớn tuổi. Trong tổng quan hệ thống và phân tích gộp 26 nghiên cứu, trung vị tuổi trung bình của các đoàn hệ là 70; tỷ lệ nam có trung vị 58%, dao động 34–73%.<br>+ Phân tích gộp năm 2025 ước tính tỷ lệ mắc mới IPF toàn cầu là 5,8 (KTC 95%: 4,8–6,8) ca/100.000 người/năm; tỷ lệ hiện mắc là 17,7 (KTC 95%: 14,0–21,5)/100.000 người.<br>+ Ước tính thay đổi theo khu vực: tỷ lệ mắc mới lần lượt khoảng 9,0 ở Bắc Mỹ, 5,1 ở châu Âu và 4,4 ở châu Á; tỷ lệ hiện mắc tương ứng khoảng 27,2, 14,6 và 14,8/100.000 người. Dị biệt giữa các nghiên cứu rất lớn do khác nhau về quần thể, định nghĩa ca bệnh và phương pháp xác định bệnh.</p>
+<p><span class="c-xanh">– Phân loại:</span><br>+ Xơ phổi vô căn (idiopathic pulmonary fibrosis, IPF) là bệnh phổi mô kẽ xơ hóa tiến triển không rõ nguyên nhân sau khi đã loại trừ các nguyên nhân đã biết. Viêm phổi kẽ thông thường (usual interstitial pneumonia, UIP) là kiểu hình hình ảnh học hoặc mô bệnh học, không đồng nghĩa với chẩn đoán IPF. “Viêm xơ phế nang vô căn” (cryptogenic fibrosing alveolitis) là tên gọi lịch sử, hiện không phải thuật ngữ ưu tiên. IPF có tiên lượng xấu nhưng diễn tiến thay đổi; thuốc chống xơ hóa như pirfenidone và nintedanib có thể làm chậm suy giảm chức năng phổi.<br>+ Xơ phổi do nguyên nhân xác định, trước đây thường gọi là xơ phổi thứ phát, có thể liên quan đến bệnh mô liên kết như xơ cứng bì hoặc viêm khớp dạng thấp; phơi nhiễm nghề nghiệp, bệnh bụi phổi, viêm phổi quá mẫn, thuốc, xạ trị, bệnh phổi liên quan hút thuốc hoặc di chứng sau một số nhiễm trùng nặng. Bệnh phổi mô kẽ (interstitial lung disease, ILD) là thuật ngữ bao quát nhóm bệnh này; “bệnh nhu mô phổi lan tỏa” (diffuse parenchymal lung disease, DPLD) là thuật ngữ từng được dùng gần nghĩa nhưng không hoàn toàn đồng nhất trong mọi tài liệu.</p>
+<figure><a class="o-anh" href="xo-phoi_anh/2015_09_thoraxjnl-2011-March-66-3-226-F4.large_.jpg"><img src="xo-phoi_anh/2015_09_thoraxjnl-2011-March-66-3-226-F4.large_.jpg" alt="Xơ phổi" width="1600" height="508" loading="lazy" decoding="async"></a></figure>
+<h2 id="ii-sinh-ly-benh">II. Sinh lý bệnh</h2>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> IPF được cho là liên quan đến tổn thương lặp lại của biểu mô phế nang và quá trình sửa chữa bất thường ở người có cơ địa nhạy cảm, dẫn đến hoạt hóa nguyên bào sợi và lắng đọng quá mức chất nền ngoại bào; bệnh không đơn thuần là viêm phế nang kéo dài.</p>
+<p><span class="c-xanh">– Đặc điểm mô bệnh học:</span><br>+ UIP có tính không đồng nhất về không gian và thời gian; các vùng xơ hóa thường xen kẽ với vùng nhu mô tương đối bảo tồn, ưu thế dưới màng phổi và cạnh vách.<br>+ Có thể thấy các ổ nguyên bào sợi (fibroblast foci) cạnh vùng xơ hóa giàu collagen.<br>+ Khi cấu trúc phổi bị tái cấu trúc nặng, có thể hình thành các khoang dạng tổ ong (honeycombing), thành xơ và thường được lót bởi biểu mô kiểu tiểu phế quản (bronchiolization). Mức độ tổn thương thay đổi giữa các vùng phổi.</p>
+<h2 id="iii-dac-diem-lam-sang">III. Đặc điểm lâm sàng</h2>
+<p><span class="c-xanh">– Triệu chứng và dấu hiệu:</span><br>+ Thường gặp khó thở tăng dần khi gắng sức và ho khan kéo dài.<br>+ Ran nổ mịn thì hít vào ở hai đáy phổi thường gặp; ngón tay dùi trống có thể xuất hiện nhưng không đặc hiệu.<br>+ Mệt mỏi và sụt cân có thể gặp, nhất là khi bệnh tiến triển; đau ngực và khó chịu là biểu hiện không đặc hiệu.</p>
+<p><span class="c-xanh">– Chức năng phổi:</span><br>+ Kết quả có thể còn bình thường ở giai đoạn nhẹ.<br>+ Thường có rối loạn thông khí hạn chế, với giảm dung tích sống gắng sức và tổng dung tích phổi. Thể tích cặn có thể tương đối được bảo tồn; khí phế thũng phối hợp có thể làm thay đổi kiểu rối loạn thông khí.<br>+ Khả năng khuếch tán carbon monoxide thường giảm, đôi khi từ giai đoạn sớm nhưng không đặc hiệu; giảm bão hòa oxy khi gắng sức có thể gặp.</p>
+<p><span class="c-xanh">– Yếu tố liên quan:</span><br>+ Hút thuốc có liên quan đến IPF nhưng không đặc hiệu. Tỷ lệ người bệnh có tiền sử hút thuốc được báo cáo khoảng 60% trong một số quần thể, thay đổi theo định nghĩa ca bệnh và không thể áp dụng đồng nhất cho mọi nhóm bệnh nhân.<br>+ Tiền sử gia đình mắc xơ phổi gợi ý yếu tố nhạy cảm di truyền; một số đoàn hệ đa trung tâm ghi nhận tiền sử này ở khoảng 20–25% bệnh nhân IPF, nhưng tỷ lệ thay đổi theo quần thể và cách xác định tiền sử gia đình.<br>+ Trào ngược dạ dày–thực quản có thể đồng mắc với IPF, nhưng chưa xác lập được đây là nguyên nhân hoặc yếu tố tiên lượng độc lập. Hướng dẫn ATS/ERS/JRS/ALAT năm 2022 khuyến nghị không dùng thuốc kháng acid hoặc phẫu thuật chống trào ngược chỉ với mục tiêu điều trị IPF.</p>
+<h2 id="iv-tieu-thuy-phoi-thu-cap">IV. Tiểu thùy phổi thứ cấp</h2>
+<p>– Tiểu thùy phổi thứ cấp (Secondary pulmonary lobule – SPL) là đơn vị cấu trúc nhỏ nhất của phổi được bao quanh bởi vách mô liên kết.<br>– Ở phổi người có khoảng 5000 tiểu thùy thứ cấp Miller.<br>– Hình tháp đa diện, đáy ở ngoại vi, đỉnh hướng về rốn phổi.<br>– Nó hình thành từ 3-15 chùm phế nang và có đường kính đáy 1-2,5cm.<br>– Trục của tiểu thùy thứ cấp được tạo thành bởi tiểu phế quản trung tâm tiểu thùy (central bronchiole) và tiểu động mạch trung tâm tiểu thùy (central arteriole).<br>– Tĩnh mạch và mạch bạch huyết nằm ở ngoại vi của tiểu thùy thứ cấp và nằm trong vách gian tiểu thùy.<br>– Có 2 hệ bạch huyết:<br>+ Hệ trung tâm: đi cùng nhánh mạch phế quản và phế quản vào trung tâm tiểu thùy.<br>+ Hệ ngoại vi: nằm ở vách gian tiểu thùy và dọc theo đường màng phổi.</p>
+<figure><a class="o-anh" href="xo-phoi_anh/2017_10_a5097976ca0add_sec-lob3.jpg"><img src="xo-phoi_anh/2017_10_a5097976ca0add_sec-lob3.jpg" alt="" width="856" height="493" loading="lazy" decoding="async"></a></figure>
+<h3 id="vach-gian-tieu-thuy">* Vách gian tiểu thùy</h3>
+<p>– Vỏ bọc của tiểu thùy phổi thứ cấp, chứa tĩnh mạch phổi và hệ bạch huyết.<br>– Là vị trí tổn thương hệ bạch huyết ngoại vi: Sarcoid, di căn, phù phổi.<br>– Nhánh tĩnh mạch phổi: thấy cách bề mặt màng phổi khoảng 1-2cm, cách động mạch trung tâm tiểu thùy 5-10mm.<br>– Bình thường có thể thấy ở vùng đỉnh trước, dọc theo bờ của màng phổi trung thất</p>
+<h3 id="trung-tam-tieu-thuy">* Trung tâm tiểu thùy</h3>
+<p>– Là vị trí tổn thương của các bệnh mà đường xâm nhập là đường thở:<br>+ Viêm phổi quá mẫn.<br>+ Viêm tiểu phế quản hô hấp.<br>+ Khí phế thũng trung tâm tiểu thùy.<br>– Tiểu động mạch: thấy được cách bề mặt màng phổi khoảng 5-10mm, hình chữ Y<br>– Tiểu phế quản hô hấp: thấy được cách bề mặt màng phổi 30mm<br>– Tổ chức kẽ quanh phế huyết quản: bình thường không thấy được</p>
+<figure><a class="o-anh" href="xo-phoi_anh/c9a91caef00146c79fd4d173640b4a03.jpg"><img src="xo-phoi_anh/c9a91caef00146c79fd4d173640b4a03.jpg" alt="c9a91caef00146c79fd4d173640b4a03" width="640" height="623" loading="lazy" decoding="async"></a></figure>
+<h3 id="chum-phe-nang">* Chùm phế nang</h3>
+<p>– Là cấu trúc tận của tiểu phế quản, kích thước khoảng 7mm, mỗi chùm phế nang có khoảng 400 phế nang, bình thường không thấy</p>
+<figure><a class="o-anh" href="xo-phoi_anh/8e691fe38630ec7d410653eb9d2f22_jumbo.jpeg"><img src="xo-phoi_anh/8e691fe38630ec7d410653eb9d2f22_jumbo.jpeg" alt="8e691fe38630ec7d410653eb9d2f22_jumbo" width="1024" height="950" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="v-chan-doan-x-quang">V. Chẩn đoán x-quang</h2>
+<p>– X-quang phổi thường có thể bình thường<br>– Có thể thấy hình ảnh lưới, nốt hoặc lưới – nốt kết hợp phân bố ngoại vi dưới màng phổi<br>– Tổn thương phân bố vùng nền phổi và phía các phân thùy phía sau<br>– Có thể kèm giãn phế nang, giãn phế quản<br>– Giảm thể tích phổi, thay đối kiến trúc phổi</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xo-phoi_anh/2015_09_58e3216502357399f002f9f18b3625_jumbo.jpeg"><img src="xo-phoi_anh/2015_09_58e3216502357399f002f9f18b3625_jumbo.jpeg" alt="" width="1009" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_7-67.jpeg"><img src="xo-phoi_anh/2015_09_7-67.jpeg" alt="" width="922" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_6-176.jpeg"><img src="xo-phoi_anh/2015_09_6-176.jpeg" alt="" width="913" height="855" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_5-336.jpeg"><img src="xo-phoi_anh/2015_09_5-336.jpeg" alt="" width="989" height="922" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_4-433.jpeg"><img src="xo-phoi_anh/2015_09_4-433.jpeg" alt="" width="963" height="937" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_3-501.jpg"><img src="xo-phoi_anh/2015_09_3-501.jpg" alt="" width="822" height="853" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_2-486.jpeg"><img src="xo-phoi_anh/2015_09_2-486.jpeg" alt="" width="1024" height="854" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_1-522.jpg"><img src="xo-phoi_anh/2015_09_1-522.jpg" alt="" width="982" height="962" loading="lazy" decoding="async"></a></div>
+<h2 id="vi-chan-doan-clvt">VI. Chẩn đoán CLVT</h2>
+<h3 id="1-ton-thuong-dang-luoi">1. Tổn thương dạng lưới</h3>
+<div class="bo-anh cot-4"><a class="o-anh" href="xo-phoi_anh/2017_10_1-1.jpg"><img src="xo-phoi_anh/2017_10_1-1.jpg" alt="Dày vách liên tiểu thùy" width="767" height="575" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2017_10_2-1.jpg"><img src="xo-phoi_anh/2017_10_2-1.jpg" alt="Dày mô kẽ trong tiểu thùy" width="770" height="575" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2017_10_3-1.jpg"><img src="xo-phoi_anh/2017_10_3-1.jpg" alt="Tổn thương xơ hóa" width="768" height="576" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2017_10_4-1.jpg"><img src="xo-phoi_anh/2017_10_4-1.jpg" alt="Tổn thương mô kẽ ngoại vi tiểu thùy" width="767" height="576" loading="lazy" decoding="async"></a></div>
+<p>– Do dịch kẽ, thâm nhiễm tế bào, xơ hóa =&gt; gây ra tổn tương dạng lưới do dày vách liên tiểu thùy.<br>– Tổn thương dạng đường, chiều dài 10-20 mm</p>
+<figure><a class="o-anh" href="xo-phoi_anh/2015_09_1-1620590623.jpg"><img src="xo-phoi_anh/2015_09_1-1620590623.jpg" alt="" width="900" height="588" loading="lazy" decoding="async"></a></figure>
+<p><strong><span class="c-xanh">* Phân loại:</span></strong><br><span class="c-xanh">– Dày vách liên tiểu thùy thể nhẵn / dày đều</span><br>+ Phù phổi cấp<br>+ Chảy máu phổi<br>+ U di căn đường bạch mạch<br>+ Nhiễm bột (amyloidosis), lắng đọng protein phế nang<br>+ Viêm phổi<br><span class="c-xanh">– Dày vách liên tiểu thùy thể nốt</span><br>+ U di căn đường bạch mạch<br>+ U hạt (Sarcoidosis), bệnh bụi phổi silic (Silicosis), nhiễm bột<br>+ Bệnh phổi có tăng sinh bạch cầu lympho (viêm phổi kẽ tăng sinh bạch cầu lympho)<br><span class="c-xanh">– Dày vách liên tiểu thùy thể hỗn hợp</span><br>+ Giai đoạn cuối của các bệnh phổi<br>+ Viêm phổi kẽ<br>+ U hạt (Sarcoidosis), bệnh bụi phổi amiang (Asbestosis)<br>+ Viêm phổi quá mẫn</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xo-phoi_anh/1-7.png"><img src="xo-phoi_anh/1-7.png" alt="" width="1110" height="766" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2-8.png"><img src="xo-phoi_anh/2-8.png" alt="" width="895" height="794" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/3-5.png"><img src="xo-phoi_anh/3-5.png" alt="" width="1427" height="774" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/4-3.png"><img src="xo-phoi_anh/4-3.png" alt="" width="1416" height="796" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/5-4.png"><img src="xo-phoi_anh/5-4.png" alt="" width="1055" height="833" loading="lazy" decoding="async"></a></div>
+<h3 id="2-ton-thuong-to-ong">2. Tổn thương tổ ong</h3>
+<p>– Sự hiện diện của các khoang dạng nang nhỏ được lót bởi biểu mô tiểu phế quản với thành dày có bản chất là mô xơ. Hậu quả của xơ hóa và biến dạng các cấu trúc của tiểu thùy phổi thứ cấp.<br>– Là dấu hiệu điển hình của viêm phổi mô kẽ thông thường.<br>– Định nghĩa của Hiệp hội Fleischner là “các khoảng không khí dạng nang tập trung, thường có đường kính tương đương khoảng 3–10 mm nhưng đôi khi lớn tới 2,5 cm. Tổ ong thường ở dưới màng phổi và được đặc trưng bởi thành được xác định rõ.</p>
+<figure><a class="o-anh" href="xo-phoi_anh/2015_09_3-1621072855.jpg"><img src="xo-phoi_anh/2015_09_3-1621072855.jpg" alt="" width="900" height="763" loading="lazy" decoding="async"></a></figure>
+<p>– Trên CT hình ảnh tổ ong được xác định là những khoảng chứa khí từ 3-10mm ở dưới màng phổi.<br>– Hình ảnh tổ ong có thể gặp ở cả giai đoạn cuối của sarcodoisis, NSIP, viêm phổi quá mẫn.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xo-phoi_anh/2017_10_bg2.jpg"><img src="xo-phoi_anh/2017_10_bg2.jpg" alt="" width="1585" height="905" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_824979.jpg"><img src="xo-phoi_anh/2015_09_824979.jpg" alt="" width="1024" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_Capture-22.png"><img src="xo-phoi_anh/2015_09_Capture-22.png" alt="" width="1015" height="592" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_713220.jpg"><img src="xo-phoi_anh/2015_09_713220.jpg" alt="" width="1600" height="613" loading="lazy" decoding="async"></a></div>
+<h3 id="3-ton-thuong-kinh-mo">3. Tổn thương kính mờ</h3>
+<p>– Khoang phế nang bị lấp đầy mủ, dịch phù, chảy máu, viêm hoặc tế bào u hay dày khoảng kẽ hoặc thành phế nang =&gt; biểu hiện của bệnh lý phế nang hoặc bệnh lý phổi kẽ.<br><span class="c-xanh">– Hình thái tổn thương:</span><br>+ Cấp tính: phù phổi, suy tim, chảy máu phổi, viêm phổi, viêm phổi tăng Eosinophil cấp<br>+ Mạn tính: viêm phổi mô kẽ do quá mẫn, viêm phổi tổ chức hóa, viêm phổi tăng bạch cầu ái toan mạn tính, viêm phổi mô kẽ, lắng đọng protein phế nang, ung thư biểu mô phế quản phế nang.<br><span class="c-xanh">–  Vị trí:</span><br>+ Ưu thế phía trên: viêm tiểu phế quản hô hấp, viêm phổi do Pneumocystic carinii<br>+ Ưu thế phía dưới: viêm phổi mô kẽ, xơ hóa phổi (UIP, NSIP)<br>+ Phân bố trung tâm tiểu thùy: viêm tiểu phế quản, viêm phổi quá mẫn<br><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Hình mờ mơ hồ, có phế quản và mạch máu bên dưới.<br>+ Bờ viền mờ<br>+ Có thể có kèm theo cấu trúc tổ chức đặc (u phổi)<br>+ Khí trong nhánh phế quản “đen hơn” khí trong phế nang xung quanh =&gt; Dấu hiệu “Dark bronchus”<br>+ Tổn thương kèm theo: hình mờ dạng lưới, hình mờ trung tâm tiểu thùy, hình mờ do xơ hóa</p>
+<figure><a class="o-anh" href="xo-phoi_anh/2017_10_index.jpg"><img src="xo-phoi_anh/2017_10_index.jpg" alt="" width="991" height="720" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xo-phoi_anh/2017_10_jklhuy.jpg"><img src="xo-phoi_anh/2017_10_jklhuy.jpg" alt="" width="1260" height="1010" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2017-10-10_23-21-33.png"><img src="xo-phoi_anh/2017-10-10_23-21-33.png" alt="" width="1202" height="711" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2017-10-10_23-22-01.png"><img src="xo-phoi_anh/2017-10-10_23-22-01.png" alt="" width="1153" height="660" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2017-10-10_23-22-26.png"><img src="xo-phoi_anh/2017-10-10_23-22-26.png" alt="" width="1193" height="649" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2017-10-10_23-22-51.png"><img src="xo-phoi_anh/2017-10-10_23-22-51.png" alt="" width="986" height="673" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/AirTrapping.jpg"><img src="xo-phoi_anh/AirTrapping.jpg" alt="" width="1013" height="508" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/archdischild-2005-June-90-6-601-F6.large_.jpg"><img src="xo-phoi_anh/archdischild-2005-June-90-6-601-F6.large_.jpg" alt="" width="910" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/JClinImagingSci_2011_1_1_32_82244_u11.jpg"><img src="xo-phoi_anh/JClinImagingSci_2011_1_1_32_82244_u11.jpg" alt="" width="1004" height="501" loading="lazy" decoding="async"></a></div>
+<h3 id="4-viem-phoi-ke-thong-thuong">4. Viêm phổi kẽ thông thường</h3>
+<p><span class="c-xanh"><strong>* Đặc điểm hình ảnh<br></strong></span>– Trong UIP giai đoạn đầu, X quang ngực có thể bình thường, trong khi ở bệnh tiến triển, thể tích phổi giảm và các đám mờ dạng lưới dưới màng phổi tăng từ đỉnh phổi đến đáy phổi.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xo-phoi_anh/2015_09_images_large_04_12_9253_10a.jpeg"><img src="xo-phoi_anh/2015_09_images_large_04_12_9253_10a.jpeg" alt="" width="675" height="681" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_images_large_04_12_9253_10b.jpeg"><img src="xo-phoi_anh/2015_09_images_large_04_12_9253_10b.jpeg" alt="" width="675" height="418" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_images_large_04_12_9253_10c.jpeg"><img src="xo-phoi_anh/2015_09_images_large_04_12_9253_10c.jpeg" alt="" width="675" height="417" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_images_large_04_12_9253_10d.jpeg"><img src="xo-phoi_anh/2015_09_images_large_04_12_9253_10d.jpeg" alt="" width="675" height="433" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_images_large_04_12_9253_10e.jpeg"><img src="xo-phoi_anh/2015_09_images_large_04_12_9253_10e.jpeg" alt="" width="675" height="907" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– CT tốt hơn chụp X quang trong việc mô tả các dấu hiệu điển hình của UIP.<br>– Tổn thương xơ hoá phân bố ở ngoại vi 2 phổi, dưới màng phổi, nổi bật ở 2 nền phổi, không quanh mạch máu phế quản. UIP thường xảy ra ở ngoại vi và thường liên quan đến đáy phổi, mặc dù một số mức độ liên quan đến thùy trên là điển hình. Đôi khi, UIP có thể chiếm ưu thế ở thùy trên, mặc dù phát hiện này luôn gợi ý khả năng có các chẩn đoán thay thế. Tuy nhiên, sự phân bố xơ hóa không ở ngoại vi rất không điển hình vì hơn 90% trường hợp UIP là xơ hóa ngoại biên chiếm ưu thế.<br>– Hình ảnh tổn thương dạng lưới kết hợp giãn phế quản do co kéo (traction bronchiectasis), kết hợp tổn thương dạng tổ ong. Tổ ong là chẩn đoán xơ hóa giai đoạn cuối và thường biểu hiện trên CT dưới dạng “các khoảng khí dạng nang tập trung, thường có đường kính tương đương khoảng 3–10 mm; tổ ong phát sinh ở các phần ngoại vi nhất của phổi. Tổ ong có tính gợi ý cao về UIP trên hình ảnh và xuất hiện ở hầu hết bệnh nhân mắc UIP.<strong><br></strong></span>– Tổn thương dạng kính mờ, không có tổn thương đông đặc. Mức độ mờ kính mờ đáng kể là không bình thường ở UIP ngoại trừ ở những bệnh nhân bị nhiễm trùng bội nhiễm, đợt cấp tính trầm trọng hoặc phù phổi. Nếu kính mờ xảy ra ở vùng phổi không xơ hóa thì nên xem xét tình trạng trầm trọng cấp tính, nhiễm trùng chồng chất hoặc hít sặc. Nếu tình cờ phát hiện một vùng đông đặc khu trú hoặc tổn thương dạng nốt trong vùng xơ hóa phổi thì cần phải theo dõi chặt chẽ vì xơ hóa phổi là yếu tố nguy cơ đáng kể cho sự phát triển của ung thư phổi, thường là ung thư biểu mô tế bào vảy hoặc ung thư biểu mô tuyến.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="xo-phoi_anh/2015_09_7-distribution.jpg"><img src="xo-phoi_anh/2015_09_7-distribution.jpg" alt="" width="900" height="477" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_images_large_04_12_9253_12a.jpeg"><img src="xo-phoi_anh/2015_09_images_large_04_12_9253_12a.jpeg" alt="" width="675" height="587" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_images_large_04_12_9253_12b.jpeg"><img src="xo-phoi_anh/2015_09_images_large_04_12_9253_12b.jpeg" alt="" width="675" height="602" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Xơ hóa gây co kéo xung quanh dẫn đến</span><br>+ Giảm thể tích phổi: thường thùy dưới, gặp trong giai đoạn nặng<br>+ Biến dạng kiến trúc phổi<br>+ Bề mặt mịn giữa khí – mô kẽ bình thường mất đi.</p>
+<figure><a class="o-anh" href="xo-phoi_anh/2015_09_2-1620591056.jpg"><img src="xo-phoi_anh/2015_09_2-1620591056.jpg" alt="" width="900" height="619" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xo-phoi_anh/2015_09_1-521.jpg"><img src="xo-phoi_anh/2015_09_1-521.jpg" alt="" width="630" height="629" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_2-514.jpg"><img src="xo-phoi_anh/2015_09_2-514.jpg" alt="" width="630" height="629" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_3-500.jpg"><img src="xo-phoi_anh/2015_09_3-500.jpg" alt="" width="630" height="629" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_4-448.jpg"><img src="xo-phoi_anh/2015_09_4-448.jpg" alt="" width="630" height="629" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_5-319.jpg"><img src="xo-phoi_anh/2015_09_5-319.jpg" alt="" width="630" height="629" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_6-136.jpg"><img src="xo-phoi_anh/2015_09_6-136.jpg" alt="" width="630" height="629" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_7-62.jpg"><img src="xo-phoi_anh/2015_09_7-62.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Kiểu hình viêm phổi kẽ thông thường<br></strong></span><span class="c-xanh">– Kiểu hình UIP xác định (Definite UIP pattern)</span><br>+ Xơ hóa ưu thế ở nền và dưới màng phổi<br>+ Không có đặc điểm không phù hợp với UIP trên CT<br>+ Thường phân bố không đồng nhất<br>+ Xuất hiện dạng tổ ong.<br>+ Ngoài những bệnh nhân mắc IPF, mẫu CT UIP xác định có thể được tìm thấy ở những bệnh nhân mắc bệnh mạch máu collagen, bệnh phổi nghề nghiệp, xơ phổi gia đình, viêm phổi quá mẫn (HP) hoặc xơ phổi liên quan đến thuốc.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xo-phoi_anh/2015_09_792283.jpg"><img src="xo-phoi_anh/2015_09_792283.jpg" alt="Giãn phế quản (màu hồng) / Hình tổ ong (màu xanh) / Hình lưới (màu vàng)" width="896" height="597" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_632463.jpg"><img src="xo-phoi_anh/2015_09_632463.jpg" alt="Tổn thương lưới (mũi tên xanh) / Hình tổ ong (mũi tên cam)" width="1600" height="673" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_632486.jpg"><img src="xo-phoi_anh/2015_09_632486.jpg" alt="" width="1600" height="794" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_609135.jpg"><img src="xo-phoi_anh/2015_09_609135.jpg" alt="" width="1086" height="516" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_838241.png"><img src="xo-phoi_anh/2015_09_838241.png" alt="" width="514" height="732" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_677819.jpg"><img src="xo-phoi_anh/2015_09_677819.jpg" alt="" width="1266" height="360" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_678084.jpg"><img src="xo-phoi_anh/2015_09_678084.jpg" alt="" width="1458" height="632" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_820412.jpg"><img src="xo-phoi_anh/2015_09_820412.jpg" alt="" width="1024" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_714267.jpg"><img src="xo-phoi_anh/2015_09_714267.jpg" alt="" width="716" height="539" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_792288.jpg"><img src="xo-phoi_anh/2015_09_792288.jpg" alt="" width="850" height="361" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_a1-6.png"><img src="xo-phoi_anh/2015_09_a1-6.png" alt="" width="842" height="619" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_713219.jpg"><img src="xo-phoi_anh/2015_09_713219.jpg" alt="" width="1600" height="434" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xo-phoi_anh/2015_09_1-484.jpeg"><img src="xo-phoi_anh/2015_09_1-484.jpeg" alt="" width="729" height="476" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_2-482.jpeg"><img src="xo-phoi_anh/2015_09_2-482.jpeg" alt="" width="653" height="474" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_3-473.jpeg"><img src="xo-phoi_anh/2015_09_3-473.jpeg" alt="" width="642" height="475" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_4-430.jpeg"><img src="xo-phoi_anh/2015_09_4-430.jpeg" alt="" width="737" height="525" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_5-334.jpeg"><img src="xo-phoi_anh/2015_09_5-334.jpeg" alt="" width="737" height="525" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Kiểu hình khả năng là UIP (Probable UIP pattern)</span><br>+ Xơ hóa ưu thế ở nền và dưới màng phổi với tổn thương dạng lưới và giãn phế quản<br>+ Không có đặc điểm không phù hợp với UIP trên CT<br>+ Thường phân bố không đồng nhất<br>+ Không có kiểu hình tổ ong.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xo-phoi_anh/2015_09_632465.png"><img src="xo-phoi_anh/2015_09_632465.png" alt="" width="1115" height="723" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_632487.png"><img src="xo-phoi_anh/2015_09_632487.png" alt="" width="1060" height="757" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_632488.jpg"><img src="xo-phoi_anh/2015_09_632488.jpg" alt="" width="1600" height="631" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_838244.png"><img src="xo-phoi_anh/2015_09_838244.png" alt="" width="565" height="681" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_778624.jpg"><img src="xo-phoi_anh/2015_09_778624.jpg" alt="" width="619" height="689" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_677824.jpg"><img src="xo-phoi_anh/2015_09_677824.jpg" alt="" width="1190" height="946" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_820414.jpg"><img src="xo-phoi_anh/2015_09_820414.jpg" alt="" width="1024" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_824981.jpg"><img src="xo-phoi_anh/2015_09_824981.jpg" alt="" width="974" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_792290.jpg"><img src="xo-phoi_anh/2015_09_792290.jpg" alt="" width="833" height="546" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_rt.png"><img src="xo-phoi_anh/2015_09_rt.png" alt="" width="964" height="547" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_a2-6.png"><img src="xo-phoi_anh/2015_09_a2-6.png" alt="" width="845" height="612" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xo-phoi_anh/2015_09_1-485.jpeg"><img src="xo-phoi_anh/2015_09_1-485.jpeg" alt="" width="870" height="634" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_2-483.jpeg"><img src="xo-phoi_anh/2015_09_2-483.jpeg" alt="" width="805" height="634" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_3-474.jpeg"><img src="xo-phoi_anh/2015_09_3-474.jpeg" alt="" width="865" height="678" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_4-431.jpeg"><img src="xo-phoi_anh/2015_09_4-431.jpeg" alt="" width="809" height="680" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Kiểu hình không rõ UIP (Indeterminate UIP pattern)<br></span>+ Xơ hóa ưu thế ở nền và dưới màng phổi<br>+ Không có đặc điểm không phù hợp với UIP trên CT<br>+ Kiểu hình lưới khó thấy với kính mờ nhẹ<br>+ Đặc điểm CT không phân loại được.<br>+ Phân loại “không phù hợp với UIP” ngụ ý rằng nên xem xét chẩn đoán thay thế cho UIP trên cơ sở sự hiện diện của một hoặc nhiều dấu hiệu CT sau: ưu thế trên hoặc giữa phổi, ưu thế quanh mạch máu quanh phế quản, mờ kính mờ rộng hơn là dạng lưới, nhiều nốt nhỏ, nhiều nang rời rạc không giống với tổ ong, tổn thương dạng khảm lan tỏa hoặc bẫy khí liên quan đến 3 phân thùy trở lên và cả hai bên và tổn thương đông đặc.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xo-phoi_anh/2015_09_820420.jpg"><img src="xo-phoi_anh/2015_09_820420.jpg" alt="" width="987" height="382" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_820421.jpg"><img src="xo-phoi_anh/2015_09_820421.jpg" alt="" width="1024" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_820422.jpg"><img src="xo-phoi_anh/2015_09_820422.jpg" alt="" width="1024" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_234.png"><img src="xo-phoi_anh/2015_09_234.png" alt="" width="1019" height="561" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="xo-phoi_anh/2015_09_1-486.jpeg"><img src="xo-phoi_anh/2015_09_1-486.jpeg" alt="" width="900" height="743" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_2-484.jpeg"><img src="xo-phoi_anh/2015_09_2-484.jpeg" alt="" width="826" height="721" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_3-475.jpeg"><img src="xo-phoi_anh/2015_09_3-475.jpeg" alt="" width="848" height="721" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Gợi ý chẩn đoán khác (Alternative diagnosis)</span><br>+ Nhưng khi tổn thương ưu thế ở vùng trên và giữa 2 phổi, phân bố quanh phế quản mạch máu, có tổn thương dạng kính mờ, tổn thương đông đặc (ngoài phần tổn thương dạng lưới) hoặc tổn thương dạng nốt nhỏ lan tỏa, hình ảnh đa kén (cyst) rời rạc ở 2 phổi hay có hình ảnh tổn thương dạng khảm hoặc hiện tượng bẫy khí cần tìm các nguyên nhân khác không phải xơ phổi vô căn.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xo-phoi_anh/2015_09_820423.jpg"><img src="xo-phoi_anh/2015_09_820423.jpg" alt="" width="1024" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_820424.jpg"><img src="xo-phoi_anh/2015_09_820424.jpg" alt="" width="1024" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_792294.jpg"><img src="xo-phoi_anh/2015_09_792294.jpg" alt="" width="907" height="353" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_images_large_ryct.2021200279.fig12.jpeg"><img src="xo-phoi_anh/2015_09_images_large_ryct.2021200279.fig12.jpeg" alt="" width="900" height="846" loading="lazy" decoding="async"></a></div>
+<p>+ Đặc điểm CT gợi ý bệnh lý khác: Amiang (vôi hóa màng phổi dạng mảng màng phổi), viêm khớp dạng thấp (đau khớp, ăn mòn khớp)…</p>
+<figure><a class="o-anh" href="xo-phoi_anh/2015_09_632492.jpg"><img src="xo-phoi_anh/2015_09_632492.jpg" alt="Amiang" width="1600" height="628" loading="lazy" decoding="async"></a></figure>
+<h3 id="5-mau-kieu-hinh-uip">5. Mẫu kiểu hình UIP</h3>
+<p><strong><span class="c-xanh">* Không phân bố dưới màng phổi – phân bố quanh phế quản<br></span></strong><span class="c-xanh">– Viêm phổi quá mẫn (Hypersensitivity </span><span class="c-xanh">pneumonitis)<br>+ </span>Đặc trưng là xơ hóa quanh phế quản, với kính mờ thay đổi, tỷ trọng dạng khảm.<br>+ Bẫy khí do tắc nghẽn đường thở nhỏ.<br>+ Có thể thấy nốt kính mờ trung tâm tiểu thùy ở giai đoạn bán cấp (không xơ hóa) của bệnh.<br>+ Xơ hóa có thể phân bố ngẫu nhiên hoặc lan tỏa ở vùng giữa và trên phổi.</p>
+<figure><a class="o-anh" href="xo-phoi_anh/2015_09_non-basal-1620680982.jpg"><img src="xo-phoi_anh/2015_09_non-basal-1620680982.jpg" alt="Kính mờ xung quanh phế quản và xơ hóa nhẹ thay đổi với kiểu hình khảm (A- B), bẫy khí (C)" width="900" height="545" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– U hạt (Sarcoidosis)</span><br>+ Xơ hóa điển hình ở quanh phế quản mao mạch ở vùng giữa, trên với biến dạng các cấu trúc và giãn phế quản co kéo trung tâm, kiểu hình lưới thay đổi và thậm chí kiểu hình tổ ong.<br>+ Giai đoạn sớm điển hình là hạch bệnh lý ở hai bên rốn phổi và trung thất. Giai đoạn muộn hạch thường có kích thước bình thường và thường có vôi hóa.</p>
+<figure><a class="o-anh" href="xo-phoi_anh/2015_09_sarcoid-1620681016.jpg"><img src="xo-phoi_anh/2015_09_sarcoid-1620681016.jpg" alt="Xơ hóa ưu thế ở đỉnh và quanh mạch máu phế quản, giãn phế quản lan tỏa." width="800" height="794" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"><strong>* Kiểu hình kính mờ và đông đặc</strong></span><strong><br></strong><span class="c-xanh">– Viêm phổi kẽ không đặc hiệu (nonspecific interstinal pneumonia – NSIP): k</span>iểu hình xơ phổi NSIP điển hình trong bệnh Sjögren, với xơ hóa thay đổi và kính mờ ở nền phổi kéo dài về trung tâm.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="xo-phoi_anh/2015_09_10-nsip-1621322252.jpg"><img src="xo-phoi_anh/2015_09_10-nsip-1621322252.jpg" alt="Xơ hóa thay đổi và kính mờ ở nền phổi kéo dài về trung tâm" width="1600" height="1206" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_713092.jpg"><img src="xo-phoi_anh/2015_09_713092.jpg" alt="" width="1600" height="665" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_713093.jpg"><img src="xo-phoi_anh/2015_09_713093.jpg" alt="" width="903" height="875" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="xo-phoi_anh/2015_09_images_large_04_12_9253_14a.jpeg"><img src="xo-phoi_anh/2015_09_images_large_04_12_9253_14a.jpeg" alt="" width="675" height="548" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_images_large_04_12_9253_14b.jpeg"><img src="xo-phoi_anh/2015_09_images_large_04_12_9253_14b.jpeg" alt="" width="675" height="529" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_images_large_04_12_9253_14c.jpeg"><img src="xo-phoi_anh/2015_09_images_large_04_12_9253_14c.jpeg" alt="" width="675" height="675" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Viêm khớp dạng thấp (RA – Rheumatoid Arthritis)<br></span>+ Gây xơ hóa trầm trọng dưới màng phổi, đáy phổi với kiểu hình tổ ong lan tỏa, phù hợp với viêm phổi kẽ thông thường do viêm khớp dạng thấp.<br>+ RA gây tổn thương nhiều thành phần, bao gồm đường dẫn khí, màng phổi, mô kẽ phổi với điển hình là kiểu hình UIP.</p>
+<figure><a class="o-anh" href="xo-phoi_anh/2015_09_11-ra-1621322338.jpg"><img src="xo-phoi_anh/2015_09_11-ra-1621322338.jpg" alt="Kiểu hình UIP" width="900" height="679" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Bệnh phổi kẽ liên quan với hút thuốc<br></span>+ Điển hình cho thấy khí phế thũng với những bất thường xơ hóa nhẹ ở vùng đỉnh hoặc lan tỏa và ít<br>gây giảm thể tích nặng ở đáy phổi hơn so với UIP.<br>+ Tuy nhiên, những biến đổi do hút thuốc thường chồng lấp với bệnh lý phổi kẽ khác do bệnh nhân có tiền sử hút thuốc.<br>+ Người hút thuốc ít khi bị viêm phổi quá mẫn mạn tính, trong khi lại có nguy cơ mắc UIP/IPF.</p>
+<p><span class="c-xanh">– Bệnh phổi kẽ do thuốc<br></span>+ Bệnh phổi kẽ liên quan đến thuốc khó phân nhóm, không có đặc điểm điển hình.<br>+ Nó thường nằm trong danh sách chẩn đoán phân biệt, đặc biệt khi kiểu hình không phải UIP.<br>+ Điển hình nó có dạng kính mờ ưu thế và/hoặc kiểu hình đông đặc viêm phổi tổ chức hóa, hơn là dạng xơ hóa.<br>+ Methotrexate, Amiodarone và Nitrofurantoin được biết đến là các thuốc gây độc cho phổi. Việc sử dụng<br>ngày càng nhiều liệu pháp miễn dịch khiến do bệnh phổi kẽ do thuốc ngày càng phổ biến hơn.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xo-phoi_anh/2015_09_1-487.jpeg"><img src="xo-phoi_anh/2015_09_1-487.jpeg" alt="" width="1024" height="903" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_2-485.jpeg"><img src="xo-phoi_anh/2015_09_2-485.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_3-476.jpeg"><img src="xo-phoi_anh/2015_09_3-476.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_4-432.jpeg"><img src="xo-phoi_anh/2015_09_4-432.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_5-335.jpeg"><img src="xo-phoi_anh/2015_09_5-335.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_6-175.jpeg"><img src="xo-phoi_anh/2015_09_6-175.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xo-phoi_anh/2015_09_7-66.jpeg"><img src="xo-phoi_anh/2015_09_7-66.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Pulmonary Fibrosis A stepwise approach to fibrosis on HRCT – Onno Mets, Lilian Meijboom and Robin Smithuis<br>* CT signs to differentiate Idiopathic Pulmonary Fibrosis and Connective Tissue Disorders related Usual Interstital Pneumonia – A. AGGARWAL<br>* How can we differentiate connective tissue disease–associated interstitial lung disease from idiopathic pulmonary fibrosis based on CT findings – K. Boudawara<br>* Interstitial Pulmonary Fibrosis: How to classify honeycombing/reticular abnormalities without basal predominance in absence of features of inconsistent UIP following ATS 2011 guidelines? – G. Sergiacomi<br>* 2018 Classification of Idiopathic Pulmonary Fibrosis: impact on diagnostic workflow – A. Ottavianelli<br>* A better understanding of the HRCT features of Idiopathic Pulmonary Fibrosis using micro-computed tomography – C. Mai, J. A. Verschakelen, S. Willems, S. Verleden, B. Vanaudenaerde, E. Verbeken, W. Wuyts; Leuven/BE<br>* Imaging features of Idiopathic Pulmonary Fibrosis: A pictorial review – P. Leitão<br>* Imaging in Idiopathic Pulmonary Fibrosis (IPF) – Review of the Revised International Guidelines and Implications on Management – V. Halai, L. Chen, A. Leandru, A. Wallis; Portsmouth/UK<br>* Idiopathic pulmonary fibrosis, when things go south: HRCT findings – M. Scutti<br>* MDCT of patients with advanced stage of Idiopathic Pulmonary Fibrosis – R. Rubtsov<br>* Idiopathic Pulmonary fibrosis: pictorical review of Fleishner society revised criteria – T. D. Melo<br>* Idiopathic pulmonary fibrosis (IPF): Semiological findings, differential diagnosis and multidisciplinary approach – C. Botía González<br>* High-resolution CT of complications of idiopathic fibrotic lung disease – C R Lloyd<br>* Practical Imaging Interpretation in Patients Suspected of Having Idiopathic Pulmonary Fibrosis: Official Recommendations from the Radiology Working Group of the Pulmonary Fibrosis Foundation – Stephen Hobbs<br>* Diagnosis of Idiopathic Pulmonary Fibrosis An Official ATS/ERS/JRS/ALAT Clinical Practice Guideline – Ganesh Raghu, Martine Remy-Jardin, Jeffrey L. Myers<br>* Fibrosing Interstitial Lung Disease A Practical High-Resolution Computed Tomography–based Approach to Diagnosis and Management and a Review of the Literature – Philip A. Hodnett<br>* The Value of a Multidisciplinary Approach to the Diagnosis of Usual Interstitial Pneumonitis and Idiopathic Pulmonary Fibrosis: Radiology, Pathology, and Clinical Correlation – Jonathan H. Chung and David A. Lynch<br>* CT in Idiopathic Pulmonary Fibrosis: Diagnosis and Beyond – James F. Gruden</em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

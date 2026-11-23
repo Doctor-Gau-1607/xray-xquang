@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Phù Phổi Cấp</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>Phù Phổi Cấp</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/phu-phoi-cap/" target="_blank" rel="noopener">Xray.vn — xray.vn/phu-phoi-cap</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Phù phổi cấp (acute pulmonary edema)</span> là tình trạng dịch tích tụ nhanh trong mô kẽ và phế nang do tăng áp lực thủy tĩnh mao mạch phổi hoặc tăng tính thấm hàng rào phế nang–mao mạch, gây suy hô hấp cấp; trường hợp nặng dịch có thể lan vào đường thở:<br>+ Phù phổi do tim thường liên quan tăng áp lực đổ đầy thất trái và có thể đi kèm suy tim trái cấp.<br>+ Trong cơ chế tăng áp lực thủy tĩnh, dịch phù thường nghèo protein; tổn thương tăng tính thấm tạo dịch giàu protein. Nếu máu chiếm ưu thế, cần phân biệt xuất huyết phế nang lan tỏa.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Một số báo cáo ghi nhận phù phổi cấp chiếm khoảng 1–5% số trường hợp cấp cứu nội khoa tại bệnh viện; tỷ lệ thay đổi theo quần thể và tiêu chí xác định.</p>
+<p><span class="c-xanh">– Tiên lượng:</span> phụ thuộc nguyên nhân, mức độ suy hô hấp, tình trạng huyết động và thời điểm xử trí:<br>+ Cần đánh giá mức độ suy hô hấp, suy tim trái cấp khi do tim và mức độ tăng áp lực động mạch phổi.<br>+ Nhận diện sớm cơ chế gây phù và xử trí kịp thời nguyên nhân góp phần cải thiện tiên lượng.</p>
+<figure><a class="o-anh" href="phu-phoi-cap_anh/2015_08_pulmonary-edema.jpg"><img src="phu-phoi-cap_anh/2015_08_pulmonary-edema.jpg" alt="pulmonary-edema" width="1024" height="922" loading="lazy" decoding="async"></a></figure>
+<h2 id="ii-sinh-ly-benh">II. Sinh lý bệnh</h2>
+<p><span class="c-xanh">– Phổi duy trì trạng thái khô</span> nhờ hàng rào phế nang–mao mạch, cân bằng áp lực thủy tĩnh–áp lực keo và dẫn lưu bạch huyết:<br>+ Bình thường, áp lực keo huyết tương khoảng 25 mmHg cao hơn áp lực thủy tĩnh mao mạch phổi khoảng 7–12 mmHg, hạn chế dịch lọc ra mô kẽ.<br>+ Hàng rào phế nang–mao mạch hạn chế protein thoát khỏi lòng mạch; hệ bạch huyết dẫn lưu dịch kẽ dư, còn biểu mô phế nang vận chuyển dịch khỏi lòng phế nang.</p>
+<p><span class="c-xanh">– Phù phổi do tăng áp lực thủy tĩnh, thường do tim:</span><br>+ Tăng áp lực nhĩ trái và mao mạch phổi làm tăng lọc dịch vào mô kẽ; khi khả năng dẫn lưu bạch huyết bị vượt quá, dịch tràn vào phế nang.<br>+ Hàng rào phế nang–mao mạch tương đối nguyên vẹn nên dịch phù thường nghèo protein; có thể kèm dấu hiệu tăng áp tĩnh mạch phổi, tim to và tràn dịch màng phổi, nhưng các dấu hiệu này có thể chưa rõ trong giai đoạn sớm.</p>
+<p><span class="c-xanh">– Phù phổi do tăng tính thấm, thường không do tim:</span><br>+ Tổn thương hàng rào phế nang–mao mạch làm tăng thoát dịch và protein vào mô kẽ, phế nang; trường hợp nặng có thể gây tổn thương phế nang lan tỏa.<br>+ Trong cơ chế tăng tính thấm đơn thuần, áp lực thủy tĩnh thường không tăng trội và dấu hiệu tăng áp tĩnh mạch phổi như tái phân bố tuần hoàn hoặc tim to thường ít nổi bật; sự hiện diện của chúng không loại trừ phù phổi hỗn hợp hoặc bệnh tim đồng mắc.</p>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="iii-nguyen-nhan">III. Nguyên nhân</h2>
+<p><span class="c-xanh">* Phù phổi cấp huyết động:</span><br>– Thường do tăng áp lực đổ đầy thất trái, làm tăng áp lực nhĩ trái và mao mạch phổi; thường biểu hiện suy thất trái cấp.<br>– Suy tim cấp là nguyên nhân thường gặp nhất:<br>+ Bệnh tim do thiếu máu cục bộ, đặc biệt là nhồi máu cơ tim.<br>+ Tăng huyết áp cấp nặng.<br>+ Bệnh van tim nặng, gồm hẹp van động mạch chủ, hẹp khít van hai lá hoặc hở van tim cấp, nhất là hở van hai lá cấp.<br>+ Cơn loạn nhịp nhanh.</p>
+<p><span class="c-xanh">* Các nguyên nhân ngoài tim:</span><br>– Nhồi máu phổi thường gây tổn thương khu trú, đôi khi kèm xuất huyết phế nang; không phải nguyên nhân hàng đầu của phù phổi lan tỏa.<br>– Phù phổi độ cao (high-altitude pulmonary edema):<br>+ Thường xuất hiện trong vài ngày đầu sau khi lên cao nhanh, thường ở độ cao trên 2.500 m.<br>+ Gắng sức có thể làm tăng nguy cơ; bệnh cũng có thể xảy ra ở người không có bệnh tim mạch nền.<br>– Giảm áp lực keo huyết tương, có thể gặp trong xơ gan nặng, làm tăng lọc dịch nhưng hiếm khi tự nó gây phù phổi nếu hàng rào phế nang–mao mạch và dẫn lưu bạch huyết còn nguyên.<br>– Phù phổi do áp lực âm (negative-pressure pulmonary edema) có thể xuất hiện sau tắc nghẽn đường thở trên, khi người bệnh gắng sức hít vào chống lại chỗ tắc:<br>+ Tình huống khởi phát có thể gồm co thắt thanh quản hoặc tắc nghẽn đường thở sau rút nội khí quản.<br>+ Áp lực âm trong lồng ngực tăng mạnh, làm tăng áp lực thủy tĩnh mao mạch phổi và có thể gây phù phổi cấp.<br>– Phù phổi do tái giãn nở (re-expansion pulmonary edema):<br>+ Có thể xuất hiện, thường ở một bên, sau khi phổi bị xẹp do tràn khí hoặc tràn dịch màng phổi được tái giãn nhanh, nhất là sau dẫn lưu lượng lớn.<br>+ Cơ chế chưa được làm sáng tỏ hoàn toàn, có thể gồm thay đổi áp lực màng phổi, tăng áp lực thủy tĩnh và tính thấm mao mạch, giảm chức năng chất hoạt diện.<br>– Quá tải thể tích đột ngột làm tăng tiền gánh và áp lực thủy tĩnh mao mạch phổi; suy thận là một bối cảnh thường gặp.</p>
+<p><span class="c-xanh">* Phù phổi cấp tổn thương:</span><br>– Nhiễm khuẩn nặng, đặc biệt là nhiễm khuẩn huyết và viêm phổi nặng, là nhóm căn nguyên quan trọng.<br>– Ngộ độc:<br>+ Hít phải khí hoặc hơi độc như hơi axit, clo, phosgen, amoniac, các oxide nitơ và khói độc có thể gây tổn thương trực tiếp hàng rào phế nang–mao mạch.<br>+ Paraquat, carbon monoxide và heroin cũng có thể liên quan tổn thương phổi hoặc phù phổi qua các cơ chế khác nhau; không nên xếp tất cả vào nhóm hóa chất bay hơi hít phải.<br>– Tai biến truyền máu:<br>+ Tổn thương phổi cấp liên quan truyền máu (TRALI) gây phù phổi do tăng tính thấm.<br>+ Quá tải tuần hoàn liên quan truyền máu (TACO) gây phù phổi do tăng áp lực thủy tĩnh; cần phân biệt với TRALI.</p>
+<p><span class="c-xanh">* Phù phổi hỗn hợp: </span>Phù phổi nguồn gốc thần kinh có thể phối hợp tăng áp lực thủy tĩnh đột ngột và tăng tính thấm mao mạch phổi.</p>
+<figure><a class="o-anh" href="phu-phoi-cap_anh/2015_08_Phu-phoi.jpg"><img src="phu-phoi-cap_anh/2015_08_Phu-phoi.jpg" alt="" width="1183" height="1179" loading="lazy" decoding="async"></a></figure>
+<h2 id="iv-chan-doan-hinh-anh">IV. Chẩn đoán hình ảnh</h2>
+<h3 id="1-chan-doan-x-quang">1. Chẩn đoán x-quang</h3>
+<figure><a class="o-anh" href="phu-phoi-cap_anh/2015_08_Screenshot-2022-02-18-211736.png"><img src="phu-phoi-cap_anh/2015_08_Screenshot-2022-02-18-211736.png" alt="" width="1058" height="487" loading="lazy" decoding="async"></a></figure>
+<p><strong><span class="c-xanh">* Tái phân bố tuần hoàn phổi</span></strong><br>– Tái phân bố tuần hoàn phổi (cephalization) là dấu hiệu sớm của tăng áp lực tĩnh mạch phổi, biểu hiện bằng các tĩnh mạch thùy trên nổi rõ; hình thái này đôi khi được mô tả bằng thuật ngữ stag’s antler sign:<br>+ Áp lực tĩnh mạch phổi tăng làm tăng tưới máu tương đối và làm các mạch máu thùy trên giãn rõ hơn; không phải do co thắt mạch hoặc chèn ép mô kẽ ở đáy phổi.<br>+ Trên phim đứng thẳng, đường kính tĩnh mạch thùy trên bằng hoặc lớn hơn tĩnh mạch thùy dưới; dấu hiệu này có thể xuất hiện trước phù mô kẽ.<br>+ Cạm bẫy: Phim nằm làm giảm chênh lệch phân bố mạch theo trọng lực, nên mạch thùy trên có thể nổi rõ tương đối ngay cả khi không có tăng áp lực tĩnh mạch phổi; cần xét tư thế chụp và đối chiếu phim cũ.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_large_04_12_9253_05.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_large_04_12_9253_05.jpeg" alt="" width="675" height="705" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2023_09_p56.png"><img src="phu-phoi-cap_anh/2023_09_p56.png" alt="Nam 55 tuổi - Khó thở cấp, tiền sử bệnh cơ tim giãn: Phù phổi cấp / Dịch màng phổi 2 bên" width="869" height="953" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2023_09_p56b.png"><img src="phu-phoi-cap_anh/2023_09_p56b.png" alt="" width="1187" height="689" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_1-909.jpeg"><img src="phu-phoi-cap_anh/2015_08_1-909.jpeg" alt="" width="768" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_3-891.jpeg"><img src="phu-phoi-cap_anh/2015_08_3-891.jpeg" alt="" width="1024" height="933" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_2-908.jpeg"><img src="phu-phoi-cap_anh/2015_08_2-908.jpeg" alt="" width="1024" height="932" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_4-906.jpg"><img src="phu-phoi-cap_anh/2015_08_4-906.jpg" alt="" width="1024" height="1021" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_3ce5bde7778f83ce2cf96573d27aba_jumbo.jpg"><img src="phu-phoi-cap_anh/2015_08_3ce5bde7778f83ce2cf96573d27aba_jumbo.jpg" alt="" width="1021" height="965" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Phù mô kẽ (pulmonary interstitial edema)<br></span></strong>– Dịch tích tụ dọc mô kẽ quanh bó mạch phế quản và vách liên tiểu thùy, biểu hiện bằng các đường Kerley:<br>+ Đường Kerley A là các dải mảnh, dài, chếch từ vùng rốn phổi hướng ra ngoại vi, tương ứng dịch trong các đường bạch huyết nối vùng trung tâm với ngoại vi.<br>+ Đường Kerley B là các đường mảnh, ngắn, ở ngoại vi, thường tại vùng đáy phổi và vuông góc với màng phổi; hình thành do dày vách liên tiểu thùy.<br>+ Cạm bẫy: Đường Kerley B không đặc hiệu, cũng gặp trong lan tràn ung thư theo đường bạch huyết và xơ hóa kẽ; chúng có thể chưa xuất hiện ở giai đoạn sớm. Cần đối chiếu tính đối xứng, diễn biến, phim cũ và các dấu hiệu tăng áp lực tĩnh mạch phổi.<br>– Dày rãnh liên thùy có thể do dịch tích tụ trong mô kẽ dọc màng phổi, liên tục với mô kẽ của vách liên tiểu thùy.<br>– Có thể kèm tràn dịch màng phổi, thường hai bên nhưng có thể không đối xứng; lượng dịch thay đổi và hay gặp trong phù phổi do tim.<br>– Dày quanh phế quản (peribronchial cuffing) và xóa mờ bờ mạch máu quanh rốn phổi có thể gặp do phù mô kẽ; dày thành phế quản cũng gặp trong viêm phế quản mạn, nên cần đối chiếu phim cũ và các dấu hiệu sung huyết khác.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_688959.png"><img src="phu-phoi-cap_anh/2015_08_688959.png" alt="" width="918" height="339" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_611394.jpg"><img src="phu-phoi-cap_anh/2015_08_611394.jpg" alt="" width="1600" height="747" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_611549.jpg"><img src="phu-phoi-cap_anh/2015_08_611549.jpg" alt="" width="1333" height="577" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_01e1b6e92b48ade7f125d8ddac9b99_jumbo.jpeg"><img src="phu-phoi-cap_anh/2015_08_01e1b6e92b48ade7f125d8ddac9b99_jumbo.jpeg" alt="" width="948" height="960" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_a-55.jpg"><img src="phu-phoi-cap_anh/2015_08_a-55.jpg" alt="" width="977" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_b-40.jpeg"><img src="phu-phoi-cap_anh/2015_08_b-40.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_gr5_lrg.jpg"><img src="phu-phoi-cap_anh/2015_08_gr5_lrg.jpg" alt="" width="1403" height="1530" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-190207.jpg"><img src="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-190207.jpg" alt="" width="601" height="849" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-190224.jpg"><img src="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-190224.jpg" alt="" width="600" height="692" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-195625.jpg"><img src="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-195625.jpg" alt="" width="781" height="665" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Giai đoạn phù phế nang (pulmonary alveolar edema)</span></strong><br>– Phù phế nang hình thành khi dịch tràn từ mô kẽ vào phế nang; trong phù do tăng áp lực thủy tĩnh, tình trạng này thường xuất hiện khi áp lực mao mạch phổi vượt khả năng dẫn lưu bạch huyết:<br>+ Trên X-quang, biểu hiện bằng các đám mờ phế nang bờ không rõ, rải rác hai phổi và có thể hợp lưu.<br>+ Biểu hiện phù mô kẽ và phù phế nang không phải lúc nào cũng xuất hiện tuần tự trên hình ảnh.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_e5025b1e2c3276e28c815b93207000_jumbo.jpg"><img src="phu-phoi-cap_anh/2015_08_e5025b1e2c3276e28c815b93207000_jumbo.jpg" alt="" width="1004" height="939" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/6f45fa3f09133989ad4e38295b2aee_jumbo.jpg"><img src="phu-phoi-cap_anh/6f45fa3f09133989ad4e38295b2aee_jumbo.jpg" alt="" width="827" height="782" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_21d7faba703e71ff3a293bd8d3230c_jumbo-1.jpg"><img src="phu-phoi-cap_anh/2015_08_21d7faba703e71ff3a293bd8d3230c_jumbo-1.jpg" alt="" width="1024" height="985" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_large_g99no21g1c.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_large_g99no21g1c.jpeg" alt="" width="1419" height="1422" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_768301.png"><img src="phu-phoi-cap_anh/2015_08_768301.png" alt="" width="1346" height="1130" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_768430.png"><img src="phu-phoi-cap_anh/2015_08_768430.png" alt="" width="1116" height="1020" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_843350.jpg"><img src="phu-phoi-cap_anh/2015_08_843350.jpg" alt="" width="855" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_602133.jpg"><img src="phu-phoi-cap_anh/2015_08_602133.jpg" alt="" width="1600" height="792" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_large_04_12_9253_08.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_large_04_12_9253_08.jpeg" alt="" width="675" height="649" loading="lazy" decoding="async"></a></div>
+<p>– Hình cánh dơi (bat-wing pattern) gồm các đám mờ phế nang hai bên, ưu thế quanh rốn phổi và có thể tương đối chừa vùng ngoại vi; thường gặp trong phù do tăng áp lực thủy tĩnh, như suy tim trái hoặc quá tải thể tích do suy thận:<br>+ Đây là kiểu phân bố gợi ý nhưng không đặc hiệu; mức độ chừa vùng ngoại vi và phân bố theo trọng lực thay đổi theo nguyên nhân, tư thế chụp và mức độ bệnh.<br>– Hình phế quản chứa khí (air bronchogram) có thể thấy khi phế quản còn chứa khí nổi trên nền phế nang bị lấp đầy dịch; dấu hiệu này không đặc hiệu cho phù phổi.<br>– Trong phù phổi do suy tim trái cấp hoặc nặng, các đám mờ có thể lan tới vùng dưới màng phổi và vùng phụ thuộc trọng lực; thường hai bên và tương đối đối xứng.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_big_64708f2cc9ca82.50702502.jpg"><img src="phu-phoi-cap_anh/2015_08_big_64708f2cc9ca82.50702502.jpg" alt="" width="1219" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_64708f2cc9ca82.50702502.jpg"><img src="phu-phoi-cap_anh/2015_08_64708f2cc9ca82.50702502.jpg" alt="" width="1220" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_35.gif"><img src="phu-phoi-cap_anh/2015_08_35.gif" alt="" width="1100" height="915" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_g1.jpg"><img src="phu-phoi-cap_anh/2015_08_g1.jpg" alt="" width="1385" height="752" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_750887.jpg"><img src="phu-phoi-cap_anh/2015_08_750887.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_Bats-wings-of-pulmonary-oedema.jpg"><img src="phu-phoi-cap_anh/2015_08_Bats-wings-of-pulmonary-oedema.jpg" alt="" width="968" height="978" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/4cf530f26a51a9a1c518e848337e5c_jumbo.jpeg"><img src="phu-phoi-cap_anh/4cf530f26a51a9a1c518e848337e5c_jumbo.jpeg" alt="" width="888" height="923" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_801df7f4772145d5fd44ec17686b7d_jumbo-1.jpg"><img src="phu-phoi-cap_anh/2015_08_801df7f4772145d5fd44ec17686b7d_jumbo-1.jpg" alt="" width="971" height="1023" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_8e2a037f65f9b3bc2d8cda0b932fd5_jumbo.jpeg"><img src="phu-phoi-cap_anh/2015_08_8e2a037f65f9b3bc2d8cda0b932fd5_jumbo.jpeg" alt="" width="934" height="837" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_gr19_lrg.jpg"><img src="phu-phoi-cap_anh/2015_08_gr19_lrg.jpg" alt="" width="1508" height="1521" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_large_g99no21g3a.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_large_g99no21g3a.jpeg" alt="" width="1101" height="1224" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-195848.jpg"><img src="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-195848.jpg" alt="" width="784" height="781" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-195904.jpg"><img src="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-195904.jpg" alt="" width="782" height="639" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-195919.jpg"><img src="phu-phoi-cap_anh/2015_08_Screenshot-2022-05-07-195919.jpg" alt="" width="782" height="691" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Tăng chỉ số tim ngực:</strong></span></p>
+<p>– Chỉ số tim ngực (cardiothoracic ratio) tăng gợi ý tim to, có thể ủng hộ phù phổi do tim nhưng không đặc hiệu:<br>+ Đo trên phim ngực đứng sau–trước (PA), đủ hít vào, bằng đường kính ngang lớn nhất của bóng tim chia cho đường kính trong ngang lớn nhất của lồng ngực; ở người lớn, chỉ số &gt; 0,5 là bất thường. Ngưỡng ở trẻ em thay đổi theo tuổi.<br>+ Cạm bẫy: Phim trước–sau (AP), phim nằm, hít vào kém hoặc xoay người có thể làm chỉ số tăng giả; phim đứng PA đáng tin cậy nhất để đánh giá.<br>+ Tim có thể bình thường trong phù phổi do tim khởi phát cấp, trước khi xuất hiện giãn buồng tim; ngược lại, tim to không tự nó xác định nguyên nhân phù phổi.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_1-294.jpeg"><img src="phu-phoi-cap_anh/2015_08_1-294.jpeg" alt="" width="1024" height="895" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_2-297.jpeg"><img src="phu-phoi-cap_anh/2015_08_2-297.jpeg" alt="" width="861" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_3-294.jpeg"><img src="phu-phoi-cap_anh/2015_08_3-294.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_4-30.png"><img src="phu-phoi-cap_anh/2015_08_4-30.png" alt="" width="601" height="473" loading="lazy" decoding="async"></a></div>
+<h3 id="2-chan-doan-clvt">2. Chẩn đoán CLVT</h3>
+<p>– Phù phổi do tăng áp lực thủy tĩnh có thể biểu hiện đồng thời ở mô kẽ và phế nang; không phải lúc nào cũng thấy tiến triển tuần tự:<br>+ Phù mô kẽ gây dày vách liên tiểu thùy trơn nhẵn và dày mô kẽ quanh bó mạch phế quản; sung huyết mạch máu phổi có thể góp phần làm bó mạch nổi rõ.<br>+ Có thể kèm dày rãnh liên thùy và tràn dịch màng phổi.<br>+ Khi dịch tràn vào phế nang, xuất hiện các vùng kính mờ (ground-glass opacity) hai phổi, có thể hợp lưu thành đông đặc.<br>– Phù phổi do tim thường có phân bố trung tâm hoặc quanh rốn phổi, kèm giãn mạch phổi, tim to hoặc tràn dịch màng phổi; các dấu hiệu này ủng hộ cơ chế tăng áp lực thủy tĩnh nhưng không đặc hiệu.<br>– ARDS thường có tổn thương hai phổi ưu thế ở vùng phụ thuộc trọng lực, có thể kèm đông đặc. Tim to và tràn dịch màng phổi lớn thường không nổi bật nhưng không phải lúc nào cũng vắng mặt; phân bố có thể chồng lấp, vì vậy không nên phân biệt chỉ dựa vào tổn thương trung tâm hay ngoại vi.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_Screenshot-2022-02-18-212117.png"><img src="phu-phoi-cap_anh/2015_08_Screenshot-2022-02-18-212117.png" alt="" width="492" height="816" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_917406.jpg"><img src="phu-phoi-cap_anh/2015_08_917406.jpg" alt="" width="1571" height="376" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_large_g99no21g3b.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_large_g99no21g3b.jpeg" alt="" width="1600" height="946" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_large_g99no21g2x.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_large_g99no21g2x.jpeg" alt="" width="1260" height="972" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_Screenshot-2022-02-18-205842.png"><img src="phu-phoi-cap_anh/2015_08_Screenshot-2022-02-18-205842.png" alt="Hình kính mờ / Dày vách liên thuỳ / Dày bó mạch phế quản" width="794" height="654" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_gr7_lrg-scaled.jpg"><img src="phu-phoi-cap_anh/2015_08_gr7_lrg-scaled.jpg" alt="Hình kính mờ / Dày vách / Dịch màng phổi" width="1600" height="605" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_large_g99no21g10x.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_large_g99no21g10x.jpeg" alt="" width="1584" height="969" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_large_g99no21g11a.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_large_g99no21g11a.jpeg" alt="" width="1403" height="1051" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_123-32.png"><img src="phu-phoi-cap_anh/2015_08_123-32.png" alt="" width="1600" height="736" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_843351.jpg"><img src="phu-phoi-cap_anh/2015_08_843351.jpg" alt="" width="849" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_843352.jpg"><img src="phu-phoi-cap_anh/2015_08_843352.jpg" alt="" width="850" height="768" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_2-909.jpeg"><img src="phu-phoi-cap_anh/2015_08_2-909.jpeg" alt="" width="630" height="523" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_3-892.jpeg"><img src="phu-phoi-cap_anh/2015_08_3-892.jpeg" alt="" width="630" height="523" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_4-828.jpeg"><img src="phu-phoi-cap_anh/2015_08_4-828.jpeg" alt="" width="630" height="523" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_5-676.jpeg"><img src="phu-phoi-cap_anh/2015_08_5-676.jpeg" alt="" width="630" height="523" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_6-353.jpeg"><img src="phu-phoi-cap_anh/2015_08_6-353.jpeg" alt="" width="630" height="523" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_7-144.jpeg"><img src="phu-phoi-cap_anh/2015_08_7-144.jpeg" alt="" width="630" height="523" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_8-114.jpeg"><img src="phu-phoi-cap_anh/2015_08_8-114.jpeg" alt="" width="630" height="523" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_9-28.jpeg"><img src="phu-phoi-cap_anh/2015_08_9-28.jpeg" alt="" width="630" height="523" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_0-17.jpg"><img src="phu-phoi-cap_anh/2015_08_0-17.jpg" alt="" width="844" height="815" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_1-1051.jpg"><img src="phu-phoi-cap_anh/2015_08_1-1051.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_2-1057.jpg"><img src="phu-phoi-cap_anh/2015_08_2-1057.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_3-1032.jpg"><img src="phu-phoi-cap_anh/2015_08_3-1032.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_4-907.jpg"><img src="phu-phoi-cap_anh/2015_08_4-907.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_5-584.jpg"><img src="phu-phoi-cap_anh/2015_08_5-584.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_6-293.jpg"><img src="phu-phoi-cap_anh/2015_08_6-293.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_7-149.jpg"><img src="phu-phoi-cap_anh/2015_08_7-149.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_8-116.jpg"><img src="phu-phoi-cap_anh/2015_08_8-116.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_ty.jpg"><img src="phu-phoi-cap_anh/2015_08_ty.jpg" alt="" width="627" height="569" loading="lazy" decoding="async"></a></div>
+<h3 id="3-chan-doan-phan-biet">3. Chẩn đoán phân biệt</h3>
+<p><span class="c-xanh">– Xuất huyết phế nang lan tỏa (diffuse alveolar hemorrhage, DAH):</span><br>+ Máu lấp đầy phế nang gây các vùng kính mờ hoặc đông đặc hai bên, có thể ưu thế trung tâm; phân bố có thể chồng lấp với phù phổi do tim.<br>+ Trong DAH đơn thuần, các dấu hiệu tăng áp lực tĩnh mạch phổi như giãn mạch phổi, tim to và tràn dịch màng phổi thường không nổi bật; các dấu hiệu này vẫn có thể hiện diện khi có bệnh đồng mắc.<br>+ Dày vách liên tiểu thùy không loại trừ DAH; dấu hiệu này có thể xuất hiện ở giai đoạn bán cấp do tích tụ đại thực bào chứa hemosiderin trong mô kẽ.<br>+ Ho ra máu, giảm hemoglobin cấp hoặc bệnh cảnh viêm mạch/tổn thương thận hỗ trợ chẩn đoán; không có ho ra máu cũng không loại trừ DAH.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_1-910.jpeg"><img src="phu-phoi-cap_anh/2015_08_1-910.jpeg" alt="" width="914" height="965" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_2-910.jpeg"><img src="phu-phoi-cap_anh/2015_08_2-910.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_3-893.jpeg"><img src="phu-phoi-cap_anh/2015_08_3-893.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_4-829.jpeg"><img src="phu-phoi-cap_anh/2015_08_4-829.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_5-677.jpeg"><img src="phu-phoi-cap_anh/2015_08_5-677.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_6-354.jpeg"><img src="phu-phoi-cap_anh/2015_08_6-354.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_7-145.jpeg"><img src="phu-phoi-cap_anh/2015_08_7-145.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_8-115.jpeg"><img src="phu-phoi-cap_anh/2015_08_8-115.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Viêm phổi lan tỏa:</span><br>+ Dấu hiệu sung huyết mạch phổi, tăng áp lực tĩnh mạch phổi, phù mô kẽ trơn nhẵn, tim to hoặc tràn dịch màng phổi thường không nổi bật trong viêm phổi đơn thuần; bệnh tim đồng mắc có thể làm thay đổi hình ảnh.<br>+ Viêm phổi vi khuẩn thường gây đông đặc theo thùy hoặc phân thùy, đôi khi kèm hình phế quản chứa khí; viêm phổi virus hoặc không điển hình có thể gây kính mờ lan tỏa hai bên, đôi khi đối xứng.<br>+ Sốt và bằng chứng nhiễm trùng hỗ trợ chẩn đoán; không nên dùng tính đối xứng hoặc sự vắng mặt của dấu tăng áp tĩnh mạch phổi làm tiêu chí duy nhất.</p>
+<p><span class="c-xanh">– Bệnh lắng đọng protein phế nang (pulmonary alveolar proteinosis, PAP) thường có kiểu hình lát đá (crazy-paving pattern) trên CLVT:</span><br>+ Các vùng kính mờ chồng lên dày vách liên tiểu thùy và các đường trong tiểu thùy; tổn thương thường hai bên, có thể phân bố dạng bản đồ với ranh giới khá rõ và đôi khi chừa tương đối vùng dưới màng phổi.<br>+ Bệnh thường diễn biến bán cấp hoặc mạn tính, không kèm các dấu hiệu tăng áp lực tĩnh mạch phổi trong trường hợp đơn thuần.<br>+ Cạm bẫy: Kiểu hình lát đá không đặc hiệu, cũng có thể gặp trong phù phổi, xuất huyết phế nang, nhiễm trùng và ARDS; cần phối hợp phân bố tổn thương, diễn biến bệnh và các dấu hiệu sung huyết.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_05_aa1162_01.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_05_aa1162_01.jpeg" alt="" width="1600" height="1368" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_05_aa1162_02b.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_05_aa1162_02b.jpeg" alt="" width="1600" height="1233" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_05_aa1162_03b.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_05_aa1162_03b.jpeg" alt="" width="1600" height="1201" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_05_aa1162_04.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_05_aa1162_04.jpeg" alt="" width="1600" height="1314" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_05_aa1162_05a.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_05_aa1162_05a.jpeg" alt="" width="1600" height="1174" loading="lazy" decoding="async"></a></div>
+<h3 id="4-phu-phoi-mot-ben">4. Phù phổi một bên</h3>
+<p><span class="c-xanh">– Phù phổi do tim một bên (unilateral cardiogenic pulmonary edema):</span><br>+ Hiếm gặp; chiếm khoảng 2,1% trong một đoàn hệ bệnh nhân phù phổi do tim và thường tổn thương phổi phải.<br>+ Thường liên quan hở van hai lá nặng, đặc biệt khi dòng hở lệch tâm hướng vào tĩnh mạch phổi trên phải, làm tăng áp lực mao mạch khu trú và thường gây phù ưu thế thùy trên phổi phải. Đây là hở van hai lá, không phải hẹp van hai lá.<br>+ Cạm bẫy: Có thể giống viêm phổi một bên. Đối chiếu diễn biến lâm sàng, BNP/NT-proBNP và siêu âm tim Doppler; không dùng một dấu hiệu hoặc xét nghiệm đơn lẻ để kết luận hay loại trừ.</p>
+<p><span class="c-xanh">– Các nguyên nhân khác, theo cơ chế:</span><br>+ Tổn thương hoặc rối loạn tuần hoàn cùng bên: tắc/hẹp tĩnh mạch phổi; phù phổi phụ thuộc tư thế ở người suy tim mất bù nằm kéo dài nghiêng về bên tổn thương; shunt động mạch hệ thống–động mạch phổi bẩm sinh hoặc phẫu thuật (ví dụ shunt Blalock–Taussig) làm tăng lưu lượng phổi bên được shunt.<br>+ Phù phổi tái giãn nở (re-expansion pulmonary edema) sau khi phổi xẹp lâu được tái nở, chẳng hạn sau dẫn lưu tràn khí hoặc tràn dịch màng phổi lượng lớn; thường xảy ra cùng bên trong vài giờ đầu, đa số trong 24 giờ.<br>+ Giảm tưới máu một phổi có thể làm tăng tưới máu tương đối ở phổi đối bên và gây phù bên đó: thuyên tắc động mạch phổi một bên, giảm sản/bất sản động mạch phổi, hội chứng Swyer–James–MacLeod hoặc khí phế thũng một bên.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_e0fdf80eb6c7565a88b3650cfde94d_jumbo.jpg"><img src="phu-phoi-cap_anh/2015_08_e0fdf80eb6c7565a88b3650cfde94d_jumbo.jpg" alt="" width="979" height="1023" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_b57092fead57fef2011bd742360067_jumbo.jpg"><img src="phu-phoi-cap_anh/2015_08_b57092fead57fef2011bd742360067_jumbo.jpg" alt="" width="947" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_37fb14fcfe4712d64ef326808a09ed_jumbo.jpg"><img src="phu-phoi-cap_anh/2015_08_37fb14fcfe4712d64ef326808a09ed_jumbo.jpg" alt="" width="968" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_gr9_lrg-1.jpg"><img src="phu-phoi-cap_anh/2015_08_gr9_lrg-1.jpg" alt="" width="1508" height="1569" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_gr11_lrg.jpg"><img src="phu-phoi-cap_anh/2015_08_gr11_lrg.jpg" alt="" width="1600" height="1752" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_gr12_lrg.jpg"><img src="phu-phoi-cap_anh/2015_08_gr12_lrg.jpg" alt="" width="1508" height="1144" loading="lazy" decoding="async"></a></div>
+<h2 id="v-ards">V. ARDS</h2>
+<p><span class="c-xanh">– Hội chứng suy hô hấp cấp tiến triển (acute respiratory distress syndrome, ARDS)</span> được Ashbaugh và cộng sự mô tả lần đầu năm 1967. Đây là hội chứng tổn thương phổi viêm lan tỏa cấp tính gây phù phổi do tăng tính thấm và giảm oxy máu; không nên định nghĩa đơn thuần là suy hô hấp không đáp ứng với oxy liều cao.</p>
+<p><span class="c-xanh">– Tiêu chuẩn chẩn đoán:</span><br>+ Theo Berlin 2012, khởi phát hoặc nặng lên trong vòng 1 tuần sau yếu tố khởi phát hay triệu chứng hô hấp mới/nặng lên; có đám mờ hai bên trên X-quang ngực hoặc CLVT, không được giải thích đầy đủ bởi tràn dịch, xẹp phổi hoặc nốt/khối; suy hô hấp không được giải thích đầy đủ bởi suy tim hoặc quá tải dịch. Nếu không có yếu tố nguy cơ rõ, cần đánh giá khách quan để loại trừ phù phổi do tim.<br>+ Mức độ giảm oxy máu theo PaO₂/FiO₂ khi PEEP hoặc CPAP ≥5 cm H₂O: nhẹ, 200 &lt; PaO₂/FiO₂ ≤300; trung bình, 100 &lt; PaO₂/FiO₂ ≤200; nặng, PaO₂/FiO₂ ≤100 mmHg.<br>+ Định nghĩa toàn cầu mới, công bố năm 2024, giữ các tiêu chí cốt lõi về thời gian, yếu tố khởi phát và tổn thương hai bên, đồng thời bổ sung bệnh nhân chưa đặt nội khí quản, siêu âm phổi và tiêu chí áp dụng ở nơi nguồn lực hạn chế. Ở bệnh nhân chưa đặt nội khí quản, có thể chẩn đoán khi PaO₂/FiO₂ ≤300 hoặc SpO₂/FiO₂ ≤315 (chỉ khi SpO₂ ≤97%) trong lúc thở oxy dòng cao ≥30 L/phút hoặc NIV/CPAP với áp lực cuối thì thở ra ≥5 cm H₂O. Hình ảnh có thể là đám mờ hai bên trên X-quang/CLVT hoặc nhiều đường B và/hoặc đông đặc hai bên trên siêu âm do người được đào tạo thực hiện. Ở nơi nguồn lực hạn chế, tiêu chí sửa đổi cho phép dùng SpO₂/FiO₂ ≤315 mà không yêu cầu mức PEEP hay lưu lượng oxy tối thiểu.</p>
+<p><span class="c-xanh">– Nguyên nhân và yếu tố nguy cơ:</span><br>+ Tác nhân trực tiếp tại phổi gồm viêm phổi (một trong những nguyên nhân thường gặp nhất), hít sặc, dập phổi/chấn thương ngực, hít khói hoặc chất độc và đuối nước.<br>+ Tác nhân gián tiếp gồm nhiễm khuẩn huyết ngoài phổi, sốc, đa chấn thương, viêm tụy cấp, bỏng và truyền máu (tổn thương phổi cấp liên quan truyền máu, TRALI); chấn thương sọ não nặng cũng có thể là yếu tố khởi phát.<br>+ Tần suất từng nguyên nhân thay đổi theo quần thể và cách xác định ca bệnh; không nên khẳng định một tỷ lệ cố định 40–50% hoặc “hơn 80%” nếu không nêu rõ nguồn và quần thể nghiên cứu.<br>+ Tuổi cao, lạm dụng rượu, hút thuốc, bệnh nặng hoặc có nhiều yếu tố khởi phát có thể làm tăng nguy cơ tiến triển. Toan chuyển hóa không đặc hiệu cho ARDS và thường cần được hiểu trong bối cảnh mức độ nặng của bệnh.<br>+ Quá tải dịch không nên xem là nguyên nhân trực tiếp của ARDS; có thể làm nặng phù phổi hoặc đồng tồn tại với ARDS.</p>
+<p><span class="c-xanh">– Sinh bệnh học:</span> ARDS gây tổn thương hàng rào nội mô mao mạch và biểu mô phế nang, tăng tính thấm, phù phổi và xẹp phế nang phụ thuộc trọng lực. Tổn thương phế nang lan tỏa là kiểu mô bệnh học thường gặp nhưng không hiện diện ở mọi trường hợp và không phải điều kiện bắt buộc để chẩn đoán. ARDS không nhất thiết loại trừ suy tim hoặc quá tải dịch đồng thời; các tình trạng này không được là nguyên nhân chính giải thích phù phổi và giảm oxy máu.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Hình ảnh X-quang và CLVT biến đổi theo thời điểm, tư thế và điều trị; không có trình tự bắt buộc từ phù mô kẽ sang mờ quanh rốn phổi. Thường gặp các đám mờ hai bên, không đồng nhất, dạng kính mờ hoặc đông đặc.<br>+ Trên CLVT, tổn thương thường phân bố không đồng nhất, có thể có chênh lệch theo trọng lực: đông đặc rõ ở vùng phụ thuộc phía sau và nhu mô tương đối thông khí tốt hơn ở vùng không phụ thuộc phía trước. Tuy nhiên, tổn thương có thể ở ngoại vi, quanh rốn phổi hoặc lan tỏa; ưu thế ngoại vi không phải tiêu chuẩn chẩn đoán hay dấu phân biệt đáng tin cậy khi đứng riêng lẻ.<br>+ So với phù phổi do tim, tim to, tái phân bố mạch máu lên thùy trên, dày vách liên tiểu thùy trơn nhẵn và đường Kerley thường ít nổi bật hơn trong ARDS. Tràn dịch màng phổi nhiều cũng ít điển hình hơn, nhưng tràn dịch ít hoặc các dấu hiệu sung huyết vẫn có thể gặp; phù phổi do tim và ARDS có thể đồng tồn tại.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="phu-phoi-cap_anh/2023_09_p51.png"><img src="phu-phoi-cap_anh/2023_09_p51.png" alt="Nam 50 tuổi - Khó thở, sau phẫu thuật K thực quản: Hội chứng suy hô hấp cấp (ADRS)" width="1187" height="1015" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2023_09_p51b.png"><img src="phu-phoi-cap_anh/2023_09_p51b.png" alt="" width="1187" height="704" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_2f469493f3abbe1e717b429955aa23_jumbo.jpeg"><img src="phu-phoi-cap_anh/2015_08_2f469493f3abbe1e717b429955aa23_jumbo.jpeg" alt="" width="1024" height="859" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_gr10_lrg.jpg"><img src="phu-phoi-cap_anh/2015_08_gr10_lrg.jpg" alt="" width="1508" height="2354" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_2f469493f3abbe1e717b429955aa23_jumbo-1.jpeg"><img src="phu-phoi-cap_anh/2015_08_2f469493f3abbe1e717b429955aa23_jumbo-1.jpeg" alt="" width="1024" height="878" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_ab60d9fa4d2d4750d5045282f253d3_jumbo.jpeg"><img src="phu-phoi-cap_anh/2015_08_ab60d9fa4d2d4750d5045282f253d3_jumbo.jpeg" alt="" width="1024" height="836" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_b81bbc0418db1202a4e8d6015afb32_jumbo.jpeg"><img src="phu-phoi-cap_anh/2015_08_b81bbc0418db1202a4e8d6015afb32_jumbo.jpeg" alt="" width="1024" height="941" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_06_09_7170_07a.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_06_09_7170_07a.jpeg" alt="" width="1600" height="1446" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_06_09_7170_07b.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_06_09_7170_07b.jpeg" alt="" width="1600" height="1107" loading="lazy" decoding="async"></a><a class="o-anh" href="phu-phoi-cap_anh/2015_08_images_06_09_7170_07c.jpeg"><img src="phu-phoi-cap_anh/2015_08_images_06_09_7170_07c.jpeg" alt="Tiến triển sau 48h" width="1600" height="1491" loading="lazy" decoding="async"></a></div>
+<h2 id="vi-tien-luong-dieu-tri">VI. Tiên lượng &amp; Điều trị</h2>
+<p><span class="c-xanh">– Tiên lượng:</span><br>+ Phù phổi cấp là tình trạng cấp cứu; tiên lượng phụ thuộc nguyên nhân, mức độ giảm oxy máu, tình trạng huyết động, suy cơ quan phối hợp, bệnh nền và thời gian kiểm soát được yếu tố khởi phát.<br>+ Phù phổi do tim có thể cải thiện nhanh khi xử trí đúng tình trạng sung huyết hoặc tái phân bố dịch. Nhồi máu cơ tim, hở van hai lá cấp nặng, sốc tim và suy cơ quan làm tiên lượng xấu hơn.<br>+ ARDS có nguy cơ tử vong và di chứng đáng kể; nguy cơ tăng khi giảm oxy máu nặng, suy đa cơ quan hoặc có bệnh nền nặng. Người sống sót có thể còn yếu cơ, giảm khả năng gắng sức và rối loạn nhận thức hoặc tâm lý.</p>
+<p><span class="c-xanh">– Nguyên tắc xử trí ban đầu:</span><br>+ Đây là cấp cứu cần đánh giá và ổn định đường thở, hô hấp, tuần hoàn đồng thời tìm nguyên nhân. Cho bệnh nhân ngồi đầu cao nếu dung nạp; theo dõi liên tục SpO₂, nhịp tim, huyết áp và đáp ứng điều trị.<br>+ Chỉ bổ sung oxy khi có giảm oxy máu, chẳng hạn SpO₂ &lt;90% hoặc PaO₂ &lt;60 mmHg; không cho oxy thường quy nếu bệnh nhân không thiếu oxy.<br>+ Cân nhắc thông khí áp lực dương không xâm lấn (CPAP/NIV) khi suy hô hấp hoặc khó thở rõ, đặc biệt khi thở nhanh và giảm oxy máu. Đặt nội khí quản nếu suy hô hấp tiến triển dù đã hỗ trợ, không dung nạp NIV, giảm ý thức hoặc huyết động không ổn định.</p>
+<p><span class="c-xanh">– Phù phổi do tim:</span><br>+ Dùng lợi tiểu quai đường tĩnh mạch khi có bằng chứng quá tải dịch/sung huyết; theo dõi lượng nước tiểu, chức năng thận và điện giải. Không mặc định mọi trường hợp phù phổi cấp đều cần lợi tiểu liều cao: phù phổi có thể do tái phân bố dịch vào phổi mà không tăng nhiều tổng lượng dịch cơ thể.<br>+ Có thể cân nhắc thuốc giãn mạch, thường là nitrate, khi huyết áp tâm thu còn đủ cao (ví dụ &gt;110 mmHg theo hướng dẫn ESC 2026) và không có chống chỉ định; tránh khi tụt huyết áp hoặc sốc.<br>+ Nếu có sốc tim hoặc giảm tưới máu, thuốc vận mạch/tăng co bóp cơ tim và hỗ trợ tuần hoàn chỉ dùng theo chỉ định, với theo dõi hồi sức. Đồng thời xử trí nguyên nhân khởi phát như hội chứng vành cấp, rối loạn nhịp, bệnh van tim cấp hoặc nhiễm trùng.<br>+ Không dùng opioid thường quy vì nguy cơ ức chế hô hấp và tác dụng bất lợi.</p>
+<p><span class="c-xanh">– ARDS và phù phổi không do tim:</span><br>+ Điều trị nguyên nhân khởi phát và hỗ trợ hô hấp; không dùng lợi tiểu theo phản xạ nếu không có quá tải dịch hoặc chỉ định khác.<br>+ Với ARDS cần thở máy bảo vệ phổi: thể tích khí lưu thông 4–8 mL/kg cân nặng dự đoán và áp lực plateau &lt;30 cm H₂O; cá thể hóa PEEP theo mức độ bệnh và đáp ứng.<br>+ Nằm sấp &gt;12 giờ/ngày được khuyến cáo trong ARDS nặng. Corticosteroid có thể được cân nhắc; thuốc giãn cơ thần kinh–cơ dùng chọn lọc ở ARDS nặng giai đoạn sớm. VV-ECMO dành cho một số trường hợp nặng, giảm oxy máu kháng trị, tại trung tâm có kinh nghiệm.<br>+ Sau khi ổn định huyết động, tránh cân bằng dịch dương kéo dài; không trì hoãn hồi sức dịch cần thiết khi bệnh nhân còn sốc.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Clinical and Radiologic Features of Pulmonary Edema – Thomas Gluecker, MD , Patrizio Capasso, MD<br>* Pulmonary edema – Craig Hacking<br>* Pulmonary Edema: A Pictorial Review of Imaging Manifestations and Current Understanding of Mechanisms of Disease – Maria Barile<br>* Clinical and Radiologic Features of Pulmonary Edema – Thomas Gluecker, Patrizio Capasso, Pierre Schnyder, François Gudinchet, Marie-Denise Schaller, Jean-Pierre Revelly, René Chiolero, Peter Vock, Stéphan Wicky<br>* The Radiologic Distinction of Cardiogenic and Noncardiogenic Edema – Eric N. C. Miln &amp; Massimo Pistolesi<br>* Unilateral pulmonary oedema, a forgotten presentation – C. A. Arboleda Vallejo<br>* Differences between cardiac edema, viral pneumonia and ARDS presented by MDCT – T. Milosavljevic<br>* Lower Lobe—Predominant Diseases of the Lung – Stefan F. Nemec, Alexander A. Bankier, and Ronald L. Eisenberg</em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Xẹp Phổi</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>Xẹp Phổi</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/xep-phoi/" target="_blank" rel="noopener">Xray.vn — xray.vn/xep-phoi</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Xẹp phổi (atelectasis)</span> là tình trạng giảm thể tích một phần hoặc toàn bộ nhu mô phổi do các phế nang không nở hoặc bị xẹp. Khác với đông đặc phổi, xẹp phổi đặc trưng bởi giảm thể tích vùng tổn thương.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Xẹp phế nang có thể do tắc nghẽn đường thở khiến khí bị hấp thu, chèn ép từ bên ngoài, giảm chất hoạt diện hoặc co kéo do xơ hóa; phạm vi tổn thương thay đổi từ khu trú đến lan tỏa, tùy cơ chế và vị trí tổn thương.</p>
+<p><span class="c-xanh">– Hình thái lâm sàng:</span> Biểu hiện phụ thuộc vào nguyên nhân và mức độ xẹp; tổn thương khu trú có thể không triệu chứng, trong khi xẹp phổi rộng có thể gây khó thở hoặc giảm oxy máu.</p>
+<p><span class="c-xanh">– Vai trò hình ảnh:</span> Giảm thể tích vùng phổi bị ảnh hưởng là dấu hiệu cốt lõi; chẩn đoán hình ảnh giúp xác định vị trí, phạm vi, gợi ý cơ chế hoặc nguyên nhân và đánh giá biến chứng.</p>
+<figure><a class="o-anh" href="xep-phoi_anh/2015_08_8964146a32672cf532e922bccf7ae3fa.png"><img src="xep-phoi_anh/2015_08_8964146a32672cf532e922bccf7ae3fa.png" alt="" width="1420" height="1084" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"><strong>* Nguyên nhân: </strong></span><br><span class="c-xanh">– Xẹp phổi tắc nghẽn (obstructive/resorptive atelectasis):</span><br>+ Nguyên nhân gồm u nội phế quản nguyên phát hoặc di căn, nút nhầy, dị vật, cục máu đông và hẹp phế quản do viêm; tần suất từng nguyên nhân thay đổi theo tuổi và bối cảnh lâm sàng.<br>+ Khi phế quản bị tắc hoàn toàn, khí trong các phế nang phía sau chỗ tắc dần được hấp thu vào máu mà không được bù lại, gây xẹp nhu mô phổi phía xa.</p>
+<p><span class="c-xanh">– Xẹp phổi do co kéo xơ (cicatrization atelectasis):</span> Sẹo xơ co kéo nhu mô và hạn chế khả năng giãn nở; có thể gặp sau bệnh u hạt, nhiễm trùng phá hủy như viêm phổi hoại tử hoặc xơ hóa sau xạ trị.</p>
+<p><span class="c-xanh">– Xẹp phổi thụ động (passive/relaxation atelectasis):</span> Phổi co lại khi lực căng xuyên phổi giảm do áp lực âm trong khoang màng phổi bị mất hoặc giảm, thường gặp trong tràn khí hoặc tràn dịch màng phổi.</p>
+<p><span class="c-xanh">– Xẹp phổi chèn ép (compressive atelectasis):</span><br>+ Nhu mô phổi bị ép bởi tổn thương choán chỗ trong lồng ngực, làm giảm thể tích phế nang.<br>+ Trong nhiều cách phân loại, xẹp phổi chèn ép chồng lấp với xẹp phổi thụ động; ranh giới và cách dùng các thuật ngữ này không hoàn toàn thống nhất.</p>
+<p><span class="c-xanh">– Xẹp phổi dính (adhesive atelectasis):</span> Thiếu hụt hoặc rối loạn chức năng chất hoạt diện làm tăng sức căng bề mặt, khiến phế nang mất ổn định và xẹp dù không có tắc nghẽn cơ học; có thể gặp trong hội chứng suy hô hấp sơ sinh và hội chứng suy hô hấp cấp.</p>
+<figure><a class="o-anh" href="xep-phoi_anh/2015_08_2248927-article-understanding-atelectasis-01-5a5e2c3ebeba3300368891ea.png"><img src="xep-phoi_anh/2015_08_2248927-article-understanding-atelectasis-01-5a5e2c3ebeba3300368891ea.png" alt="" width="1500" height="826" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-chan-doan-x-quang">II. Chẩn đoán x-quang</h2>
+<h3 id="1-xep-toan-bo">1. Xẹp toàn bộ</h3>
+<p><span class="c-xanh">– Nguyên nhân:</span> Xẹp toàn bộ một bên phổi có thể do tắc nghẽn phế quản gốc hoặc do cơ chế không tắc nghẽn:<br>+ Tắc nghẽn thường do tổn thương trong lòng phế quản gốc, như u hoặc nút nhầy, hoặc do chèn ép phế quản từ bên ngoài.<br>+ Xẹp không tắc nghẽn thường đi kèm tràn dịch hoặc tràn khí màng phổi lượng lớn.</p>
+<p><span class="c-xanh">– Dấu hiệu hình ảnh:</span><br>+ Mờ gần toàn bộ trường phổi bên tổn thương, có thể đồng nhất.<br>+ Giảm thể tích phổi biểu hiện bằng nâng cao vòm hoành – bên trái dễ nhận biết hơn do có bóng hơi dạ dày, hẹp khoang liên sườn và kéo rốn phổi, tim, khí quản, trung thất về phía phổi xẹp.<br>+ Nếu tràn dịch hoặc tràn khí màng phổi lượng lớn tạo hiệu ứng choán chỗ, trung thất có thể bị đẩy về bên đối diện hoặc làm thay đổi hướng di lệch dự kiến do xẹp phổi.<br>+ Phổi đối bên có thể tăng thông khí bù trừ và thoát vị qua đường giữa ra trước trung thất, tạo dải sáng cạnh trung thất; trên phim nghiêng, khoang sáng sau xương ức có thể rộng hơn.<br>+ Có thể xóa bờ tim và vòm hoành bên tổn thương.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/atelectasis.jpeg"><img src="xep-phoi_anh/atelectasis.jpeg" alt="" width="600" height="732" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/complete_white_out.jpg"><img src="xep-phoi_anh/complete_white_out.jpg" alt="" width="615" height="589" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/gr3-1.jpeg"><img src="xep-phoi_anh/gr3-1.jpeg" alt="" width="924" height="820" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/image01039.jpeg"><img src="xep-phoi_anh/image01039.jpeg" alt="" width="997" height="1038" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/69066579.jpg"><img src="xep-phoi_anh/69066579.jpg" alt="" width="1200" height="1217" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_cvb.jpg"><img src="xep-phoi_anh/2015_08_cvb.jpg" alt="" width="1391" height="1153" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_595518.jpg"><img src="xep-phoi_anh/2015_08_595518.jpg" alt="" width="793" height="700" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.12828.46359.jpg"><img src="xep-phoi_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.12828.46359.jpg" alt="" width="1570" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_FB_IMG_1493125371682_xray.vn_.png"><img src="xep-phoi_anh/2015_08_FB_IMG_1493125371682_xray.vn_.png" alt="" width="883" height="939" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_http___www.fpnotebook.com__media_lungPtxComplete_PA_Xray.vn_.jpg"><img src="xep-phoi_anh/2015_08_http___www.fpnotebook.com__media_lungPtxComplete_PA_Xray.vn_.jpg" alt="" width="956" height="888" loading="lazy" decoding="async"></a></div>
+<h3 id="2-xep-khong-tac-nghen">2. Xẹp không tắc nghẽn</h3>
+<p><strong><span class="c-xanh">* Xẹp phổi thụ động:<br></span></strong><span class="c-xanh">– Xẹp phổi thụ động (passive/relaxation atelectasis)</span> là tình trạng nhu mô phổi co lại khi lực giữ phổi nở giảm, thường do tràn dịch hoặc tràn khí màng phổi.<br>– Đặc điểm hình ảnh: Vùng phổi giảm thể tích thường áp sát vùng dịch hoặc khí màng phổi; phế quản còn thông nên có thể thấy phế quản chứa khí. Phân bố theo thùy thay đổi tùy vị trí, mức độ tổn thương và tư thế, không cố định theo một kiểu.<br>– Phân biệt với xẹp phổi tắc nghẽn do u (tumor-related obstructive atelectasis): Xẹp thụ động thường đi kèm bất thường khoang màng phổi và phế quản có thể còn thông; xẹp do u có thể có dấu tắc hoặc cụt phế quản gốc, hay thấy khối quanh phế quản. Các dấu hiệu này có thể chồng lấp trên X-quang.<br>– Cạm bẫy: Thấy phế quản chứa khí, hoặc không thấy dày hay nốt màng phổi, không đủ để loại trừ tắc nghẽn do u. Nếu nguyên nhân xẹp phổi chưa rõ hoặc còn nghi ngờ, cân nhắc khảo sát thêm bằng CT ngực hoặc nội soi phế quản.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_pyopneumothorax-6.png"><img src="xep-phoi_anh/2015_08_pyopneumothorax-6.png" alt="" width="487" height="488" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_pyopneumothorax-6-2.png"><img src="xep-phoi_anh/2015_08_pyopneumothorax-6-2.png" alt="" width="711" height="495" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_pyopneumothorax-6-1.png"><img src="xep-phoi_anh/2015_08_pyopneumothorax-6-1.png" alt="" width="711" height="495" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_pyopneumothorax-6-3.png"><img src="xep-phoi_anh/2015_08_pyopneumothorax-6-3.png" alt="" width="501" height="490" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Xẹp phổi do chèn ép:</strong><br>– Xẹp phổi do chèn ép (compressive atelectasis)</span> xảy ra khi áp lực từ bên ngoài làm nhu mô phổi giảm thể tích và đẩy khí khỏi phế nang.<br>– Nguyên nhân: Thường gặp gồm tràn dịch hoặc tràn khí màng phổi lượng lớn, khối trung thất hoặc khối thành ngực; u phổi chỉ gây xẹp chèn ép khi tác động từ ngoài vào phế quản hoặc nhu mô.<br>– Đặc điểm hình ảnh: Vùng phổi xẹp thường tiếp giáp với tác nhân chèn ép; trên phim có thể thấy dịch, khí màng phổi hoặc khối choán chỗ tương ứng.<br>– Cạm bẫy: Xẹp phổi do chèn ép và xẹp phổi thụ động có thể chồng lấp, không có ngưỡng giảm thể tích chuẩn để phân định hai nhóm. U có thể gây xẹp do chèn ép từ ngoài hoặc do tắc lòng phế quản; cần phân loại theo cơ chế thực tế.</p>
+<figure><a class="o-anh" href="xep-phoi_anh/04e2a891a97b0f831e1a204d83399c-1-1.png"><img src="xep-phoi_anh/04e2a891a97b0f831e1a204d83399c-1-1.png" alt="04e2a891a97b0f831e1a204d83399c (1)" width="768" height="768" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"><strong>* Xẹp phổi do dính:</strong><br>– Xẹp phổi do dính (adhesive atelectasis)</span> xảy ra khi thiếu hụt hoặc bất hoạt chất hoạt diện làm tăng sức căng bề mặt, giảm độ ổn định của phế nang và gây xẹp.<br>– Nguyên nhân: Thiếu chất hoạt diện thường gặp ở trẻ sinh non mắc hội chứng suy hô hấp sơ sinh (neonatal respiratory distress syndrome); rối loạn hoặc bất hoạt chất hoạt diện có thể góp phần vào hội chứng suy hô hấp cấp (acute respiratory distress syndrome, ARDS).<br>– Đặc điểm hình ảnh: Biểu hiện X-quang phụ thuộc bệnh nền; có thể thấy giảm thể tích phổi và mờ lan tỏa, nhưng các dấu hiệu này không đặc hiệu cho xẹp phổi do dính.<br>– Cạm bẫy: Xẹp phổi sau phẫu thuật, thở nông, hít khói, phẫu thuật bắc cầu tim hoặc urê huyết có thể liên quan đến xẹp phổi qua nhiều cơ chế; không nên xem các yếu tố này là nguyên nhân đặc hiệu của xẹp phổi do dính nếu chưa có căn cứ về rối loạn chất hoạt diện.</p>
+<figure><a class="o-anh" href="xep-phoi_anh/rds.jpg"><img src="xep-phoi_anh/rds.jpg" alt="rds" width="748" height="697" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"><strong>* Xẹp phổi do sẹo xơ:</strong><br>– Xẹp phổi do sẹo xơ (cicatrization atelectasis)</span> là tình trạng xơ hóa co kéo nhu mô, làm giảm thể tích và biến dạng cấu trúc vùng phổi; có thể gặp sau lao, viêm hoặc nhiễm trùng mạn tính, xơ hóa sau xạ trị và bệnh phổi do amiăng.<br>– Đặc điểm hình ảnh:<br>+ Tổn thương có thể khu trú hoặc lan tỏa; hình mờ có thể dạng lưới, dải hoặc khối/nốt, nhưng các hình thái này không đặc hiệu.<br>+ Giảm thể tích và co kéo cấu trúc phổi; khi tổn thương rộng, có thể kéo rốn phổi và trung thất về bên tổn thương, kèm tăng thông khí bù trừ ở vùng phổi còn lại.<br>+ Có thể thấy giãn phế quản do co kéo trong vùng xơ hóa.<br>– Cạm bẫy: Hình mờ dạng khối, nốt hoặc đông đặc không đủ để phân biệt xẹp do xơ với u; cần đánh giá cùng dấu giảm thể tích, biến dạng kiến trúc và diễn tiến tổn thương.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="xep-phoi_anh/2015_08_screenshot_1752509635-1.png"><img src="xep-phoi_anh/2015_08_screenshot_1752509635-1.png" alt="" width="1092" height="529" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_screenshot_1752509646-1.png"><img src="xep-phoi_anh/2015_08_screenshot_1752509646-1.png" alt="" width="1092" height="528" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="xep-phoi_anh/f6a9137b029b51cde410b89bab729f_jumbo.jpg"><img src="xep-phoi_anh/f6a9137b029b51cde410b89bab729f_jumbo.jpg" alt="Tiền sử viêm phổi" width="758" height="685" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/c79cbd0c3577125224d54236cfd576_jumbo.jpg"><img src="xep-phoi_anh/c79cbd0c3577125224d54236cfd576_jumbo.jpg" alt="" width="825" height="871" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/8471def93395ff8b982c9918fce4b5_big_gallery.jpg"><img src="xep-phoi_anh/8471def93395ff8b982c9918fce4b5_big_gallery.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/5d0d591fef84fc56c28a3e6c197dcc_big_gallery.jpg"><img src="xep-phoi_anh/5d0d591fef84fc56c28a3e6c197dcc_big_gallery.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/37346c01a9c98240f5bde8acb3bdc8_big_gallery.jpg"><img src="xep-phoi_anh/37346c01a9c98240f5bde8acb3bdc8_big_gallery.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/50092dcb9eeefcfe59251e3fc86af0_big_gallery.jpg"><img src="xep-phoi_anh/50092dcb9eeefcfe59251e3fc86af0_big_gallery.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Xẹp phổi phẳng, dạng đĩa hoặc thành dải:</span></strong><br><span class="c-xanh">– Xẹp phổi dạng dải (linear/plate-like atelectasis)</span> là xẹp khu trú, thường dưới phân thùy, biểu hiện bằng dải mờ mảnh trên X-quang:<br>+ Thường ở vùng đáy phổi, có hướng ngang hoặc chếch; có thể áp sát màng phổi nhưng không phải lúc nào cũng vậy. Độ dày thay đổi.<br>+ Thường liên quan giảm thông khí, như thở nông hoặc sau phẫu thuật, hoặc tắc nghẽn đường thở nhỏ, chẳng hạn do nút nhầy; khối u nhỏ hay hẹp đường thở ít gặp hơn.<br>+ Cũng có thể là xẹp thụ động của nhu mô phổi sát vùng tràn dịch màng phổi.<br>+ Có thể cải thiện khi nguyên nhân được xử lý và thông khí tốt hơn.<br>– Cạm bẫy: Dải mờ tồn tại hoặc tái phát cần được đánh giá thêm, nhất là để tìm nguyên nhân tắc nghẽn.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="xep-phoi_anh/2015_08_11463450-e1752510677106.jpg"><img src="xep-phoi_anh/2015_08_11463450-e1752510677106.jpg" alt="" width="724" height="645" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_136548.lungs-discoid-atelectasis.jpg"><img src="xep-phoi_anh/2015_08_136548.lungs-discoid-atelectasis.jpg" alt="" width="1326" height="1326" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_719644-1.jpg"><img src="xep-phoi_anh/2015_08_719644-1.jpg" alt="" width="1600" height="1367" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_1-245.jpeg"><img src="xep-phoi_anh/2015_08_1-245.jpeg" alt="" width="1024" height="832" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2-248.jpeg"><img src="xep-phoi_anh/2015_08_2-248.jpeg" alt="" width="846" height="850" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-243.jpeg"><img src="xep-phoi_anh/2015_08_3-243.jpeg" alt="" width="630" height="521" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-236.jpeg"><img src="xep-phoi_anh/2015_08_4-236.jpeg" alt="" width="630" height="520" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="xep-phoi_anh/2015_08_3777.jpg"><img src="xep-phoi_anh/2015_08_3777.jpg" alt="" width="1000" height="797" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3778.jpg"><img src="xep-phoi_anh/2015_08_3778.jpg" alt="" width="1000" height="797" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Xẹp phổi tròn</span></strong><br><span class="c-xanh">– Xẹp phổi tròn (rounded atelectasis)</span>, còn gọi là hội chứng Blesovsky (Blesovsky syndrome), là dạng xẹp phổi ngoại vi liên quan đến bệnh màng phổi:<br>+ Thường gặp ở thùy dưới, vùng sau và sát màng phổi; liên quan đặc biệt với bệnh màng phổi do amiăng, nhưng cũng có thể gặp sau viêm màng phổi tiết dịch hoặc lao.<br>+ Cơ chế chưa được giải thích hoàn toàn. Một giả thuyết cho rằng tràn dịch hoặc viêm màng phổi gây xẹp nhu mô kế cận, sau đó dày và xơ dính màng phổi làm nhu mô gấp cuộn, khiến tổn thương tồn tại.<br>+ Trên X-quang, thường thấy đám mờ tròn hoặc bầu dục ở ngoại vi, tiếp giáp màng phổi; có thể kèm dày màng phổi và giảm thể tích thùy phổi.<br>+ Tổng quan hình ảnh của Sobocińska và cộng sự (2014) ghi nhận kích thước thường khoảng 2,5–8 cm; đây là dải mô tả trong y văn, không phải ngưỡng chẩn đoán.<br>+ Cạm bẫy: Tổn thương có thể giống khối u ngoại vi; dày màng phổi đơn độc không xác lập chẩn đoán. Hình thái không điển hình cần được đánh giá thêm, thường bằng CT.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/456dbecdd1d9d4e660870a447ebd07_jumbo.png"><img src="xep-phoi_anh/456dbecdd1d9d4e660870a447ebd07_jumbo.png" alt="" width="841" height="906" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/0182960b52a9b247d7a545d151056b_jumbo.png"><img src="xep-phoi_anh/0182960b52a9b247d7a545d151056b_jumbo.png" alt="" width="841" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/c0a34fc8169ddd2d41081c71e4f421_big_gallery.png"><img src="xep-phoi_anh/c0a34fc8169ddd2d41081c71e4f421_big_gallery.png" alt="" width="630" height="253" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/7bd945619342b1d3a6d8fd82c1c138_big_gallery.png"><img src="xep-phoi_anh/7bd945619342b1d3a6d8fd82c1c138_big_gallery.png" alt="" width="553" height="581" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"> + Bất thường màng phổi kèm theo:</span> Trong một nghiên cứu hồi cứu gồm 50 người bệnh với 59 tổn thương, mọi trường hợp đều có ít nhất một bất thường màng phổi; ghi nhận dày màng phổi (88%), tràn dịch màng phổi (60%) và vôi hóa màng phổi (40%) (Azour và cộng sự, 2018).</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="xep-phoi_anh/eef021008fe91ae607cef3ab606809_big_gallery.jpg"><img src="xep-phoi_anh/eef021008fe91ae607cef3ab606809_big_gallery.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/5203f9b4be9be0f0b788f6eac5ce5a_big_gallery.jpg"><img src="xep-phoi_anh/5203f9b4be9be0f0b788f6eac5ce5a_big_gallery.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/41ebde7d3b2baf23df277852b25fb8_big_gallery.jpg"><img src="xep-phoi_anh/41ebde7d3b2baf23df277852b25fb8_big_gallery.jpg" alt="" width="567" height="482" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/06578bf0857ca09f4de6c67cd50a7b_big_gallery.jpg"><img src="xep-phoi_anh/06578bf0857ca09f4de6c67cd50a7b_big_gallery.jpg" alt="" width="593" height="502" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/5f51cc39895c7d3394580fbe444003_big_gallery.jpg"><img src="xep-phoi_anh/5f51cc39895c7d3394580fbe444003_big_gallery.jpg" alt="" width="630" height="373" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/cdf94d6b0c80aed785c25f63832234_big_gallery.jpg"><img src="xep-phoi_anh/cdf94d6b0c80aed785c25f63832234_big_gallery.jpg" alt="" width="630" height="467" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="xep-phoi_anh/2015_08_1-19.webp"><img src="xep-phoi_anh/2015_08_1-19.webp" alt="" width="806" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2-18.webp"><img src="xep-phoi_anh/2015_08_2-18.webp" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-16.webp"><img src="xep-phoi_anh/2015_08_3-16.webp" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-16.webp"><img src="xep-phoi_anh/2015_08_4-16.webp" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_5-14.webp"><img src="xep-phoi_anh/2015_08_5-14.webp" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_6-11.webp"><img src="xep-phoi_anh/2015_08_6-11.webp" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"> + Dấu hiệu đuôi sao chổi (comet-tail sign):</span> Trên CT, các bó mạch-phế quản cong và hội tụ vào vùng nhu mô xẹp do bị kéo theo nếp gấp sát màng phổi; đây là dấu hiệu gợi ý, cần đối chiếu với bệnh lý màng phổi và giảm thể tích thùy.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/2015_08_screenshot_1752509191-1.png"><img src="xep-phoi_anh/2015_08_screenshot_1752509191-1.png" alt="" width="1093" height="530" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/e4f658a6667aac6e5cba867137edad.jpg"><img src="xep-phoi_anh/e4f658a6667aac6e5cba867137edad.jpg" alt="" width="1600" height="1446" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/rounded-atelectasis.png"><img src="xep-phoi_anh/rounded-atelectasis.png" alt="" width="743" height="428" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_13244_2019_789_Fig7_HTML.jpg"><img src="xep-phoi_anh/2015_08_13244_2019_789_Fig7_HTML.jpg" alt="" width="787" height="517" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Capture-30.png"><img src="xep-phoi_anh/2015_08_Capture-30.png" alt="" width="838" height="831" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/64f4d5172e2a1a3381aad6ba21ff5e_big_gallery.jpg"><img src="xep-phoi_anh/64f4d5172e2a1a3381aad6ba21ff5e_big_gallery.jpg" alt="" width="630" height="628" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/31356585781250.jpg"><img src="xep-phoi_anh/31356585781250.jpg" alt="" width="827" height="1070" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/51356585781250.jpg"><img src="xep-phoi_anh/51356585781250.jpg" alt="" width="986" height="717" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/Comet_tail_sign.jpg"><img src="xep-phoi_anh/Comet_tail_sign.jpg" alt="" width="862" height="925" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_h1.jpg"><img src="xep-phoi_anh/2015_08_h1.jpg" alt="" width="827" height="658" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_h2.jpg"><img src="xep-phoi_anh/2015_08_h2.jpg" alt="" width="1600" height="1105" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_xepphoitron1.png"><img src="xep-phoi_anh/2015_08_xepphoitron1.png" alt="" width="592" height="744" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Screenshot-2022-05-11-230438.jpg"><img src="xep-phoi_anh/2015_08_Screenshot-2022-05-11-230438.jpg" alt="" width="986" height="718" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_screenshot_1752509206-1.png"><img src="xep-phoi_anh/2015_08_screenshot_1752509206-1.png" alt="" width="1091" height="530" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/2015_08_2-53.jpeg"><img src="xep-phoi_anh/2015_08_2-53.jpeg" alt="" width="624" height="486" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-53.jpeg"><img src="xep-phoi_anh/2015_08_3-53.jpeg" alt="" width="621" height="487" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-51.jpeg"><img src="xep-phoi_anh/2015_08_4-51.jpeg" alt="" width="621" height="493" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_5-39.jpeg"><img src="xep-phoi_anh/2015_08_5-39.jpeg" alt="" width="619" height="495" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_6-29.jpeg"><img src="xep-phoi_anh/2015_08_6-29.jpeg" alt="" width="616" height="496" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_1-copia-small.jpg"><img src="xep-phoi_anh/2015_08_1-copia-small.jpg" alt="" width="1079" height="944" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2-copia-small.jpg"><img src="xep-phoi_anh/2015_08_2-copia-small.jpg" alt="" width="869" height="1067" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Case01-solution01.jpg"><img src="xep-phoi_anh/2015_08_Case01-solution01.jpg" alt="" width="1109" height="544" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Case01-solution02.jpg"><img src="xep-phoi_anh/2015_08_Case01-solution02.jpg" alt="" width="1089" height="504" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_1-309.jpeg"><img src="xep-phoi_anh/2015_08_1-309.jpeg" alt="" width="897" height="852" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2-312.jpeg"><img src="xep-phoi_anh/2015_08_2-312.jpeg" alt="" width="825" height="870" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-310.jpeg"><img src="xep-phoi_anh/2015_08_3-310.jpeg" alt="" width="558" height="567" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-296.jpeg"><img src="xep-phoi_anh/2015_08_4-296.jpeg" alt="" width="566" height="572" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2019_08_a-2.jpeg"><img src="xep-phoi_anh/2019_08_a-2.jpeg" alt="" width="567" height="571" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2019_08_b-2.jpeg"><img src="xep-phoi_anh/2019_08_b-2.jpeg" alt="" width="573" height="570" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2019_08_c-1.jpeg"><img src="xep-phoi_anh/2019_08_c-1.jpeg" alt="" width="580" height="572" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_5-230.jpeg"><img src="xep-phoi_anh/2015_08_5-230.jpeg" alt="" width="588" height="479" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_1-799.jpeg"><img src="xep-phoi_anh/2015_08_1-799.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2a-1.png"><img src="xep-phoi_anh/2015_08_2a-1.png" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-779.jpeg"><img src="xep-phoi_anh/2015_08_3-779.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-731.jpeg"><img src="xep-phoi_anh/2015_08_4-731.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_5a-1.png"><img src="xep-phoi_anh/2015_08_5a-1.png" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_6-292.jpeg"><img src="xep-phoi_anh/2015_08_6-292.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_7-112.jpeg"><img src="xep-phoi_anh/2015_08_7-112.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Xẹp phổi sau mổ</span></strong><br><span class="c-xanh">– Xẹp phổi sau phẫu thuật (postoperative atelectasis)</span> là biến chứng hô hấp thường gặp, nhất là sau phẫu thuật lồng ngực và bụng trên:<br>+ Thuốc mê và rối loạn chức năng cơ hoành có thể làm giảm dung tích cặn chức năng; đau sau mổ và thở nông góp phần gây xẹp các vùng phổi phụ thuộc.<br>+ Giảm ho, ứ đọng dịch tiết và rối loạn chất hoạt diện cũng có thể góp phần; cơ chế thường phối hợp.<br>+ Thường gặp ở vùng đáy và các vùng phổi phụ thuộc, với hình thái từ xẹp dưới phân thùy dạng dải đến xẹp phân thùy hoặc thùy.<br>+ Cạm bẫy: Xẹp thùy kéo dài sau mổ cần đánh giá tắc nghẽn, chẳng hạn do nút nhầy, thay vì mặc định là xẹp phổi không biến chứng.</p>
+<figure><a class="o-anh" href="xep-phoi_anh/2015_08_shutterstock_1719728980_PostoperativeAtelectasis-scaled-1.jpg"><img src="xep-phoi_anh/2015_08_shutterstock_1719728980_PostoperativeAtelectasis-scaled-1.jpg" alt="" width="1600" height="764" loading="lazy" decoding="async"></a></figure>
+<h3 id="3-xep-tac-nghen">3. Xẹp tắc nghẽn</h3>
+<h4 id="dac-diem-hinh-anh">* Đặc điểm hình ảnh</h4>
+<p><span class="c-xanh">– Xẹp phổi tắc nghẽn (obstructive/resorptive atelectasis)</span> là tình trạng giảm thể tích nhu mô phía sau chỗ tắc do khí trong phế nang dần được hấp thu:<br>+ Mức tắc thường quyết định phạm vi xẹp: tắc phế quản thùy có thể gây xẹp thùy, tắc phế quản phân thùy gây xẹp phân thùy; tắc phế quản gốc có thể gây xẹp toàn bộ phổi.<br>+ Ở người lớn, ung thư phổi trung tâm hoặc tổn thương ác tính trong lòng phế quản là nguyên nhân quan trọng. Nguyên nhân khác gồm u nội phế quản lành tính hoặc di căn, nút nhầy, dị vật, hẹp phế quản do viêm hoặc nhiễm trùng (như lao, nấm), và chèn ép từ ngoài bởi u, hạch hoặc cấu trúc tim mạch lớn; tần suất thay đổi theo tuổi và bối cảnh.<br>+ Hen nặng có thể gây tắc nghẽn qua co thắt phế quản và nút nhầy; sau phẫu thuật, nút nhầy là một nguyên nhân thường gặp.<br>+ Khi tắc hoàn toàn phế quản trung tâm, phế quản phía xa thường không còn chứa khí; dấu này có thể vẫn hiện diện khi tắc không hoàn toàn.</p>
+<figure><a class="o-anh" href="xep-phoi_anh/2015_08_1-1.jpg"><img src="xep-phoi_anh/2015_08_1-1.jpg" alt="1" width="900" height="611" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Đặc điểm hình ảnh chung:</span><br>+ Vùng phổi xẹp tăng đậm độ kèm giảm thể tích.<br>+ Rãnh liên thùy di lệch về phía vùng xẹp; mạch máu và phế quản co cụm, hội tụ do mất thể tích.<br>+ Vòm hoành cùng bên nâng cao, khoang liên sườn hẹp; tim, khí quản và trung thất thường bị kéo về phía phổi xẹp.<br>+ Rốn phổi thường bị kéo lên ở xẹp thùy trên và xuống ở xẹp thùy dưới.<br>+ Có thể xóa bờ tim, vòm hoành hoặc bờ trung thất tiếp giáp với vùng mờ.<br>+ Các thùy phổi còn lại có thể tăng thông khí bù trừ, biểu hiện tăng sáng.<br>+ Cạm bẫy: Các dấu hiệu thay đổi theo vị trí và mức độ xẹp, không nhất thiết xuất hiện đồng thời. Tràn dịch, tràn khí hoặc khối choán chỗ kèm theo có thể làm thay đổi hướng di lệch trung thất.</p>
+<h4 id="xep-thuy-tren-phoi-phai">* Xẹp thùy trên phổi phải</h4>
+<p><span class="c-xanh">– Xẹp thùy trên phổi phải (right upper lobe collapse)</span> làm thùy co kéo lên trên, vào trong và ra trước:<br>+ Trên phim thẳng, rãnh liên thùy bé di lệch lên trên và vào trong.<br>+ Trên phim nghiêng, rãnh liên thùy lớn di lệch ra trước; rãnh liên thùy bé cũng di lệch lên trên.<br>+ Rốn phổi phải có thể bị kéo lên; phế quản thùy giữa và thùy dưới có thể bị kéo lên theo.<br>+ Khi xẹp hoàn toàn, thùy trên co nhỏ đáng kể nên hình mờ có thể kín đáo; cần chú ý các dấu giảm thể tích và thay đổi vùng trung thất trên.<br>+ Thùy giữa và thùy dưới phải có thể tăng thông khí bù trừ.<br>+ Cạm bẫy: Mất bờ tim phải không phải dấu hiệu đặc trưng của xẹp thùy trên đơn thuần; thường gợi ý xẹp thùy giữa hơn.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/2015_08_44326_2024_24_Fig1_HTML-1.jpg"><img src="xep-phoi_anh/2015_08_44326_2024_24_Fig1_HTML-1.jpg" alt="" width="1600" height="585" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_screenshot_1751986938.png"><img src="xep-phoi_anh/2015_08_screenshot_1751986938.png" alt="" width="1093" height="588" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_x1-1-e1751986412745.png"><img src="xep-phoi_anh/2015_08_x1-1-e1751986412745.png" alt="" width="1183" height="755" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_trenbanphai.png"><img src="xep-phoi_anh/2015_08_trenbanphai.png" alt="" width="880" height="770" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p32.png"><img src="xep-phoi_anh/2023_09_p32.png" alt="Nữ 81 tuổi - Khó thở 2 tuần, sút cân: Xẹp thuỳ trên phổi phải" width="871" height="982" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p32b.png"><img src="xep-phoi_anh/2023_09_p32b.png" alt="" width="1189" height="700" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_914426.jpg"><img src="xep-phoi_anh/2015_08_914426.jpg" alt="" width="1600" height="668" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_605987.jpg"><img src="xep-phoi_anh/2015_08_605987.jpg" alt="" width="1152" height="1037" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_x2.png"><img src="xep-phoi_anh/2015_08_x2.png" alt="" width="1197" height="615" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_56b74f9feaedb84fc1b9ea00c48e6b_jumbo.jpg"><img src="xep-phoi_anh/2015_08_56b74f9feaedb84fc1b9ea00c48e6b_jumbo.jpg" alt="" width="1024" height="907" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_y1.jpg"><img src="xep-phoi_anh/2015_08_y1.jpg" alt="" width="818" height="815" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/Picture10854398916250.jpg"><img src="xep-phoi_anh/Picture10854398916250.jpg" alt="" width="999" height="548" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/3b65ea8af7963e0c32ece2a1cb6f02_jumbo.jpg"><img src="xep-phoi_anh/3b65ea8af7963e0c32ece2a1cb6f02_jumbo.jpg" alt="" width="851" height="782" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_x3-1.png"><img src="xep-phoi_anh/2015_08_x3-1.png" alt="" width="1196" height="687" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_RULcollapsecombo-1024x430-1.jpg"><img src="xep-phoi_anh/2015_08_RULcollapsecombo-1024x430-1.jpg" alt="" width="1024" height="430" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/b7ba7d2b4f49b085bec43778d7db00_jumbo.jpg"><img src="xep-phoi_anh/b7ba7d2b4f49b085bec43778d7db00_jumbo.jpg" alt="" width="961" height="990" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/748464aab1adb7be3dcfc533ca51a6_jumbo.jpg"><img src="xep-phoi_anh/748464aab1adb7be3dcfc533ca51a6_jumbo.jpg" alt="" width="811" height="900" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/8bb2a14a1b0af2dc0caa5d78ba623d_big_gallery.jpg"><img src="xep-phoi_anh/8bb2a14a1b0af2dc0caa5d78ba623d_big_gallery.jpg" alt="" width="630" height="351" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/550f68419bfa628f1f6d11cd129b1c_big_gallery.jpg"><img src="xep-phoi_anh/550f68419bfa628f1f6d11cd129b1c_big_gallery.jpg" alt="" width="564" height="513" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="xep-phoi_anh/2015_08_3775.jpg"><img src="xep-phoi_anh/2015_08_3775.jpg" alt="" width="1000" height="823" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3776.jpg"><img src="xep-phoi_anh/2015_08_3776.jpg" alt="" width="1000" height="823" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu đỉnh cạnh hoành (juxtaphrenic peak sign):</span><br>+ Trên phim X-quang ngực thẳng, là đỉnh mờ hình tam giác, bờ rõ, hướng lên trên ở phần trong của vòm hoành, tạo hình vòm hoành nhô cao hoặc dạng lều.<br>+ Thường liên quan giảm thể tích thùy trên phải hoặc trái; cũng có thể gặp khi giảm thể tích phối hợp thùy trên–giữa hoặc, ít gặp hơn, thùy giữa đơn độc.<br>+ Dấu hiệu chủ yếu do co kéo khe liên thùy phụ dưới; đôi khi liên quan khe liên thùy khác hoặc dây chằng phổi dưới.<br>+ Dấu hiệu phản ánh giảm thể tích thùy, không đặc hiệu cho tắc nghẽn; cũng có thể gặp sau cắt thùy trên, lao hoặc xạ trị.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_871732.png"><img src="xep-phoi_anh/2015_08_871732.png" alt="" width="1232" height="530" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_image00562.jpeg"><img src="xep-phoi_anh/2015_08_image00562.jpeg" alt="" width="1001" height="1005" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_20181219_094748_xray.vn_.jpg"><img src="xep-phoi_anh/2015_08_20181219_094748_xray.vn_.jpg" alt="" width="1200" height="1311" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_6ef0a7e87499705fa28a9deaaf46d3_jumbo.jpeg"><img src="xep-phoi_anh/2015_08_6ef0a7e87499705fa28a9deaaf46d3_jumbo.jpeg" alt="" width="1024" height="997" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_467997_1_En_20_Fig6_HTML.png"><img src="xep-phoi_anh/2015_08_467997_1_En_20_Fig6_HTML.png" alt="" width="697" height="621" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_b847773e9e2c52a934126885491eb1_jumbo-1.jpg"><img src="xep-phoi_anh/2015_08_b847773e9e2c52a934126885491eb1_jumbo-1.jpg" alt="" width="959" height="839" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_c0fadfeaf37b7554b4ff9cd64c67d1_jumbo.jpeg"><img src="xep-phoi_anh/2015_08_c0fadfeaf37b7554b4ff9cd64c67d1_jumbo.jpeg" alt="" width="877" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu chữ S ngược (Golden S-sign):<br></span>+ Trên phim X-quang thẳng, dấu hiệu kinh điển trong xẹp thùy trên phải kèm khối trung tâm vùng rốn phổi: rãnh liên thùy bé bị kéo lệch tạo thành phần cong lõm, còn khối trung tâm tạo phần lồi ở đoạn trong, hợp thành hình chữ S ngược.</p>
+<figure><a class="o-anh" href="xep-phoi_anh/2016_09_871730.jpg"><img src="xep-phoi_anh/2016_09_871730.jpg" alt="" width="1418" height="572" loading="lazy" decoding="async"></a></figure>
+<p>+ Khối gây biến dạng có thể nằm trong lòng phế quản hoặc chèn ép phế quản từ ngoài; ung thư phổi là một nguyên nhân quan trọng, nhưng không phải nguyên nhân duy nhất.<br>+ Cạm bẫy: Đây là dấu gợi ý khối gây tắc nghẽn trung tâm, không đặc hiệu cho ung thư. Dấu hiệu này điển hình thấy ở khối u phế quản thùy trên phổi (P) nhưng cũng có thể gặp ở thùy trên phổi trái.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/2016_09_Picture39.png"><img src="xep-phoi_anh/2016_09_Picture39.png" alt="" width="494" height="311" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Screenshot-2024-11-21-021635.jpg"><img src="xep-phoi_anh/2015_08_Screenshot-2024-11-21-021635.jpg" alt="" width="1600" height="613" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_screenshot_1752510868-1.png"><img src="xep-phoi_anh/2015_08_screenshot_1752510868-1.png" alt="" width="1093" height="528" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p7.png"><img src="xep-phoi_anh/2023_09_p7.png" alt="Nữ 43 tuổi - Khó thở, đau ngực: U phổi / Xẹp phổi" width="873" height="961" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p7b.png"><img src="xep-phoi_anh/2023_09_p7b.png" alt="" width="1190" height="698" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_914433.jpg"><img src="xep-phoi_anh/2015_08_914433.jpg" alt="" width="933" height="800" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_a69147b5523e96e2f2365a497e4b44_jumbo.jpeg"><img src="xep-phoi_anh/2015_08_a69147b5523e96e2f2365a497e4b44_jumbo.jpeg" alt="" width="1024" height="1023" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_Picture40.jpg"><img src="xep-phoi_anh/2016_09_Picture40.jpg" alt="" width="1022" height="943" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_1-218.jpg"><img src="xep-phoi_anh/2015_08_1-218.jpg" alt="" width="804" height="747" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_20200311_112903_20200311121931690_xray.vn_.jpg"><img src="xep-phoi_anh/2016_09_20200311_112903_20200311121931690_xray.vn_.jpg" alt="" width="780" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_Picture41.png"><img src="xep-phoi_anh/2016_09_Picture41.png" alt="" width="1508" height="810" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_20191119_133709_xray.vn_.jpg"><img src="xep-phoi_anh/2015_08_20191119_133709_xray.vn_.jpg" alt="" width="793" height="904" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_Picture42.png"><img src="xep-phoi_anh/2016_09_Picture42.png" alt="" width="300" height="300" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_g1-4.jpg"><img src="xep-phoi_anh/2015_08_g1-4.jpg" alt="" width="1261" height="1119" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_g2-2.jpg"><img src="xep-phoi_anh/2015_08_g2-2.jpg" alt="" width="827" height="561" loading="lazy" decoding="async"></a></div>
+<h4 id="xep-thuy-tren-phoi-trai">* Xẹp thùy trên phổi trái</h4>
+<p><span class="c-xanh">– Xẹp thùy trên phổi trái (left upper lobe collapse):</span><br>+ Phổi trái không có rãnh liên thùy bé. Khi xẹp, thùy trên co về phía trước và trong, làm rãnh liên thùy lớn di lệch ra trước, gần song song với thành ngực trước; thay đổi này thấy rõ hơn trên phim nghiêng.<br>+ Trên phim nghiêng, vùng xẹp tạo đám mờ sau xương ức, có bờ sau rõ.<br>+ Trên phim thẳng, đám mờ dạng màn xuất phát từ rốn phổi trái, mờ dần ra ngoài và xuống dưới; có thể xóa bờ trung thất trên trái và bờ tim trái.<br>+ Dấu hiệu đỉnh cạnh hoành (juxtaphrenic peak sign): mỏm nhọn khu trú ở vòm hoành, thường do lực kéo lên của rãnh phụ dưới của phổi (inferior accessory fissure).<br>+ Giảm thể tích thùy trên trái làm rốn phổi trái nâng cao và phế quản gốc trái nằm gần ngang. Khi xẹp nhiều, có thể kèm nâng vòm hoành trái, hẹp khoang liên sườn, dịch chuyển trung thất sang trái và xoay tim ra sau, sang trái.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_trentrai.png"><img src="xep-phoi_anh/2015_08_trentrai.png" alt="" width="782" height="783" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_x4-1.png"><img src="xep-phoi_anh/2015_08_x4-1.png" alt="" width="1200" height="750" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Screenshot-2024-11-21-020601.jpg"><img src="xep-phoi_anh/2015_08_Screenshot-2024-11-21-020601.jpg" alt="" width="1600" height="598" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p9.png"><img src="xep-phoi_anh/2023_09_p9.png" alt="Nam 32 tuổi - Khó thở, tiền sử hen: Xẹp thùy trên phổi trái" width="990" height="935" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p9b.png"><img src="xep-phoi_anh/2023_09_p9b.png" alt="" width="1189" height="714" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p37.png"><img src="xep-phoi_anh/2023_09_p37.png" alt="Nam 52 tuổi - Khó thở: Xẹp thuỳ trên phổi trái / U phổi trái" width="989" height="884" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p37b.png"><img src="xep-phoi_anh/2023_09_p37b.png" alt="" width="1187" height="691" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_20191211_121534_xray.vn_-scaled.jpg"><img src="xep-phoi_anh/2015_08_20191211_121534_xray.vn_-scaled.jpg" alt="" width="1600" height="1712" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/0f7c84b4f0961e7bec8bf8276eee0c.jpg"><img src="xep-phoi_anh/0f7c84b4f0961e7bec8bf8276eee0c.jpg" alt="" width="1600" height="1687" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_cb7361afd8200bea32c84b67bd25e1_jumbo.jpeg"><img src="xep-phoi_anh/2015_08_cb7361afd8200bea32c84b67bd25e1_jumbo.jpeg" alt="" width="1024" height="956" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/1-6.jpg"><img src="xep-phoi_anh/1-6.jpg" alt="" width="839" height="801" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_6ef0a7e87499705fa28a9deaaf46d3_jumbo-1.jpeg"><img src="xep-phoi_anh/2015_08_6ef0a7e87499705fa28a9deaaf46d3_jumbo-1.jpeg" alt="" width="1024" height="998" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_cfe7d7d6ec18d63b017ba18f354d81_jumbo.jpeg"><img src="xep-phoi_anh/2015_08_cfe7d7d6ec18d63b017ba18f354d81_jumbo.jpeg" alt="" width="967" height="836" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_tt1.jpg"><img src="xep-phoi_anh/2015_08_tt1.jpg" alt="" width="814" height="908" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_tt2.jpg"><img src="xep-phoi_anh/2015_08_tt2.jpg" alt="" width="1600" height="1524" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_631750.jpg"><img src="xep-phoi_anh/2015_08_631750.jpg" alt="" width="1261" height="1119" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_1-580.jpg"><img src="xep-phoi_anh/2015_08_1-580.jpg" alt="" width="962" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2-578.jpg"><img src="xep-phoi_anh/2015_08_2-578.jpg" alt="" width="984" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-453.jpeg"><img src="xep-phoi_anh/2015_08_3-453.jpeg" alt="" width="1024" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-437.jpeg"><img src="xep-phoi_anh/2015_08_4-437.jpeg" alt="" width="975" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="xep-phoi_anh/2015_08_a-39.jpg"><img src="xep-phoi_anh/2015_08_a-39.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_b-34.jpg"><img src="xep-phoi_anh/2015_08_b-34.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="xep-phoi_anh/2015_08_11860aaac29cd821595966b20afe7a_jumbo.jpg"><img src="xep-phoi_anh/2015_08_11860aaac29cd821595966b20afe7a_jumbo.jpg" alt="" width="1024" height="872" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4154998a29117ee1ee5e849893a6c9_jumbo.jpg"><img src="xep-phoi_anh/2015_08_4154998a29117ee1ee5e849893a6c9_jumbo.jpg" alt="" width="810" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/2015_08_d1-2.jpg"><img src="xep-phoi_anh/2015_08_d1-2.jpg" alt="" width="969" height="980" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_d2-3.jpg"><img src="xep-phoi_anh/2015_08_d2-3.jpg" alt="" width="672" height="911" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_d3-2.jpg"><img src="xep-phoi_anh/2015_08_d3-2.jpg" alt="" width="971" height="983" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_d4-2.jpg"><img src="xep-phoi_anh/2015_08_d4-2.jpg" alt="" width="672" height="955" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_d5.jpg"><img src="xep-phoi_anh/2015_08_d5.jpg" alt="" width="630" height="395" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_1-317.png"><img src="xep-phoi_anh/2015_08_1-317.png" alt="" width="1024" height="885" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2-959.jpeg"><img src="xep-phoi_anh/2015_08_2-959.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-943.jpeg"><img src="xep-phoi_anh/2015_08_3-943.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-871.jpeg"><img src="xep-phoi_anh/2015_08_4-871.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_5-707.jpeg"><img src="xep-phoi_anh/2015_08_5-707.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_6-374.jpeg"><img src="xep-phoi_anh/2015_08_6-374.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_7-156.jpeg"><img src="xep-phoi_anh/2015_08_7-156.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_8-118.jpeg"><img src="xep-phoi_anh/2015_08_8-118.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">+ Dấu hiệu liềm khí (Luftsichel sign):</span> thùy dưới trái, đặc biệt phân thùy trên (S6), có thể giãn bù và chen giữa trung thất với thùy trên xẹp, tạo dải sáng hình liềm cạnh quai động mạch chủ, làm rõ bờ quai động mạch chủ.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/2016_09_871729.jpg"><img src="xep-phoi_anh/2016_09_871729.jpg" alt="" width="1600" height="638" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_Screenshot-2024-11-21-021441.jpg"><img src="xep-phoi_anh/2016_09_Screenshot-2024-11-21-021441.jpg" alt="" width="1600" height="863" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_casereports-2015-May-2015-F3.large_.jpg"><img src="xep-phoi_anh/2016_09_casereports-2015-May-2015-F3.large_.jpg" alt="" width="1600" height="1740" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_y6.jpg"><img src="xep-phoi_anh/2016_09_y6.jpg" alt="" width="1052" height="698" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_images_03_07_3324_14a.jpeg"><img src="xep-phoi_anh/2016_09_images_03_07_3324_14a.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_Screenshot-2022-11-02-201358.jpg"><img src="xep-phoi_anh/2016_09_Screenshot-2022-11-02-201358.jpg" alt="" width="513" height="788" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_Screenshot-2021-11-29-215340.png"><img src="xep-phoi_anh/2016_09_Screenshot-2021-11-29-215340.png" alt="" width="1205" height="366" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_Picture48.jpg"><img src="xep-phoi_anh/2016_09_Picture48.jpg" alt="" width="736" height="756" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_left-upper-lobe-collapse.jpg"><img src="xep-phoi_anh/2016_09_left-upper-lobe-collapse.jpg" alt="" width="1268" height="1500" loading="lazy" decoding="async"></a></div>
+<h4 id="xep-thuy-giua-phoi-phai">* Xẹp thùy giữa phổi phải</h4>
+<p><span class="c-xanh">– Xẹp thùy giữa phổi phải (right middle lobe collapse):</span><br>+ Hội chứng thùy giữa (middle lobe syndrome) thường chỉ tình trạng xẹp thùy giữa kéo dài hoặc tái diễn; được Graham và cộng sự mô tả lâm sàng năm 1948 trong các trường hợp có hạch to chèn ép phế quản. Hội chứng có thể do tắc nghẽn hoặc không tắc nghẽn.<br>+ Phế quản thùy giữa tương đối dài, hẹp, xuất phát với góc nhọn; các rãnh sâu và thông khí bàng hệ kém khiến thùy dễ xẹp.<br>+ Thể tắc nghẽn có thể do tổn thương trong lòng phế quản hoặc do hạch quanh phế quản, khối u chèn ép từ ngoài. Ở trẻ em, hen có liên quan đến xẹp thùy giữa tái diễn; viêm niêm mạc và phù nề có thể góp phần làm giảm thông khí.<br>+ Phim nghiêng giúp đánh giá rõ hơn: thùy xẹp tạo đám mờ hình tam giác, đỉnh hướng về rốn phổi, đáy áp sát thành ngực trước. Rãnh liên thùy bé di lệch xuống dưới, phần dưới rãnh liên thùy lớn di lệch lên trên; khi xẹp hoàn toàn, hai rãnh có thể gần áp sát.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_giuaphai.png"><img src="xep-phoi_anh/2015_08_giuaphai.png" alt="" width="780" height="817" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Screenshot-2024-11-21-020803.jpg"><img src="xep-phoi_anh/2015_08_Screenshot-2024-11-21-020803.jpg" alt="" width="1600" height="613" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p92.png"><img src="xep-phoi_anh/2023_09_p92.png" alt="Nữ 70 tuổi - Mệt mỏi, ho 3 tuần: U phổi / Xẹp thuỳ giữa phổi phải / Hạch rốn phổi phải" width="868" height="988" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p92b.png"><img src="xep-phoi_anh/2023_09_p92b.png" alt="" width="1184" height="721" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p35.png"><img src="xep-phoi_anh/2023_09_p35.png" alt="Nữ 65 tuổi - Khó thở: Xẹp thuỳ giữa phổi phải" width="870" height="976" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p35b.png"><img src="xep-phoi_anh/2023_09_p35b.png" alt="" width="1187" height="719" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Bild4-1.jpg"><img src="xep-phoi_anh/2015_08_Bild4-1.jpg" alt="" width="1483" height="640" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Bild3-1-1.jpg"><img src="xep-phoi_anh/2015_08_Bild3-1-1.jpg" alt="" width="1442" height="718" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Bild9-1-1.jpg"><img src="xep-phoi_anh/2015_08_Bild9-1-1.jpg" alt="" width="1463" height="712" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/Picture10726351068398.jpg"><img src="xep-phoi_anh/Picture10726351068398.jpg" alt="" width="994" height="617" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_914435.jpg"><img src="xep-phoi_anh/2015_08_914435.jpg" alt="" width="1600" height="756" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_1-582.jpg"><img src="xep-phoi_anh/2015_08_1-582.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2-580.jpg"><img src="xep-phoi_anh/2015_08_2-580.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-454.jpeg"><img src="xep-phoi_anh/2015_08_3-454.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-438.jpeg"><img src="xep-phoi_anh/2015_08_4-438.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Trên phim thẳng:</span><br>+ Đôi khi biểu hiện duy nhất là xóa bờ tim phải do thùy giữa tiếp giáp với nhĩ phải (dấu hiệu xóa bờ tim phải, silhouette sign).<br>+ Rãnh liên thùy bé có thể thấy di lệch xuống dưới và vào trong do giảm thể tích thùy giữa.<br>+ Khi giảm thể tích nhiều, có thể kèm nâng vòm hoành phải và hẹp khoang liên sườn cùng bên; các dấu này không đặc hiệu cho xẹp thùy giữa.<br>+ Cạm bẫy: Rốn phổi phải thường không dịch chuyển đáng kể trong xẹp khu trú thùy giữa; không xem dịch chuyển rốn phổi là dấu hiệu điển hình.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/7238729d8c670241d68e0ac5f69019_jumbo.jpeg"><img src="xep-phoi_anh/7238729d8c670241d68e0ac5f69019_jumbo.jpeg" alt="" width="977" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/3b5e05ab34c9c13b359fd976e2c807_jumbo.jpeg"><img src="xep-phoi_anh/3b5e05ab34c9c13b359fd976e2c807_jumbo.jpeg" alt="" width="601" height="790" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/1-2.jpeg"><img src="xep-phoi_anh/1-2.jpeg" alt="" width="1024" height="992" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/c7f4040801938bf9a47f3a82f864a3_jumbo.jpeg"><img src="xep-phoi_anh/c7f4040801938bf9a47f3a82f864a3_jumbo.jpeg" alt="" width="848" height="961" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_6023637572f8a78927012dd8793852.jpg"><img src="xep-phoi_anh/2015_08_6023637572f8a78927012dd8793852.jpg" alt="" width="874" height="818" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_ef1abbebcd627b3a8e7873d30ad79a.jpg"><img src="xep-phoi_anh/2015_08_ef1abbebcd627b3a8e7873d30ad79a.jpg" alt="" width="814" height="845" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_u1-1.jpg"><img src="xep-phoi_anh/2015_08_u1-1.jpg" alt="" width="862" height="815" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_u2-1.jpg"><img src="xep-phoi_anh/2015_08_u2-1.jpg" alt="" width="709" height="799" loading="lazy" decoding="async"></a></div>
+<h4 id="xep-thuy-duoi-phoi-phai">* Xẹp thùy dưới phổi phải</h4>
+<p><span class="c-xanh">– Trên phim thẳng:</span><br>+ Xẹp thùy dưới phổi phải (right lower lobe collapse) tạo đám mờ tam giác ở vùng đáy phổi, đỉnh hướng về rốn phổi và đáy áp sát vòm hoành; rãnh liên thùy lớn di lệch xuống dưới, góp phần tạo bờ rõ của đám mờ.<br>+ Bờ tim phải thường còn rõ, giúp phân biệt với xẹp thùy giữa. Vòm hoành phải có thể nâng cao; phần trong có thể không rõ.<br>+ Rãnh liên thùy bé và phần trên của rãnh liên thùy lớn có thể di lệch xuống dưới; phần dưới của rãnh liên thùy lớn di lệch ra sau, rõ hơn trên phim nghiêng.<br>+ Động mạch liên thùy phải nằm trong thùy xẹp nên có thể bị che khuất. Rốn phổi phải có thể nhỏ lại và đôi khi có vẻ hạ thấp, nhưng mức độ hạ thấp khó đánh giá.<br>+ Khi xẹp kéo dài hoặc giảm thể tích nhiều, có thể thấy hẹp các khoang liên sườn cùng bên.</p>
+<p><span class="c-xanh">– Trên phim nghiêng: </span>Đám mờ tam giác nằm phía sau, có đỉnh gần rốn phổi và đáy áp sát phần sau vòm hoành phải; bờ sau vòm hoành phải có thể bị xóa.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_duoiphai.png"><img src="xep-phoi_anh/2015_08_duoiphai.png" alt="" width="787" height="792" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Screenshot-2024-11-21-021010.jpg"><img src="xep-phoi_anh/2015_08_Screenshot-2024-11-21-021010.jpg" alt="" width="1600" height="886" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p6.png"><img src="xep-phoi_anh/2023_09_p6.png" alt="Nữ 50 tuổi - Khó thở, sút cân: Xẹp thùy dưới phổi phải" width="872" height="1020" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p6b.png"><img src="xep-phoi_anh/2023_09_p6b.png" alt="" width="1189" height="718" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_12345-3.jpg"><img src="xep-phoi_anh/2015_08_12345-3.jpg" alt="" width="1600" height="758" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/Unterlappenatelektase_rechts_pa.jpg"><img src="xep-phoi_anh/Unterlappenatelektase_rechts_pa.jpg" alt="" width="928" height="956" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/1-5.jpg"><img src="xep-phoi_anh/1-5.jpg" alt="" width="865" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Mass-RLL-collapse-5-PA-a_Xray.vn_.jpg"><img src="xep-phoi_anh/2015_08_Mass-RLL-collapse-5-PA-a_Xray.vn_.jpg" alt="" width="843" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_RLL-collapse-4-PA_Xray.vn_.jpg"><img src="xep-phoi_anh/2015_08_RLL-collapse-4-PA_Xray.vn_.jpg" alt="" width="662" height="751" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_PhotoGrid_1411670668235_badamgiak23.jpg"><img src="xep-phoi_anh/2015_08_PhotoGrid_1411670668235_badamgiak23.jpg" alt="" width="1332" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_right-lower-lobe-collapse-7-1.png"><img src="xep-phoi_anh/2015_08_right-lower-lobe-collapse-7-1.png" alt="" width="932" height="951" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_1-583.jpg"><img src="xep-phoi_anh/2015_08_1-583.jpg" alt="" width="1024" height="993" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2-581.jpg"><img src="xep-phoi_anh/2015_08_2-581.jpg" alt="" width="1024" height="1019" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-455.jpeg"><img src="xep-phoi_anh/2015_08_3-455.jpeg" alt="" width="1024" height="1017" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-439.jpeg"><img src="xep-phoi_anh/2015_08_4-439.jpeg" alt="" width="939" height="1007" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/2015_08_f1-1.jpg"><img src="xep-phoi_anh/2015_08_f1-1.jpg" alt="" width="989" height="985" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_f2.jpg"><img src="xep-phoi_anh/2015_08_f2.jpg" alt="" width="621" height="472" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_f3.jpg"><img src="xep-phoi_anh/2015_08_f3.jpg" alt="" width="605" height="483" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_f4-1.jpg"><img src="xep-phoi_anh/2015_08_f4-1.jpg" alt="" width="598" height="478" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_f5-2.jpg"><img src="xep-phoi_anh/2015_08_f5-2.jpg" alt="" width="584" height="486" loading="lazy" decoding="async"></a></div>
+<h4 id="xep-thuy-duoi-phoi-trai">* Xẹp thùy dưới phổi trái</h4>
+<p><span class="c-xanh">– Trên phim thẳng:</span><br>+ Xẹp thùy dưới phổi trái (left lower lobe collapse) thường tạo đám mờ tam giác sau tim, ở vùng đáy-trong phổi trái, có đỉnh hướng về rốn phổi và đáy áp sát vòm hoành (dấu hiệu cánh buồm sau tim, retrocardiac sail sign).<br>+ Rãnh liên thùy lớn di lệch xuống dưới; bờ thùy xẹp có thể tạo đường viền đôi dọc bờ trái tim.<br>+ Phần trong vòm hoành trái và bờ động mạch chủ xuống có thể bị xóa.<br>+ Rốn phổi trái có thể nhỏ lại; động mạch liên thùy có thể bị che khuất do nằm trong thùy xẹp, khiến vị trí hạ thấp khó đánh giá.<br>+ Khi xẹp nhiều hoặc kéo dài, có thể kèm nâng vòm hoành trái, hẹp khoang liên sườn trái và dịch chuyển trung thất sang trái.</p>
+<p><span class="c-xanh">– Trên phim nghiêng:</span><br>+ Đám mờ tam giác ở vùng sau-dưới lồng ngực, đỉnh gần rốn phổi và đáy áp sát phần sau vòm hoành trái; phần sau vòm hoành có thể bị xóa.<br>+ Rãnh liên thùy lớn di lệch xuống dưới và ra sau. Các đốt sống ngực phía dưới tăng đậm độ dần (dấu hiệu cột sống, spine sign).</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_x5.png"><img src="xep-phoi_anh/2015_08_x5.png" alt="" width="1113" height="723" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Screenshot-2024-11-21-021203.jpg"><img src="xep-phoi_anh/2015_08_Screenshot-2024-11-21-021203.jpg" alt="" width="1600" height="631" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_duoitrai.png"><img src="xep-phoi_anh/2015_08_duoitrai.png" alt="" width="785" height="722" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p33.png"><img src="xep-phoi_anh/2023_09_p33.png" alt="Nam 88 tuổi - Khó thở, ho máu 3 tuần: Xẹp thuỳ dưới phổi trái / Dấu hiệu cánh buồm" width="868" height="1009" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2023_09_p33b.png"><img src="xep-phoi_anh/2023_09_p33b.png" alt="" width="1188" height="697" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/Case-4-Solution-1.png"><img src="xep-phoi_anh/Case-4-Solution-1.png" alt="" width="1510" height="774" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/ComboSail65MLMBSCCebbx-1024x547.jpg"><img src="xep-phoi_anh/ComboSail65MLMBSCCebbx-1024x547.jpg" alt="" width="1024" height="547" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_duoitrai.jpg"><img src="xep-phoi_anh/2015_08_duoitrai.jpg" alt="" width="850" height="472" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/6988a3d7a3e303b2b8a41e9f3e59e1_jumbo.jpeg"><img src="xep-phoi_anh/6988a3d7a3e303b2b8a41e9f3e59e1_jumbo.jpeg" alt="" width="946" height="957" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_123-21.jpg"><img src="xep-phoi_anh/2015_08_123-21.jpg" alt="" width="1600" height="1641" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_87008b3113525accaaf8577867281eafcb77cf81dec427b47c36fd4a0ddbc02c_jumbo.jpeg"><img src="xep-phoi_anh/2015_08_87008b3113525accaaf8577867281eafcb77cf81dec427b47c36fd4a0ddbc02c_jumbo.jpeg" alt="" width="812" height="842" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_t1-1.jpg"><img src="xep-phoi_anh/2015_08_t1-1.jpg" alt="" width="1019" height="1019" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_t2-3.jpg"><img src="xep-phoi_anh/2015_08_t2-3.jpg" alt="" width="1019" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_t3-1.jpeg"><img src="xep-phoi_anh/2015_08_t3-1.jpeg" alt="" width="1004" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_t4.jpeg"><img src="xep-phoi_anh/2015_08_t4.jpeg" alt="" width="1022" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/2015_08_fb9e218593d34b3253bf12d5900354_jumbo.jpg"><img src="xep-phoi_anh/2015_08_fb9e218593d34b3253bf12d5900354_jumbo.jpg" alt="" width="1022" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_c0caafa446d3229ccec662712a7170_jumbo.jpg"><img src="xep-phoi_anh/2015_08_c0caafa446d3229ccec662712a7170_jumbo.jpg" alt="" width="1022" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_adb91416342686fd1e143591722d70_big_gallery.jpg"><img src="xep-phoi_anh/2015_08_adb91416342686fd1e143591722d70_big_gallery.jpg" alt="" width="629" height="541" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_b5b99503a4f90f299baa5a1682a587_big_gallery.jpg"><img src="xep-phoi_anh/2015_08_b5b99503a4f90f299baa5a1682a587_big_gallery.jpg" alt="" width="629" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_c0305eb50bbc0308d23bb3b7bbc531_big_gallery.jpg"><img src="xep-phoi_anh/2015_08_c0305eb50bbc0308d23bb3b7bbc531_big_gallery.jpg" alt="" width="629" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu phẳng eo (flat waist sign):</span> Trong xẹp nặng thùy dưới trái, tim dịch chuyển và xoay sang trái, làm dẹt đường bờ quai động mạch chủ và động mạch phổi trái.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2016_09_Picture50.jpg"><img src="xep-phoi_anh/2016_09_Picture50.jpg" alt="" width="1600" height="960" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_Picture51.jpg"><img src="xep-phoi_anh/2016_09_Picture51.jpg" alt="" width="1306" height="1169" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_Picture52.jpg"><img src="xep-phoi_anh/2016_09_Picture52.jpg" alt="" width="743" height="695" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2016_09_Picture53.jpg"><img src="xep-phoi_anh/2016_09_Picture53.jpg" alt="" width="1600" height="1418" loading="lazy" decoding="async"></a></div>
+<h4 id="xep-thuy-giua-thuy-duoi">* Xẹp thùy giữa + thùy dưới</h4>
+<p><span class="c-xanh">– Xẹp phối hợp thùy giữa và thùy dưới phổi phải (combined right middle and lower lobe collapse):</span><br>+ Rãnh liên thùy bé và rãnh liên thùy lớn di lệch xuống dưới và ra sau, kéo các thùy xẹp về vùng sau-dưới của lồng ngực phải, tạo đám mờ có thể có dạng tam giác.<br>+ Trên phim thẳng, đám mờ có thể xóa bờ tim phải và vòm hoành phải. Hình ảnh có thể giống xẹp thùy dưới đơn thuần; xóa bờ tim phải gợi ý thùy giữa cũng bị ảnh hưởng.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="xep-phoi_anh/Picture3.jpg"><img src="xep-phoi_anh/Picture3.jpg" alt="" width="525" height="523" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Screenshot-2022-11-02-201756.jpg"><img src="xep-phoi_anh/2015_08_Screenshot-2022-11-02-201756.jpg" alt="" width="930" height="508" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_index-131.jpg"><img src="xep-phoi_anh/2015_08_index-131.jpg" alt="" width="850" height="472" loading="lazy" decoding="async"></a></div>
+<h4 id="xep-thuy-tren-thuy-giua">* Xẹp thùy trên + thùy giữa</h4>
+<p><span class="c-xanh">– Xẹp phối hợp thùy trên phải và thùy giữa (combined right upper and middle lobe collapse):</span><br>+ Đây là kiểu phối hợp hiếm. Trên phim thẳng, đám mờ và giảm thể tích có thể liên quan cả vùng trên lẫn vùng giữa phổi phải, làm xóa bờ trung thất trên phải và bờ tim phải.<br>+ Trên phim nghiêng, đám mờ vùng trước có thể mang đặc điểm của cả hai thùy; hướng di lệch rãnh liên thùy bé không nên được diễn giải theo dấu hiệu của riêng một thùy.<br>+ Dấu hiệu đỉnh cạnh hoành (juxtaphrenic peak sign) có thể đi kèm do thành phần giảm thể tích thùy trên, nhưng không đặc hiệu cho xẹp phối hợp này.<br>+ Khi X-quang chưa xác định rõ các thùy bị xẹp, CLVT có thể giúp làm rõ phạm vi xẹp và nguyên nhân.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="xep-phoi_anh/2015_08_b1-3-scaled.jpg"><img src="xep-phoi_anh/2015_08_b1-3-scaled.jpg" alt="" width="1600" height="1595" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_b2.png"><img src="xep-phoi_anh/2015_08_b2.png" alt="" width="499" height="456" loading="lazy" decoding="async"></a></div>
+<h2 id="iii-chan-doan-clvt">III. Chẩn đoán CLVT</h2>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Vùng phổi xẹp giảm thông khí và tăng đậm độ; trên cửa sổ trung thất có thể gần đậm độ mô mềm. Tùy thùy, vùng xẹp có thể có dạng hình chêm hoặc tam giác, với đỉnh hướng về rốn phổi và đáy áp sát màng phổi.<br>+ Dấu hiệu giảm thể tích gồm rãnh liên thùy bị kéo về phía vùng xẹp; các mạch máu và phế quản trong vùng này co cụm. Cơ hoành cùng bên có thể nâng cao, tùy thùy bị xẹp và mức độ giảm thể tích.<br>+ Có thể thấy rốn phổi và trung thất bị kéo về phía vùng xẹp; phần phổi còn thông khí có thể giãn bù, tùy vị trí và mức độ mất thể tích.<br>+ Cần khảo sát phế quản thùy để tìm hẹp, tắc hoặc đoạn cắt cụt, cũng như tổn thương trong lòng hay chèn ép từ ngoài.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Phế quản đồ khí (air bronchogram) có thể còn thấy khi phế quản vẫn thông, kể cả trong xẹp thụ động; dấu này thường giảm hoặc mất khi phế quản bị tắc hoàn toàn. Không dùng riêng sự hiện diện hay vắng mặt của dấu này để xác định cơ chế xẹp.<br>+ Sau tiêm, vùng xẹp có thể ngấm thuốc; mức độ và tính đồng nhất thay đổi theo nguyên nhân. Ngấm thuốc đồng nhất có thể gặp trong xẹp thụ động nhưng không phải dấu hiệu chung cho mọi trường hợp.</p>
+<figure><a class="o-anh" href="xep-phoi_anh/2015_08_xepphoi.png"><img src="xep-phoi_anh/2015_08_xepphoi.png" alt="" width="1600" height="759" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="xep-phoi_anh/2015_08_Left-Upper-Lobe-Collapse-1_Xray.vn_.jpg"><img src="xep-phoi_anh/2015_08_Left-Upper-Lobe-Collapse-1_Xray.vn_.jpg" alt="" width="640" height="619" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Left-Upper-Lobe-Collapse-3_Xray.vn_.jpg"><img src="xep-phoi_anh/2015_08_Left-Upper-Lobe-Collapse-3_Xray.vn_.jpg" alt="" width="745" height="561" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_Left-Upper-Lobe-Collapse-2_Xray.vn_.jpg"><img src="xep-phoi_anh/2015_08_Left-Upper-Lobe-Collapse-2_Xray.vn_.jpg" alt="" width="697" height="533" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/2015_08_g1-3.jpg"><img src="xep-phoi_anh/2015_08_g1-3.jpg" alt="" width="1600" height="1556" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_g2-1.jpg"><img src="xep-phoi_anh/2015_08_g2-1.jpg" alt="" width="1450" height="1780" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_g3.jpg"><img src="xep-phoi_anh/2015_08_g3.jpg" alt="" width="630" height="456" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_g4.jpg"><img src="xep-phoi_anh/2015_08_g4.jpg" alt="" width="630" height="454" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_g5.jpg"><img src="xep-phoi_anh/2015_08_g5.jpg" alt="" width="630" height="457" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">* U phổi và xẹp phổi<br>– Xẹp phổi sau tắc nghẽn (postobstructive atelectasis):<br>+ Sau tiêm, nhu mô xẹp ở phía ngoại vi chỗ tắc có thể ngấm thuốc rõ và tương đối đồng nhất; khối u trung tâm thường ngấm thuốc ít hơn, nhưng mức độ ngấm thay đổi và có thể không đồng nhất khi có hoại tử.<br>+ U trung tâm có thể chèn ép hoặc xâm lấn phế quản, gây hẹp lòng hay cắt cụt phế quản.<br>+ Cạm bẫy: Khác biệt về ngấm thuốc hỗ trợ phân biệt u với nhu mô xẹp nhưng không đủ để kết luận đơn độc; cần đánh giá trực tiếp khối u và vị trí tắc phế quản.</span></p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/2015_08_1-241.jpg"><img src="xep-phoi_anh/2015_08_1-241.jpg" alt="" width="1147" height="1009" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2-235.jpg"><img src="xep-phoi_anh/2015_08_2-235.jpg" alt="" width="1117" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-227.jpg"><img src="xep-phoi_anh/2015_08_3-227.jpg" alt="" width="1093" height="994" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-205.jpg"><img src="xep-phoi_anh/2015_08_4-205.jpg" alt="" width="1090" height="1005" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_5-133.jpg"><img src="xep-phoi_anh/2015_08_5-133.jpg" alt="" width="1088" height="1067" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/2015_08_1-581.jpg"><img src="xep-phoi_anh/2015_08_1-581.jpg" alt="" width="998" height="926" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2-579.jpg"><img src="xep-phoi_anh/2015_08_2-579.jpg" alt="" width="822" height="953" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-555.jpg"><img src="xep-phoi_anh/2015_08_3-555.jpg" alt="" width="630" height="577" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-495.jpg"><img src="xep-phoi_anh/2015_08_4-495.jpg" alt="" width="630" height="577" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_5-312.jpg"><img src="xep-phoi_anh/2015_08_5-312.jpg" alt="" width="630" height="575" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-sieu-am">IV. Chẩn đoán siêu âm</h2>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Vùng phổi xẹp mất khí có cấu trúc dạng mô, hồi âm tương đối đồng nhất và gần giống nhu mô gan (hình ảnh gan hóa phổi, hepatization).<br>+ Hình ảnh gan hóa không đặc hiệu cho xẹp phổi; cũng có thể gặp trong đông đặc phổi, nên cần kết hợp các dấu hiệu siêu âm khác để diễn giải.</p>
+<figure><a class="o-anh" href="xep-phoi_anh/2015_08_DSC_1731_xray.vn_.jpg"><img src="xep-phoi_anh/2015_08_DSC_1731_xray.vn_.jpg" alt="" width="1230" height="938" loading="lazy" decoding="async"></a></figure>
+<p>+ Phần phổi xẹp tiếp xúc với màng phổi có thể có dạng hình chêm hoặc tam giác, với đáy áp sát màng phổi tạng.<br>+ Cạm bẫy: Siêu âm chủ yếu khảo sát được phần tổn thương tiếp xúc với màng phổi, nên không đánh giá đáng tin cậy toàn bộ thùy xẹp hoặc xác định đỉnh tổn thương hướng về rốn phổi.<br>+ Hình dạng hình chêm hoặc tam giác không đặc hiệu cho xẹp phổi.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_n1.jpg"><img src="xep-phoi_anh/2015_08_n1.jpg" alt="" width="615" height="731" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_n2.jpg"><img src="xep-phoi_anh/2015_08_n2.jpg" alt="" width="894" height="573" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_m1.jpg"><img src="xep-phoi_anh/2015_08_m1.jpg" alt="" width="907" height="753" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_m2.jpg"><img src="xep-phoi_anh/2015_08_m2.jpg" alt="" width="898" height="578" loading="lazy" decoding="async"></a></div>
+<p>+ Phế quản đồ khí có thể hiện diện hoặc vắng mặt. Nếu thấy phế quản đồ động, hình ảnh nghiêng về đông đặc viêm phổi hơn xẹp tắc nghẽn; phế quản đồ tĩnh có thể gặp trong cả xẹp và viêm phổi.<br>+ Doppler màu có thể ghi nhận dòng chảy trong các mạch máu của vùng xẹp; hình ảnh thay đổi theo cơ chế và không có kiểu Doppler đơn độc đủ đặc hiệu để xác định xẹp phổi.</p>
+<figure><a class="o-anh" href="xep-phoi_anh/2015_08_thoraxjnl-2017-October-72-10-960-F1.large_.jpg"><img src="xep-phoi_anh/2015_08_thoraxjnl-2017-October-72-10-960-F1.large_.jpg" alt="" width="1280" height="884" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Xẹp phổi thụ động do tràn dịch hoặc tràn khí màng phổi:</span><br>+ Tràn dịch màng phổi có thể gây xẹp phổi do chèn ép (compressive atelectasis); tràn khí màng phổi gây xẹp thụ động (passive atelectasis) khi mất áp lực âm trong khoang màng phổi khiến phổi co hồi.<br>+ Khi có tràn dịch, vùng phổi xẹp có thể có cấu trúc dạng mô và nằm trong dịch màng phổi; có thể thấy phế quản đồ khí nếu phế quản còn thông.<br>+ Khi có tràn khí, khí màng phổi cản trở sóng siêu âm nên thường không quan sát trực tiếp được phần nhu mô phổi xẹp nằm phía sau. Điểm phổi (lung point) có thể giúp xác định ranh giới tràn khí nhưng không cho thấy toàn bộ vùng xẹp.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="xep-phoi_anh/DSC_13906_Xray.vn_.jpg"><img src="xep-phoi_anh/DSC_13906_Xray.vn_.jpg" alt="" width="1200" height="946" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/DSC_7116_Xray.vn_.jpg"><img src="xep-phoi_anh/DSC_7116_Xray.vn_.jpg" alt="" width="1200" height="906" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/DSC_11224_Xray.vn_.jpg"><img src="xep-phoi_anh/DSC_11224_Xray.vn_.jpg" alt="" width="1200" height="892" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/DSC_12840_Xray.vn_.jpg"><img src="xep-phoi_anh/DSC_12840_Xray.vn_.jpg" alt="" width="1200" height="934" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/DSC_0649_badamgiak23-1.jpg"><img src="xep-phoi_anh/DSC_0649_badamgiak23-1.jpg" alt="" width="1200" height="829" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2020_11_1-177.jpg"><img src="xep-phoi_anh/2020_11_1-177.jpg" alt="" width="425" height="342" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2020_11_2-176.jpg"><img src="xep-phoi_anh/2020_11_2-176.jpg" alt="" width="425" height="342" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2020_11_3-175.jpg"><img src="xep-phoi_anh/2020_11_3-175.jpg" alt="" width="425" height="342" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2020_11_4-166.jpg"><img src="xep-phoi_anh/2020_11_4-166.jpg" alt="" width="425" height="341" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Xẹp phổi tắc nghẽn (obstructive atelectasis):</span><br>+ Có thể do u trong lòng phế quản hoặc khối u chèn ép từ ngoài; cũng cần cân nhắc các nguyên nhân tắc khác như nút nhầy hoặc dị vật.<br>+ Khi phế quản phía xa chỗ tắc còn chứa khí, có thể thấy phế quản đồ khí; sau tắc hoàn toàn và khí đã được hấp thu, dấu này thường mất.<br>+ Nếu có cửa sổ âm qua vùng phổi xẹp, có thể thấy khối u hồi âm hỗn hợp nằm trong hoặc được bao quanh bởi nhu mô xẹp; siêu âm không phải lúc nào cũng quan sát được u trung tâm, nên cần đối chiếu bằng CLVT.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="xep-phoi_anh/2015_08_DSC_0640_badamgiak23.jpg"><img src="xep-phoi_anh/2015_08_DSC_0640_badamgiak23.jpg" alt="" width="1200" height="866" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_20230103_085531.webp"><img src="xep-phoi_anh/2015_08_20230103_085531.webp" alt="" width="1800" height="1114" loading="lazy" decoding="async"></a></div>
+<h2 id="v-chan-doan-phan-biet">V. Chẩn đoán phân biệt</h2>
+<h4 id="xep-phoi">* Xẹp phổi</h4>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Vùng xẹp có thể khu trú theo thùy, phân thùy hoặc nhỏ hơn, kèm giảm thể tích vùng phổi bị ảnh hưởng.<br>+ Khi vùng xẹp đủ rộng, có thể kéo rốn phổi và trung thất về cùng bên; dấu kéo lệch có thể không rõ khi xẹp khu trú hoặc có yếu tố đối kháng.</p>
+<p><span class="c-xanh">– Xẹp tắc nghẽn (obstructive atelectasis):</span><br>+ Phế quản đồ khí (air bronchogram) thường vắng khi phế quản lớn bị tắc hoàn toàn; có thể còn thấy nếu tắc chưa hoàn toàn hoặc phế quản phía xa vẫn còn khí.<br>+ Ở người lớn, u phế quản trung tâm là nguyên nhân quan trọng cần loại trừ; nút nhầy và dị vật cũng có thể gây tắc nghẽn.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Giảm thể tích và kéo lệch các cấu trúc lân cận ủng hộ xẹp phổi; đông đặc phổi thường bảo tồn thể tích hơn, nhưng có thể đồng thời xuất hiện với xẹp sau tắc nghẽn.<br>+ Không dùng riêng sự hiện diện hay vắng mặt của phế quản đồ khí để xác định nguyên nhân hoặc mức độ tắc nghẽn.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/a-28-e1509965848103.jpg"><img src="xep-phoi_anh/a-28-e1509965848103.jpg" alt="" width="300" height="301" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/b-27.jpg"><img src="xep-phoi_anh/b-27.jpg" alt="" width="615" height="765" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/c-23.jpg"><img src="xep-phoi_anh/c-23.jpg" alt="" width="720" height="576" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/d-21.jpg"><img src="xep-phoi_anh/d-21.jpg" alt="" width="720" height="576" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Xẹp do chèn ép và xẹp thụ động:</span><br>+ Tràn dịch màng phổi hoặc khối choán chỗ trong lồng ngực có thể gây xẹp do chèn ép (compressive atelectasis); phế quản đồ khí có thể còn thấy nếu phế quản vẫn thông.<br>+ Tràn khí màng phổi có thể gây xẹp thụ động (passive atelectasis) do mất áp lực âm trong khoang màng phổi khiến phổi co hồi; đây là cơ chế khác với chèn ép bởi dịch hoặc khối.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="xep-phoi_anh/DSC_9092_Xray.vn_.jpg"><img src="xep-phoi_anh/DSC_9092_Xray.vn_.jpg" alt="" width="1200" height="1012" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/DSC_9567_Xray.vn_.jpg"><img src="xep-phoi_anh/DSC_9567_Xray.vn_.jpg" alt="" width="1200" height="1037" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/DSC_10150_Xray.vn_.jpg"><img src="xep-phoi_anh/DSC_10150_Xray.vn_.jpg" alt="" width="1200" height="1096" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/DSC_12478_Xray.vn_.jpg"><img src="xep-phoi_anh/DSC_12478_Xray.vn_.jpg" alt="" width="1200" height="1080" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/DSC_13059_Xray.vn_.jpg"><img src="xep-phoi_anh/DSC_13059_Xray.vn_.jpg" alt="" width="1200" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/DSC_13140_Xray.vn_.jpg"><img src="xep-phoi_anh/DSC_13140_Xray.vn_.jpg" alt="" width="1200" height="1071" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/2015_08_1-645.jpeg"><img src="xep-phoi_anh/2015_08_1-645.jpeg" alt="" width="625" height="557" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_2-641.jpeg"><img src="xep-phoi_anh/2015_08_2-641.jpeg" alt="" width="625" height="554" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_3-641.jpeg"><img src="xep-phoi_anh/2015_08_3-641.jpeg" alt="" width="625" height="559" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2015_08_4-612.jpeg"><img src="xep-phoi_anh/2015_08_4-612.jpeg" alt="" width="625" height="556" loading="lazy" decoding="async"></a></div>
+<h4 id="ton-thuong-dong-dac">* Tổn thương đông đặc</h4>
+<p><span class="c-xanh">– Bản chất:</span><br>+ Đông đặc là tình trạng khí trong phế nang bị thay thế bởi dịch viêm hoặc mủ, dịch phù, máu, tế bào u hay các chất khác; có thể khu trú ở một nhóm phế nang hoặc tiểu thùy, hoặc lan rộng hơn tùy nguyên nhân.<br>+ Xơ hóa mô kẽ không nên xếp chung vào các chất thay thế khí trong phế nang, dù có thể gây tăng đậm độ nhu mô.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Có thể thấy phế quản đồ khí nếu phế quản còn thông và chứa khí.<br>+ Thể tích phổi thường được bảo tồn; thường không có dấu kéo rãnh liên thùy hoặc vòm hoành do giảm thể tích, trừ khi đồng thời có xẹp phổi.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Phế quản đồ khí không đặc hiệu cho đông đặc; cũng có thể gặp trong một số dạng xẹp phổi.<br>+ Khi phân biệt với xẹp phổi, cần chú ý các dấu giảm thể tích và kéo lệch cấu trúc lân cận.</p>
+<figure><a class="o-anh" href="xep-phoi_anh/2015_08_0308636b71b7e1ce296c89a7b6e444_jumbo.jpeg"><img src="xep-phoi_anh/2015_08_0308636b71b7e1ce296c89a7b6e444_jumbo.jpeg" alt="" width="991" height="812" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Nguyên nhân:</span><br>+ Nhiễm trùng: viêm phổi thùy, viêm phế quản phổi.<br>+ Nguyên nhân không nhiễm trùng: phù phổi, viêm phổi hít, xuất huyết phế nang và nhồi máu phổi, thường liên quan thuyên tắc động mạch phổi.<br>+ Bệnh viêm: viêm phổi tăng bạch cầu ái toan, viêm phổi tổ chức hóa.<br>+ Tân sinh: ung thư biểu mô tuyến phổi có kiểu phát triển lepidic; các ung thư phổi khác cũng có thể gây đông đặc, chẳng hạn do tắc nghẽn phế quản hoặc lan tràn theo khoang khí.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="xep-phoi_anh/1-102.jpg"><img src="xep-phoi_anh/1-102.jpg" alt="" width="630" height="582" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/2-97.jpg"><img src="xep-phoi_anh/2-97.jpg" alt="" width="630" height="591" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/3-88.jpg"><img src="xep-phoi_anh/3-88.jpg" alt="" width="630" height="556" loading="lazy" decoding="async"></a><a class="o-anh" href="xep-phoi_anh/4-80.jpg"><img src="xep-phoi_anh/4-80.jpg" alt="" width="630" height="593" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh">* <em>Chest Radiology: The Essentials, 2nd Edition – </em><em>Jannette Collins MD, Eric J. Stern MD<br><span class="c-xanh">* </span></em><em>CT features of rounded atelectasis – K McHugh and RM Blaquiere<br>* Pulmonary Lobar Collapse – Susan J. Copley<br>* Patterns of Lobar Collapse as Observed Radiographically – Mortimer Lubert, George R. Krause<br><span class="c-xanh">* Lobar collapse: basic concepts – Anthony V. Proto<br>* Chest X-Ray – Lung disease Four-Pattern Approach – Robin Smithuis<br>* Radiological signs of lobar collapse. Chest radiographic findings and CT imaging correlation – E. Barcina García, C. Alvarez Sanz, A. M. Garcia Morena<br>* Pattern recognition in lobar collapse: Can you read the signs? – E. Sonnex, R. A. Coulden; Leicester/UK<br>* A pictorial review of unusual lobar collpase – K. Mullin, A. Gummow; Nottingham/UK<br>* A New View of Lobar Collapse – R. Lakshmanan, A. Gupta; WA/AU<br>* Chest X-Ray: the essentials – J. J. Delgado Moraleda, A. ALEGRE DELGADO, R. M. Piqueras Olmeda<br>* Pulmonary atelectasis in anaesthesia and critical care – Komal Ray MBBS FRCA<br>* Patterns of lobar collapse – R. Grech, A. Mizzi, S. Grech<br>* Tell me your sign! A support for chest x-ray reporting – C. Valdesi, M. Mereu, A. Farchione<br>* Grainger &amp; Allison’s Diagnostic Radiology – Andreas Adam<br>* Characteristic Patterns of Atelectasis – M. I. M. Rodrigues, J. M. Dourado Domingues, F. Rego Costa, A. J. B. S. Madureira</span></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

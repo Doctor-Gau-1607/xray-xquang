@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Loét Dạ Dày – Tá Tràng</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · TIÊU HÓA</div>
+   <h1>Loét Dạ Dày – Tá Tràng</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/loet-da-day-ta-trang/" target="_blank" rel="noopener">Xray.vn — xray.vn/loet-da-day-ta-trang</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Loét dạ dày – tá tràng (Peptic Ulcer Disease)</span> là tình trạng tổn thương khuyết niêm mạc đường tiêu hóa trên (thường gặp nhất ở dạ dày và hành tá tràng) ăn sâu vượt qua lớp cơ niêm tới lớp dưới niêm mạc hoặc sâu hơn, phân biệt với trợt niêm mạc chỉ khu trú nông ở lớp biểu mô.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Bệnh phổ biến toàn cầu nhưng dịch tễ có sự chuyển dịch rõ rệt theo điều kiện kinh tế – xã hội và việc tiệt trừ *Helicobacter pylori*:<br>+ Tỷ lệ mắc bệnh trọn đời trong dân số chung ước tính khoảng 5–10% và tỷ lệ mắc mới hàng năm khoảng 0,1–0,3%; tại Việt Nam, tỷ lệ hiện mắc ghi nhận trong khoảng 7–10% dân số tùy theo nghiên cứu dịch tễ và nhóm tuổi khảo sát.<br>+ Bệnh gặp ở mọi lứa tuổi nhưng tỷ lệ nhập viện và biến chứng tăng cao ở người cao tuổi do gia tăng sử dụng thuốc kháng viêm không steroid (NSAIDs) và thuốc chống kết tập tiểu cầu.<br>+ Lối sống hiện đại, căng thẳng thần kinh kéo dài và thói quen sinh hoạt thất thường làm tăng nguy cơ khởi phát triệu chứng và tái phát ổ loét.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Tổn thương hình thành do sự mất cân bằng giữa nhóm yếu tố tấn công (axit clohydric, pepsin, dịch mật trào ngược, độc tố vi khuẩn, thuốc) và nhóm yếu tố bảo vệ hàng rào niêm mạc (lớp chất nhầy – bicarbonat, lưu lượng máu dưới niêm mạc, prostaglandin nội sinh và khả năng tái tạo biểu mô):<br>+ Khi hàng rào niêm mạc suy yếu hoặc tiết axit quá mức, ion H+ và pepsin khuếch tán ngược gây hoại tử tế bào biểu mô, phản ứng viêm cấp hoặc mạn tính tại lớp dưới niêm mạc và tạo khuyết tổ chức.<br>+ Quá trình xơ hóa kéo dài trong loét mạn tính dẫn đến co kéo, biến dạng giải phẫu thành ống tiêu hóa (như co rút bờ cong nhỏ, hẹp môn vị hoặc biến dạng hành tá tràng).</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Triệu chứng lâm sàng thường không đặc hiệu và không tương xứng với kích thước hay nguy cơ biến chứng của ổ loét:<br>+ Đau vùng thượng vị là triệu chứng phổ biến nhất, thường liên quan đến bữa ăn (đau tăng sau ăn trong loét dạ dày hoặc đau khi đói, giảm sau ăn trong loét tá tràng), kèm ợ hơi, ợ chua, buồn nôn.<br>+ Khoảng 20–30% trường hợp (đặc biệt ở người cao tuổi dùng NSAIDs) diễn biến âm thầm và chỉ phát hiện khi đã xuất hiện biến chứng cấp cứu như xuất huyết tiêu hóa, thủng tạng rỗng, loét xuyên thấu hoặc hẹp môn vị.</p>
+<p><span class="c-xanh">– Phân bố:</span> Vị trí tổn thương liên quan chặt chẽ với căn nguyên và định hướng chẩn đoán phân biệt lành – ác tính trên hình ảnh:<br>+ Loét tá tràng chiếm tỷ lệ cao hơn loét dạ dày, tập trung chủ yếu ở hành tá tràng (phần D1, đặc biệt mặt trước và mặt sau); ổ loét nằm sau hành tá tràng (D2, D3) gợi ý bệnh lý tăng tiết axit như hội chứng Zollinger – Ellison.<br>+ Loét dạ dày thường gặp nhất ở vùng hang vị và dọc bờ cong nhỏ (đặc biệt vùng góc bờ cong nhỏ – nơi chuyển tiếp niêm mạc thân vị và hang vị); ổ loét ở thân vị, đáy vị hoặc bờ cong lớn đòi hỏi cảnh giác cao để loại trừ ung thư dạ dày thể loét.</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span> Nội soi tiêu hóa trên kèm sinh thiết là tiêu chuẩn vàng để chẩn đoán xác định và loại trừ ác tính, trong khi chẩn đoán hình ảnh giữ vai trò thiết yếu trong đánh giá biến chứng và các trường hợp chống chỉ định nội soi:<br>+ Chụp X-quang lưu thông thực quản – dạ dày – tá tràng đối quang kép giúp phát hiện ổ loét, đánh giá biến dạng giải phẫu mạn tính (hẹp môn vị, biến dạng hành tá tràng) và phân biệt sơ bộ hình thái lành – ác tính khi bệnh nhân không thể nội soi.<br>+ Cắt lớp vi tính (đặc biệt cắt lớp vi tính đa dãy có tiêm thuốc cản quang tĩnh mạch và uống nước làm căng lòng) là phương tiện hàng đầu trong cấp cứu để chẩn đoán loét thủng, ổ loét xuyên thấu, phát hiện điểm chảy máu hoạt động và phân biệt loét lành tính với ung thư dạ dày xâm lấn.<br>+ Siêu âm bụng có giá trị sàng lọc nhanh tại giường ở bệnh nhân đau thượng vị cấp, giúp phát hiện dấu hiệu dày thành dạ dày – tá tràng khu trú, dịch tự do hoặc khí tự do dưới vòm hoành gợi ý thủng ổ loét.</p>
+<figure><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_screenshot_1741273324-1.png"><img src="loet-da-day-ta-trang_anh/2015_08_screenshot_1741273324-1.png" alt="" width="1093" height="529" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"></span></p>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-nguyen-nhan">II. Nguyên nhân</h2>
+<p><span class="c-xanh">– Vi khuẩn Helicobacter pylori:</span> Là căn nguyên hàng đầu gây viêm dạ dày mạn tính vùng hang vị (viêm dạ dày týp B) và viêm tá tràng trên nền dị sản niêm mạc dạ dày ở hành tá tràng:<br>+ Men urease thủy phân urê tạo amoniac giúp vi khuẩn tồn tại trong môi trường axit nhưng trực tiếp gây độc tế bào biểu mô, đồng thời kích thích tăng tiết gastrin và axit clohydric.<br>+ Các men protease, phospholipase và độc tố (CagA, VacA) phá hủy lớp chất nhầy bảo vệ; protein bề mặt gây hóa ứng động bạch cầu đa nhân trung tính và đại thực bào, giải phóng yếu tố hoạt hóa tiểu cầu, gốc tự do superoxide, interleukin-1 và TNF gây viêm hoại tử niêm mạc.<br>+ Tỷ lệ nhiễm *Helicobacter pylori* trong loét dạ dày – tá tràng trước đây ghi nhận tới 90–95% (đặc biệt ở loét tá tràng), nhưng hiện nay tỷ lệ này có xu hướng giảm dần ở nhiều quần thể do điều trị tiệt trừ rộng rãi và gia tăng tỷ lệ loét liên quan đến thuốc.</p>
+<p><span class="c-xanh">– Thuốc:</span> Là nguyên nhân phổ biến thứ hai gây loét dạ dày – tá tràng và là nguyên nhân hàng đầu gây loét không do *Helicobacter pylori*, thường gặp ở dạ dày hơn tá tràng và dễ gây biến chứng xuất huyết hoặc thủng âm thầm:<br>+ Aspirin gây tổn thương phối hợp qua cơ chế tại chỗ (không phân ly trong môi trường pH axit, tan trong lipid xuyên màng gây độc trực tiếp tế bào biểu mô) và cơ chế toàn thân (ức chế men COX làm giảm tổng hợp prostaglandin nội sinh, giảm tiết chất nhầy – bicarbonat và giảm tưới máu niêm mạc).<br>+ Thuốc kháng viêm không steroid (NSAIDs) gây loét và xuất huyết chủ yếu qua cơ chế ức chế tổng hợp prostaglandin toàn thân tương tự aspirin, nhưng mức độ ăn mòn trực tiếp tại chỗ thấp hơn.<br>+ Corticosteroid đơn độc ít có khả năng tự khởi phát ổ loét nguyên phát ở niêm mạc lành, nhưng làm chậm lành sẹo, kích hoạt ổ loét cũ và làm tăng mạnh nguy cơ loét – xuất huyết tiêu hóa khi phối hợp với NSAIDs hoặc aspirin.</p>
+<p><span class="c-xanh">– Thuốc lá:</span> Hút thuốc lá làm tăng nguy cơ hình thành ổ loét mới, làm chậm liền sẹo và tăng tỷ lệ tái phát hoặc kháng trị thông qua kích thích dây thần kinh X tăng tiết axit, giảm tiết bicarbonat của tụy – tá tràng, giảm lưu lượng máu niêm mạc và tăng trào ngược dịch mật tá tràng – dạ dày.</p>
+<p><span class="c-xanh">– Rối loạn vận động dạ dày – tá tràng:</span> Rối loạn làm vơi dạ dày và trào ngược dịch tá tràng – dạ dày góp phần duy trì tổn thương niêm mạc:<br>+ Làm vơi dạ dày quá nhanh đưa lượng lớn dịch vị axit xuống hành tá tràng vượt quá khả năng trung hòa của bicarbonat, thúc đẩy loét tá tràng.<br>+ Làm vơi dạ dày chậm gây ứ trệ thức ăn và axit kéo dài ở hang vị, kích thích tiết gastrin và gây loét dạ dày; đồng thời trào ngược dịch mật và men tụy từ tá tràng phá hủy hàng rào chất nhầy dạ dày.</p>
+<p><span class="c-xanh">– Yếu tố di truyền và tâm lý:</span> Đóng vai trò nền tảng thuận lợi và thúc đẩy tái phát hơn là nguyên nhân đơn độc:<br>+ Yếu tố gia đình và tỷ lệ đồng mắc cao hơn ở cặp sinh đôi đồng hợp tử so với dị hợp tử gợi ý tính nhạy cảm di truyền (như tăng khối lượng tế bào thành hoặc nhóm máu O).<br>+ Sang chấn tâm lý và căng thẳng thần kinh kéo dài làm tăng trương lực thần kinh phế vị, tăng tiết axit và ảnh hưởng bất lợi đến đáp ứng điều trị, cần phân biệt với loét do stress cấp tính (loét Curling, loét Cushing) ở bệnh nhân hồi sức tích cực.</p>
+<p><span class="c-xanh">– Các nguyên nhân ít gặp khác:</span> Cần nghĩ đến khi ổ loét âm tính với *Helicobacter pylori*, không dùng NSAIDs, đa ổ, vị trí bất thường (sau hành tá tràng D2–D3) hoặc kháng trị:<br>+ Tình trạng tăng tiết axit nguyên phát như hội chứng Zollinger – Ellison (u tiết gastrin – gastrinoma) hoặc tăng sản tế bào G vùng hang vị.<br>+ Bệnh lý viêm mạn tính, nhiễm trùng cơ hội hoặc tổn thương mạch máu – hóa chất như bệnh Crohn đường tiêu hóa trên, nhiễm Cytomegalovirus (CMV) hoặc Herpes simplex ở người suy giảm miễn dịch, thiếu máu cục bộ, xạ trị và biến chứng sau phẫu thuật nối vị – tràng.</p>
+<h2 id="iii-chan-doan-x-quang">III. Chẩn đoán x-quang</h2>
+<h3 id="1-viem-loet-da-day">1. Viêm loét dạ dày</h3>
+<h4 id="hinh-anh-o-loet">* Hình ảnh ổ loét</h4>
+<p><span class="c-xanh">– Ổ loét nông:</span> Tổn thương mới ăn sâu qua lớp niêm mạc vào phần nông lớp dưới niêm mạc, chiều sâu thường &lt; 2–3 mm nên khó giữ thuốc cản quang khi thay đổi tư thế:<br>+ Trên bình diện tiếp tuyến (nhìn nghiêng), ổ loét tạo hình lồi nhỏ vượt ra ngoài đường bờ giải phẫu của thành dạ dày, điển hình dạng hình gai hồng hoặc nửa hạt đỗ với đáy nhẵn, ranh giới rõ.<br>+ Trên bình diện thẳng mặt (nhìn trực diện), ổ loét hiện hình là một chấm hoặc đốm đọng thuốc cản quang nhỏ có bờ đều, bao quanh bởi quầng sáng phù nề niêm mạc và các nếp niêm mạc hội tụ hướng thẳng vào bờ ổ loét.<br>+ Cạm bẫy: Thuốc cản quang dễ trôi khỏi hốc loét nông khi xoay trở tư thế hoặc chưa phủ đều niêm mạc, dễ bỏ sót nếu không chụp đối quang kép đủ thì căng hơi và ép nhẹ có kiểm soát; ổ loét nông ở mặt sau thường phát hiện tốt nhất trên tư thế nằm ngửa nhờ lớp thuốc baryte đọng lại tự nhiên.</p>
+<figure><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398050964570_badamgiak23.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398050964570_badamgiak23.jpg" alt="PhotoGrid_1398050964570_badamgiak23" width="1200" height="900" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Loét trong thành:</span> Tổn thương ăn sâu vào lớp dưới niêm mạc và có thể chạm tới lớp cơ nhưng chưa vượt qua lớp thanh mạc, giữ hình thái ổn định hơn qua các lần xoay trở tư thế so với ổ loét nông:<br>+ Trên bình diện tiếp tuyến (nhìn nghiêng), ổ loét hiện hình là hốc lồi nhô ra ngoài đường bờ bình thường của thành dạ dày với dạng hình nón, chỏm cầu hoặc vuông, bờ đều và đáy nhẵn.<br>+ Trên bình diện thẳng mặt (nhìn trực diện), ổ loét tạo ổ đọng thuốc cản quang tròn hoặc bầu dục ranh giới rõ, bao quanh bởi quầng sáng phù nề niêm mạc đối xứng (đường Hampton hoặc gò loét lành tính) cùng các nếp niêm mạc mảnh hội tụ đều đặn tới tận bờ ổ loét.<br>+ Cạm bẫy: Thuốc baryte có thể lấp đầy hốc loét rồi thoát ra một phần khi thay đổi tư thế hoặc do nhu động co bóp, chỉ để lại lớp tráng thuốc mỏng không đều quanh bờ (dấu hiệu vòng nhẫn) dễ bị nhận nhầm là một nếp niêm mạc dày hoặc ổ loét đã thu nhỏ.</p>
+<figure><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051100358_badamgiak23-e1644674119909.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051100358_badamgiak23-e1644674119909.jpg" alt="" width="1173" height="915" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Loét sắp thủng:</span> Tổn thương ăn sâu xuyên qua lớp cơ tới sát lớp thanh mạc kèm phản ứng phù nề và xơ hóa dày lên của thanh mạc tại đáy ổ loét giúp ngăn thủng tự do vào ổ phúc mạc:<br>+ Trên bình diện tiếp tuyến, ổ loét nhô sâu vượt ra ngoài đường bờ thành dạ dày với đáy phình rộng trong khi cổ ổ loét thắt hẹp do phù nề niêm mạc xung quanh, tạo hình ổ loét có cuống, hình nấm hoặc hình dùi chiêng (đầu to – cuống nhỏ).<br>+ Đường sáng Hampton vẫn có thể quan sát thấy ở vùng cổ ổ loét lành tính, giúp phân biệt với khối u hoại tử trung tâm dạng miệng núi lửa nằm chìm bên trong đường bờ thành dạ dày.<br>+ Cạm bẫy: Cổ ổ loét phù nề hẹp có thể ngăn thuốc baryte lấp đầy toàn bộ hốc loét hoặc khiến hốc loét trông nhỏ hơn kích thước giải phẫu thực tế; đồng thời đây là tổn thương có nguy cơ thủng cấp tính cao khi bơm căng hơi quá mức hoặc ép mạnh vùng thượng vị.</p>
+<figure><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051234318_badamgiak23.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051234318_badamgiak23.jpg" alt="" width="1200" height="937" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Loét thủng bít:</span> Tổn thương loét xuyên thủng toàn bộ các lớp của thành dạ dày (kể cả thanh mạc) nhưng được khu trú lại nhờ phản ứng dính và bao bọc của tạng lân cận như tụy, gan, mạc nối nhỏ hoặc dây chằng gan – tá tràng mà không gây tràn khí tự do vào ổ phúc mạc:<br>+ Trên bình diện tiếp tuyến (tư thế đứng), ổ loét tạo thành hốc lớn và sâu nhô hẳn ra ngoài đường bờ giải phẫu dạ dày dạng hình ngón tay đeo găng hoặc hình túi thừa (hốc loét Haudeck).<br>+ Bên trong hốc loét kinh điển phân thành ba lớp tỷ trọng xếp chồng từ trên xuống dưới gồm lớp hơi ở đỉnh, lớp dịch vị đọng ở giữa và lớp thuốc cản quang baryte lắng ở đáy.<br>+ Cạm bẫy: Hốc loét thủng bít có thể giống túi thừa dạ dày thật nhưng phân biệt nhờ cổ hốc loét cứng, không thay đổi hình dạng theo nhu động và kèm phù nề niêm mạc xung quanh; chống chỉ định dùng baryte khi nghi ngờ thủng tự do và chỉ khảo sát bằng thuốc cản quang tan trong nước khi cần thiết.</p>
+<figure><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051075396_badamgiak23-1.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051075396_badamgiak23-1.jpg" alt="" width="1200" height="872" loading="lazy" decoding="async"></a></figure>
+<h4 id="phan-biet-o-loet">* Phân biệt ổ loét</h4>
+<p><span class="c-xanh">– Góc tá – hỗng tràng (góc Treitz):</span> Quai ruột vùng góc Treitz đọng thuốc cản quang có thể chồng hình lên bờ cong nhỏ dạ dày trên phim thẳng, vừa tạo hình giả ổ loét vừa che lấp ổ loét thật tại vị trí này:<br>+ Phân biệt bằng cách xoay bệnh nhân dưới màn tăng sáng (tư thế chếch trước phải hoặc chếch sau trái) và chụp các thì muộn hơn để tách biệt quai hỗng tràng ra khỏi đường bờ dạ dày, đồng thời quan sát nhu động và nếp niêm mạc ruột non chạy liên tục bên trong.</p>
+<p><span class="c-xanh">– Túi thừa dạ dày:</span> Thường khu trú ở vùng tâm vị – đáy vị (đặc biệt mặt sau dưới tâm vị) và có hình túi lồi cổ hẹp nối thông với lòng dạ dày:<br>+ Phân biệt với ổ loét nhờ cổ túi thừa mềm mại thay đổi kích thước theo nhu động, các nếp niêm mạc dạ dày bình thường chạy liên tục vào tận cổ túi thừa và không có quầng sáng phù nề hay gò niêm mạc xung quanh.</p>
+<p><span class="c-xanh">– Túi thừa tá tràng:</span> Túi thừa ở đoạn D2 hoặc D3 tá tràng khi chứa thuốc baryte và chồng hình lên vùng góc bờ cong nhỏ dạ dày tạo khối cản quang tròn, bờ rõ dễ nhầm với ổ loét khổng lồ:<br>+ Phân biệt nhờ vị trí giải phẫu nằm ngoài thành dạ dày khi xoay tư thế nghiêng hoặc chếch, thay đổi hình dạng theo nhu động, chứa mức khí – dịch và không gây co kéo hay hội tụ nếp niêm mạc dạ dày.</p>
+<p><span class="c-xanh">– Hạch mạc treo hoặc tụy vôi hóa:</span> Các nốt vôi hóa ở vùng thượng vị hoặc quanh tụy chồng hình lên dạ dày trên phim cản quang có thể bị nhận nhầm là ổ đọng thuốc baryte:<br>+ Phân biệt bằng phim chụp bụng không chuẩn bị trước khi uống thuốc cản quang để xác nhận hình cản quang đã tồn tại sẵn, kết hợp xoay tư thế thấy khối vôi hóa di lệch tách khỏi thành dạ dày.</p>
+<p><span class="c-xanh">– Phân biệt ổ loét dạ dày lành tính và ác tính:</span> Là trọng tâm thực hành bắt buộc trên X-quang đối quang kép để chỉ định nội soi sinh thiết kịp thời:<br>+ Về vị trí tương quan đường bờ trên bình diện tiếp tuyến, ổ loét lành tính nhô hẳn ra ngoài đường bờ giải phẫu của thành dạ dày (dấu hiệu đường Hampton là đường sáng mảnh ≤ 1–2 mm chạy ngang cổ ổ loét), trong khi ổ loét ác tính (ung thư dạ dày thể loét) nằm chìm bên trong lòng dạ dày trên nền khối u lồi vào lòng tạo hình thấu kính Carman (Carman meniscus sign).<br>+ Về hình thái hốc loét và bờ ổ loét, ổ loét lành tính thường tròn hoặc bầu dục, bờ đều, đáy nhẵn; ổ loét ác tính có hình dạng bất thường, bờ nham nhở, gồ ghề và gờ u xung quanh dày không đối xứng.<br>+ Về nếp niêm mạc xung quanh trên bình diện thẳng mặt, trong loét lành tính các nếp niêm mạc mảnh, mềm mại, hội tụ đều đặn tới tận mép ổ loét; trong loét ác tính các nếp niêm mạc dày cứng, phình to dạng dùi trống, cắt cụt đột ngột hoặc dính hợp nhất trước khi tới bờ ổ loét.<br>+ Cạm bẫy: Một số ổ loét ác tính nông có thể tạm thời thu nhỏ hoặc biểu mô hóa bề mặt dưới tác dụng của thuốc ức chế tiết axit, nên mọi ổ loét dạ dày phát hiện trên X-quang đều bắt buộc phải nội soi tiêu hóa trên kèm sinh thiết nhiều mảnh ở bờ và đáy ổ loét để loại trừ ung thư, kể cả khi hình ảnh X-quang gợi ý lành tính.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051296268_badamgiak23.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051296268_badamgiak23.jpg" alt="Ổ loét ác tính" width="1200" height="1348" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051309721_badamgiak23.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051309721_badamgiak23.jpg" alt="Nhiễm cứng bờ cong nhỏ." width="1200" height="1065" loading="lazy" decoding="async"></a></div>
+<h4 id="thay-doi-bo-cong-nho">* Thay đổi bờ cong nhỏ</h4>
+<p><span class="c-xanh">– Cứng đoạn bờ cong nhỏ:</span> Đoạn bờ cong nhỏ dài khoảng 1–2 cm mất độ mềm mại và không thay đổi hình dạng theo sóng nhu động do phản ứng phù nề viêm cấp tính hoặc thâm nhiễm xơ hóa quanh ổ loét.</p>
+<p><span class="c-xanh">– Co rút bờ cong nhỏ:</span> Quá trình viêm xơ hóa mạn tính làm ngắn dần chiều dài bờ cong nhỏ và kéo lệch trục giải phẫu của dạ dày:<br>+ Môn vị bị kéo lệch lên cao về phía góc bờ cong nhỏ (thậm chí sát vùng tâm vị), làm bờ cong nhỏ cuộn ngắn lại trong khi vùng hang vị giãn rộng bù trừ, tạo hình dạ dày dạng con sên hoặc hình ấm chè.<br>+ Dấu hiệu này là bằng chứng gián tiếp giá trị cao gợi ý tiền sử loét mạn tính khi không còn quan sát thấy hốc loét trực tiếp, đồng thời tồn tại vĩnh viễn ngay cả khi ổ loét đã liền sẹo hoàn toàn và là yếu tố cơ học quan trọng dẫn đến hẹp môn vị.<br>+ Cạm bẫy: Đoạn bờ cong nhỏ cứng hoặc co rút biến dạng cần phân biệt với ung thư dạ dày thể thâm nhiễm cứng (linitis plastica) vốn gây mất nhu động lan tỏa, lòng dạ dày thu hẹp đồng tâm không giãn bù trừ vùng hang vị và thường kèm phá hủy cấu trúc nếp niêm mạc; nội soi sinh thiết vẫn bắt buộc khi thấy đoạn cứng khu trú.</p>
+<h4 id="thay-doi-hang-mon-vi">* Thay đổi hang môn vị</h4>
+<p><span class="c-xanh">– Kéo lệch trục môn vị:</span> Xơ hóa co rút dọc bờ cong nhỏ kéo ống môn vị lệch lên trên và vào trong, làm mất vị trí giải phẫu thẳng hàng giữa hang vị và hành tá tràng.</p>
+<p><span class="c-xanh">– Hẹp môn vị do viêm hoặc xơ hóa:</span> Ổ loét vùng tiền môn vị hoặc ống môn vị gây phù nề niêm mạc cấp tính hoặc sẹo xơ co kéo mạn tính làm thu hẹp khẩu kính ống môn vị:<br>+ Trên X-quang, ống môn vị thu hẹp lệch tâm hoặc kéo dài, kèm giãn ứ đọng dịch và thức ăn ở thân – hang vị (hình ảnh tuyết rơi trong lòng dạ dày khi thuốc baryte lắng qua lớp dịch ứ đọng) và chậm làm vơi dạ dày.<br>+ Cần phân biệt hẹp môn vị cơ năng do phù nề cấp tính (có thể hồi phục sau điều trị nội khoa giảm tiết và thuốc chống co thắt) với hẹp thực thể do sẹo xơ mạn tính hoặc ung thư hang – môn vị xâm lấn cứng.</p>
+<p><span class="c-xanh">– Co thắt hang vị:</span><br>+ Phản xạ kích thích cơ trơn tại chỗ làm vùng hang vị thắt hẹp thuôn dài dạng hình ống hoặc hình sợi chỉ, mất sóng nhu động bình thường.<br>+ Đặc điểm này dễ nhầm với ung thư dạ dày thể thâm nhiễm cứng vùng hang vị (dấu hiệu lõi táo), nhưng trong co thắt lành tính thành hang vị vẫn giữ được lớp niêm mạc mềm mại và khẩu kính có thể giãn mở trở lại khi theo dõi dưới màn tăng sáng hoặc sau dùng thuốc chống co thắt.</p>
+<h4 id="thay-doi-bo-cong-lon">* Thay đổi bờ cong lớn</h4>
+<p><span class="c-xanh">– Hình ngấn ở bờ cong lớn (dấu hiệu ngón tay chỉ):</span> Vết lõm khu trú, sâu và bờ nhẵn trên bờ cong lớn nằm ở bình diện đối diện trực tiếp với ổ loét tại bờ cong nhỏ, hình thành do phản xạ co thắt khu trú lớp cơ vòng của thành dạ dày:<br>+ Dấu hiệu này là chỉ điểm gián tiếp quan trọng gợi ý ổ loét lành tính ở bờ cong nhỏ ngay cả khi hốc loét nhỏ khó quan sát trực diện, và thường tự mất đi sau khi ổ loét liền sẹo hoặc dùng thuốc chống co thắt.<br>+ Cạm bẫy: Cần phân biệt hình ngấn co thắt cơ năng với sóng nhu động sinh lý (thay đổi vị trí liên tục dưới màn tăng sáng), khuyết thuốc ác tính ở bờ cong lớn (bờ nham nhở, phá hủy nếp niêm mạc và cứng cố định) hoặc hình ấn lõm từ tạng lân cận như lách hay đại tràng góc lách.</p>
+<p><span class="c-xanh">– Dạ dày hình đồng hồ cát (dạ dày hình hai túi):</span> Thân vị bị thắt hẹp sâu ở phần giữa chia lòng dạ dày thành hai túi trên và dưới thông nhau qua một eo hẹp:<br>+ Giai đoạn cấp tính do co thắt cơ vòng mạnh phản xạ quanh ổ loét bờ cong nhỏ (eo hẹp nằm lệch tâm về phía bờ cong nhỏ, niêm mạc vùng eo vẫn mềm mại và có thể giãn mở sau dùng thuốc chống co thắt).<br>+ Giai đoạn mạn tính do xơ hóa co rút hình vòng quanh ổ loét cũ tạo eo hẹp cứng cố định vĩnh viễn, cần phân biệt với ung thư dạ dày thể thâm nhiễm cứng khu trú (vùng hẹp đồng tâm, bờ cứng nham nhở kèm phá hủy niêm mạc).</p>
+<h3 id="2-viem-loet-ta-trang">2. Viêm loét tá tràng</h3>
+<h4 id="hinh-anh-o-loet-2">* Hình ảnh ổ loét</h4>
+<p><span class="c-xanh">– Vị trí và kỹ thuật thăm khám:</span> Hơn 90% ổ loét tá tràng khu trú ở hành tá tràng (phần D1), chủ yếu nằm ở mặt trước hoặc mặt sau nên thường hiện hình thẳng mặt hơn là trên bình diện tiếp tuyến:<br>+ Phim chụp ép nhẹ có kiểm soát (phim vơi thuốc) và tư thế chếch trước phải hoặc chếch sau trái giúp dàn mỏng lớp thuốc baryte, làm bộc lộ rõ hốc loét mặt trước hoặc mặt sau vốn dễ bị che lấp khi hành tá tràng chứa đầy thuốc.<br>+ Loét mặt sau hành tá tràng thường tiến triển mạn tính hơn và dễ gây xuất huyết tiêu hóa nặng do ăn mòn động mạch vị tá tràng, trong khi loét mặt trước dễ gây thủng tự do vào ổ phúc mạc.</p>
+<p><span class="c-xanh">– Hành tá tràng chưa biến dạng:</span> Ổ loét hiện hình trên bình diện thẳng mặt là một chấm hoặc đốm đọng thuốc cản quang tròn hay bầu dục, ranh giới sắc nét:<br>+ Quanh ổ đọng thuốc có một vòng sáng đồng tâm hoặc hình liềm (nửa vòng) do phù nề niêm mạc xung quanh.<br>+ Khi phản ứng viêm lan rộng, các nếp niêm mạc dày phù nề hội tụ hướng thẳng vào tâm ổ loét làm vòng sáng bị chia cắt gián đoạn, tạo hình nan hoa bánh xe đặc trưng.</p>
+<p><span class="c-xanh">– Hành tá tràng biến dạng:</span> Hốc đọng thuốc cản quang nằm ở vùng trung tâm nơi hội tụ của các nếp niêm mạc xơ hóa và co kéo (chi tiết các hình thái biến dạng hành tá tràng được trình bày tại tiểu mục tiếp theo); trường hợp xơ teo nặng toàn bộ hành tá tràng chỉ còn thấy ổ đọng thuốc nhỏ nằm kẹt giữa vùng hang môn vị và gối trên tá tràng.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Không giống loét dạ dày, loét hành tá tràng hầu như luôn lành tính nên không đặt ra bài toán phân biệt ác tính thường quy; tuy nhiên cần phân biệt ổ loét với túi thừa tá tràng (thường nằm ở đoạn D2–D3, thay đổi kích thước theo nhu động và có nếp niêm mạc chạy liên tục vào cổ túi) hoặc chấm đọng thuốc giả giữa các nếp niêm mạc dày trong viêm hành tá tràng trợt (hình ảnh đá lát cuội không kèm hội tụ nếp niêm mạc).</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051172733_badamgiak23.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051172733_badamgiak23.jpg" alt="" width="1200" height="910" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051204323_badamgiak23.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051204323_badamgiak23.jpg" alt="" width="1200" height="931" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Biến dạng hành tá tràng</strong></span></p>
+<p><span class="c-xanh">– Hình cứng:</span> Phản ánh quá trình viêm phù nề dày thành hoặc xơ hóa sẹo mạn tính làm hành tá tràng mất tính đàn hồi và biến dạng cố định:<br>+ Hành tá tràng teo nhỏ hình ống (hình Akerlund) do xơ hóa và phù nề đồng tâm kéo dài làm thu hẹp lòng và mất hình thái tam giác bình thường.<br>+ Hành tá tràng biến dạng dẹt khi chỉ còn quan sát thấy vùng đáy hành tá tràng, đôi khi kèm giãn bù trừ một túi cùng bên tạo hình túi thừa giả Cole, hoặc teo dẹt toàn bộ hành tá tràng trong loét xơ hóa nặng.</p>
+<p><span class="c-xanh">– Hình lõm:</span> Hình thành do co thắt cơ vòng phản xạ tại chỗ hoặc sẹo xơ co kéo làm khuyết lõm đường bờ hành tá tràng:<br>+ Hình ngấn khu trú trên bờ cong hành tá tràng thường nằm đối diện với ổ loét tương tự cơ chế hình ngấn ở bờ cong lớn dạ dày.<br>+ Hành tá tràng hình eo (hình quả tạ) do phù nề niêm mạc hoặc co thắt vòng quanh ổ loét tạo đoạn thắt hẹp ở phần giữa.</p>
+<p><span class="c-xanh">– Hình lồi:</span> Xuất hiện do các túi cùng bên của hành tá tràng giãn phình bù trừ phía dưới hoặc xen kẽ vùng hẹp xơ hóa, tạo biến dạng hình hoa ba cánh (con bài nhép) hoặc các hình thái đặc trưng:<br>+ Hình giả túi thừa (túi Cole) là phần túi cùng phía dưới hành tá tràng giãn phình to như túi thừa do đoạn hành tá tràng phía trên bị hẹp xơ kéo dài.<br>+ Hành tá tràng hình hai túi khi vùng giữa bị thắt hẹp do loét tạo hai khoang lồi trên và dưới (khoang dưới thường giãn to dạng túi Cole); khi xơ hóa tạo nhiều dải co kéo xen kẽ các hốc giãn nhỏ sẽ tạo biến dạng hình lưng ong hoặc hình lá cọ.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Biến dạng hành tá tràng mạn tính tồn tại vĩnh viễn ngay cả khi ổ loét đã liền sẹo hoàn toàn, do đó không giúp phân biệt loét đang hoạt động với sẹo loét cũ nếu không tìm thấy hốc đọng thuốc trực tiếp hoặc vòng sáng phù nề cấp tính; đồng thời cần phân biệt túi thừa giả Cole với túi thừa tá tràng thật (thường nằm ở đoạn D2–D3, cổ mềm mại và có nếp niêm mạc chạy liên tục vào trong).</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_bv-1.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_bv-1.jpg" alt="Biến dạng hành tá tràng" width="1591" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051019135_badamgiak23.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051019135_badamgiak23.jpg" alt="Hình quả tạ" width="1200" height="900" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051187883_badamgiak23-1.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_PhotoGrid_1398051187883_badamgiak23-1.jpg" alt="Hình lá cọ." width="1200" height="900" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_img_3452-146C29AA52A5A55D06E.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_img_3452-146C29AA52A5A55D06E.jpg" alt="" width="1600" height="1557" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-sieu-am">IV. Chẩn đoán siêu âm</h2>
+<p><span class="c-xanh">– Kỹ thuật thăm khám:</span> Khảo sát vùng thượng vị bằng đầu dò tần số cao (7,5–12 MHz) kết hợp đầu dò lồi tần số thấp (3,5–5 MHz), dùng kỹ thuật ép nhẹ có kiểm soát để đẩy hơi trong lòng ống tiêu hóa và có thể cho uống 300–500 mL nước đun sôi để nguội làm cửa sổ âm khi cần đánh giá thành dạ dày – hành tá tràng.</p>
+<p><span class="c-xanh">– Dày thành và phù nề lớp dưới niêm mạc:</span> Thành dạ dày vùng hang vị hoặc thành hành tá tràng dày khu trú (&gt; 5–6 mm ở dạ dày và &gt; 3–4 mm ở hành tá tràng):<br>+ Phân tầng cấu trúc thành ống tiêu hóa vẫn được bảo tồn rõ nét, nổi bật là tình trạng dày và giảm âm đồng nhất của lớp dưới niêm mạc (lớp thứ ba từ trong ra) do phản ứng viêm phù nề, kèm tăng tín hiệu tưới máu quanh ổ viêm trên siêu âm Doppler màu.<br>+ Vùng mỡ mạc nối hoặc dây chằng gan – tá tràng xung quanh tăng âm nhẹ do thâm nhiễm viêm khu trú, đôi khi kèm hạch phản ứng nhỏ hình bầu dục vùng rốn gan hoặc quanh đầu tụy.</p>
+<p><span class="c-xanh">– Dấu hiệu trực tiếp của ổ loét:</span> Tổn thương tạo khuyết lõm khu trú gây gián đoạn, mất liên tục đường tăng âm của lớp bề mặt niêm mạc và lớp dưới niêm mạc:<br>+ Đáy ổ loét thường chứa các chấm tăng âm mạnh kèm bóng cản bẩn hoặc ảnh giả đuôi sao chổi do bọt khí nhỏ và mảnh hoại tử mắc kẹt bên trong hốc loét.<br>+ Khi ổ loét ăn sâu vào lớp cơ hoặc xuyên thấu, vùng giảm âm của ổ loét lan xuyên qua lớp cơ giảm âm (lớp thứ tư) và có thể thấy đường dải khí mảnh xuyên thành.</p>
+<p><span class="c-xanh">– Dấu hiệu biến chứng trên siêu âm:</span> Siêu âm có giá trị cao trong sàng lọc nhanh biến chứng cấp tính ngay tại giường bệnh:<br>+ Thủng ổ loét biểu hiện bằng dải hoặc ổ khí tự do tăng âm kèm ảnh giả đa âm phản hồi nằm sát mặt trước gan hoặc dưới vòm hoành phải (dấu hiệu dải tăng âm phúc mạc), kết hợp dịch tự do ổ bụng có hồi âm lợn cợn tập trung ở rãnh cạnh đại tràng phải, khoang Morison hoặc vùng thượng vị.<br>+ Hẹp môn vị biểu hiện bằng dạ dày giãn to chứa nhiều dịch và thức ăn ứ đọng chuyển động xoáy khi ép đầu dò, trong khi đoạn ống môn vị hoặc hành tá tràng dày cứng, hẹp khít lòng.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Hơi tự do trong lòng ruột hoặc hơi tại góc tá tràng dễ che lấp tổn thương ở mặt sau hành tá tràng và dễ nhầm với khí tự do ổ phúc mạc (khí tự do nằm ngay dưới lá thành phúc mạc và không di chuyển theo nhu động ruột, trong khi khí trong lòng ruột nằm bên trong thành ống tiêu hóa và thay đổi vị trí khi ép đầu dò); ngoài ra cần phân biệt dày thành do loét lành tính (còn bảo tồn cấu trúc phân tầng 5 lớp) với ung thư dạ dày xâm lấn (dày thành mất cấu trúc phân tầng và cứng chắc khi ấn).</p>
+<figure><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_figure-8-26-website.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_figure-8-26-website.jpg" alt="" width="1178" height="441" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-610.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_1-610.jpg" alt="" width="856" height="601" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-606.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_2-606.jpg" alt="" width="813" height="540" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-580.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_3-580.jpg" alt="" width="800" height="439" loading="lazy" decoding="async"></a></div>
+<h2 id="v-chan-doan-clvt">V. Chẩn đoán CLVT</h2>
+<h4 id="viem-niem-mac">* Viêm niêm mạc</h4>
+<p><span class="c-xanh">– Dày nếp gấp và thành dạ dày – tá tràng:</span> Thành dạ dày vùng hang vị dày khu trú hoặc lan tỏa (&gt; 5 mm khi lòng dạ dày căng tốt, hoặc &gt; 10 mm ở vùng nối thực quản – dạ dày) kèm dày các nếp niêm mạc; ở hành tá tràng thành dày &gt; 3 mm.</p>
+<p><span class="c-xanh">– Hình ảnh phân tầng thành đặc trưng (dấu hiệu bia bắn hoặc đường ray):</span> Phản ánh tình trạng viêm cấp tính của thành ống tiêu hóa sau tiêm thuốc cản quang tĩnh mạch:<br>+ Lớp niêm mạc trong cùng mỏng, ranh giới rõ và tăng ngấm thuốc mạnh trên thì động mạch muộn và tĩnh mạch cửa do xung huyết, tăng tưới máu tại chỗ.<br>+ Lớp dưới niêm mạc ở giữa dày lên và giảm tỷ trọng rõ rệt (tỷ trọng dịch khoảng 10–30 HU) do tích tụ dịch phù nề viêm.<br>+ Lớp cơ và thanh mạc ngoài cùng ngấm thuốc bình thường hoặc tăng nhẹ, tạo thành cấu trúc ba lớp đồng tâm điển hình.</p>
+<p><span class="c-xanh">– Phản ứng viêm quanh thành ống tiêu hóa:</span> Vùng mỡ mạc nối hoặc dây chằng gan – tá tràng lân cận có thể tăng tỷ trọng nhẹ dạng dải mờ do thâm nhiễm viêm khu trú, đôi khi kèm hạch phản ứng nhỏ vùng quanh dạ dày hoặc rốn gan.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Dạ dày xẹp do không uống đủ nước hoặc khí làm căng lòng trước khi chụp tạo hình giả dày thành và giả dày nếp niêm mạc rất dễ nhầm với viêm niêm mạc hoặc u thâm nhiễm; cần phân biệt dày thành do viêm lành tính (bảo tồn cấu trúc phân tầng ba lớp, bề mặt niêm mạc trơn láng, thâm nhiễm mỡ nhẹ) với ung thư dạ dày xâm lấn (dày thành không đối xứng, mất cấu trúc phân tầng, bờ nham nhở và thâm nhiễm mỡ hoặc hạch ác tính quanh dạ dày).</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_image05414.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_image05414.jpeg" alt="" width="650" height="650" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_screenshot_1741272711-1.png"><img src="loet-da-day-ta-trang_anh/2015_08_screenshot_1741272711-1.png" alt="" width="1092" height="530" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_870808.png"><img src="loet-da-day-ta-trang_anh/2015_08_870808.png" alt="" width="949" height="752" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig1_HTML.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig1_HTML.jpg" alt="" width="520" height="519" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-Figure1-1-7.png"><img src="loet-da-day-ta-trang_anh/2015_08_2-Figure1-1-7.png" alt="" width="1418" height="652" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_image05418.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_image05418.jpeg" alt="" width="650" height="650" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_gr1_lrg-9.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_gr1_lrg-9.jpg" alt="" width="1600" height="1253" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_Phlegmonoese_Gastritis_CT_ax.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_Phlegmonoese_Gastritis_CT_ax.jpg" alt="" width="1072" height="857" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_870991.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_870991.jpg" alt="" width="1022" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_Screenshot-2024-02-06-100553.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_Screenshot-2024-02-06-100553.jpg" alt="" width="1600" height="858" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-243.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_1-243.jpg" alt="" width="498" height="415" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-237.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_2-237.jpg" alt="" width="496" height="420" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-229.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_3-229.jpg" alt="" width="494" height="420" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-207.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_4-207.jpg" alt="" width="493" height="424" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-134.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_5-134.jpg" alt="" width="630" height="419" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-908.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_1-908.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-907.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_2-907.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-890.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_3-890.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-827.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_4-827.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-675.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_5-675.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-352.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_6-352.jpeg" alt="" width="503" height="458" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-1104.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_1-1104.jpg" alt="" width="939" height="900" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-1109.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_2-1109.jpg" alt="" width="937" height="898" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-1082.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_3-1082.jpg" alt="" width="939" height="902" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-943.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_4-943.jpg" alt="" width="939" height="900" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-608.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_5-608.jpg" alt="" width="938" height="903" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-309.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_6-309.jpg" alt="" width="937" height="901" loading="lazy" decoding="async"></a></div>
+<h4 id="loet-da-day">* Loét dạ dày</h4>
+<p><span class="c-xanh">– Kỹ thuật thăm khám:</span> Đánh giá ổ loét trên cắt lớp vi tính tối ưu khi bệnh nhân nhịn ăn, uống 500–800 mL nước làm căng lòng dạ dày – tá tràng (thuốc cản quang đường uống tỷ trọng âm) kết hợp tiêm thuốc cản quang tĩnh mạch chụp thì động mạch muộn và tĩnh mạch cửa, tái tạo đa mặt phẳng (MPR) theo trục dọc thành ống tiêu hóa.</p>
+<p><span class="c-xanh">– Dấu hiệu trực tiếp của ổ loét:</span> Tổn thương khuyết niêm mạc khu trú vượt qua lớp cơ niêm tạo hốc chứa dịch hoặc bóng khí nhỏ ăn sâu vào thành dạ dày – tá tràng:<br>+ Hình thái hốc loét dạng đường hầm hẹp sâu hoặc khuyết lõm chân rộng (dạng chén hay miệng núi lửa), làm gián đoạn đường ngấm thuốc liên tục của lớp niêm mạc bình thường tại đáy ổ loét.<br>+ Ổ loét nông kích thước &lt; 5 mm thường khó phát hiện trên cắt lớp vi tính thường quy ngay cả khi đã làm căng lòng dạ dày, chủ yếu chỉ nhận diện qua các dấu hiệu gián tiếp của thành ống tiêu hóa xung quanh.</p>
+<p><span class="c-xanh">– Dấu hiệu gián tiếp tại thành và mô xung quanh:</span> Thành dạ dày hoặc hành tá tràng quanh ổ loét dày khu trú nhưng vẫn bảo tồn cấu trúc phân tầng đặc trưng:<br>+ Lớp niêm mạc bề mặt quanh miệng ổ loét tăng ngấm thuốc rõ do xung huyết viêm, tạo hình viền tăng tỷ trọng bao quanh khuyết loét.<br>+ Lớp dưới niêm mạc dày lên và giảm tỷ trọng do phù nề viêm cấp tính (tạo vòng phù nề bao quanh ổ loét), kèm thâm nhiễm mỡ dạng dải mờ ở mạc nối hoặc dây chằng gan – tá tràng lân cận.</p>
+<p><span class="c-xanh">– Phân biệt loét lành tính và ung thư dạ dày thể loét trên cắt lớp vi tính:</span> Dựa trên mức độ đối xứng, cấu trúc phân tầng thành và tình trạng thâm nhiễm ngoài thanh mạc:<br>+ Loét lành tính gây dày thành đối xứng, bảo tồn cấu trúc phân tầng ba lớp sau tiêm, bờ miệng ổ loét trơn nhẵn và thâm nhiễm mỡ quanh thành khu trú nhẹ.<br>+ Ung thư dạ dày thể loét biểu hiện bằng khối dày thành không đối xứng hoặc dạng chồi sùi tạo gờ u lồi vào lòng dạ dày, mất hoàn toàn cấu trúc phân tầng thành, đáy ổ loét nằm trong khối u thay vì ăn lõm ra ngoài, kèm xâm lấn mỡ quanh dạ dày hoặc hạch vùng to bất thường.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Nếp niêm mạc dạ dày bình thường khi lòng dạ dày chưa căng đủ nước có thể tạo khe hẹp chứa khí hoặc dịch giả hình hốc loét sâu; ngoài ra, loét tá tràng ở mặt trước hoặc mặt sau hành tá tràng dễ bị bỏ sót trên lát cắt ngang nếu không đối chiếu đồng thời trên mặt phẳng đứng ngang (coronal) và đứng dọc (sagittal).</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_Screenshot-2022-05-24-232039.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_Screenshot-2022-05-24-232039.jpg" alt="" width="1054" height="376" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_123-6.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_123-6.jpg" alt="" width="1423" height="1247" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_700695.png"><img src="loet-da-day-ta-trang_anh/2015_08_700695.png" alt="" width="1024" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_622765.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_622765.jpg" alt="" width="900" height="434" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig2_HTML.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig2_HTML.jpg" alt="" width="709" height="233" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig4_HTML.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig4_HTML.jpg" alt="" width="520" height="520" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig11_HTML.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig11_HTML.jpg" alt="" width="520" height="520" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_images_large_rg.2015150062.fig4a.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_images_large_rg.2015150062.fig4a.jpeg" alt="" width="927" height="699" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_736479.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_736479.jpg" alt="" width="463" height="363" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-195.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_1-195.jpeg" alt="" width="630" height="438" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-197.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_2-197.jpeg" alt="" width="630" height="439" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-194.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_3-194.jpeg" alt="" width="630" height="440" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-192.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_4-192.jpeg" alt="" width="630" height="441" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-145.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_5-145.jpeg" alt="" width="630" height="441" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Xuất huyết tiêu hóa hoạt động do loét:</span> Cắt lớp vi tính mạch máu đa thì (không tiêm, thì động mạch và thì tĩnh mạch cửa) có vai trò then chốt giúp định vị điểm chảy máu và định hướng nút mạch can thiệp cấp cứu:<br>+ Trên thì không tiêm thuốc cản quang, máu cục mới đông trong lòng dạ dày hoặc hành tá tràng (dấu hiệu cục máu đông canh gác – sentinel clot) biểu hiện bằng khối tăng tỷ trọng tự nhiên (khoảng 45–70 HU), giúp khoanh vùng vị trí ổ loét chảy máu.<br>+ Trên thì động mạch và thì tĩnh mạch cửa, dấu hiệu chảy máu hoạt động là ổ thoát thuốc cản quang (contrast extravasation) tỷ trọng cao (&gt; 90 HU hoặc tương đương tỷ trọng động mạch lân cận) thoát ra từ đáy ổ loét vào lòng ống tiêu hóa, thay đổi hình dạng và lan rộng dần trên thì muộn.<br>+ Giả phình mạch ở đáy ổ loét (thường gặp tại nhánh động mạch vị trái trong loét dạ dày hoặc động mạch vị tá tràng trong loét mặt sau hành tá tràng) biểu hiện bằng ổ ngấm thuốc hình tròn hoặc bầu dục ranh giới rõ ở thì động mạch nhưng rửa thuốc đồng tỷ trọng với lòng mạch ở thì tĩnh mạch cửa mà không lan rộng ra lòng ruột.<br>+ Cạm bẫy: Chống chỉ định dùng thuốc cản quang đường uống tỷ trọng dương (baryte hoặc thuốc cản quang iod pha loãng) khi nghi ngờ xuất huyết tiêu hóa cấp vì thuốc cản quang trong lòng ống tiêu hóa sẽ che lấp hoàn toàn ổ thoát thuốc từ thành mạch; đồng thời cần phân biệt thoát thuốc hoạt động với viên thuốc uống chưa tan, mảnh thức ăn tăng tỷ trọng hoặc kẹp cầm máu kim loại bằng cách đối chiếu chặt chẽ với thì không tiêm.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig8_HTML.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig8_HTML.jpg" alt="" width="709" height="233" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_Screenshot-2022-05-24-232432.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_Screenshot-2022-05-24-232432.jpg" alt="" width="1052" height="374" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig10_HTML.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_13244_2017_562_Fig10_HTML.jpg" alt="" width="708" height="233" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_a-15.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_a-15.jpeg" alt="" width="630" height="469" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_b-12.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_b-12.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_d-9.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_d-9.jpeg" alt="" width="1024" height="762" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_c-10.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_c-10.jpeg" alt="" width="630" height="469" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-406.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_1-406.jpeg" alt="" width="621" height="558" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-409.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_2-409.jpeg" alt="" width="622" height="563" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-410.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_3-410.jpeg" alt="" width="622" height="564" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-392.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_4-392.jpeg" alt="" width="617" height="567" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-316.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_5-316.jpeg" alt="" width="617" height="568" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-130.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_6-130.jpeg" alt="" width="616" height="568" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_7-61.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_7-61.jpeg" alt="" width="616" height="566" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_8-57.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_8-57.jpeg" alt="" width="612" height="570" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-131.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_1-131.jpeg" alt="" width="630" height="444" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-134.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_2-134.jpeg" alt="" width="630" height="447" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-133.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_3-133.jpeg" alt="" width="630" height="460" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-132.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_4-132.jpeg" alt="" width="630" height="452" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-95.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_5-95.jpeg" alt="" width="630" height="452" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-55.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_6-55.jpeg" alt="" width="534" height="608" loading="lazy" decoding="async"></a></div>
+<h4 id="bien-chung">* Biến chứng</h4>
+<p><span class="c-xanh">– Thủng ổ loét vào ổ phúc mạc tự do:</span> Biến chứng cấp cứu ngoại khoa phổ biến nhất, thường gặp ở ổ loét mặt trước hành tá tràng hoặc bờ cong nhỏ dạ dày:<br>+ Dấu hiệu trực tiếp giúp định vị lỗ thủng là khuyết mất liên tục toàn bộ bề dày thành dạ dày – tá tràng (cắt cụt cả niêm mạc, lớp dưới niêm mạc và thanh mạc) kèm dày thành phù nề và thâm nhiễm mỡ khu trú xung quanh.<br>+ Khí tự do ổ phúc mạc tập trung chủ yếu ở tầng trên mạc treo đại tràng ngang như mặt trước gan, quanh dây chằng liềm, khe dây chằng tròn, hậu cung mạc nối hoặc các bóng khí nhỏ nằm kẹt ngay sát vị trí thủng (dấu hiệu bóng khí cạnh lỗ thủng).<br>+ Dịch tự do ổ bụng tỷ trọng dịch hoặc dịch giàu protein (20–40 HU) tích tụ ở quanh gan, rãnh cạnh đại tràng phải, khoang Morison và túi cùng Douglas; nếu cho uống thuốc cản quang tan trong nước có thể thấy thuốc thoát trực tiếp qua lỗ thủng vào khoang phúc mạc.</p>
+<p><span class="c-xanh">– Loét xuyên thấu (thủng bít vào tạng lân cận):</span> Ổ loét mặt sau hành tá tràng hoặc bờ cong nhỏ ăn xuyên qua thành ống tiêu hóa nhưng được bao bọc bởi tạng lân cận mà không gây tràn khí tự do ổ phúc mạc:<br>+ Loét mặt sau hành tá tràng thường xuyên thấu vào đầu tụy gây viêm tụy cấp khu trú, xóa mờ ranh giới giữa thành tá tràng và nhu mô tụy kèm ổ dịch hoặc bóng khí nhỏ kẹt tại vùng tiếp giáp.<br>+ Loét bờ cong nhỏ có thể xuyên thấu vào thùy gan trái, mạc nối nhỏ hoặc túi mật, đôi khi tạo đường rò mật – tiêu hóa (khí trong đường mật kèm mất ranh giới tá tràng – túi mật).</p>
+<p><span class="c-xanh">– Hẹp môn vị – hành tá tràng:</span> Phản ứng phù nề viêm cấp tính hoặc xơ hóa co kéo mạn tính làm hẹp khít ống môn vị hoặc hành tá tràng, biểu hiện trên cắt lớp vi tính bằng dạ dày giãn căng ứ đọng nhiều dịch và thức ăn (mức dịch – cặn thức ăn) kèm đoạn chuyển tiếp dày thành khu trú tại vùng tiền môn vị – hành tá tràng.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Thủng mặt sau hành tá tràng (đoạn D1 thấp hoặc D2) có thể chỉ gây tràn khí và tụ dịch khoang sau phúc mạc (khoang cạnh thận trước phải, quanh tĩnh mạch chủ dưới) mà hoàn toàn không có khí tự do trong ổ phúc mạc; đồng thời cần phân biệt thủng do loét lành tính với thủng trên nền ung thư dạ dày thể loét (thành dày không đối xứng mất cấu trúc phân tầng, bờ nham nhở và hạch vùng hoặc di căn phúc mạc đi kèm).</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_700694.png"><img src="loet-da-day-ta-trang_anh/2015_08_700694.png" alt="" width="1024" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_Screenshot-2022-05-24-232241.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_Screenshot-2022-05-24-232241.jpg" alt="" width="1018" height="373" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-1-2.png"><img src="loet-da-day-ta-trang_anh/2015_08_1-1-2.png" alt="" width="585" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-1-2.png"><img src="loet-da-day-ta-trang_anh/2015_08_2-1-2.png" alt="" width="585" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-224.png"><img src="loet-da-day-ta-trang_anh/2015_08_3-224.png" alt="" width="585" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-210.png"><img src="loet-da-day-ta-trang_anh/2015_08_4-210.png" alt="" width="585" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-184.png"><img src="loet-da-day-ta-trang_anh/2015_08_5-184.png" alt="" width="585" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-111.png"><img src="loet-da-day-ta-trang_anh/2015_08_6-111.png" alt="" width="585" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="loet-da-day-ta-trang_anh/2018_11_1-35.jpeg"><img src="loet-da-day-ta-trang_anh/2018_11_1-35.jpeg" alt="Thủng tá tràng" width="548" height="443" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2018_11_2-34.jpeg"><img src="loet-da-day-ta-trang_anh/2018_11_2-34.jpeg" alt="" width="500" height="582" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2018_11_3-32.jpeg"><img src="loet-da-day-ta-trang_anh/2018_11_3-32.jpeg" alt="" width="500" height="584" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2018_11_4-33.jpeg"><img src="loet-da-day-ta-trang_anh/2018_11_4-33.jpeg" alt="" width="500" height="585" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2018_11_5-25.jpeg"><img src="loet-da-day-ta-trang_anh/2018_11_5-25.jpeg" alt="" width="500" height="582" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2018_11_6-15.jpeg"><img src="loet-da-day-ta-trang_anh/2018_11_6-15.jpeg" alt="" width="500" height="583" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-79.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_1-79.jpeg" alt="Thủng hành tá tràng" width="630" height="509" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-83.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_2-83.jpeg" alt="Thủng hành tá tràng" width="630" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-83.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_3-83.jpeg" alt="Thủng hành tá tràng" width="630" height="513" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-80.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_4-80.jpeg" alt="Thủng hành tá tràng" width="630" height="514" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-60.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_5-60.jpeg" alt="Thủng hành tá tràng" width="630" height="524" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-42.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_6-42.jpeg" alt="Thủng hành tá tràng" width="630" height="521" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-122.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_1-122.jpeg" alt="Thủng DII tá tràng" width="462" height="322" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-125.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_2-125.jpeg" alt="" width="462" height="324" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-125.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_3-125.jpeg" alt="" width="459" height="325" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-123.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_4-123.jpeg" alt="" width="456" height="317" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-451.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_1-451.jpg" alt="Thủng môn vị" width="979" height="904" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-446.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_2-446.jpg" alt="" width="880" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-425.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_3-425.jpg" alt="" width="715" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-377.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_4-377.jpg" alt="" width="728" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-220.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_5-220.jpg" alt="" width="718" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-107.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_6-107.jpg" alt="" width="639" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_7-68-1.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_7-68-1.jpg" alt="" width="609" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_8-52.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_8-52.jpg" alt="" width="635" height="843" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-332.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_1-332.jpeg" alt="Thủng môn vị" width="616" height="452" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-335.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_2-335.jpeg" alt="" width="613" height="453" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-333.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_3-333.jpeg" alt="" width="613" height="456" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-317.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_4-317.jpeg" alt="" width="614" height="455" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-248.jpeg"><img src="loet-da-day-ta-trang_anh/2015_08_5-248.jpeg" alt="" width="462" height="599" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 7:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-78.png"><img src="loet-da-day-ta-trang_anh/2015_08_1-78.png" alt="Thủng ổ loét tá tràng" width="1201" height="779" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-85.png"><img src="loet-da-day-ta-trang_anh/2015_08_2-85.png" alt="" width="1202" height="773" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-82.png"><img src="loet-da-day-ta-trang_anh/2015_08_3-82.png" alt="" width="1201" height="777" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-73.png"><img src="loet-da-day-ta-trang_anh/2015_08_4-73.png" alt="" width="1201" height="774" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-59.png"><img src="loet-da-day-ta-trang_anh/2015_08_5-59.png" alt="" width="1202" height="771" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-37.png"><img src="loet-da-day-ta-trang_anh/2015_08_6-37.png" alt="" width="1202" height="775" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_7-28.png"><img src="loet-da-day-ta-trang_anh/2015_08_7-28.png" alt="" width="1201" height="773" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_8-24.png"><img src="loet-da-day-ta-trang_anh/2015_08_8-24.png" alt="" width="1203" height="778" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_9-18.png"><img src="loet-da-day-ta-trang_anh/2015_08_9-18.png" alt="" width="1201" height="776" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_10-17.png"><img src="loet-da-day-ta-trang_anh/2015_08_10-17.png" alt="" width="1202" height="776" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_11-10.png"><img src="loet-da-day-ta-trang_anh/2015_08_11-10.png" alt="" width="974" height="1029" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_12-9.png"><img src="loet-da-day-ta-trang_anh/2015_08_12-9.png" alt="" width="902" height="1033" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 8:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_20200129_050144_xray.vn_.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_20200129_050144_xray.vn_.jpg" alt="" width="830" height="904" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-86.png"><img src="loet-da-day-ta-trang_anh/2015_08_1-86.png" alt="" width="1069" height="777" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-92.png"><img src="loet-da-day-ta-trang_anh/2015_08_2-92.png" alt="" width="1072" height="779" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-89.png"><img src="loet-da-day-ta-trang_anh/2015_08_3-89.png" alt="" width="1069" height="780" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-80.png"><img src="loet-da-day-ta-trang_anh/2015_08_4-80.png" alt="" width="1076" height="775" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-66.png"><img src="loet-da-day-ta-trang_anh/2015_08_5-66.png" alt="" width="1072" height="781" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-43-1.png"><img src="loet-da-day-ta-trang_anh/2015_08_6-43-1.png" alt="" width="1077" height="776" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_7-34.png"><img src="loet-da-day-ta-trang_anh/2015_08_7-34.png" alt="" width="1073" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_8-29.png"><img src="loet-da-day-ta-trang_anh/2015_08_8-29.png" alt="" width="1070" height="769" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_9-21.png"><img src="loet-da-day-ta-trang_anh/2015_08_9-21.png" alt="" width="1067" height="758" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_10-20.png"><img src="loet-da-day-ta-trang_anh/2015_08_10-20.png" alt="" width="1067" height="770" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_11-12.png"><img src="loet-da-day-ta-trang_anh/2015_08_11-12.png" alt="" width="861" height="1025" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 9:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-132.png"><img src="loet-da-day-ta-trang_anh/2015_08_1-132.png" alt="" width="1204" height="906" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-142.png"><img src="loet-da-day-ta-trang_anh/2015_08_2-142.png" alt="" width="1208" height="903" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-139.png"><img src="loet-da-day-ta-trang_anh/2015_08_3-139.png" alt="" width="1205" height="910" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-129.png"><img src="loet-da-day-ta-trang_anh/2015_08_4-129.png" alt="" width="1205" height="907" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-105.png"><img src="loet-da-day-ta-trang_anh/2015_08_5-105.png" alt="" width="1207" height="907" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-60.png"><img src="loet-da-day-ta-trang_anh/2015_08_6-60.png" alt="" width="1207" height="1106" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 10: thủng hành tá tràng</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_0-4.png"><img src="loet-da-day-ta-trang_anh/2015_08_0-4.png" alt="" width="1203" height="838" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-150.png"><img src="loet-da-day-ta-trang_anh/2015_08_1-150.png" alt="" width="1205" height="846" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-159.png"><img src="loet-da-day-ta-trang_anh/2015_08_2-159.png" alt="" width="1204" height="848" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-154.png"><img src="loet-da-day-ta-trang_anh/2015_08_3-154.png" alt="" width="1206" height="849" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-144.png"><img src="loet-da-day-ta-trang_anh/2015_08_4-144.png" alt="" width="1203" height="859" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-121.png"><img src="loet-da-day-ta-trang_anh/2015_08_5-121.png" alt="" width="1204" height="855" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-67.png"><img src="loet-da-day-ta-trang_anh/2015_08_6-67.png" alt="" width="1047" height="1089" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_7-49.png"><img src="loet-da-day-ta-trang_anh/2015_08_7-49.png" alt="" width="1045" height="1091" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_8-42.png"><img src="loet-da-day-ta-trang_anh/2015_08_8-42.png" alt="" width="1045" height="1091" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_9-30.png"><img src="loet-da-day-ta-trang_anh/2015_08_9-30.png" alt="" width="1044" height="1091" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_10-29.png"><img src="loet-da-day-ta-trang_anh/2015_08_10-29.png" alt="" width="1046" height="1090" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_11-17.png"><img src="loet-da-day-ta-trang_anh/2015_08_11-17.png" alt="" width="1042" height="1091" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 11: thủng hành tá tràng</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_1-929.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_1-929.jpg" alt="" width="1206" height="1128" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_2-936.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_2-936.jpg" alt="" width="1205" height="1132" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_3-915.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_3-915.jpg" alt="" width="1207" height="1131" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_4-808.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_4-808.jpg" alt="" width="1207" height="1131" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_5-515.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_5-515.jpg" alt="" width="1204" height="1132" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_6-240.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_6-240.jpg" alt="" width="1207" height="1132" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_7-123.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_7-123.jpg" alt="" width="1204" height="1132" loading="lazy" decoding="async"></a><a class="o-anh" href="loet-da-day-ta-trang_anh/2015_08_8-103.jpg"><img src="loet-da-day-ta-trang_anh/2015_08_8-103.jpg" alt="" width="1204" height="1129" loading="lazy" decoding="async"></a></div>
+<h2 id="vi-tien-luong-dieu-tri">VI. Tiên lượng &amp; Điều trị</h2>
+<h4 id="tien-luong">* Tiên lượng</h4>
+<p>– Diễn tiến tự nhiên của loét dạ dày – tá tràng phụ thuộc chủ yếu vào việc loại bỏ căn nguyên (tiệt trừ *Helicobacter pylori*, ngừng NSAIDs) và kiểm soát yếu tố nguy cơ, trong khi các dấu hiệu hình ảnh quyết định phân tầng nguy cơ cấp cứu:<br>+ Tỷ lệ liền sẹo sau điều trị chuẩn đạt trên 85–90% sau 4–8 tuần, nhưng tỷ lệ tái phát có thể vượt 50–60% trong vòng một năm nếu không tiệt trừ *Helicobacter pylori* hoặc tiếp tục dùng NSAIDs.<br>+ Các biến chứng nặng gồm xuất huyết tiêu hóa (thường gặp nhất), thủng tạng rỗng (tỷ lệ tử vong cao nhất, đặc biệt ở người cao tuổi hoặc chẩn đoán muộn &gt; 24 giờ), loét xuyên thấu và hẹp môn vị.<br>+ Yếu tố tiên lượng nặng trên hình ảnh gồm ổ loét kích thước khổng lồ (&gt; 2 cm ở hành tá tràng hoặc &gt; 3 cm ở dạ dày), vị trí mặt sau hành tá tràng (nguy cơ ăn mòn động mạch vị tá tràng), dấu hiệu thoát thuốc cản quang hoạt động hoặc giả phình mạch trên cắt lớp vi tính, và dấu hiệu mất liên tục xuyên thành kèm tràn khí – dịch tự do ổ bụng.</p>
+<h4 id="nguyen-tac-dieu-tri">* Nguyên tắc điều trị</h4>
+<p>– Chiến lược xử trí theo khuyến cáo thực hành của Hiệp hội Tiêu hóa Hoa Kỳ (ACG Clinical Guideline 2024) và Hội Phẫu thuật Cấp cứu Thế giới (WSES Guidelines 2020) kết hợp điều trị nội khoa nền tảng, cầm máu qua nội soi, can thiệp nội mạch và phẫu thuật cấp cứu khi có biến chứng:<br>+ Điều trị nội khoa nền tảng gồm thuốc ức chế bơm proton (PPI) để liền sẹo niêm mạc, phác đồ kháng sinh tiệt trừ *Helicobacter pylori* khi dương tính và ngừng hoặc thay thế NSAIDs – aspirin kết hợp dự phòng PPI ở nhóm nguy cơ cao.<br>+ Xuất huyết tiêu hóa do loét ưu tiên hồi sức huyết động và nội soi cầm máu trong vòng 24 giờ; khi nội soi thất bại hoặc tái chảy máu nặng, chụp mạch số hóa xóa nền (DSA) nút mạch chọn lọc (đặc biệt động mạch vị tá tràng hoặc động mạch vị trái) là lựa chọn ưu tiên trước phẫu thuật.<br>+ Thủng ổ loét vào ổ phúc mạc tự do có chỉ định phẫu thuật khâu lỗ thủng (nội soi ổ bụng hoặc mổ mở) kèm đắp mạc nối lớn; điều trị bảo tồn không phẫu thuật chỉ cân nhắc chọn lọc nghiêm ngặt ở bệnh nhân ổn định huyết động, không viêm phúc mạc lan tỏa và chụp cắt lớp vi tính có uống thuốc cản quang tan trong nước xác nhận lỗ thủng đã tự bít kín hoàn toàn.<br>+ Hẹp môn vị lành tính ưu tiên điều trị nội khoa giảm phù nề kết hợp nong bóng qua nội soi; phẫu thuật tạo hình môn vị hoặc nối vị – tràng chỉ đặt ra khi sẹo xơ hẹp khít kháng trị.</p>
+<h4 id="vai-tro-cdha">* Vai trò CĐHA</h4>
+<p>– Chẩn đoán hình ảnh giữ vai trò trọng yếu từ đánh giá trước can thiệp, định hướng nút mạch cầm máu, phát hiện biến chứng hậu phẫu đến theo dõi liền sẹo và loại trừ ác tính:<br>+ Trước can thiệp và phẫu thuật, cắt lớp vi tính đa dãy giúp xác định chính xác vị trí lỗ thủng (tầng trên hay dưới mạc treo đại tràng ngang, trong phúc mạc hay sau phúc mạc) để chọn đường mổ, đồng thời lập bản đồ giải phẫu mạch máu và định vị ổ thoát thuốc cản quang giúp rút ngắn thời gian tiếp cận khi nút mạch cấp cứu.<br>+ Trong điều trị bảo tồn thủng bít hoặc theo dõi sau khâu lỗ thủng, chụp lưu thông đường tiêu hóa trên hoặc cắt lớp vi tính với thuốc cản quang tan trong nước đánh giá tình trạng rò rỉ thuốc qua thành ống tiêu hóa trước khi cho bệnh nhân ăn lại đường miệng.<br>+ Theo dõi sau điều trị nội khoa bắt buộc thực hiện nội soi kiểm tra sau 8–12 tuần kèm sinh thiết lại đối với mọi ổ loét dạ dày để khẳng định liền sẹo hoàn toàn và loại trừ ung thư dạ dày thể loét; X-quang đối quang kép chỉ dùng thay thế khi bệnh nhân chống chỉ định nội soi.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Differentiation between Malignant and Benign Gastric Ulcers: CT Virtual Gastroscopy versus Optical Gastroendoscopy – Chiao-Yun Chen, MD, Yu-Ting Kuo, MD, PhD, Chien-Hung Lee, PhD<br><span class="c-xanh">* </span></em><em>Perforated Pyloroduodenal Peptic Ulcer and Sonography – Siarhei Kuzmich, Chris J. Harvey<br><span class="c-xanh">* </span></em><em>Concomitant gastric and duodenal ulcers – Eric M. Bateson, M.D., F.F.R.<br>* Duodenal pathology on routine MDCT scan of the abdomen: What can we really diagnose? – S. C. Cheong, R. Taneja; Singapore/SG<br>* Complicated peptic ulcer disease – Emergency radiology assessment – W. Schmitt<br>* Double-Contrast Upper Gastrointestinal Radiography: A Pattern Approach for Diseases of the Stomach – Stephen E. Rubesin,MDMarc S. Levine,MDIgor Laufer,MD<br>* Non-perforated peptic ulcer disease: multidetector CT findings, complications, and differential diagnosis – Giao Tonolini<br>* CT of Gastric Emergencies – Preethi Guniganti, Courtney H. Bradenham, Constantine Raptis, Christine O. Menias, Vincent M. Mellnick<br>* Gastroduodenal emergencies. Role of CT and spectrum of diseases – C. Fernández Cabrera<br>* MDCT imaging of the stomach: advances and applications – Prashant Nagpal, Anjali Prakash, Gaurav Pradhan, Aditi Vidholia, Nishant Nagpal, Sachin S Saboo, David M Kuehnand Ashish Khandelwal<br>* Radiology Illustrated Gastrointestinal Tract – Byung Ihn Choi<br></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

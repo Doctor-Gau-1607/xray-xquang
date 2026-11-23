@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bất Thường Bóng Tim</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · TIM MẠCH</div>
+   <h1>Bất Thường Bóng Tim</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/bat-thuong-bong-tim/" target="_blank" rel="noopener">Xray.vn — xray.vn/bat-thuong-bong-tim</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-giai-phau">I. Giải phẫu</h2>
+<h3 id="1-giai-phau-x-quang">1. Giải phẫu x-quang</h3>
+<p><span class="c-xanh">– Tư thế chụp thẳng sau trước (PA):</span> Trên phim chỉ thấy bờ ngoài bóng tim, không phân biệt trực tiếp từng buồng tim:<br>+ Tâm nhĩ trái (Left atrium) nằm chủ yếu ở phía sau, nhận máu từ các tĩnh mạch phổi đi vào gần như theo phương ngang.<br>+ Tiểu nhĩ trái đôi khi tạo đoạn lồi nhỏ ngay dưới thân động mạch phổi, rõ hơn trên phim nghiêng.<br>+ Giãn nhĩ trái có thể làm lồi bờ tim trên-phải và mở rộng góc carina do hai phế quản chính tách xa nhau.<br>+ Tâm nhĩ phải (Right atrium) nhận máu từ tĩnh mạch chủ trên và tĩnh mạch chủ dưới, tạo phần lớn bờ tim phải.<br>+ Giãn nhĩ phải làm bờ tim phải lồi và dịch ra ngoài.<br>+ Tâm thất trái (Left ventricle) nằm lệch trái, ở phía sau tâm thất phải, tạo phần dưới bờ tim trái và mỏm tim.<br>+ Giãn thất trái làm bờ tim trái lồi, mỏm tim thường lệch xuống dưới và sang trái.<br>+ Tâm thất phải (Right ventricle) nằm trước nhất, ngay sau xương ức; trên phim PA thường chồng hình lên bóng tim, không tạo bờ ngoài rõ.<br>+ Giãn thất phải có thể đẩy bóng tim sang trái; chỉ khi giãn nặng, thất phải mới có thể góp phần tạo bờ tim trái.</p>
+<figure><a class="o-anh" href="bat-thuong-bong-tim_anh/2021_07_Screenshot-2021-07-26-210844.png"><img src="bat-thuong-bong-tim_anh/2021_07_Screenshot-2021-07-26-210844.png" alt="" width="1183" height="1080" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<p><span class="c-xanh">– Tư thế chụp nghiêng:</span><br>+ Tâm nhĩ trái (Left atrium) tạo phần trên của bờ sau tim.<br>+ Giãn nhĩ trái làm lồi phần trên của bờ sau tim.<br>+ Tâm thất trái (Left ventricle) tạo phần dưới của bờ sau tim.<br>+ Giãn thất trái làm lồi phần dưới của bờ sau tim và đẩy bờ sau tim ra sau.<br>+ Tâm thất phải (Right ventricle) nằm ngay sau xương ức; phần thấp của khoảng sáng sau xương ức được giới hạn bởi mặt trước thất phải.<br>+ Giãn thất phải làm mất dần khoảng sáng sau xương ức, thường từ dưới lên khi thất phải lớn dần.</p>
+<figure><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_a517d01679b356_2HEART-Lateral.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_a517d01679b356_2HEART-Lateral.jpg" alt="" width="876" height="632" loading="lazy" decoding="async"></a></figure>
+<p><strong><span class="c-xanh">* Tư thế thẳng</span></strong></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_a517d008eeb4be_HEART-left-atrium.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_a517d008eeb4be_HEART-left-atrium.jpg" alt="" width="800" height="772" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_1-286.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_1-286.jpeg" alt="1: TM chủ trên / 2: Nhĩ phải / 3: TM chủ dưới / 4: Quai ĐMC / 5: ĐM phổi / 6: Tiểu nhĩ trái / 7: Thất trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_2-289.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_2-289.jpeg" alt="TM chủ trên / TM chủ dưới" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_3-286.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_3-286.jpeg" alt="Tâm nhĩ phải / Van 3 lá" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_4-276.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_4-276.jpeg" alt="Tâm thất phải / Van động mạch phổi" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_5-211.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_5-211.jpeg" alt="Động mạch phổi" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_6-89.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_6-89.jpeg" alt="4 tĩnh mạch phổi / Tâm nhĩ trái / Van 2 lá" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_7-31.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_7-31.jpeg" alt="Van ĐM chủ / Tâm thất trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_8-28.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_8-28.jpeg" alt="Động mạch chủ" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_9-5.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_9-5.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Tư thế nghiêng</span></strong></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_a517d01679b356_2HEART-Lateral.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_a517d01679b356_2HEART-Lateral.jpg" alt="" width="876" height="632" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_1-287.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_1-287.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_2-290.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_2-290.jpeg" alt="TM chủ trên / TM chủ dưới" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_3-287.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_3-287.jpeg" alt="Tâm nhĩ phải" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_4-277.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_4-277.jpeg" alt="Tâm thất phải / Van 3 lá / Van ĐM phổi" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_5-212.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_5-212.jpeg" alt="Động mạch phổi" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_6-90.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_6-90.jpeg" alt="Tâm nhĩ trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_7-32.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_7-32.jpeg" alt="Tâm thất trái / Van ĐM chủ / Van 2 lá" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_8-29.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_8-29.jpeg" alt="Động mạch chủ" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_9-6.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_9-6.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<h3 id="2-giai-phau-clvt">2. Giải phẫu CLVT</h3>
+<div class="bo-anh cot-5"><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0017.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0017.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0018.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0018.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0019.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0019.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0020.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0020.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0021.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0021.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0022.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0022.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0023.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0023.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0024.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0024.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0025.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0025.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0026.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0026.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0027.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0027.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0028.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0028.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0029.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0029.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0030.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0030.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0031.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0031.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0032.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0032.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0033.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0033.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_xray.vn-0034.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_xray.vn-0034.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a></div>
+<h2 id="ii-chan-doan-hinh-anh">II. Chẩn đoán hình ảnh</h2>
+<h3 id="1-bong-tim-to">1. Bóng tim to</h3>
+<p><span class="c-xanh">* Nguyên nhân</span></p>
+<p>– Tăng gánh áp lực hoặc thể tích: tăng huyết áp, bệnh van tim, tăng áp động mạch phổi và bệnh tim bẩm sinh.<br>– Bệnh cơ tim và bệnh tim thiếu máu cục bộ.<br>– Suy tim mạn.<br>– Tràn dịch màng ngoài tim có thể làm bóng tim to mà không gây giãn buồng tim.</p>
+<p><span class="c-xanh">* Đặc điểm hình ảnh</span></p>
+<p>– Chỉ số tim-ngực (Cardiothoracic ratio, CTR): Tỷ số giữa đường kính ngang lớn nhất của bóng tim và đường kính trong ngang lớn nhất của lồng ngực:<br>+ Ở người lớn, CTR &gt; 0,5 trên phim PA thẳng đứng gợi ý bóng tim to nhưng không xác định nguyên nhân hoặc buồng tim giãn.<br>+ Ở trẻ sơ sinh, CTR có thể đến khoảng 0,6 trên phim AP mà chưa đủ kết luận tim to; cần diễn giải theo tuổi và tư thế chụp.<br>+ Ở trẻ lớn, CTR thay đổi theo tuổi; không áp dụng ngưỡng 0,5 chung cho mọi lứa tuổi.</p>
+<figure><a class="o-anh" href="bat-thuong-bong-tim_anh/b31c3b35f07e8452f5e722d4e2b835_jumbo.jpg"><img src="bat-thuong-bong-tim_anh/b31c3b35f07e8452f5e722d4e2b835_jumbo.jpg" alt="b31c3b35f07e8452f5e722d4e2b835_jumbo" width="1024" height="996" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_6f63736ff837ff7c5a736b35aba6ab_jumbo.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_6f63736ff837ff7c5a736b35aba6ab_jumbo.jpeg" alt="Bệnh cơ tim phì đại" width="1024" height="1002" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_7a61be9ec549582b2e6d6abd5185eb_jumbo.jpeg"><img src="bat-thuong-bong-tim_anh/2015_08_7a61be9ec549582b2e6d6abd5185eb_jumbo.jpeg" alt="" width="1024" height="1002" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_50f6948da41fb7e02677c37b6351d2_jumbo.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_50f6948da41fb7e02677c37b6351d2_jumbo.jpg" alt="" width="1024" height="1011" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-6.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_1-6.jpg" alt="" width="944" height="802" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-6.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_2-6.jpg" alt="" width="823" height="910" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-6.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_3-6.jpg" alt="" width="1000" height="797" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4-5.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_4-5.jpg" alt="" width="797" height="952" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bat-thuong-bong-tim_anh/2020_10_1-1.png"><img src="bat-thuong-bong-tim_anh/2020_10_1-1.png" alt="" width="831" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2020_10_2.jpeg"><img src="bat-thuong-bong-tim_anh/2020_10_2.jpeg" alt="" width="835" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2020_10_3-1.png"><img src="bat-thuong-bong-tim_anh/2020_10_3-1.png" alt="" width="622" height="404" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2020_10_4-1.png"><img src="bat-thuong-bong-tim_anh/2020_10_4-1.png" alt="" width="617" height="404" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2020_10_5-1.png"><img src="bat-thuong-bong-tim_anh/2020_10_5-1.png" alt="" width="618" height="404" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Không chính xác khi:</span><br>+ Bóng tuyến ức chồng lên bóng tim, nhất là ở trẻ nhỏ, làm bờ tim khó phân định và có thể giả tăng kích thước bóng tim.</p>
+<figure><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_9781604060379_c008_f002.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_9781604060379_c008_f002.jpg" alt="" width="563" height="250" loading="lazy" decoding="async"></a></figure>
+<p>+ Lồng ngực biến dạng hoặc xoay người làm sai lệch đường kính trong ngang. Trong bệnh phổi tắc nghẽn mạn tính, tim có thể nằm dọc nên CTR thấp dù buồng tim giãn; chỉ số này đo bề ngang, không phản ánh chiều trước-sau và chiều cao của tim.<br>+ Hít vào kém làm giảm đường kính trong lồng ngực và có thể làm CTR tăng giả.<br>+ Chụp tư thế AP hoặc chụp nằm làm phóng đại bóng tim; không áp dụng trực tiếp ngưỡng CTR dành cho phim PA.<br>+ Khi thất trái giãn, mỏm tim thường lệch xuống dưới và sang trái; đo đến điểm ngoài cùng thực sự của bóng tim, không mặc định mỏm tim là điểm ngang xa nhất.</p>
+<figure><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_20190428_191010_xray.vn_.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_20190428_191010_xray.vn_.jpg" alt="Giả bóng tim to: chụp AP / Không cân đối." width="967" height="904" loading="lazy" decoding="async"></a></figure>
+<h3 id="2-bong-tim-nho">2. Bóng tim nhỏ</h3>
+<p><span class="c-xanh">– Giảm thể tích tuần hoàn:</span><br>+ Mất nước nặng, xuất huyết hoặc sốc giảm thể tích làm giảm hồi lưu tĩnh mạch và độ đổ đầy các buồng tim, có thể khiến bóng tim nhỏ.<br>+ Dấu hiệu này không đặc hiệu; cần đối chiếu với tình trạng huyết động và các dấu hiệu khác trên phim.</p>
+<p><span class="c-xanh">– Khí phế thũng:</span><br>+ Tăng khí phổi làm cơ hoành hạ thấp, tim xoay dọc và hẹp đường kính ngang bóng tim.<br>+ Bóng tim nhỏ trong trường hợp này chủ yếu do thay đổi cấu hình trên phim, không đồng nghĩa các buồng tim thực sự giảm thể tích.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Trong bệnh tim-phổi mạn do tăng áp phổi, thất phải vẫn có thể giãn dù bóng tim hẹp ngang do khí phế thũng; bóng tim nhỏ không loại trừ giãn buồng tim phải.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_661831527367ad51f8a8cceb3b0d19_jumbo.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_661831527367ad51f8a8cceb3b0d19_jumbo.jpeg" alt="" width="923" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_20150403_221517_badamgiak23.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_20150403_221517_badamgiak23.jpg" alt="" width="758" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_20190307_065602_xray.vn_.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_20190307_065602_xray.vn_.jpg" alt="" width="751" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_http___images.radiopaedia.org_images_867187_a8799a569dfadf1af596596c12f962_badamgiak23-1.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_http___images.radiopaedia.org_images_867187_a8799a569dfadf1af596596c12f962_badamgiak23-1.jpg" alt="" width="722" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_http___images.radiopaedia.org_images_867187_a8799a569dfadf1af596596c12f962_badamgiak23.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_http___images.radiopaedia.org_images_867187_a8799a569dfadf1af596596c12f962_badamgiak23.jpg" alt="" width="724" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_PhotoGrid_1411668749052_badamgiak23.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_PhotoGrid_1411668749052_badamgiak23.jpg" alt="" width="800" height="938" loading="lazy" decoding="async"></a></div>
+<h3 id="3-gian-nhi-trai">3. Giãn nhĩ trái</h3>
+<p><strong><span class="c-xanh">* Nguyên nhân</span></strong></p>
+<p><span class="c-xanh">– Bệnh van hai lá:</span><br>+ Hẹp van hai lá cản trở dòng máu từ nhĩ trái xuống thất trái, làm tăng áp lực nhĩ trái và gây giãn nhĩ trái.<br>+ Hở van hai lá gây trào ngược máu vào nhĩ trái trong thì tâm thu, làm tăng thể tích và gây giãn nhĩ trái.</p>
+<p><span class="c-xanh">– Rối loạn chức năng thất trái hoặc suy tim trái</span> làm tăng áp lực đổ đầy thất trái, truyền ngược lên nhĩ trái; thường gặp trong tăng huyết áp, bệnh tim thiếu máu cục bộ và bệnh cơ tim.</p>
+<p><span class="c-xanh">– Luồng thông trái-phải lớn</span>, như thông liên thất hoặc còn ống động mạch, làm tăng lưu lượng máu qua phổi và hồi lưu tĩnh mạch phổi, gây tăng thể tích nhĩ trái.</p>
+<p><strong><span class="c-xanh">* Hình ảnh tim phổi thẳng</span></strong></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_1.jpeg" alt="Bình thường" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_2.jpeg" alt="Lớn nhĩ trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_3.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_4.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_5.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_5.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_6.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_6.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_7.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_7.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_8.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_8.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu hai bờ tim phải (Double density sign):</span><br>+ Nhĩ trái nằm sau nhĩ phải; khi nhĩ trái giãn, bờ phải của nhĩ trái hiện thành đường bờ thứ hai ở phía trong bờ tim phải do nhĩ phải tạo.<br>+ Theo mức độ giãn, bờ nhĩ trái có thể nằm trong bờ nhĩ phải, hai đường bờ có thể giao nhau, rồi bờ nhĩ trái có thể nằm ngoài bờ nhĩ phải.<br>+ Giãn nhĩ phải đơn thuần thường làm bờ tim phải lồi và dịch ra ngoài, không tạo đường bờ thứ hai ở phía trong.<br>+ Dấu hiệu gợi ý giãn nhĩ trái nhưng không định lượng chính xác kích thước nhĩ; cần siêu âm tim khi cần đánh giá kích thước buồng tim.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_001MStPA.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_001MStPA.jpg" alt="" width="636" height="605" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_003a20319053.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_003a20319053.jpg" alt="" width="664" height="599" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_005a20067595.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_005a20067595.jpg" alt="" width="665" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_006bMitrSt_01PA.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_006bMitrSt_01PA.jpg" alt="" width="693" height="666" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_007a35000511.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_007a35000511.jpg" alt="" width="641" height="612" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_008a31185475.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_008a31185475.jpg" alt="" width="536" height="612" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_Mitral_Case_13_PA.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_Mitral_Case_13_PA.jpg" alt="" width="1053" height="1095" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2015_08_MS3combo.jpg"><img src="bat-thuong-bong-tim_anh/2015_08_MS3combo.jpg" alt="" width="734" height="353" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu cung thứ ba (third mogul sign):</span> Cung lồi thứ ba ở bờ tim trái, giữa cung động mạch phổi và cung thất trái, thường do tiểu nhĩ trái giãn:<br>+ Bình thường, đoạn bờ ngay dưới cung động mạch phổi phẳng hoặc lõm nhẹ, không tạo cung lồi riêng.<br>+ Khi tiểu nhĩ trái giãn, bờ tim lồi ra ngoài tại đoạn này, tạo cung thứ ba.<br>+ Dấu hiệu gợi ý giãn tiểu nhĩ trái nhưng không xác định chính xác kích thước nhĩ trái.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Các cấu trúc khác cũng có thể tạo cung lồi ở bờ tim trái:<br>+ Phình hoặc giãn động mạch vành có thể tạo khối lồi khu trú; CT mạch vành giúp xác định khối liên tục với động mạch.<br>+ U trung thất tiếp giáp có thể chồng lên bờ tim; CT giúp xác định nguồn gốc khối.<br>+ Phình thất trái thường làm lồi đoạn bờ tim thấp gần mỏm; nang màng ngoài tim thường nằm ở góc tâm-hoành, khác vị trí cung thứ ba. Siêu âm tim hoặc CT giúp xác định vị trí và nguồn gốc.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-1.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_1-1.jpeg" alt="Tiểu nhĩ trái giãn" width="1023" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-1.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_2-1.jpeg" alt="" width="1023" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_3.jpg" alt="" width="1024" height="991" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4-1.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_4-1.jpeg" alt="" width="1024" height="971" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_48f96eacf68e96105111dbab16b14c_jumbo.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_48f96eacf68e96105111dbab16b14c_jumbo.jpg" alt="" width="1006" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_57eda089e2e481546f9453377fb441_jumbo.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_57eda089e2e481546f9453377fb441_jumbo.jpg" alt="" width="1024" height="840" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_bba013b63c07475d5d7b5c231088aa_jumbo.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_bba013b63c07475d5d7b5c231088aa_jumbo.jpeg" alt="" width="988" height="980" loading="lazy" decoding="async"></a></div>
+<p>– Khoảng cách từ bờ phải nhĩ trái đến trung điểm phế quản chính trái &gt; 7 cm gợi ý giãn nhĩ trái trên phim PA; chỉ đo được khi nhận diện rõ cả hai mốc.<br>– Phế quản chính trái bị đẩy lên cao khi nhĩ trái giãn.<br>– Góc carina:<br>+ Bình thường, góc thường &lt; 70°; giãn nhĩ trái có thể làm tách hai phế quản chính, với góc &gt; 90° gợi ý giãn nhĩ trái.<br>+ Góc rộng không đặc hiệu; cần kết hợp với các dấu hiệu khác và chất lượng, tư thế chụp.</p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_1.jpg" alt="" width="1006" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-2.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_2-2.jpeg" alt="" width="1007" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-1.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_3-1.jpeg" alt="" width="1007" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4-2.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_4-2.jpeg" alt="Mở rộng góc carina / Giãn nhĩ trái" width="1007" height="1024" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Hình ảnh tim phổi nghiêng</span></strong></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-3.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_1-3.jpeg" alt="Bình thường" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-4.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_2-4.jpeg" alt="Giãn nhĩ trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-3.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_3-3.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4-4.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_4-4.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_5-2.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_5-2.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p>– Mất khoảng sáng sau tim:<br>+ Giãn nhĩ trái làm lồi phần trên của bờ sau tim ra sau, che lấp phần trên khoảng sáng sau tim.<br>+ Dấu hiệu này không đặc hiệu: giãn thất trái thường làm lồi phần dưới bờ sau tim, còn đám mờ phổi sau tim có thể che lấp khoảng sáng mà không làm bờ tim lồi ra sau.<br><span class="c-xanh">– Dấu hiệu người đi bộ (Walking man sign):</span> Giãn nhĩ trái đẩy phế quản chính trái ra sau trên phim nghiêng, làm giảm chồng lấp với phế quản chính phải và tạo hình ảnh hai phế quản như chữ V ngược.</p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-2.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_3-2.jpeg" alt="" width="992" height="558" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4-3.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_4-3.jpeg" alt="" width="996" height="587" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-2.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_1-2.jpeg" alt="" width="908" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-3.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_2-3.jpeg" alt="" width="945" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Chụp thực quản cản quang:</span><br>+ Giãn nhĩ trái lớn có thể đè ép thực quản từ trước ra sau ở đoạn 1/3 giữa, gây hẹp lòng và đẩy thực quản ra sau.<br>+ Dấu hiệu này hiếm và không đặc hiệu; bất thường mạch máu, phình động mạch chủ hoặc khối trung thất cũng có thể đè ép thực quản. CT giúp xác định cấu trúc gây chèn ép; siêu âm tim đánh giá kích thước nhĩ trái.</p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-8.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_1-8.jpg" alt="" width="995" height="1010" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-8.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_2-8.jpg" alt="" width="1003" height="1012" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-8.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_3-8.jpg" alt="" width="1013" height="1011" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4-6.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_4-6.jpg" alt="" width="1012" height="1012" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_5-3.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_5-3.jpg" alt="" width="1006" height="1011" loading="lazy" decoding="async"></a></div>
+<h3 id="4-gian-nhi-phai">4. Giãn nhĩ phải</h3>
+<p><span class="c-xanh">* Nguyên nhân:<br></span></p>
+<p>– Bệnh van ba lá:<br>+ Hẹp van ba lá cản trở dòng máu từ nhĩ phải xuống thất phải, làm tăng áp lực nhĩ phải.<br>+ Hở van ba lá gây trào ngược máu vào nhĩ phải trong thì tâm thu, làm tăng thể tích nhĩ phải.<br>– Tăng gánh áp lực thất phải do tăng áp phổi, hẹp van động mạch phổi hoặc bệnh phổi mạn (tim-phổi mạn); khi suy thất phải tiến triển, áp lực nhĩ phải tăng và nhĩ phải có thể giãn.<br>– Tăng gánh thể tích nhĩ phải do thông liên nhĩ hoặc hồi lưu tĩnh mạch phổi bất thường một phần.<br>– Dị tật Ebstein làm van ba lá bám thấp, nhĩ hóa một phần thất phải và có thể gây giãn nhĩ phải rõ.<br>– Bệnh cơ tim giãn có tổn thương tim phải có thể gây giãn nhĩ phải.</p>
+<p><span class="c-xanh">* Đặc điểm hình ảnh<br></span></p>
+<p>– Trên phim PA ở người lớn, đoạn bờ phải lồi do nhĩ phải tạo bình thường chiếm &lt; 50% chiều cao bóng tim-mạch.<br>– Khoảng cách từ bờ ngoài nhĩ phải đến đường giữa cột sống bình thường &lt; 5,5 cm trên phim PA.<br>– Các ngưỡng này chỉ có giá trị gợi ý; X-quang có thể khó nhận diện giãn nhĩ phải nhẹ hoặc vừa.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_5-3.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_5-3.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_6-1.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_6-1.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p>– Giãn nhĩ phải được gợi ý khi đoạn bờ phải lồi do nhĩ phải tạo chiếm &gt; 50% chiều cao toàn bộ bóng tim và khoảng cách từ bờ ngoài nhĩ phải đến đường giữa cột sống &gt; 5,5 cm trên phim PA.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-4.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_1-4.jpeg" alt="Bình thường" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-5.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_2-5.jpeg" alt="Giãn nhĩ phải" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-4.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_3-4.jpeg" alt="Bình thường" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4-5.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_4-5.jpeg" alt="Giãn nhĩ phải" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_fig-12-copy.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_fig-12-copy.jpg" alt="" width="1600" height="919" loading="lazy" decoding="async"></a></div>
+<p>– Dấu hiệu gián tiếp, không đặc hiệu của tăng áp lực tĩnh mạch hệ thống:<br>+ Gan sung huyết có thể làm to gan và nâng vòm hoành phải; dấu hiệu này không đặc hiệu cho giãn nhĩ phải.<br>+ Tĩnh mạch chủ trên giãn có thể gặp khi tăng áp lực nhĩ phải hoặc quá tải thể tích; cũng cần nghĩ đến tắc nghẽn tĩnh mạch chủ trên.<br>+ Đường kính quai tĩnh mạch đơn &gt; 7 mm trên phim ngực tư thế đứng gợi ý tăng áp lực nhĩ phải; &gt; 10 mm bất thường rõ. Trên phim nằm ngửa, đường kính &gt; 15 mm mới được xem là bất thường.</p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-1.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_1-1.jpg" alt="" width="1024" height="967" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_2.jpg" alt="" width="878" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-1.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_3-1.jpg" alt="" width="630" height="507" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_4.jpg" alt="" width="630" height="574" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-2.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_1-2.jpg" alt="" width="827" height="858" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-1.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_2-1.jpg" alt="" width="711" height="935" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-2.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_3-2.jpg" alt="" width="616" height="484" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4-1.jpg"><img src="bat-thuong-bong-tim_anh/2019_08_4-1.jpg" alt="" width="603" height="601" loading="lazy" decoding="async"></a></div>
+<h3 id="5-gian-that-trai">5. Giãn thất trái</h3>
+<p><span class="c-xanh">* Nguyên nhân</span><strong><span class="c-xanh"><br></span></strong></p>
+<p>– Quá tải áp lực do tăng huyết áp hoặc hẹp van động mạch chủ làm tăng hậu tải; kéo dài có thể dẫn đến phì đại, suy chức năng rồi giãn thất trái.<br>– Quá tải thể tích:<br>+ Hở van động mạch chủ làm tăng thể tích máu trở về thất trái trong thì tâm trương.<br>+ Hở van hai lá làm tăng thể tích thất trái do lượng máu phụt ngược vào nhĩ trái trở lại thất trái trong thì tâm trương.<br>+ Luồng thông trái-phải lớn, như thông liên thất hoặc còn ống động mạch, làm tăng hồi lưu tĩnh mạch phổi và quá tải thể tích thất trái.<br>– Tổn thương cơ tim do bệnh tim thiếu máu cục bộ, nhồi máu cơ tim hoặc bệnh cơ tim giãn làm giảm co bóp, tái cấu trúc và giãn thất trái.<br>– Cạm bẫy:<br>+ Phình thất trái sau nhồi máu cơ tim gây biến dạng khu trú bờ tim, không đồng nghĩa với giãn buồng thất trái lan tỏa.<br>+ Bệnh cơ tim phì đại chủ yếu gây dày thành thất trái; giãn buồng có thể xuất hiện ở giai đoạn cuối.</p>
+<p><span class="c-xanh">* Hình ảnh tư thế thẳng</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-5.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_1-5.jpeg" alt="Bình thường" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-6.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_2-6.jpeg" alt="Giãn thất trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-5.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_3-5.jpeg" alt="Mỏm tim dịch chuyển xuống dưới, ra ngoài" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p>– Bóng tim to.<br>– Giãn thất trái làm bờ tim trái lồi xuống dưới và sang trái; mỏm tim có thể trở nên tròn.<br>– Dấu hiệu Shmoo (Shmoo sign):<br>+ Thất trái nổi bật, có đường bờ tròn, kèm động mạch chủ giãn, tạo hình dáng giống nhân vật Shmoo trên phim ngực thẳng.<br>+ Dấu hiệu gợi ý phì đại thất trái; không xác định giai đoạn bệnh hoặc đo trực tiếp độ dày thành thất.</p>
+<figure><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_b685728aea2a7d22181ffb6f023623_jumbo.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_b685728aea2a7d22181ffb6f023623_jumbo.jpeg" alt="" width="1010" height="499" loading="lazy" decoding="async"></a></figure>
+<p>– Khi thất trái giãn rõ, mỏm tim thường dịch xuống dưới và sang trái (ra ngoài).</p>
+<p><span class="c-xanh">* Hình ảnh tư thế nghiêng</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-6.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_1-6.jpeg" alt="Bình thường" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-8.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_2-8.jpeg" alt="Giãn thất trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-7.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_3-7.jpeg" alt="Dịch chuyển đường bờ thất trái ra sau" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4-6.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_4-6.jpeg" alt="Bình thường" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_5-4.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_5-4.jpeg" alt="Giãn thất trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_6-2.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_6-2.jpeg" alt="Dịch chuyển đường bờ thất trái ra sau" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p>– Bờ sau thất trái lồi ra sau, làm hẹp hoặc xóa khoảng sáng sau tim.<br>– Dấu hiệu Hoffman–Rigler trên phim ngực nghiêng:<br>+ Phép đo A: Tại mức cao hơn 2 cm về phía đầu so với điểm giao nhau của bờ sau thất trái và tĩnh mạch chủ dưới, đo theo phương ngang phần thất trái lấn ra sau bờ sau tĩnh mạch chủ dưới. Khoảng cách &gt; 1,8 cm gợi ý giãn thất trái. Đây là các tiêu chí X-quang cổ điển. Với phép đo A, nghiên cứu đối chiếu siêu âm tim năm 2016 ghi nhận độ nhạy 54,9%, độ đặc hiệu 59,2%; không nên dùng riêng dấu hiệu này để kết luận giãn thất trá<br>+ Phép đo B: Đo khoảng cách theo chiều dọc từ điểm giao nhau nói trên xuống lá hoành trái. Khoảng cách &lt; 0,75 cm gợi ý giãn thất trái.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-7.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_2-7.jpeg" alt="" width="887" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-6.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_3-6.jpeg" alt="" width="887" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_11.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_11.jpeg" alt="" width="892" height="1024" loading="lazy" decoding="async"></a></div>
+<h3 id="6-gian-that-phai">6. Giãn thất phải</h3>
+<p><span class="c-xanh">* Nguyên nhân<br></span></p>
+<p>– Quá tải áp lực:<br>+ Tăng áp động mạch phổi, có thể do bệnh phổi mạn hoặc thuyên tắc phổi mạn.<br>+ Hẹp van động mạch phổi.<br>– Quá tải thể tích:<br>+ Thông liên nhĩ.<br>+ Hở van ba lá hoặc hở van động mạch phổi.<br>+ Thông liên thất lớn có thể gây quá tải hai thất, nhất là khi đã xuất hiện tăng áp động mạch phổi.<br>– Bệnh cơ tim giãn có thể gây giãn cả hai thất.<br>– Cạm bẫy:<br>+ Tứ chứng Fallot điển hình gây phì đại thất phải do cản trở đường ra thất phải; giãn thất phải có thể gặp tùy tổn thương phối hợp hoặc sau phẫu thuật sửa chữa kèm hở van động mạch phổi.</p>
+<p><span class="c-xanh">* Hình ảnh tư thế thẳng</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-7.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_1-7.jpeg" alt="Bình thường" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-9.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_2-9.jpeg" alt="Giãn thất phải" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-8.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_3-8.jpeg" alt="Mỏm tim di lệch lên trên" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p>– Bóng tim có thể không to rõ dù thất phải giãn vì thất phải nằm ở phía trước; thay đổi kích thước có thể khó nhận biết trên phim thẳng.<br>– Giãn thất phải có thể làm tim xoay theo chiều kim đồng hồ, khiến mỏm tim hất lên trên.<br>– Cung giữa trái có thể mất lõm hoặc lồi khi thân động mạch phổi giãn, thường gặp trong tăng áp động mạch phổi. Tiểu nhĩ trái giãn cũng có thể làm lồi đoạn bờ này, nhưng đó là dấu hiệu của giãn nhĩ trái.<br>– Tăng áp động mạch phổi có thể làm giãn các động mạch phổi trung tâm và rốn phổi, kèm thu nhỏ nhanh các nhánh ngoại vi. Hẹp van động mạch phổi nặng có thể làm giảm tưới máu phổi ngoại vi; riêng hẹp van có thể gây giãn sau hẹp thân động mạch phổi.<br>– Dấu hiệu đi kèm:<br>+ Giãn nhĩ trái có thể phối hợp khi hẹp van hai lá gây tăng áp động mạch phổi; đây không phải dấu hiệu trực tiếp của giãn thất phải.<br>+ Vòm hoành phải nâng cao có thể gặp khi gan to do sung huyết trong suy tim phải; dấu hiệu này không đặc hiệu.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_rightventricularenlargement-radiologyassistant-rvenlargement-radiology-clinical-original.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_rightventricularenlargement-radiologyassistant-rvenlargement-radiology-clinical-original.jpeg" alt="" width="878" height="487" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4-Figure1-1.png"><img src="bat-thuong-bong-tim_anh/2019_08_4-Figure1-1.png" alt="" width="862" height="505" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_246686cabd4b09417c66d4e20d344a_jumbo.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_246686cabd4b09417c66d4e20d344a_jumbo.jpeg" alt="" width="1009" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">* Tư thế nghiêng</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_1-8.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_1-8.jpeg" alt="Bình thường" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_2-10.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_2-10.jpeg" alt="Giãn thất trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_3-9.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_3-9.jpeg" alt="Giãn thất trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_4-7.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_4-7.jpeg" alt="Bình thường" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_5-5.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_5-5.jpeg" alt="Giãn thất trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_6-3.jpeg"><img src="bat-thuong-bong-tim_anh/2019_08_6-3.jpeg" alt="Giãn thất trái" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p>– Thất phải giãn làm hẹp hoặc xóa khoảng sáng sau xương ức (khoảng sáng trước tim).<br>– Bờ trước bóng tim tiếp xúc với mặt sau xương ức trên &gt; 1/3 chiều dài xương ức, gợi ý giãn thất phải.</p>
+<figure><a class="o-anh" href="bat-thuong-bong-tim_anh/2019_08_gr2_lrg.png"><img src="bat-thuong-bong-tim_anh/2019_08_gr2_lrg.png" alt="Tăng áp động mạch phổi" width="1417" height="762" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><em><span class="c-xanh">* Heart Size, Overall Configuration, and Specific Chamber Enlargement – Bilgen Coskun, Sergin Akpek, Fikret Dogulu<br>* Going beyond Cardiomegaly: Evaluation of Cardiac Chamber Enlargement at Non–Electrocardiographically Gated Multidetector CT: Current Techniques, Limitations, and Clinical Implications – Partha Hota , Scott Simpson<br>* Some Pitfalls in the Evaluation of Cardiac Chamber Enlargement on Chest Roentgenograms – Robert E. Dinsmore, Derek J. Goodman, Charles A. Sanders<br>* Identifying Cardiac Enlargement on an AP Chest Radiograph – Josi Herren<br>* Is there any diagnostic value of anteroposterior chest radiography in predicting cardiac chamber enlargement? – Hakan Sahin, Divya N Chowdhry, Andrew Olsen</span></em></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

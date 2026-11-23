@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U Tuyến Ức</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>U Tuyến Ức</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/u-tuyen-uc/" target="_blank" rel="noopener">Xray.vn — xray.vn/u-tuyen-uc</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Định nghĩa:</span><br>+ Tổn thương tuyến ức gồm các khối u và tổn thương dạng khối xuất phát từ hoặc liên quan đến tuyến ức.<br>+ U biểu mô tuyến ức (thymic epithelial tumors, TET) phát sinh từ biểu mô tuyến ức, gồm u tuyến ức (thymoma), ung thư biểu mô tuyến ức và u thần kinh nội tiết tuyến ức. Cần phân biệt với tăng sản tuyến ức, nang tuyến ức, u mỡ tuyến ức, u lympho, u tế bào mầm và di căn.</p>
+<p><span class="c-xanh">– Dịch tễ:</span><br>+ Trong dữ liệu đăng ký ung thư tại Hoa Kỳ (2000–2019) và Đức (1999–2019), u tuyến ức và ung thư biểu mô tuyến ức chiếm 63–64% các u ác tính trung thất trước ở người từ 20 tuổi trở lên; tỷ trọng này là 10–27% ở người dưới 20 tuổi. Đây là tỷ trọng trong nhóm u ác tính được ghi nhận, không phải tỷ lệ mắc chung; cỡ mẫu trẻ em tại Đức nhỏ (n = 51) (Gerber và cs., 2024).<br>+ Tỷ suất mắc u tuyến ức khoảng 2,2 ca/1 triệu người-năm tại Hoa Kỳ và 2,64 ca/1 triệu người-năm tại Đức; tuổi trung bình khi chẩn đoán khoảng 59–61 tuổi, tỷ lệ nam/nữ xấp xỉ 1/1 (Gerber và cs., 2024).</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Chưa xác định được nguyên nhân cụ thể hoặc yếu tố nguy cơ môi trường, nghề nghiệp rõ ràng.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Ở u tuyến ức, rối loạn quá trình chọn lọc và trưởng thành tế bào T có thể làm suy giảm dung nạp miễn dịch trung ương, góp phần gây các biểu hiện tự miễn hoặc cận u.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span><br>+ Bệnh có thể được phát hiện tình cờ hoặc biểu hiện do khối chèn ép, xâm lấn tại chỗ hay hội chứng cận u.<br>+ Khoảng 30–40% người bệnh u tuyến ức có nhược cơ (myasthenia gravis, MG); ngược lại, khoảng 10–15% người bệnh nhược cơ có u tuyến ức. Các ước tính thay đổi theo quần thể và cách tuyển mẫu (Rich và cs., 2020; Blum và cs., 2020).<br>+ Nhược cơ có thể gây sụp mi, song thị và yếu cơ dao động; trường hợp nặng có thể gây yếu cơ hầu họng hoặc suy hô hấp.<br>+ Chèn ép hoặc xâm lấn có thể gây ho, đau ngực, khó thở, hội chứng tĩnh mạch chủ trên hoặc liệt thần kinh hoành, biểu hiện bằng vòm hoành cùng bên nâng cao.<br>+ Các biểu hiện tự miễn hoặc cận u khác được ghi nhận gồm bất sản hồng cầu đơn thuần, giảm gammaglobulin máu, lupus ban đỏ hệ thống, viêm đa cơ, viêm cơ tim, hội chứng Sjögren, viêm khớp dạng thấp, viêm tuyến giáp tự miễn, viêm loét đại tràng và sarcoidosis.<br>+ Ở người bệnh u thần kinh nội tiết tuyến ức, cần lưu ý hội chứng đa u tuyến nội tiết type 1 (multiple endocrine neoplasia type 1, MEN1), trong đó cường cận giáp nguyên phát là biểu hiện thường gặp.</p>
+<p><span class="c-xanh">– Phân bố:</span><br>+ U biểu mô tuyến ức thường xuất phát ở trung thất trước; tùy loại u và mức độ xâm lấn, tổn thương có thể lan vào cấu trúc lân cận hoặc lan tràn màng phổi. Lan tràn màng phổi có thể biểu hiện bằng các nốt hoặc khối màng phổi, đôi khi kèm tràn dịch màng phổi.<br>+ Kích thước thay đổi theo loại tổn thương và giai đoạn; cần đánh giá cùng vị trí và dấu hiệu xâm lấn.</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span><br>+ CT ngực có tiêm thuốc cản quang là phương tiện chính để phát hiện khối trung thất trước, đánh giá kích thước, phạm vi xâm lấn và tổn thương màng phổi, hỗ trợ phân giai đoạn và theo dõi.<br>+ MRI có vai trò bổ trợ khi tổn thương chưa xác định rõ trên CT, đặc biệt trong đánh giá tổn thương dạng nang và phân biệt tăng sản tuyến ức với u.<br>+ CĐHA giúp đánh giá xâm lấn đại thể nhưng không xác định chắc chắn тип mô học hoặc tình trạng xâm lấn vi thể.</p>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Longoncologie-Thymoom-Trompert.png"><img src="u-tuyen-uc_anh/2015_11_Longoncologie-Thymoom-Trompert.png" alt="U tuyến ức" width="614" height="614" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<p><span class="c-xanh"><strong>* Chẩn đoán giai đoạn (Masaoka–Koga, 1994)</strong></span><br>– Giai đoạn I: Khối u được bao bọc hoàn toàn, không có xâm lấn vi thể qua bao tuyến ức.<br>– Giai đoạn IIa: Có xâm lấn vi thể qua bao tuyến ức.<br>– Giai đoạn IIb: Có xâm lấn đại thể vào mô mỡ quanh tuyến ức hoặc dính đại thể với màng phổi trung thất hay màng tim, nhưng chưa xâm lấn đại thể vào cơ quan lân cận.<br>– Giai đoạn III: Xâm lấn đại thể vào cơ quan lân cận, như màng tim, mạch máu lớn hoặc phổi.<br>– Giai đoạn IVA: Có các ổ gieo rắc trên màng phổi hoặc màng tim.<br>– Giai đoạn IVB: Di căn theo đường bạch huyết hoặc đường máu.</p>
+<p><span class="c-xanh"><strong>* Phân loại tổn thương tuyến ức:</strong></span><br>+ Tổn thương không tân sinh gồm tăng sản tuyến ức (thymic hyperplasia) và nang tuyến ức (thymic cyst).<br>+ U biểu mô tuyến ức gồm u tuyến ức, ung thư biểu mô tuyến ức (thymic carcinoma) và u thần kinh nội tiết tuyến ức (thymic neuroendocrine neoplasms).<br>+ U tế bào mầm trung thất trước (anterior mediastinal germ cell tumors).<br>+ U lympho trung thất trước có thể liên quan đến tuyến ức (anterior mediastinal lymphoma).<br>+ U mỡ tuyến ức (thymolipoma).<br>+ U trung mô ác tính, gồm sarcoma tuyến ức (thymic sarcoma).<br>+ Tổn thương thứ phát, gồm di căn đến tuyến ức.</p>
+<p><span class="c-xanh"><strong>* Giải phẫu tuyến ức<br></strong>– Vị trí:</span><br>+ Tuyến ức nằm sau xương ức, chủ yếu ở trung thất trước trên, trải từ phần dưới cổ đến vùng trước tim. Tuyến gồm hai thùy hình tháp; đáy hướng xuống dưới, áp sát màng ngoài tim, đỉnh kéo dài lên phần dưới cổ.</p>
+<p><span class="c-xanh">– Chức năng:</span> Tuyến ức là cơ quan lympho trung ương, nơi tế bào tiền thân lympho T biệt hóa, trưởng thành và trải qua quá trình chọn lọc miễn dịch. Tuyến hoạt động mạnh trong 15 năm đầu đời, sau đó hoạt động giảm dần.</p>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/thymus-location.jpeg"><img src="u-tuyen-uc_anh/thymus-location.jpeg" alt="" width="1600" height="1068" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Kích thước:</span><br>+ Ở trẻ sơ sinh, tuyến ức dài khoảng 5 cm, rộng 3 cm, dày 1 cm, nặng khoảng 10 g; ở tuổi dậy thì, khối lượng khoảng 25–35 g.<br>+ Tuyến ức đạt kích thước lớn nhất quanh tuổi dậy thì, sau đó thoái triển dần và được thay thế một phần bằng mô mỡ, mô liên kết.<br>+ Độ dày tuyến ức được nêu là &lt; 18 mm ở người dưới 20 tuổi và &lt; 13 mm ở người trên 20 tuổi. Khi đo trên CT, cần xác định rõ vị trí và mặt phẳng đo; đây là ngưỡng tham khảo, không dùng đơn độc để kết luận bệnh lý.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Ở trẻ sơ sinh và trẻ nhỏ, nhu mô thường đồng nhất, hình thái chưa rõ, bờ lồi. Khi lớn hơn, tuyến thường có hình tam giác, hình tháp hoặc đầu mũi tên, bờ thẳng; khoảng 15 tuổi có thể có hình tam giác, bờ thẳng hoặc lõm và xen kẽ mô mỡ.<br>+ Hình thái tuyến ức biến thiên theo tuổi và cá thể; không xem việc mất hình tam giác đơn độc là dấu hiệu bệnh lý. Cần đối chiếu kích thước, bờ tuyến, thành phần mỡ và bối cảnh lâm sàng.</p>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/2015_11_a509797a8f3ec2_1.jpg"><img src="u-tuyen-uc_anh/2015_11_a509797a8f3ec2_1.jpg" alt="" width="800" height="314" loading="lazy" decoding="async"></a></figure>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/22-09-2017-11-29-37-PM.png"><img src="u-tuyen-uc_anh/22-09-2017-11-29-37-PM.png" alt="" width="1441" height="653" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_03_11_7027_04a.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_03_11_7027_04a.jpeg" alt="Tuyến ức bình thường trẻ 1 tháng tuổi" width="1600" height="1455" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_03_11_7027_04b.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_03_11_7027_04b.jpeg" alt="Tuyến ức bình thường trẻ 1 tháng tuổi" width="1600" height="1422" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Screenshot-2024-03-10-091701-1.png"><img src="u-tuyen-uc_anh/2015_11_Screenshot-2024-03-10-091701-1.png" alt="Bệnh nhân nam 10 tuổi" width="1600" height="823" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Screenshot-2024-03-10-093619-1.png"><img src="u-tuyen-uc_anh/2015_11_Screenshot-2024-03-10-093619-1.png" alt="" width="1600" height="822" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Screenshot-2024-03-10-093712-1.png"><img src="u-tuyen-uc_anh/2015_11_Screenshot-2024-03-10-093712-1.png" alt="" width="1600" height="819" loading="lazy" decoding="async"></a></div>
+<h2 id="ii-giai-phau">II. Giải phẫu</h2>
+<h3 id="1-phan-chia-trung-that">1. Phân chia trung thất</h3>
+<p>– Trung thất là khoang nằm giữa hai phổi, giới hạn phía trước bởi mặt sau xương ức, phía sau bởi cột sống ngực, hai bên bởi màng phổi trung thất, phía trên bởi lỗ ngực trên và phía dưới bởi cơ hoành.</p>
+<p><strong><span class="c-xanh">* Phân chia theo phẫu thuật (Thomas. W. Shields)</span></strong></p>
+<p>– Trung thất trước: nằm sau xương ức và trước màng ngoài tim.<br>– Trung thất giữa: gồm màng ngoài tim, tim và các mạch máu lớn.<br>– Trung thất sau: nằm sau khí quản, phế quản chính và màng ngoài tim, trước thân các đốt sống ngực.<br>– Theo chiều trên–dưới, trung thất được phân thành ba tầng trên, giữa và dưới, với các mặt phẳng ngang qua bờ trên quai động mạch chủ và chỗ chia đôi khí quản.</p>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/2017-07-25_18-33-02-e1646035096549.png"><img src="u-tuyen-uc_anh/2017-07-25_18-33-02-e1646035096549.png" alt="" width="1241" height="617" loading="lazy" decoding="async"></a></figure>
+<p><strong><span class="c-xanh">* Phân chia theo giải phẫu</span></strong><br>– Phân chia giải phẫu cổ điển khác với phân chia ba khoang theo Shields: mặt phẳng ngang đi qua góc ức (giữa cán và thân xương ức) phía trước và đĩa gian đốt sống T4–T5 phía sau chia trung thất thành trung thất trên và trung thất dưới.<br>– Trung thất trên nằm phía trên mặt phẳng này.<br>– Trung thất dưới nằm phía dưới mặt phẳng này và được chia thành ba khoang:<br>+ Trung thất trước: nằm giữa mặt sau xương ức và mặt trước màng ngoài tim.<br>+ Trung thất giữa: chứa màng ngoài tim, tim và các gốc mạch máu lớn.<br>+ Trung thất sau: nằm sau màng ngoài tim và trước thân các đốt sống ngực.</p>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/123-3-e1646035143298.png"><img src="u-tuyen-uc_anh/123-3-e1646035143298.png" alt="" width="1225" height="560" loading="lazy" decoding="async"></a></figure>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/2015_09_1-235.jpg"><img src="u-tuyen-uc_anh/2015_09_1-235.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_09_2-231.jpg"><img src="u-tuyen-uc_anh/2015_09_2-231.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_09_3-220.jpg"><img src="u-tuyen-uc_anh/2015_09_3-220.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_09_4-198.jpg"><img src="u-tuyen-uc_anh/2015_09_4-198.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_09_5-152.jpg"><img src="u-tuyen-uc_anh/2015_09_5-152.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_09_6-43.jpg"><img src="u-tuyen-uc_anh/2015_09_6-43.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_09_7-25.jpg"><img src="u-tuyen-uc_anh/2015_09_7-25.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_09_8-19.jpg"><img src="u-tuyen-uc_anh/2015_09_8-19.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_09_9-1.jpg"><img src="u-tuyen-uc_anh/2015_09_9-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_09_10-1.jpg"><img src="u-tuyen-uc_anh/2015_09_10-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Phân chia ITMIG (International Thymic Malignancy Interest Group)</span></strong></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Screenshot-2021-05-30-231338.png"><img src="u-tuyen-uc_anh/2015_11_Screenshot-2021-05-30-231338.png" alt="" width="900" height="792" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_08_1-914.jpeg"><img src="u-tuyen-uc_anh/2015_08_1-914.jpeg" alt="" width="787" height="787" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_08_2-915.jpeg"><img src="u-tuyen-uc_anh/2015_08_2-915.jpeg" alt="" width="786" height="787" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_08_3-898.jpeg"><img src="u-tuyen-uc_anh/2015_08_3-898.jpeg" alt="" width="787" height="786" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_08_4-835.jpeg"><img src="u-tuyen-uc_anh/2015_08_4-835.jpeg" alt="" width="786" height="786" loading="lazy" decoding="async"></a></div>
+<p>– Ba khoang theo ITMIG kéo dài từ lỗ ngực trên đến cơ hoành.</p>
+<p><span class="c-xanh">– Khoang trước mạch máu (prevascular compartment):</span><br>+ Giới hạn phía trước bởi xương ức, phía sau bởi mặt trước màng ngoài tim và các mạch máu lớn.<br>+ Thành phần gồm tuyến ức, mô mỡ, hạch bạch huyết và tĩnh mạch cánh tay đầu trái.<br>+ Bệnh lý thường gặp gồm u tuyến ức, u tế bào mầm, u lympho, bướu giáp thòng và hạch di căn.</p>
+<p><span class="c-xanh">– Khoang tạng (visceral compartment):</span><br>+ Giới hạn phía trước bởi bờ sau khoang trước mạch máu, phía sau bởi mặt phẳng dọc cách bờ trước thân đốt sống ngực 1 cm về phía sau.<br>+ Thành phần gồm tim, tĩnh mạch chủ trên, động mạch chủ, động mạch phổi, khí quản, phế quản chính, thực quản, ống ngực và hạch bạch huyết.<br>+ Bệnh lý thường gặp gồm tổn thương tim và mạch máu lớn, bệnh lý khí quản và thực quản, hạch to, nang phế quản, nang đôi thực quản và nang màng tim.</p>
+<p><span class="c-xanh">– Khoang cạnh cột sống (paravertebral compartment):</span><br>+ Giới hạn phía trước bởi mặt phẳng dọc cách bờ trước thân đốt sống ngực 1 cm về phía sau, phía sau bởi thành ngực sau.<br>+ Thành phần gồm cột sống ngực và mô mềm cạnh cột sống.<br>+ Bệnh lý thường gặp gồm u nguồn gốc thần kinh, nhiễm trùng hoặc chấn thương cột sống và tạo máu ngoài tủy.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-17.jpg"><img src="u-tuyen-uc_anh/2015_11_1-17.jpg" alt="" width="748" height="568" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-16.jpg"><img src="u-tuyen-uc_anh/2015_11_2-16.jpg" alt="" width="742" height="556" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-16.jpg"><img src="u-tuyen-uc_anh/2015_11_3-16.jpg" alt="" width="742" height="556" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_4-13.jpg"><img src="u-tuyen-uc_anh/2015_11_4-13.jpg" alt="" width="740" height="556" loading="lazy" decoding="async"></a></div>
+<h3 id="2-khoi-u-trung-that">2. Khối u trung thất</h3>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-6.png"><img src="u-tuyen-uc_anh/2015_11_1-6.png" alt="" width="1600" height="900" loading="lazy" decoding="async"></a></figure>
+<h2 id="iii-chan-doan-x-quang">III. Chẩn đoán x-quang</h2>
+<p><strong><span class="c-xanh">* Tuyến ức bình thường</span></strong></p>
+<p><span class="c-xanh">– Kích thước:</span> Tuyến ức phát triển mạnh trong thời kỳ nhũ nhi, đạt kích thước lớn nhất quanh tuổi dậy thì rồi thoái triển dần, một phần được thay thế bằng mô mỡ. Bóng tuyến thường nổi bật ở trẻ sơ sinh và trẻ nhỏ; có thể giảm độ rõ từ khoảng 2 tuổi và thường khó nhận thấy sau khoảng 8 tuổi. Đây là các mốc gần đúng, không cố định.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Trên phim ngực thẳng, tuyến ức có thể tạo bóng mô mềm bờ nhẵn ở trung thất trước, thường chồng lấp một phần lên bóng tim nên có thể bị nhầm với khối trung thất. Bóng tuyến bình thường không gây đẩy hoặc chèn ép đường thở hay mạch máu.<br>+ Dấu hiệu cánh buồm (thymic sail sign) là phần lồi hình tam giác của tuyến ức, thường ở bên phải; bờ dưới thẳng, được giới hạn bởi khe liên thùy nhỏ, tạo hình giống cánh buồm.<br>+ Ở thanh thiếu niên và người lớn, bóng tuyến ức thường không còn tách biệt rõ trên X-quang do thoái triển và thay thế mỡ; không thể kết luận không còn mô tuyến chỉ dựa vào phim X-quang.</p>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/2016_09_ghjkl.png"><img src="u-tuyen-uc_anh/2016_09_ghjkl.png" alt="" width="1600" height="948" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">+ Dấu hiệu sóng (thymus wave sign)</span> là bờ tuyến lượn sóng do các cung sườn trước in lên tuyến ức. Dấu khuyết (notch sign) là bờ dưới tuyến ức hòa vào bờ bóng tim. Đây là các hình thái bình thường.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_03_11_7027_03.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_03_11_7027_03.jpeg" alt="" width="1600" height="1610" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2016_09_images_large_10_16_16449_01d.jpeg"><img src="u-tuyen-uc_anh/2016_09_images_large_10_16_16449_01d.jpeg" alt="" width="675" height="784" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2016_09_Picture20.jpg"><img src="u-tuyen-uc_anh/2016_09_Picture20.jpg" alt="" width="944" height="928" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2016_09_Picture21.jpg"><img src="u-tuyen-uc_anh/2016_09_Picture21.jpg" alt="" width="964" height="1023" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2016_09_big_6286154b7c5c78.36182134.jpg"><img src="u-tuyen-uc_anh/2016_09_big_6286154b7c5c78.36182134.jpg" alt="" width="1333" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2016_09_6286154b7c5c78.36182134.jpg"><img src="u-tuyen-uc_anh/2016_09_6286154b7c5c78.36182134.jpg" alt="" width="1333" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2016_09_Picture22.jpg"><img src="u-tuyen-uc_anh/2016_09_Picture22.jpg" alt="" width="1600" height="1430" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_03_11_7027_02a.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_03_11_7027_02a.jpeg" alt="" width="1600" height="1185" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2016_09_vbhg.jpg"><img src="u-tuyen-uc_anh/2016_09_vbhg.jpg" alt="" width="1600" height="986" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2016_09_b7458f1431d739d1d7ee6aa07f31d1_jumbo.jpeg"><img src="u-tuyen-uc_anh/2016_09_b7458f1431d739d1d7ee6aa07f31d1_jumbo.jpeg" alt="" width="921" height="867" loading="lazy" decoding="async"></a></div>
+<p>– Hình thái và kích thước bóng tuyến ức có thể thay đổi theo thì hô hấp. Do tuyến ức là mô mềm, dễ biến dạng theo chuyển động của lồng ngực, bóng tuyến thường hẹp và dài hơn khi hít vào, rộng hơn khi thở ra; khối u trung thất thường ít biến dạng hơn. Dấu hiệu này chỉ hỗ trợ phân biệt.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-tuyen-uc_anh/2016_09_thora.jpeg"><img src="u-tuyen-uc_anh/2016_09_thora.jpeg" alt="Thì thở ra" width="1600" height="1422" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2016_09_hitvao.jpeg"><img src="u-tuyen-uc_anh/2016_09_hitvao.jpeg" alt="Thì hít vào" width="1600" height="1422" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Đặc điểm khối u trung thất trước</span></strong></p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Trên phim nghiêng, khối thường làm xóa khoảng sáng sau xương ức; trên phim thẳng, có thể làm mờ hoặc xóa đường nối trước (anterior junction line).<br>+ Khối ngoài phổi thường tạo góc tù với trung thất và thường không có phế quản chứa khí xuyên qua khối. Các dấu hiệu này gợi ý nguồn gốc ngoài phổi nhưng không đặc hiệu.<br>+ Nếu tiếp giáp với bờ tim hoặc động mạch chủ lên, khối có thể làm mờ các đường bờ này (dấu hiệu xóa bờ, silhouette sign); khối lan xuống thấp có thể xóa góc tâm hoành.<br>+ Dấu hiệu che phủ rốn phổi (hilum overlay sign): nếu các mạch máu rốn phổi vẫn nhìn thấy xuyên qua bóng mờ, khối nằm trước hoặc sau rốn phổi, không xuất phát từ rốn. Cần phối hợp phim nghiêng để xác định vị trí.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/2023_09_p47.png"><img src="u-tuyen-uc_anh/2023_09_p47.png" alt="Nữ 25 tuổi - Khó thở: Khối trung thất trước" width="870" height="999" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2023_09_p47b.png"><img src="u-tuyen-uc_anh/2023_09_p47b.png" alt="" width="1187" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2023_09_p80.png"><img src="u-tuyen-uc_anh/2023_09_p80.png" alt="Nam 22 tuổi - Khó thở, sút cân: U trung thất trước / Dịch màng phổi trái" width="868" height="985" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2023_09_p80b.png"><img src="u-tuyen-uc_anh/2023_09_p80b.png" alt="" width="1187" height="674" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Đặc điểm X-quang u tuyến ức:</span></strong></p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ U tuyến ức (thymoma) thường biểu hiện bằng khối ở trung thất trước, có thể kéo dài lên trung thất trên.<br>+ Khối thường hình tròn, bầu dục hoặc chia thùy, bờ tương đối rõ; thường lệch một bên nhưng đôi khi có thể ở hai bên. Hình dạng và vị trí này không đủ để kết luận u lành tính hay không xâm lấn.<br>+ Có thể thấy vôi hóa dạng nốt hoặc cung; tỷ lệ được báo cáo khoảng 25%, nhưng thay đổi theo quần thể và phương tiện. CT nhạy hơn X-quang trong phát hiện vôi hóa.<br>+ Dấu hiệu gợi ý xâm lấn hoặc lan tràn gồm bờ tiếp giáp phổi không đều; vòm hoành nâng cao, có thể do tổn thương thần kinh hoành; nốt màng phổi hoặc tràn dịch màng phổi, gợi ý lan tràn màng phổi. Các dấu hiệu X-quang này không khẳng định xâm lấn; cần CT để đánh giá thêm.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/095131fig10b.jpeg"><img src="u-tuyen-uc_anh/095131fig10b.jpeg" alt="" width="1600" height="1182" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/9caa22358121c9a749b7e3718d579d_jumbo-1.jpg"><img src="u-tuyen-uc_anh/9caa22358121c9a749b7e3718d579d_jumbo-1.jpg" alt="" width="1000" height="1005" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/4c191caa6c698040dc0a28b47e9ce0_jumbo.jpg"><img src="u-tuyen-uc_anh/4c191caa6c698040dc0a28b47e9ce0_jumbo.jpg" alt="" width="826" height="960" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/d1072ebd299dc10918870992d125d0.jpg"><img src="u-tuyen-uc_anh/d1072ebd299dc10918870992d125d0.jpg" alt="" width="1493" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/115505fig07.jpeg"><img src="u-tuyen-uc_anh/115505fig07.jpeg" alt="" width="1251" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/ad173d0e745c0fc3e5362eeb9a40e0_jumbo-1.jpg"><img src="u-tuyen-uc_anh/ad173d0e745c0fc3e5362eeb9a40e0_jumbo-1.jpg" alt="" width="934" height="960" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/115505fig06-1.jpeg"><img src="u-tuyen-uc_anh/115505fig06-1.jpeg" alt="" width="1280" height="1044" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/Thymoma_Moyal_PA.jpg"><img src="u-tuyen-uc_anh/Thymoma_Moyal_PA.jpg" alt="" width="1004" height="1152" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/ad173d0e745c0fc3e5362eeb9a40e0_jumbo.jpg"><img src="u-tuyen-uc_anh/ad173d0e745c0fc3e5362eeb9a40e0_jumbo.jpg" alt="" width="1003" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/115505fig06.jpeg"><img src="u-tuyen-uc_anh/115505fig06.jpeg" alt="" width="1280" height="1044" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/115505fig04a.jpeg"><img src="u-tuyen-uc_anh/115505fig04a.jpeg" alt="" width="1280" height="1093" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/Fig-7-Posteroanterior-a-and-lateral-b-chest-radiographs-demonstrate-a-left-anterior-1.png"><img src="u-tuyen-uc_anh/Fig-7-Posteroanterior-a-and-lateral-b-chest-radiographs-demonstrate-a-left-anterior-1.png" alt="" width="850" height="764" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1.png"><img src="u-tuyen-uc_anh/2015_11_1.png" alt="" width="822" height="756" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2.png"><img src="u-tuyen-uc_anh/2015_11_2.png" alt="" width="765" height="828" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3.png"><img src="u-tuyen-uc_anh/2015_11_3.png" alt="" width="966" height="476" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_4.png"><img src="u-tuyen-uc_anh/2015_11_4.png" alt="" width="1123" height="540" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-2.jpg"><img src="u-tuyen-uc_anh/2015_11_1-2.jpg" alt="" width="873" height="893" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-2.jpg"><img src="u-tuyen-uc_anh/2015_11_2-2.jpg" alt="" width="1396" height="798" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-2.jpg"><img src="u-tuyen-uc_anh/2015_11_3-2.jpg" alt="" width="1343" height="645" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Bild7-2.jpg"><img src="u-tuyen-uc_anh/2015_11_Bild7-2.jpg" alt="" width="1456" height="735" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Bild8-2.jpg"><img src="u-tuyen-uc_anh/2015_11_Bild8-2.jpg" alt="" width="1288" height="860" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-3.jpg"><img src="u-tuyen-uc_anh/2015_11_1-3.jpg" alt="" width="1108" height="951" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-3.jpg"><img src="u-tuyen-uc_anh/2015_11_2-3.jpg" alt="" width="1066" height="895" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-3.jpg"><img src="u-tuyen-uc_anh/2015_11_3-3.jpg" alt="" width="1424" height="788" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/2019_01_1-2.jpg"><img src="u-tuyen-uc_anh/2019_01_1-2.jpg" alt="" width="1472" height="1491" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2019_01_2-2.jpg"><img src="u-tuyen-uc_anh/2019_01_2-2.jpg" alt="" width="1202" height="1719" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2019_01_3-2.jpg"><img src="u-tuyen-uc_anh/2019_01_3-2.jpg" alt="" width="936" height="541" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2019_01_4-1.jpg"><img src="u-tuyen-uc_anh/2019_01_4-1.jpg" alt="" width="817" height="399" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-7.jpeg"><img src="u-tuyen-uc_anh/2015_11_1-7.jpeg" alt="" width="1013" height="915" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-7.jpeg"><img src="u-tuyen-uc_anh/2015_11_2-7.jpeg" alt="" width="976" height="962" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-6.jpeg"><img src="u-tuyen-uc_anh/2015_11_3-6.jpeg" alt="" width="630" height="434" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_4-7.jpeg"><img src="u-tuyen-uc_anh/2015_11_4-7.jpeg" alt="" width="630" height="457" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_5-6.jpeg"><img src="u-tuyen-uc_anh/2015_11_5-6.jpeg" alt="" width="630" height="462" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 7:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-35.jpeg"><img src="u-tuyen-uc_anh/2015_11_1-35.jpeg" alt="" width="958" height="828" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-37.jpeg"><img src="u-tuyen-uc_anh/2015_11_2-37.jpeg" alt="" width="825" height="1021" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-35.jpeg"><img src="u-tuyen-uc_anh/2015_11_3-35.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_4-34.jpeg"><img src="u-tuyen-uc_anh/2015_11_4-34.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_5-31.jpeg"><img src="u-tuyen-uc_anh/2015_11_5-31.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_6-14.jpeg"><img src="u-tuyen-uc_anh/2015_11_6-14.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_7-10.jpeg"><img src="u-tuyen-uc_anh/2015_11_7-10.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 8:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-33.jpg"><img src="u-tuyen-uc_anh/2015_11_1-33.jpg" alt="" width="754" height="528" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-31.jpg"><img src="u-tuyen-uc_anh/2015_11_2-31.jpg" alt="" width="602" height="858" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-31.jpg"><img src="u-tuyen-uc_anh/2015_11_3-31.jpg" alt="" width="782" height="477" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 9:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_4-25.jpg"><img src="u-tuyen-uc_anh/2015_11_4-25.jpg" alt="" width="781" height="693" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_5-18.jpg"><img src="u-tuyen-uc_anh/2015_11_5-18.jpg" alt="" width="778" height="865" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_6-11.jpg"><img src="u-tuyen-uc_anh/2015_11_6-11.jpg" alt="" width="782" height="671" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 10:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-35.jpg"><img src="u-tuyen-uc_anh/2015_11_1-35.jpg" alt="" width="1600" height="1768" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-33.jpg"><img src="u-tuyen-uc_anh/2015_11_2-33.jpg" alt="" width="1600" height="856" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-34.jpg"><img src="u-tuyen-uc_anh/2015_11_3-34.jpg" alt="" width="1600" height="856" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 11:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-1-2.jpg"><img src="u-tuyen-uc_anh/2015_11_1-1-2.jpg" alt="" width="1600" height="1686" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-34.jpg"><img src="u-tuyen-uc_anh/2015_11_2-34.jpg" alt="" width="1582" height="821" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-35.jpg"><img src="u-tuyen-uc_anh/2015_11_3-35.jpg" alt="" width="1584" height="821" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 12:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1.3.6.1.4.1.19179.1.114422618612138215.3.13024.168364-1.jpg"><img src="u-tuyen-uc_anh/2015_11_1.3.6.1.4.1.19179.1.114422618612138215.3.13024.168364-1.jpg" alt="" width="1507" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-35.jpg"><img src="u-tuyen-uc_anh/2015_11_2-35.jpg" alt="" width="1584" height="819" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-36.jpg"><img src="u-tuyen-uc_anh/2015_11_3-36.jpg" alt="" width="1580" height="820" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-clvt">IV. Chẩn đoán CLVT</h2>
+<h3 id="1-u-bieu-mo-tuyen-uc">1. U biểu mô tuyến ức</h3>
+<p><span class="c-xanh">– U tuyến ức (thymoma)</span> là khối u biểu mô phát sinh từ tuyến ức.</p>
+<p><span class="c-xanh">– Dịch tễ:</span><br>+ Là u nguyên phát thường gặp nhất ở trung thất trước người lớn; các ước tính trong bản thảo là khoảng 30% ở người lớn và 15% ở trẻ em. Ở trẻ em, bệnh ít gặp hơn lymphoma và u tế bào mầm.<br>+ Thường gặp ở tuổi 40–60; tỷ lệ nam/nữ gần 1:1 (Azour và cs., 2020).</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span><br>+ Khoảng 1/3 người bệnh có triệu chứng do chèn ép hoặc xâm lấn tại chỗ; nhiều trường hợp khác được phát hiện tình cờ.<br>+ Khoảng 40% có ít nhất một bệnh tự miễn hoặc hội chứng cận u; nhược cơ là biểu hiện thường gặp nhất (30–50%). Có thể gặp bất sản hồng cầu đơn thuần và giảm gammaglobulin máu (Alqaidy và cs., 2023; Azour và cs., 2020).</p>
+<p><span class="c-xanh">– Diễn tiến:</span> Thường tiến triển chậm nhưng có thể xâm lấn tại chỗ hoặc gieo rắc màng phổi, màng tim; di căn xa ít gặp hơn. Không phân loại đơn giản thành u “lành tính” và u “xâm lấn”; xâm lấn là đặc điểm cần đánh giá khi phân giai đoạn.</p>
+<p><span class="c-xanh">* Đặc điểm cắt lớp vi tính</span><br>– U tuyến ức thường biểu hiện bằng khối mô mềm hình bầu dục hoặc chia thùy, bờ rõ và nhẵn, thường lệch một bên và liên quan đến một thùy tuyến ức.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Bild4.png"><img src="u-tuyen-uc_anh/2015_11_Bild4.png" alt="" width="1420" height="739" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/115505fig08.jpeg"><img src="u-tuyen-uc_anh/115505fig08.jpeg" alt="" width="1280" height="922" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/g06ma18g03x.jpeg"><img src="u-tuyen-uc_anh/g06ma18g03x.jpeg" alt="" width="1280" height="1190" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/g06ma18g08a.jpeg"><img src="u-tuyen-uc_anh/g06ma18g08a.jpeg" alt="" width="1280" height="1236" loading="lazy" decoding="async"></a></div>
+<p>– U tuyến ức thường ngấm thuốc đồng nhất; khoảng 1/3 (xấp xỉ 30%) ngấm thuốc không đồng nhất do hoại tử, xuất huyết hoặc thoái hóa nang, thường gặp hơn ở khối lớn (Strange và cs., 2022).</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_633121.jpg"><img src="u-tuyen-uc_anh/2015_11_633121.jpg" alt="" width="741" height="666" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_03_11_7027_08.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_03_11_7027_08.jpeg" alt="" width="1600" height="1372" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_thymoma-44.png"><img src="u-tuyen-uc_anh/2015_11_thymoma-44.png" alt="" width="1015" height="937" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-15.png"><img src="u-tuyen-uc_anh/2015_11_1-15.png" alt="" width="399" height="327" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-11.png"><img src="u-tuyen-uc_anh/2015_11_2-11.png" alt="" width="399" height="327" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-11.png"><img src="u-tuyen-uc_anh/2015_11_3-11.png" alt="" width="399" height="327" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_4-9.png"><img src="u-tuyen-uc_anh/2015_11_4-9.png" alt="" width="399" height="327" loading="lazy" decoding="async"></a></div>
+<p>– Vôi hóa: Có thể dạng chấm/nốt trong khối hoặc dạng viền/cung. Tỷ lệ được báo cáo dao động 10–40%; trong một loạt CT tiền phẫu gồm 77 u tuyến ức được phẫu thuật, vôi hóa gặp ở 13/77 ca (16,9%; Imazu và cs., 2023). Vôi hóa đơn độc không khẳng định u xâm lấn.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/6738d8ac6f58e928cbc91d1f3d2abb.png"><img src="u-tuyen-uc_anh/6738d8ac6f58e928cbc91d1f3d2abb.png" alt="" width="513" height="355" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/5f506b9d1cfe711c0e4a0d48a4e636.png"><img src="u-tuyen-uc_anh/5f506b9d1cfe711c0e4a0d48a4e636.png" alt="" width="513" height="357" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/81394fcf19d314732a8aaab7330757_big_gallery.jpg"><img src="u-tuyen-uc_anh/81394fcf19d314732a8aaab7330757_big_gallery.jpg" alt="" width="630" height="478" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/518ea210a15c5fb91cca74230b2b85_big_gallery.jpg"><img src="u-tuyen-uc_anh/518ea210a15c5fb91cca74230b2b85_big_gallery.jpg" alt="" width="543" height="421" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/AnnTropPathol_2017_8_2_120_225915_f4.jpg"><img src="u-tuyen-uc_anh/AnnTropPathol_2017_8_2_120_225915_f4.jpg" alt="" width="1211" height="412" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/974eda78d72e70de2e6cd122a5876a_big_gallery.jpg"><img src="u-tuyen-uc_anh/974eda78d72e70de2e6cd122a5876a_big_gallery.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Đánh giá xâm lấn:</span> Khối chưa có dấu hiệu xâm lấn đại thể thường có bờ rõ; tuy nhiên, bờ rõ trên CLVT không loại trừ xâm lấn vi thể. Bờ không đều, mất lớp mỡ phân cách, dày màng ngoài tim hoặc lan vào thành ngực gợi ý xâm lấn, nhưng không dấu hiệu nào đủ đặc hiệu để kết luận đơn độc. U có thể lan tại chỗ hoặc gieo rắc dọc màng phổi, màng ngoài tim; di căn xa ít gặp hơn. Nguy cơ tái phát phụ thuộc mức độ xâm lấn và kết quả phẫu thuật.<br><span class="c-xanh">+ Xâm lấn mạch máu:</span> Gợi ý bởi thành mạch biến dạng hoặc không đều, hẹp/tắc mạch hay mô mềm trong lòng mạch liên tục với khối u; nếu mô mềm trong lòng mạch ngấm thuốc, nghĩ đến huyết khối u. Hẹp, tắc hoặc mất ngấm thuốc đơn độc không đặc hiệu, cũng có thể do chèn ép hay huyết khối không do u.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/974eda78d72e70de2e6cd122a5876a_big_gallery.jpg"><img src="u-tuyen-uc_anh/974eda78d72e70de2e6cd122a5876a_big_gallery.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/115505fig09.jpeg"><img src="u-tuyen-uc_anh/115505fig09.jpeg" alt="" width="1265" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/g06ma18g06a.jpeg"><img src="u-tuyen-uc_anh/g06ma18g06a.jpeg" alt="" width="1280" height="1265" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">+ Gieo rắc màng phổi:</span> Nốt hoặc khối màng phổi, thường khu trú một bên, gợi ý các ổ gieo rắc dọc bề mặt màng phổi; có thể kèm tràn dịch. Tràn dịch đơn độc không đặc hiệu và không đủ để kết luận có gieo rắc.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_03_11_7027_09.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_03_11_7027_09.jpeg" alt="" width="1600" height="1356" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_03_11_7027_10.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_03_11_7027_10.jpeg" alt="" width="1600" height="1370" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/14-10-2018-11-07-28-AM.png"><img src="u-tuyen-uc_anh/14-10-2018-11-07-28-AM.png" alt="" width="1189" height="608" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_633124.jpg"><img src="u-tuyen-uc_anh/2015_11_633124.jpg" alt="" width="831" height="286" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/115505fig17a.jpeg"><img src="u-tuyen-uc_anh/115505fig17a.jpeg" alt="" width="1280" height="1016" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/115505fig10.jpeg"><img src="u-tuyen-uc_anh/115505fig10.jpeg" alt="" width="1168" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/0936148d77c356ffc4ea23b22d6520_big_gallery.jpg"><img src="u-tuyen-uc_anh/0936148d77c356ffc4ea23b22d6520_big_gallery.jpg" alt="" width="599" height="460" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_7-4.jpg"><img src="u-tuyen-uc_anh/2015_11_7-4.jpg" alt="" width="784" height="750" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_8-2.jpg"><img src="u-tuyen-uc_anh/2015_11_8-2.jpg" alt="" width="782" height="841" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_9.jpg"><img src="u-tuyen-uc_anh/2015_11_9.jpg" alt="" width="781" height="682" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Phân loại mô học theo WHO:</span><br>+ Typ A: Trên mô học, gồm các tế bào biểu mô u hình thoi hoặc bầu dục, thường có nhân tương đối đều; lympho bào T non (TdT+) thưa hoặc vắng mặt. Trên CLVT, thường là khối bờ trơn, rõ, hình bầu dục hoặc chia thùy, đậm độ tương đối đồng nhất. Hình thái bờ trơn cũng có thể gặp ở typ AB nên không đủ để xác định typ mô học.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/a-4.png"><img src="u-tuyen-uc_anh/a-4.png" alt="" width="1241" height="1035" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_a-them.png"><img src="u-tuyen-uc_anh/2015_11_a-them.png" alt="" width="1460" height="357" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_a-3.jpg"><img src="u-tuyen-uc_anh/2015_11_a-3.jpg" alt="" width="1600" height="1054" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_496528.jpg"><img src="u-tuyen-uc_anh/2015_11_496528.jpg" alt="" width="1024" height="712" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_496541.jpg"><img src="u-tuyen-uc_anh/2015_11_496541.jpg" alt="" width="932" height="768" loading="lazy" decoding="async"></a></div>
+<p>+ Typ AB: Có cấu trúc hai pha, với các vùng giàu lympho bào T non (TdT+) xen kẽ vùng nghèo lympho; thành phần biểu mô gồm các tế bào hình thoi hoặc bầu dục kiểu typ A.</p>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/2015_11_901539.png"><img src="u-tuyen-uc_anh/2015_11_901539.png" alt="" width="649" height="534" loading="lazy" decoding="async"></a></figure>
+<p>+ Typ B1: Có cấu trúc gần giống tuyến ức bình thường, giàu lympho bào T non (TdT+) và ít tế bào biểu mô u; còn gọi là thể giàu lympho bào (lymphocyte-rich thymoma).</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_b1.jpg"><img src="u-tuyen-uc_anh/2015_11_b1.jpg" alt="" width="709" height="322" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_509098.jpg"><img src="u-tuyen-uc_anh/2015_11_509098.jpg" alt="" width="674" height="722" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_b1.png"><img src="u-tuyen-uc_anh/2015_11_b1.png" alt="" width="1600" height="390" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_496544.jpg"><img src="u-tuyen-uc_anh/2015_11_496544.jpg" alt="" width="1068" height="768" loading="lazy" decoding="async"></a></div>
+<p>+ Typ B2: Có nhiều tế bào biểu mô u hình đa giác, rải rác hoặc thành cụm, xen lẫn lympho bào T non phong phú (TdT+); còn gọi là u tuyến ức thể vỏ.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/abb1b2.png"><img src="u-tuyen-uc_anh/abb1b2.png" alt="" width="1227" height="1022" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_b2.jpg"><img src="u-tuyen-uc_anh/2015_11_b2.jpg" alt="" width="709" height="324" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_b22.jpg"><img src="u-tuyen-uc_anh/2015_11_b22.jpg" alt="" width="709" height="537" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_509100.jpg"><img src="u-tuyen-uc_anh/2015_11_509100.jpg" alt="" width="981" height="371" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_b2-them.png"><img src="u-tuyen-uc_anh/2015_11_b2-them.png" alt="" width="1262" height="723" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_b2.png"><img src="u-tuyen-uc_anh/2015_11_b2.png" alt="" width="1526" height="356" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_b2a.png"><img src="u-tuyen-uc_anh/2015_11_b2a.png" alt="" width="1252" height="357" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_496542.jpg"><img src="u-tuyen-uc_anh/2015_11_496542.jpg" alt="" width="963" height="768" loading="lazy" decoding="async"></a></div>
+<p>+ Typ B3: Ưu thế tế bào biểu mô u hình đa giác, xếp thành đám hoặc tấm, có mức độ không điển hình nhẹ đến vừa; lympho bào T non (TdT+) ít hoặc vắng mặt.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/b3.png"><img src="u-tuyen-uc_anh/b3.png" alt="" width="1292" height="481" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_b3.jpg"><img src="u-tuyen-uc_anh/2015_11_b3.jpg" alt="" width="548" height="145" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_510071.jpg"><img src="u-tuyen-uc_anh/2015_11_510071.jpg" alt="" width="853" height="721" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_b3.png"><img src="u-tuyen-uc_anh/2015_11_b3.png" alt="" width="1318" height="357" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_467670.jpg"><img src="u-tuyen-uc_anh/2015_11_467670.jpg" alt="" width="1024" height="633" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_496530.jpg"><img src="u-tuyen-uc_anh/2015_11_496530.jpg" alt="" width="1024" height="424" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_496546.jpg"><img src="u-tuyen-uc_anh/2015_11_496546.jpg" alt="" width="1024" height="700" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-13.jpeg"><img src="u-tuyen-uc_anh/2015_11_1-13.jpeg" alt="" width="580" height="387" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-13.jpeg"><img src="u-tuyen-uc_anh/2015_11_2-13.jpeg" alt="" width="577" height="395" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-12.jpeg"><img src="u-tuyen-uc_anh/2015_11_3-12.jpeg" alt="" width="571" height="403" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_4-12.jpeg"><img src="u-tuyen-uc_anh/2015_11_4-12.jpeg" alt="" width="557" height="408" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_5-11.jpeg"><img src="u-tuyen-uc_anh/2015_11_5-11.jpeg" alt="" width="571" height="581" loading="lazy" decoding="async"></a></div>
+<p>+ Ung thư biểu mô tuyến ức (tên gọi cũ trong phân loại là typ C): Là thực thể riêng, không phải typ u tuyến ức trong phân loại WHO hiện hành. Trên CLVT, có thể xâm lấn cấu trúc trung thất, kèm hạch trung thất to hoặc di căn xa. Kích thước lớn không tự nó xác định mô học; gieo rắc màng phổi cũng có thể gặp ở u tuyến ức xâm lấn nên không đặc hiệu cho ung thư biểu mô tuyến ức.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-tuyen-uc_anh/22-09-2017-11-48-03-PM.png"><img src="u-tuyen-uc_anh/22-09-2017-11-48-03-PM.png" alt="" width="1371" height="623" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_496545.jpg"><img src="u-tuyen-uc_anh/2015_11_496545.jpg" alt="" width="1019" height="768" loading="lazy" decoding="async"></a></div>
+<h3 id="2-tang-san-lanh-tinh">2. Tăng sản lành tính</h3>
+<p><span class="c-xanh">– Tăng sản lành tính (Thymic hyperplasia)</span> tuyến ức chia làm 2 loại:<br>+ Tăng sản tuyến ức thật: sau hóa trị, xạ trị, bỏng, stress, cường giáp. Đặc trưng bởi sự gia tăng kích thước và trọng lượng của tuyến ức, cấu trúc mô hoặc được bảo tồn<br>+ Tăng sinh lympho: nhược cơ, lupus ban đỏ hệ thống, viêm khớp dạng thấp, xơ cứng bì, bệnh Graves. Đặc trưng bởi sự hiện diện của một trung tâm mầm lymphoid tăng sản trong tủy tuyến ức, sự xâm nhập lymphocytic và plasma tế bào. Không giống như tăng sản thật, tăng sinh lympho có thể không mở rộng kích thước tuyến (45%).<br>– Tuyến ức tăng kích thước một cách toàn diện, cân xứng, mật độ đồng nhất. Đặc biệt đường kính trước sau của tuyến tăng lên nhưng vẫn giữ nguyên cấu trúc và hình thể tuyến (hình tháp).</p>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/2015_11_a509797a90f433_11-Th-hyperplasia.jpg"><img src="u-tuyen-uc_anh/2015_11_a509797a90f433_11-Th-hyperplasia.jpg" alt="" width="682" height="357" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_11_11_6932_11b.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_11_11_6932_11b.jpeg" alt="" width="1600" height="1590" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_11_11_6932_11c.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_11_11_6932_11c.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_11_11_6932_11d.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_11_11_6932_11d.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a></div>
+<p>– Tăng sản dạng nang lympho gặp ở khoảng 50–60% bệnh nhân nhược cơ khởi phát sớm, tức khởi phát trước 50 tuổi.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/03_13_11210_03.jpeg"><img src="u-tuyen-uc_anh/03_13_11210_03.jpeg" alt="" width="1038" height="742" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/03_13_11210_06a.jpeg"><img src="u-tuyen-uc_anh/03_13_11210_06a.jpeg" alt="" width="1038" height="781" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/323621.jpg"><img src="u-tuyen-uc_anh/323621.jpg" alt="" width="916" height="822" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/ezu30303.jpeg"><img src="u-tuyen-uc_anh/ezu30303.jpeg" alt="" width="1281" height="1251" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/g06ma18g04x.jpeg"><img src="u-tuyen-uc_anh/g06ma18g04x.jpeg" alt="" width="1263" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/115505fig02b.jpeg"><img src="u-tuyen-uc_anh/115505fig02b.jpeg" alt="" width="1133" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_633120.jpg"><img src="u-tuyen-uc_anh/2015_11_633120.jpg" alt="" width="924" height="525" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_761954.jpg"><img src="u-tuyen-uc_anh/2015_11_761954.jpg" alt="" width="1571" height="890" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_706921.png"><img src="u-tuyen-uc_anh/2015_11_706921.png" alt="" width="874" height="723" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_706971.png"><img src="u-tuyen-uc_anh/2015_11_706971.png" alt="" width="1160" height="415" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_467661.jpg"><img src="u-tuyen-uc_anh/2015_11_467661.jpg" alt="" width="768" height="928" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_490429.jpg"><img src="u-tuyen-uc_anh/2015_11_490429.jpg" alt="" width="1024" height="447" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_837300.png"><img src="u-tuyen-uc_anh/2015_11_837300.png" alt="" width="1600" height="455" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_944459.jpg"><img src="u-tuyen-uc_anh/2015_11_944459.jpg" alt="" width="1183" height="377" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_944461.jpg"><img src="u-tuyen-uc_anh/2015_11_944461.jpg" alt="" width="1215" height="375" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_923505.jpg"><img src="u-tuyen-uc_anh/2015_11_923505.jpg" alt="" width="958" height="873" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_923506.jpg"><img src="u-tuyen-uc_anh/2015_11_923506.jpg" alt="" width="947" height="870" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_923507.jpg"><img src="u-tuyen-uc_anh/2015_11_923507.jpg" alt="" width="962" height="873" loading="lazy" decoding="async"></a></div>
+<p>– MRI giúp phân biệt tăng sản tuyến ức với u tuyến ức (thymoma) trong những trường hợp khó:<br>+ Tuyến ức bình thường và tăng sản tuyến ức thường còn mỡ vi thể, nên tín hiệu giảm trên ảnh đối pha (opposed-phase) so với ảnh đồng pha (in-phase).<br>+ U tuyến ức thường không có mỡ vi thể đủ để gây giảm tín hiệu rõ trên ảnh đối pha; tín hiệu không giảm rõ so với ảnh đồng pha.</p>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/Picture1-15.png"><img src="u-tuyen-uc_anh/Picture1-15.png" alt="" width="994" height="393" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_11_11_6932_12a.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_11_11_6932_12a.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_11_11_6932_12b.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_11_11_6932_12b.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_11_11_6932_12c.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_11_11_6932_12c.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a></div>
+<h3 id="3-u-mo-tuyen-uc">3. U mỡ tuyến ức</h3>
+<p><span class="c-xanh">– U mỡ tuyến ức (thymolipoma)</span> là u lành tính hiếm gặp, thường xuất phát từ trung thất trước.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Chiếm 2–9% u tuyến ức; thường gặp ở trẻ em và người trẻ, không thiên về giới, nhưng có thể xuất hiện ở nhiều lứa tuổi.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Nhiều trường hợp không triệu chứng, được phát hiện tình cờ; khối lớn có thể gây chèn ép, biểu hiện bằng ho, khó thở hoặc đau ngực. Tỷ lệ có triệu chứng thay đổi giữa các loạt bệnh.</p>
+<p><span class="c-xanh">– Vị trí:</span> Thường ở góc tâm hoành.</p>
+<p><span class="c-xanh">– Kích thước:</span> Khối thường lớn, đường kính có thể đạt khoảng 20 cm; một tổng hợp y văn ghi nhận khoảng 70% trường hợp nặng trên 500g.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Trên CT, khối có tỷ trọng mỡ, bờ rõ, đa cung, thường có vỏ bao; bên trong có các vách xơ mảnh và các dải hoặc nốt mô mềm tương ứng với mô tuyến ức. Khối lớn thường phát triển dạng cuống xuống vòm hoành, có thể kéo dài dọc trung thất trước; do mềm, hình dạng có thể thay đổi theo tư thế, phần thấp thường lớn hơn trong khi trung thất trên ít bị ảnh hưởng.</p>
+<p><span class="c-xanh">– Phân biệt:</span><br>+ Các dải hoặc đảo mô tuyến ức trong khối mỡ và dạng khối có cuống gợi ý thymolipoma; u mỡ trung thất thường không có thành phần mô tuyến ức.<br>+ Vách dày, không đều hoặc nốt mô mềm lớn gợi ý u mỡ ác tính; thành phần nang hoặc vôi hóa phối hợp gợi ý u quái trưởng thành.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_a-2.jpg"><img src="u-tuyen-uc_anh/2015_11_a-2.jpg" alt="" width="782" height="742" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_b-1.jpg"><img src="u-tuyen-uc_anh/2015_11_b-1.jpg" alt="" width="783" height="812" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/1fa02912d1b4ce34ca1f34f2a6d258_jumbo.jpg"><img src="u-tuyen-uc_anh/1fa02912d1b4ce34ca1f34f2a6d258_jumbo.jpg" alt="" width="1024" height="885" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/3d7f725f5a190de6794921d2400600_big_gallery.jpg"><img src="u-tuyen-uc_anh/3d7f725f5a190de6794921d2400600_big_gallery.jpg" alt="" width="630" height="492" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/344b0c75a3dd4c71d2c7649eb4a7d7_jumbo.jpeg"><img src="u-tuyen-uc_anh/344b0c75a3dd4c71d2c7649eb4a7d7_jumbo.jpeg" alt="" width="888" height="927" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2ce605a38f4420ea0f366d120f5658_big_gallery.jpeg"><img src="u-tuyen-uc_anh/2ce605a38f4420ea0f366d120f5658_big_gallery.jpeg" alt="" width="630" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2601e0ab203eb35ded24cf653fc9e9_big_gallery.jpeg"><img src="u-tuyen-uc_anh/2601e0ab203eb35ded24cf653fc9e9_big_gallery.jpeg" alt="" width="630" height="521" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/40748446446250.jpg"><img src="u-tuyen-uc_anh/40748446446250.jpg" alt="" width="920" height="543" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/kjpathol-47-596-g001.jpg"><img src="u-tuyen-uc_anh/kjpathol-47-596-g001.jpg" alt="" width="756" height="660" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/Picture10746161718750.jpg"><img src="u-tuyen-uc_anh/Picture10746161718750.jpg" alt="" width="1064" height="807" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_660635.jpg"><img src="u-tuyen-uc_anh/2015_11_660635.jpg" alt="" width="819" height="638" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_901530.png"><img src="u-tuyen-uc_anh/2015_11_901530.png" alt="" width="914" height="370" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_707727.png"><img src="u-tuyen-uc_anh/2015_11_707727.png" alt="" width="970" height="416" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_920509.png"><img src="u-tuyen-uc_anh/2015_11_920509.png" alt="" width="893" height="345" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_large_rg.2021200180.fig3a.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_large_rg.2021200180.fig3a.jpeg" alt="" width="1600" height="1256" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Bild6-1.png"><img src="u-tuyen-uc_anh/2015_11_Bild6-1.png" alt="" width="1454" height="800" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Case-21-1.jpg"><img src="u-tuyen-uc_anh/2015_11_Case-21-1.jpg" alt="" width="1500" height="921" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Bild8-1.jpg"><img src="u-tuyen-uc_anh/2015_11_Bild8-1.jpg" alt="U mỡ tuyến ức" width="1454" height="618" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-7.jpg"><img src="u-tuyen-uc_anh/2015_11_1-7.jpg" alt="" width="400" height="278" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-7.jpg"><img src="u-tuyen-uc_anh/2015_11_2-7.jpg" alt="" width="400" height="308" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-7.jpg"><img src="u-tuyen-uc_anh/2015_11_3-7.jpg" alt="" width="400" height="298" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_4-4.jpg"><img src="u-tuyen-uc_anh/2015_11_4-4.jpg" alt="" width="400" height="310" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_5-4.jpg"><img src="u-tuyen-uc_anh/2015_11_5-4.jpg" alt="" width="400" height="311" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_6-2.jpg"><img src="u-tuyen-uc_anh/2015_11_6-2.jpg" alt="" width="400" height="257" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_thymolipoma-5.jpg"><img src="u-tuyen-uc_anh/2015_11_thymolipoma-5.jpg" alt="" width="901" height="923" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_thymolipoma-5-1.jpeg"><img src="u-tuyen-uc_anh/2015_11_thymolipoma-5-1.jpeg" alt="" width="512" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_thymolipoma-5-2.jpeg"><img src="u-tuyen-uc_anh/2015_11_thymolipoma-5-2.jpeg" alt="" width="512" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_thymolipoma-5-3.jpeg"><img src="u-tuyen-uc_anh/2015_11_thymolipoma-5-3.jpeg" alt="" width="512" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_thymolipoma-5-4.jpeg"><img src="u-tuyen-uc_anh/2015_11_thymolipoma-5-4.jpeg" alt="" width="512" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_thymolipoma-5.jpeg"><img src="u-tuyen-uc_anh/2015_11_thymolipoma-5.jpeg" alt="" width="512" height="512" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-36.jpg"><img src="u-tuyen-uc_anh/2015_11_1-36.jpg" alt="" width="1600" height="856" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-36.jpg"><img src="u-tuyen-uc_anh/2015_11_2-36.jpg" alt="" width="1600" height="857" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-37.jpg"><img src="u-tuyen-uc_anh/2015_11_3-37.jpg" alt="" width="1600" height="855" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_11_11_6932_14a.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_11_11_6932_14a.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_11_11_6932_14b.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_11_11_6932_14b.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_11_11_6932_14c.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_11_11_6932_14c.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_11_11_6932_14d.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_11_11_6932_14d.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a></div>
+<h3 id="4-nang-tuyen-uc">4. Nang tuyến ức</h3>
+<p><span class="c-xanh">– Nang tuyến ức (thymic cyst)</span> là tổn thương dạng nang xuất phát từ tuyến ức hoặc đường di chuyển phôi của tuyến.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Ước tính chiếm 1–3% khối trung thất trước, nhưng tần suất thực chưa rõ. Nang có thể gặp ở mọi lứa tuổi; thể bẩm sinh thường gặp ở trẻ em, thể mắc phải hoặc đa ngăn thường gặp ở người lớn.</p>
+<p><span class="c-xanh">– Căn nguyên:</span><br>+ Thể bẩm sinh chiếm đa số, thường là nang đơn ngăn liên quan đến tồn dư ống hầu–tuyến ức.<br>+ Thể mắc phải thường đa ngăn, liên quan viêm; có thể xuất hiện sau phẫu thuật lồng ngực hoặc xạ trị, và đã được mô tả đồng mắc với u lympho Hodgkin.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Khoảng 60% trường hợp được báo cáo không có triệu chứng. Nang lớn có thể gây chèn ép như khó thở, khó nuốt hoặc khàn tiếng; hiếm hơn có thể gây liệt dây thanh.</p>
+<p><span class="c-xanh">– Vị trí:</span> Thường ở trung thất trước; có thể nằm dọc đường di chuyển của tuyến ức từ cổ xuống trung thất.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Nang thường đơn ngăn hoặc có một nang lớn ưu thế, thành mỏng, nhẵn, bờ rõ và chứa dịch. Trên CT, tỷ trọng dịch đôi khi cao hơn nước do protein hoặc xuất huyết; thể đa ngăn có thể có vách và vôi hóa thành nang.<br>+ Trên MRI, nang đơn thuần thường giảm tín hiệu T1, tăng tín hiệu T2 và không có thành phần mô đặc bắt thuốc; tín hiệu có thể không đồng nhất khi dịch giàu protein hoặc có xuất huyết. Nốt mô đặc bắt thuốc cần nghĩ đến u tuyến ức dạng nang hoặc tổn thương trung thất nang hóa khác.<br>+ Nang lớn có thể kéo dài từ cổ xuống trung thất qua lỗ ngực trên, tạo khối cổ-ngực hình quả tạ.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_901528.png"><img src="u-tuyen-uc_anh/2015_11_901528.png" alt="" width="703" height="530" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_501474.jpg"><img src="u-tuyen-uc_anh/2015_11_501474.jpg" alt="" width="809" height="809" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_814518.jpg"><img src="u-tuyen-uc_anh/2015_11_814518.jpg" alt="" width="611" height="396" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/JClinImagingSci_2012_2_1_33_97750_u6.jpg"><img src="u-tuyen-uc_anh/JClinImagingSci_2012_2_1_33_97750_u6.jpg" alt="" width="1008" height="761" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/g06ma18g10a.jpeg"><img src="u-tuyen-uc_anh/g06ma18g10a.jpeg" alt="" width="1280" height="1219" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/47e599f212599f80107e8162788504_big_gallery.jpg"><img src="u-tuyen-uc_anh/47e599f212599f80107e8162788504_big_gallery.jpg" alt="" width="630" height="490" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/a6894850a0e61e877192f3c7b3e269_big_gallery.jpg"><img src="u-tuyen-uc_anh/a6894850a0e61e877192f3c7b3e269_big_gallery.jpg" alt="" width="630" height="423" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2019_07_thymic-cyst2.jpg"><img src="u-tuyen-uc_anh/2019_07_thymic-cyst2.jpg" alt="" width="750" height="508" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_706984.png"><img src="u-tuyen-uc_anh/2015_11_706984.png" alt="" width="1596" height="415" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_714915-scaled.jpg"><img src="u-tuyen-uc_anh/2015_11_714915-scaled.jpg" alt="" width="1600" height="689" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_0-1.png"><img src="u-tuyen-uc_anh/2015_11_0-1.png" alt="" width="1269" height="685" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_a.png"><img src="u-tuyen-uc_anh/2015_11_a.png" alt="" width="1269" height="685" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Screen-Shot-2019-11-01-at-22.32.36.png"><img src="u-tuyen-uc_anh/2015_11_Screen-Shot-2019-11-01-at-22.32.36.png" alt="" width="1153" height="513" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_large_rg.2021200180.fig2a.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_large_rg.2021200180.fig2a.jpeg" alt="" width="1512" height="1281" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_large_rg.2021200180.fig2b.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_large_rg.2021200180.fig2b.jpeg" alt="" width="1438" height="1281" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_large_rg.2021200180.fig2c.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_large_rg.2021200180.fig2c.jpeg" alt="" width="1467" height="1386" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_03_11_7027_15a.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_03_11_7027_15a.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_images_03_11_7027_15b.jpeg"><img src="u-tuyen-uc_anh/2015_11_images_03_11_7027_15b.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a></div>
+<h3 id="5-ung-thu-bieu-mo">5. Ung thư biểu mô</h3>
+<p><span class="c-xanh">– Ung thư biểu mô tuyến ức (thymic carcinoma)</span> là u ác tính của biểu mô tuyến ức, có xu hướng xâm lấn và di căn nhiều hơn u tuyến ức.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Chiếm khoảng 14–22% u biểu mô tuyến ức; thường gặp ở người trung niên và lớn tuổi, hơi ưu thế nam, hiếm gặp ở trẻ em.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Nhược cơ hiếm gặp. Nhiều bệnh nhân có triệu chứng do khối u hoặc xâm lấn tại chỗ như đau ngực, khó thở, hội chứng tĩnh mạch chủ trên; có thể kèm sụt cân, mệt mỏi hoặc đổ mồ hôi ban đêm. Một số trường hợp được phát hiện tình cờ.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Trên CT, thường là khối trung thất trước lớn, bờ không đều hoặc không rõ, tỷ trọng mô mềm tương đương cơ và ngấm thuốc không đồng nhất; khối lớn có thể hoại tử, nang hóa hoặc xuất huyết.<br>+ Khối thường xâm lấn các cấu trúc lân cận, gồm mạch máu trung thất. Hạch trung thất, nốt màng phổi hoặc màng tim và di căn cơ quan xa gặp nhiều hơn so với u tuyến ức; hình ảnh vẫn có thể chồng lấp.<br>+ Có thể có vôi hóa, đôi khi dạng viền vỏ trứng (eggshell calcification); dấu hiệu này không đặc hiệu.</p>
+<p><span class="c-xanh">– Phân biệt:</span> So với u tuyến ức (thymoma), ung thư biểu mô tuyến ức thường có bờ không đều, hoại tử và xâm lấn tại chỗ hoặc mạch máu; hạch và di căn cơ quan xa cũng gợi ý ung thư biểu mô hơn. Thymoma thường có bờ rõ, ngấm thuốc tương đối đồng nhất và liên quan với nhược cơ nhiều hơn. Tuy nhiên, thymoma độ cao cũng có thể hoại tử hoặc xâm lấn, và gieo rắc màng phổi hay màng tim vẫn có thể gặp; hình ảnh có chồng lấp nên không xác định chắc chắn mô học.</p>
+<p><span class="c-xanh">– Tiên lượng:</span> Thường xấu do xu hướng xâm lấn tại chỗ và di căn.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/StavrakisRC_figure04.jpg"><img src="u-tuyen-uc_anh/StavrakisRC_figure04.jpg" alt="" width="873" height="704" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/Thymic_ca_PA.jpg"><img src="u-tuyen-uc_anh/Thymic_ca_PA.jpg" alt="" width="677" height="800" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/0c11ea4e232b84925874a3de62c660_jumbo.jpg"><img src="u-tuyen-uc_anh/0c11ea4e232b84925874a3de62c660_jumbo.jpg" alt="" width="912" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/49376f62ae2aa18219df6d917b8211_big_gallery.jpg"><img src="u-tuyen-uc_anh/49376f62ae2aa18219df6d917b8211_big_gallery.jpg" alt="" width="630" height="488" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/3e54b454d232076bde33ee6570b10b_jumbo.jpeg"><img src="u-tuyen-uc_anh/3e54b454d232076bde33ee6570b10b_jumbo.jpeg" alt="" width="1024" height="1019" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/0bfdc6614eac888a4cbf736d4a6a66_big_gallery.jpeg"><img src="u-tuyen-uc_anh/0bfdc6614eac888a4cbf736d4a6a66_big_gallery.jpeg" alt="" width="630" height="477" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/02_aa0823_03b.jpeg"><img src="u-tuyen-uc_anh/02_aa0823_03b.jpeg" alt="" width="1600" height="1402" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/g06ma18g06a-1.jpeg"><img src="u-tuyen-uc_anh/g06ma18g06a-1.jpeg" alt="" width="1280" height="1265" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/Thymuskarzinom_Plattenepithel_-_CT_coronar_-_001.jpg"><img src="u-tuyen-uc_anh/Thymuskarzinom_Plattenepithel_-_CT_coronar_-_001.jpg" alt="" width="1200" height="1038" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_864542.jpg"><img src="u-tuyen-uc_anh/2015_11_864542.jpg" alt="" width="1273" height="467" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_901540.png"><img src="u-tuyen-uc_anh/2015_11_901540.png" alt="" width="902" height="376" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_707180.png"><img src="u-tuyen-uc_anh/2015_11_707180.png" alt="" width="1176" height="416" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_493000.jpg"><img src="u-tuyen-uc_anh/2015_11_493000.jpg" alt="" width="1024" height="325" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_837305.png"><img src="u-tuyen-uc_anh/2015_11_837305.png" alt="" width="717" height="875" loading="lazy" decoding="async"></a></div>
+<h3 id="6-u-than-kinh-noi-tiet">6. U thần kinh nội tiết</h3>
+<p><span class="c-xanh">– U tân sinh thần kinh nội tiết tuyến ức (thymic neuroendocrine neoplasm, tNEN)</span> được Rosai và Higa mô tả lần đầu năm 1972.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Hiếm gặp, chiếm khoảng 2–5% u biểu mô tuyến ức và 0,4–0,9% u thần kinh nội tiết ở các cơ quan. Tỷ lệ mắc mới tại Hoa Kỳ khoảng 0,2 ca/1 triệu người/năm. Thường gặp ở nam giới tuổi trung niên.</p>
+<p><span class="c-xanh">– Căn nguyên:</span><br>+ Khoảng 1/4 tNEN có liên quan đến MEN1; ngược lại, tNEN chỉ phát triển ở một tỷ lệ nhỏ người mắc MEN1.<br>+ Hội chứng đa u nội tiết típ 1 (multiple endocrine neoplasia type 1, MEN1) di truyền trội trên nhiễm sắc thể thường, do biến thể gây bệnh ở gen MEN1 tại 11q13. Các biểu hiện thường gặp gồm cường cận giáp nguyên phát, u tuyến yên và u thần kinh nội tiết tụy–tá tràng.</p>
+<p><span class="c-xanh">– Phân loại:</span> Theo WHO 2021, gồm carcinoid điển hình, carcinoid không điển hình, ung thư biểu mô thần kinh nội tiết tế bào lớn và ung thư biểu mô thần kinh nội tiết tế bào nhỏ.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span><br>+ Một số trường hợp không triệu chứng; khi có triệu chứng thường do khối trung thất chèn ép, như ho, khó thở, đau ngực, hội chứng tĩnh mạch chủ trên hoặc khàn tiếng do chèn ép thần kinh quặt ngược thanh quản.<br>+ Hội chứng cận u: Ở thể rải rác, hội chứng Cushing do tiết ACTH lạc chỗ là biểu hiện nội tiết thường gặp nhất, xuất hiện ở khoảng 15–20% trường hợp. Hiếm hơn có thể gặp to đầu chi do GHRH lạc chỗ, hội chứng tiết ADH không thích hợp (SIADH) hoặc tăng calci máu do PTHrP. TNET liên quan MEN1 thường không có biểu hiện nội tiết chức năng.<br>+ Di căn: Di căn hạch vùng có thể gặp ở tới 50% carcinoid điển hình tại thời điểm phát hiện. Di căn xa thường gặp ở xương, phổi hoặc gan; các cơ quan khác cũng có thể bị ảnh hưởng.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ CT có tiêm thuốc cản quang là phương tiện chính: khối trung thất trước thường lớn, dạng thùy múi, bờ không đều, tỷ trọng mô mềm và ngấm thuốc không đồng nhất; có thể hoại tử, xuất huyết hoặc vôi hóa.<br>+ Đánh giá xâm lấn tại chỗ ở mô mỡ trung thất, màng ngoài tim, mạch máu lớn, phổi, màng phổi và thành ngực. Bao quanh hoặc làm biến dạng mạch gợi ý xâm lấn; mất mặt phẳng mỡ đơn thuần không đủ để kết luận.<br>+ CT và PET đánh giá hạch trung thất, nốt màng phổi/màng tim và di căn xa. Sau phẫu thuật, CT giúp phát hiện tái phát tại chỗ.<br>+ MRI bổ trợ khi cần đánh giá thành phần nang hoặc hoại tử và mức độ xâm lấn tại chỗ tinh tế.</p>
+<p><span class="c-xanh">– Phân biệt: </span>U tuyến ức xâm lấn (invasive thymoma): thường có bờ rõ và ngấm thuốc tương đối đồng nhất hơn; thể độ cao vẫn có thể hoại tử, xâm lấn và chồng lấp hình ảnh với u thần kinh nội tiết tuyến ức.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_bjr.20150341.g001.jpg"><img src="u-tuyen-uc_anh/2015_11_bjr.20150341.g001.jpg" alt="" width="740" height="690" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_bjr.20150341.g002.jpg"><img src="u-tuyen-uc_anh/2015_11_bjr.20150341.g002.jpg" alt="" width="647" height="625" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_gr1.jpeg"><img src="u-tuyen-uc_anh/2015_11_gr1.jpeg" alt="" width="300" height="663" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_jrcr-14-1-1f1.jpg"><img src="u-tuyen-uc_anh/2015_11_jrcr-14-1-1f1.jpg" alt="" width="730" height="525" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_920510.png"><img src="u-tuyen-uc_anh/2015_11_920510.png" alt="" width="545" height="419" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/20171201_134009_xray.vn_.png"><img src="u-tuyen-uc_anh/20171201_134009_xray.vn_.png" alt="" width="1200" height="1347" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/1-20.png"><img src="u-tuyen-uc_anh/1-20.png" alt="" width="1200" height="744" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2-21.png"><img src="u-tuyen-uc_anh/2-21.png" alt="" width="1200" height="804" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/3-17.png"><img src="u-tuyen-uc_anh/3-17.png" alt="" width="1200" height="900" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/4-10.png"><img src="u-tuyen-uc_anh/4-10.png" alt="" width="1200" height="744" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/5-8.png"><img src="u-tuyen-uc_anh/5-8.png" alt="" width="1200" height="804" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/6-2.png"><img src="u-tuyen-uc_anh/6-2.png" alt="" width="1200" height="888" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-17.jpeg"><img src="u-tuyen-uc_anh/2015_11_1-17.jpeg" alt="" width="1005" height="1005" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-18.jpeg"><img src="u-tuyen-uc_anh/2015_11_2-18.jpeg" alt="" width="985" height="991" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-16.jpeg"><img src="u-tuyen-uc_anh/2015_11_3-16.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_4-16.jpeg"><img src="u-tuyen-uc_anh/2015_11_4-16.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_5-15.jpeg"><img src="u-tuyen-uc_anh/2015_11_5-15.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_6-3.jpeg"><img src="u-tuyen-uc_anh/2015_11_6-3.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_0.png"><img src="u-tuyen-uc_anh/2015_11_0.png" alt="" width="710" height="657" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-3.png"><img src="u-tuyen-uc_anh/2015_11_1-3.png" alt="" width="710" height="657" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-3.png"><img src="u-tuyen-uc_anh/2015_11_2-3.png" alt="" width="556" height="680" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-3.png"><img src="u-tuyen-uc_anh/2015_11_3-3.png" alt="" width="540" height="599" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_4-2.png"><img src="u-tuyen-uc_anh/2015_11_4-2.png" alt="" width="1371" height="444" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_1-34-scaled.jpg"><img src="u-tuyen-uc_anh/2015_11_1-34-scaled.jpg" alt="" width="1600" height="1338" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_2-32.jpg"><img src="u-tuyen-uc_anh/2015_11_2-32.jpg" alt="" width="512" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_3-33.jpg"><img src="u-tuyen-uc_anh/2015_11_3-33.jpg" alt="" width="512" height="446" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_4-27.jpg"><img src="u-tuyen-uc_anh/2015_11_4-27.jpg" alt="" width="512" height="512" loading="lazy" decoding="async"></a></div>
+<h3 id="7-di-can-tuyen-uc">7. Di căn tuyến ức</h3>
+<p><span class="c-xanh">– Di căn tuyến ức (thymic metastasis)</span> là tổn thương thứ phát hiếm gặp, có hình ảnh không đặc hiệu và có thể kèm di căn hạch trung thất.</p>
+<p><span class="c-xanh">– Khối u nguyên phát:</span> Các nguồn đã ghi nhận gồm ung thư phổi, ung thư vú, ung thư buồng trứng, đại tràng, dạ dày, tuyến tiền liệt, tinh hoàn và tuyến giáp.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ CT có thể thấy một hoặc nhiều nốt/khối mô mềm trong tuyến ức; hình ảnh không đủ đặc hiệu để phân biệt chắc chắn với u nguyên phát tuyến ức.<br>+ Tiền sử ung thư ngoài lồng ngực, hạch trung thất và các ổ di căn ở cơ quan khác hỗ trợ chẩn đoán di căn; cần đánh giá toàn bộ bệnh cảnh vì hình ảnh đơn độc không xác định được nguồn gốc tổn thương.</p>
+<figure><a class="o-anh" href="u-tuyen-uc_anh/095131fig27.jpeg"><img src="u-tuyen-uc_anh/095131fig27.jpeg" alt="" width="1600" height="1250" loading="lazy" decoding="async"></a></figure>
+<h3 id="8-lymphoma">8. Lymphoma</h3>
+<p><span class="c-xanh">– U lympho trung thất (mediastinal lymphoma)</span> là nhóm bệnh ác tính của hệ lympho, có thể phát sinh ở tuyến ức hoặc hạch trung thất, hoặc là biểu hiện của bệnh hệ thống.</p>
+<p><span class="c-xanh">– Dịch tễ:</span><br>+ U lympho là nguyên nhân ác tính thường gặp nhất của khối trung thất trước ở trẻ em; phân bố thể bệnh thay đổi theo tuổi.<br>+ U lympho Hodgkin, đặc biệt thể xơ hóa dạng nốt, thường gặp ở thanh thiếu niên và người trẻ; u lympho nguyên bào lympho T thường gặp ở trẻ em và thanh thiếu niên, còn u lympho tế bào B lớn trung thất nguyên phát thường gặp ở người trẻ.</p>
+<p><span class="c-xanh">– Phân loại:</span><br>+ Các thể trung thất quan trọng gồm u lympho Hodgkin kinh điển (classical Hodgkin lymphoma), u lympho nguyên bào lympho T (T-lymphoblastic lymphoma, T-LBL) và u lympho tế bào B lớn trung thất nguyên phát (primary mediastinal large B-cell lymphoma, PMBCL).<br>+ Tế bào Reed–Sternberg là đặc điểm mô bệnh học của u lympho Hodgkin kinh điển; u lympho không Hodgkin gồm nhiều thể có nguồn gốc dòng B hoặc T.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng: </span>Khối trung thất lớn có thể gây ho, khó thở, đau ngực, hội chứng tĩnh mạch chủ trên hoặc tràn dịch màng phổi, màng tim; triệu chứng toàn thân có thể gồm sốt, vã mồ hôi đêm và sụt cân.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Trên CT, thường gặp khối mô mềm lớn hoặc nhiều hạch kết đám ở trung thất trước; tổn thương có thể tương đối đồng nhất, lan qua các nhóm hạch liên tiếp và kèm hạch cổ thấp, thượng đòn hoặc hạch ở vị trí khác.<br>+ U lympho Hodgkin thường tương đối đồng nhất; khối lớn và u lympho tế bào B lớn lan tỏa có thể ngấm thuốc không đồng nhất do xuất huyết, hoại tử hoặc thoái hóa nang; các vùng hoại tử thường giảm đậm độ và ngấm thuốc kém hoặc không ngấm. Kiểu ngấm thuốc thay đổi theo thể bệnh và không đặc hiệu để xác định lymphoma<br>+ Khối lớn có thể chèn ép hoặc bao quanh khí quản, mạch máu lớn; cần đánh giá xâm lấn cấu trúc lân cận và tràn dịch màng phổi, màng tim.<br>+ Ở trẻ em mắc Hodgkin, tuyến ức có thể tăng kích thước do tăng sản phản ứng; thâm nhiễm lymphoma thực sự vào tuyến ức ít gặp hơn (Mallick và cs., 2020).<br>+ Hoại tử hoặc thoái hóa nang có thể gặp ở khối lớn, thể bệnh tiến triển nhanh hoặc sau điều trị; vôi hóa hiếm trước điều trị nhưng có thể xuất hiện sau hóa trị hoặc xạ trị (Azour và cs., 2020).</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Tuyến ức to ở người bệnh Hodgkin không đồng nghĩa với thâm nhiễm lymphoma; có thể là tăng sản phản ứng. Vôi hóa sau điều trị cũng không tự xác định bệnh còn hoạt động hay tái phát.<br>+ Khối lớn có thể gây chèn ép đường thở hoặc mạch máu trung thất; cần nêu rõ mức độ chèn ép để hỗ trợ lập kế hoạch thủ thuật an toàn.</p>
+<p><span class="c-xanh">– Tiên lượng:</span> U lympho Hodgkin thường có tiên lượng thuận lợi với điều trị hiện nay; tiên lượng lymphoma không Hodgkin thay đổi theo thể bệnh, giai đoạn, khối lượng u và đáp ứng điều trị.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Q1.jpg"><img src="u-tuyen-uc_anh/2015_11_Q1.jpg" alt="" width="837" height="725" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Q2.jpg"><img src="u-tuyen-uc_anh/2015_11_Q2.jpg" alt="" width="568" height="691" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Bild1-1.jpg"><img src="u-tuyen-uc_anh/2015_11_Bild1-1.jpg" alt="" width="1470" height="688" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Bild2-1.jpg"><img src="u-tuyen-uc_anh/2015_11_Bild2-1.jpg" alt="" width="1349" height="751" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_Screenshot-2022-05-05-001808.jpg"><img src="u-tuyen-uc_anh/2015_11_Screenshot-2022-05-05-001808.jpg" alt="" width="781" height="830" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_761964.jpg"><img src="u-tuyen-uc_anh/2015_11_761964.jpg" alt="" width="1114" height="861" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_510078.jpg"><img src="u-tuyen-uc_anh/2015_11_510078.jpg" alt="" width="960" height="655" loading="lazy" decoding="async"></a><a class="o-anh" href="u-tuyen-uc_anh/2015_11_707752.png"><img src="u-tuyen-uc_anh/2015_11_707752.png" alt="" width="1278" height="356" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Khối u trung thất trước – PGS.TS Nguyễn Công Minh</em></span><br><span class="c-xanh"><em>* Malignant Ectopic Thymoma in the Neck – Jung Im Jung<br><span class="c-xanh">* </span>CT and MRI findings of thymic carcinoid – Aya Shimamoto, MD, Kazuto Ashizawa, MD, Yasuo Kido, MD<br><span class="c-xanh">* </span></em><em>The Thymus: A Comprehensive Review – Mizuki Nishino, MD, </em></span><span class="c-xanh"><em>Simon K. Ashiku, MD</em></span><br><span class="c-xanh"><em>* </em></span><span class="c-xanh"><em>Primary neuroendocrine carcinoma of the thymus – Gajanan S. Gaude, Virupakshi Hattiholi<br><span class="c-xanh">* </span></em><em>Role of Imaging in the Diagnosis, Staging, and Treatment of Thymoma – Marcelo F. K. Benveniste, MD, Melissa L. Rosado-de-Christenson, MD<br>* Clinical and Radiologic Review of the Normal and Abnormal Thymus: Pearls and Pitfalls – Farbod Nasseri, MD, and Farzin Eftekhari, MD<br>* IASLC/ITMIG Staging System and Lymph Node Map for Thymic Epithelial Neoplasms – Brett W. Carter, MD, Marcelo F. Benveniste, MD<br>* Thoracic Imaging Pulmonary and Cardiovascular Radiology – W. Richard Webb, Charles B. Higgins<br>* A diagnostic approach to the mediastinal masses – Sergi Juanpere<br>* Large mediastinal masses – etiology, imaging findings, differential diagnosis – V. Urban<br>* Imaging findings of fat containing mediastinal lesions – H. Maki<br>* Spectrum of imaging findings in anterior mediastinal masses – N. Cañete, P. Ortuño Muro, G. Sanchez, S. Juanpere, M. Teixidor Viñas, S. Pedraza; Girona/ES<br>* Anterior mediastinum: anatomy and masses – know the normal to find the pathology – B. M. Araujo<br>* Mediastinal masses: A Systematic Approach to Differential Diagnosis – S. ABU ARIF, V. Helbo Jensen; Herning/DK<br>* Anterior mediastinal masses: more than the 4 T’s – A. Alcázar Peral<br>* A schematic approach to mediastinal masses – F. D’alessandro<br>* Enlightening the forgotten organ: PET-CT findings on thymic lesions – C. Silva<br>* Mediastinal masses in children: how helpful is CT in determining their nature? – G. Lembarki, K. Chbani, S. Salam, L. OUZIDANE; Casablanca/MA<br>* Thymic lesions: a pictorial review – P. D. S. Freitas, S. F. Alves, J. D. Santos, P. Santos; Lisboa/PT<br>* Lesions of the anterior mediastinum: radiologic appearance and histologic diagnostic correlation after percutaneous needle biopsy – R. D. T. Mesquita<br>* CT and MRI findings of thymic carcinoid – Aya Shimamoto, MD<br>* I know it is a thymic lesion. But what more can I say about it? – G. Lembarki, M. D. O. Amriss, N. Moussali, M. P. N. El Benna; Casablanca/MA<br>* The essential of the thymus in CT evaluation: normal and pathological findings – A. Selea<br>* Thymus: dynamic organ, the little unknown – V. Taboada Rodriguez, A. C. Caldera Díaz, A. Tilve Gómez, A. Rojas Jiménez, B. Suárez Arfenoni, M. C. Prado Monzo; Vigo/ES<br>* The thymus: A pictorial review of thymic pathology – D. J. Conces, S. Rissing, P. J. Loehrer; Indianapolis, IN/US<br>* Thymus: a journey through normal and pathological imaging manifestations – L. H. C. B. Samouco<br>* Radiologic review of the thymus – D. C. Carvalho, F. L. Ferreira, S. C. Dias, A. J. B. S. Madureira<br>* Mediastinal Masses in Children – Shashi H. Ranganath, Edward Y. Lee, Ricardo Restrepo<br></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

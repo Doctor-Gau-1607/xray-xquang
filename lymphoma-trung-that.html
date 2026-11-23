@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lymphoma Trung Thất</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>Lymphoma Trung Thất</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/lymphoma-trung-that/" target="_blank" rel="noopener">Xray.vn — xray.vn/lymphoma-trung-that</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– U lympho trung thất (mediastinal lymphoma):</span><br>+ Là nhóm bệnh ác tính của tế bào lympho, có thể khởi phát tại trung thất hoặc là biểu hiện thứ phát của bệnh lympho ác tính toàn thân.<br>+ Một số tổng quan ước tính u lympho chiếm khoảng 50% các khối trung thất ở trẻ em và khoảng 12% các khối u trung thất ở người lớn; tỷ lệ thay đổi theo quần thể và tiêu chí phân loại.<br>+ U lympho thường gặp ở trung thất trước, nhưng hạch bệnh có thể xuất hiện ở bất kỳ khoang trung thất nào.</p>
+<p><span class="c-xanh">– Phân loại:</span><br>+ U lympho Hodgkin (Hodgkin lymphoma) thường gặp ở người trẻ; thể xơ nốt (nodular sclerosis) thường liên quan đến khối hạch trung thất trước.<br>+ U lympho không Hodgkin (non-Hodgkin lymphoma) gồm nhiều thể bệnh; u lympho nguyên bào lympho T (T-lymphoblastic lymphoma) thường gặp ở trẻ em và thanh thiếu niên.<br>+ U lympho tế bào B lớn trung thất nguyên phát (primary mediastinal large B-cell lymphoma, PMBCL) thường gặp ở nữ trẻ, thường biểu hiện bằng khối lớn trung thất trước và có thể tiến triển nhanh.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span><br>+ Triệu chứng phụ thuộc thể bệnh, vị trí và mức độ chèn ép; người bệnh có thể không có triệu chứng hoặc biểu hiện ho, khó thở, đau ngực. Không có ngưỡng đường kính ngang lồng ngực được chuẩn hóa để xác định thời điểm xuất hiện triệu chứng.<br>+ Khối lớn có thể chèn ép đường thở hoặc tĩnh mạch chủ trên; cần lưu ý nguy cơ chèn ép đường thở ở trẻ em.<br>+ Triệu chứng B gồm sốt không rõ nguyên nhân trên 38,3 °C, đổ mồ hôi đêm đầm đìa và sụt trên 10% trọng lượng cơ thể trong 6 tháng; hậu tố A/B trong phân giai đoạn Lugano chỉ áp dụng cho u lympho Hodgkin.<br>+ Sốt chu kỳ Pel-Ebstein và đau hạch sau uống rượu hiếm gặp, được mô tả trong u lympho Hodgkin nhưng không đặc hiệu cho chẩn đoán.</p>
+<h2 id="ii-giai-phau">II. Giải phẫu</h2>
+<h3 id="1-phan-chia-trung-that">1. Phân chia trung thất</h3>
+<p>– Trung thất là khoang giải phẫu nằm giữa hai lá phổi, được giới hạn phía trước bởi mặt sau xương ức, phía sau bởi mặt trước cột sống và đầu sau xương sườn, hai bên là màng phổi trung thất, giới hạn trên là lỗ cổ ngực của lồng ngực, giới hạn dưới là phần giữa cơ hoành.</p>
+<p><strong><span class="c-xanh">* Phân chia theo phẫu thuật (Thomas. W. Shields)</span></strong><br>– Trung thất trước: giới hạn phía trước bởi xương ức và phía sau bởi các mạch máu lớn và màng ngoài tim.<br>– Trung thất giữa: giới hạn giữa trung thất trước và sau.<br>– Trung thất sau: được giới hạn phía trước bởi thành sau khí phế quản và mặt sau của màng ngoài tim, giới hạn phía sau bởi thân các đốt sống ngực.<br>– Ngoài tính theo mặt phẳng trên-dưới, trung thất được chia thành 3 tầng trên, giữa, dưới bởi 2 mặt phẳng ngang: mặt tiếp giáp với quai động mạch chủ và mặt đi qua chỗ phân đôi của khí quản.</p>
+<figure><a class="o-anh" href="lymphoma-trung-that_anh/2017-07-25_18-33-02-e1646035096549.png"><img src="lymphoma-trung-that_anh/2017-07-25_18-33-02-e1646035096549.png" alt="" width="1241" height="617" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<p><strong><span class="c-xanh">* Phân chia theo giải phẫu</span></strong><br>– Trung thất trên: thuộc phần trên mặt phẳng đi ngang qua khe gian đốt sống ngực T4-T5 ở phía sau và góc giữa cán – thân xương ức ở phía trước.<br>– Trung thất trước: khoang nằm dưới mặt phẳng kể trên, giữa phía trước màng ngoài tim và mặt sau xương ức.<br>– Trung thất giữa: khoang chứa màng ngoài tim và tim.<br>– Trung thất sau: khoang nằm dưới mặt phẳng kể trên, sau màng ngoài tim và trước thân các đốt sống ngực.</p>
+<figure><a class="o-anh" href="lymphoma-trung-that_anh/123-3-e1646035143298.png"><img src="lymphoma-trung-that_anh/123-3-e1646035143298.png" alt="" width="1225" height="560" loading="lazy" decoding="async"></a></figure>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_09_1-235.jpg"><img src="lymphoma-trung-that_anh/2015_09_1-235.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_09_2-231.jpg"><img src="lymphoma-trung-that_anh/2015_09_2-231.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_09_3-220.jpg"><img src="lymphoma-trung-that_anh/2015_09_3-220.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_09_4-198.jpg"><img src="lymphoma-trung-that_anh/2015_09_4-198.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_09_5-152.jpg"><img src="lymphoma-trung-that_anh/2015_09_5-152.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_09_6-43.jpg"><img src="lymphoma-trung-that_anh/2015_09_6-43.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_09_7-25.jpg"><img src="lymphoma-trung-that_anh/2015_09_7-25.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_09_8-19.jpg"><img src="lymphoma-trung-that_anh/2015_09_8-19.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_09_9-1.jpg"><img src="lymphoma-trung-that_anh/2015_09_9-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_09_10-1.jpg"><img src="lymphoma-trung-that_anh/2015_09_10-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Phân chia ITMIG (International Thymic Malignancy Interest Group)</span></strong></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_Screenshot-2021-05-30-231338.png"><img src="lymphoma-trung-that_anh/2015_11_Screenshot-2021-05-30-231338.png" alt="" width="900" height="792" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_08_1-914.jpeg"><img src="lymphoma-trung-that_anh/2015_08_1-914.jpeg" alt="" width="787" height="787" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_08_2-915.jpeg"><img src="lymphoma-trung-that_anh/2015_08_2-915.jpeg" alt="" width="786" height="787" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_08_3-898.jpeg"><img src="lymphoma-trung-that_anh/2015_08_3-898.jpeg" alt="" width="787" height="786" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_08_4-835.jpeg"><img src="lymphoma-trung-that_anh/2015_08_4-835.jpeg" alt="" width="786" height="786" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Khoang trước mạch máu:</span><br>+ Giới hạn phía trước bởi xương ức và phía sau bởi các mạch máu lớn và màng ngoài tim.<br>+ Thành phần: tuyến ức, tổ chức mỡ, hạch bạch huyết, tĩnh mạch cánh tay đầu.<br>+ Bệnh lý thường gặp: bệnh lý tuyến ức, u tế bào mầm, lymphoma, di căn hạch, bướu giáp thòng.</p>
+<p><span class="c-xanh">– Khoang tạng:<br></span>+ Giới hạn phía trước là khoang trước mạch máu, giới hạn phía sau bởi đường thẳng về phía sau cột sống, cách bờ trước cột sống 1cm.<br>+ Thành phần: tim, tĩnh mạch chủ trên, động mạch chủ, động mạch phổi, ống ngực, khí phế quản, thực quản, hạch bạch huyết.<br>+ Bệnh lý thường gặp: bệnh lý tim và mạch máu lớn, bệnh lý khí quản, bệnh lý thực quản, nang đôi (nang màng tim, nang phế quản), bệnh lý hạch.</p>
+<p><span class="c-xanh">– Khoang cạnh cột sống:</span><br>+ Giới hạn phía trước bởi khoang tạng.<br>+ Thành phần: cột sống ngực, mô mềm cạnh cột sống.<br>+ Bệnh lý thường gặp: khối u nguồn gốc thần kinh, nhiễm trùng cột sống, chấn thương cột sống, tạo máu ngoài tủy.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-17.jpg"><img src="lymphoma-trung-that_anh/2015_11_1-17.jpg" alt="" width="748" height="568" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-16.jpg"><img src="lymphoma-trung-that_anh/2015_11_2-16.jpg" alt="" width="742" height="556" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-16.jpg"><img src="lymphoma-trung-that_anh/2015_11_3-16.jpg" alt="" width="742" height="556" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4-13.jpg"><img src="lymphoma-trung-that_anh/2015_11_4-13.jpg" alt="" width="740" height="556" loading="lazy" decoding="async"></a></div>
+<h3 id="2-khoi-u-trung-that">2. Khối u trung thất</h3>
+<figure><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-6.png"><img src="lymphoma-trung-that_anh/2015_11_1-6.png" alt="" width="1600" height="900" loading="lazy" decoding="async"></a></figure>
+<h3 id="3-dac-diem-lam-sang">3. Đặc điểm lâm sàng</h3>
+<p>– Triệu chứng phụ thuộc vào vị trí, kích thước và mức độ chèn ép hoặc xâm lấn; cả khối lành tính lẫn ác tính đều có thể không triệu chứng hoặc gây chèn ép tĩnh mạch chủ trên, đường thở, thần kinh hay các tạng trung thất.</p>
+<p><span class="c-xanh">* Hội chứng chèn ép tĩnh mạch chủ trên</span><br>+ Biểu hiện thường gồm phù mặt, mi mắt, cổ và hai chi trên; tĩnh mạch cổ nổi, tuần hoàn bàng hệ thành ngực; có thể kèm sung huyết hoặc tím mặt, ù tai, chóng mặt và khó thở.<br>+ Nguyên nhân gồm khối u ác tính như ung thư phổi, u lympho, u tuyến ức, u tế bào mầm; huyết khối liên quan catheter hoặc thiết bị nội mạch; ít gặp hơn là xơ hóa trung thất hay khối lành tính.<br>+ Cạm bẫy: Không thấy khối trung thất rõ trên X-quang không loại trừ tắc nghẽn tĩnh mạch chủ trên; cần nghĩ đến huyết khối hoặc xơ hóa trung thất.</p>
+<p><span class="c-xanh">* Triệu chứng chèn ép đường hô hấp</span><br>+ Có thể gây ho, khó thở, thở rít hoặc khò khè; thở rít gợi ý hẹp đường thở trung tâm, đôi khi trẻ nhỏ có ho ông ổng.<br>+ Khối trung thất trước lớn ở trẻ em có thể gây suy hô hấp; cần lưu ý nguy cơ nặng lên khi nằm ngửa hoặc khi an thần, gây mê.</p>
+<p><span class="c-xanh">* Liệt dây thần kinh quặt ngược trái</span><br>+ Có thể gây khàn tiếng, giọng yếu hoặc giọng đôi; nội soi thanh quản giúp xác định giảm hoặc mất vận động dây thanh cùng bên.<br>+ Cạm bẫy: Dấu hiệu này gợi ý tổn thương dọc đường đi của dây thần kinh, đặc biệt vùng cửa sổ chủ-phổi; không định khu riêng vào trung thất giữa.</p>
+<p><span class="c-xanh">* Liệt thần kinh hoành</span><br>+ X-quang ngực có thể thấy vòm hoành bên liệt nâng cao; dấu hiệu này không đặc hiệu.<br>+ Đánh giá vận động cơ hoành bằng siêu âm hoặc chiếu tăng sáng với nghiệm pháp hít nhanh (sniff test); bên liệt có thể giảm vận động hoặc di chuyển nghịch thường lên trên khi hít vào.<br>+ Mức độ khó thở phụ thuộc phạm vi liệt và dự trữ hô hấp; thường nặng hơn khi liệt hai bên hoặc có bệnh phổi nền. Khối u trung thất hay ung thư phổi có thể chèn ép hoặc xâm lấn dây thần kinh.</p>
+<p><span class="c-xanh">* Các dấu hiệu khác của bệnh lý trung thất</span><br>+ Nuốt khó có thể do chèn ép hoặc xâm lấn thực quản, thường gặp khi tổn thương ở khoang tạng hoặc cạnh cột sống; lựa chọn chụp thực quản cản quang hay nội soi tùy nguyên nhân nghi ngờ.<br>+ Đau sau xương ức có thể do chèn ép hoặc xâm lấn, nhưng không đặc hiệu.<br>+ Tổn thương đường giao cảm cổ-ngực có thể gây hội chứng Horner với sụp mi nhẹ, co đồng tử và giảm tiết mồ hôi nửa mặt; khối trung thất sau lan qua lỗ liên hợp có thể chèn ép tủy sống.<br>+ Chèn ép tim hoặc mạch máu lớn có thể gây rối loạn huyết động; chèn ép động mạch phổi có thể cản trở dòng máu.<br>+ Chèn ép hoặc xâm lấn ống ngực có thể gây tràn dưỡng chấp màng phổi.</p>
+<h2 id="iii-chan-doan-x-quang">III. Chẩn đoán x-quang</h2>
+<p><span class="c-xanh">– Dấu hiệu khối choán chỗ trung thất trước:</span><br>+ Khối trung thất thường không có phế quản chứa khí và tạo góc tù với nhu mô phổi; các dấu hiệu này gợi nguồn gốc trung thất nhưng không định khu riêng khoang trước.<br>+ Trên phim nghiêng, xóa khoảng sáng sau xương ức (retrosternal clear space); trên phim thẳng, mất hoặc đẩy lệch đường nối trước (anterior junction line) gợi vị trí trung thất trước.<br>+ Dấu hiệu cổ-ngực (cervicothoracic sign): bờ trên không rõ khi khối trước lan lên vùng cổ; bờ trên còn rõ phía trên xương đòn gợi khối sau.<br>+ Các dấu hiệu X-quang giúp định khu sơ bộ; CLVT xác định chính xác vị trí và mức độ liên quan với cấu trúc lân cận.</p>
+<p><span class="c-xanh">– Dấu hiệu xóa bờ (silhouette sign):</span><br>+ Xảy ra khi đám mờ có đậm độ tương tự cấu trúc tiếp giáp và tiếp xúc trực tiếp, làm mất bờ phân cách.<br>+ Xóa bờ tim hoặc góc tâm hoành gợi khối tiếp xúc với cấu trúc đó; riêng dấu xóa góc tâm hoành không xác định chắc khoang trung thất.<br>+ Tùy vị trí, khối có thể xóa bờ hoặc đè đẩy động mạch chủ; hướng đè đẩy thay đổi và không đặc hiệu cho khối trung thất trước.</p>
+<p><span class="c-xanh">– Dấu hiệu che phủ rốn phổi (hilum overlay sign):</span><br>+ Mạch máu rốn phổi vẫn thấy xuyên qua đám mờ cho thấy khối không xuất phát từ rốn phổi.<br>+ Dấu hiệu thường gợi ý khối nằm trước rốn phổi nhưng không tự xác định chắc khoang; cần phối hợp phim nghiêng hoặc CLVT.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_633126.jpg"><img src="lymphoma-trung-that_anh/2015_11_633126.jpg" alt="" width="854" height="676" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_633127.jpg"><img src="lymphoma-trung-that_anh/2015_11_633127.jpg" alt="" width="559" height="574" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_633128.jpg"><img src="lymphoma-trung-that_anh/2015_11_633128.jpg" alt="" width="811" height="476" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_633129.jpg"><img src="lymphoma-trung-that_anh/2015_11_633129.jpg" alt="" width="877" height="306" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-19.jpg"><img src="lymphoma-trung-that_anh/2015_11_1-19.jpg" alt="" width="1024" height="975" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-28.jpeg"><img src="lymphoma-trung-that_anh/2015_11_2-28.jpeg" alt="" width="965" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-26.jpeg"><img src="lymphoma-trung-that_anh/2015_11_3-26.jpeg" alt="" width="1024" height="967" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_604be2115dfa9f342985a74aef656b_jumbo.jpeg"><img src="lymphoma-trung-that_anh/2015_11_604be2115dfa9f342985a74aef656b_jumbo.jpeg" alt="" width="1011" height="1008" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_40247db622dd83a84b1a9b71859bca_jumbo.jpg"><img src="lymphoma-trung-that_anh/2015_11_40247db622dd83a84b1a9b71859bca_jumbo.jpg" alt="" width="910" height="1013" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_Anonymize.Seq1_.Ser1_.Img1_jumbo.jpeg"><img src="lymphoma-trung-that_anh/2015_11_Anonymize.Seq1_.Ser1_.Img1_jumbo.jpeg" alt="" width="871" height="810" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_CXRcombo-1024x580-1.jpg"><img src="lymphoma-trung-that_anh/2015_11_CXRcombo-1024x580-1.jpg" alt="" width="1024" height="580" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_f20323f512463f20fb68336c0d7d42_jumbo.jpg"><img src="lymphoma-trung-that_anh/2015_11_f20323f512463f20fb68336c0d7d42_jumbo.jpg" alt="" width="908" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-1.webp"><img src="lymphoma-trung-that_anh/2015_11_1-1.webp" alt="" width="862" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-1.webp"><img src="lymphoma-trung-that_anh/2015_11_2-1.webp" alt="" width="866" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_lymphoma-88.jpg"><img src="lymphoma-trung-that_anh/2015_11_lymphoma-88.jpg" alt="" width="1442" height="1474" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_lymphoma-88-1.jpg"><img src="lymphoma-trung-that_anh/2015_11_lymphoma-88-1.jpg" alt="" width="1522" height="1179" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_lymphoma-88-2.jpg"><img src="lymphoma-trung-that_anh/2015_11_lymphoma-88-2.jpg" alt="" width="1522" height="1182" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_lymphoma-88-3.jpg"><img src="lymphoma-trung-that_anh/2015_11_lymphoma-88-3.jpg" alt="" width="1522" height="1186" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_lymphoma-88-4.jpg"><img src="lymphoma-trung-that_anh/2015_11_lymphoma-88-4.jpg" alt="" width="1522" height="1186" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_images_03_11_7027_11a.jpeg"><img src="lymphoma-trung-that_anh/2015_11_images_03_11_7027_11a.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_images_03_11_7027_11b.jpeg"><img src="lymphoma-trung-that_anh/2015_11_images_03_11_7027_11b.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_images_03_11_7027_11c.jpeg"><img src="lymphoma-trung-that_anh/2015_11_images_03_11_7027_11c.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_images_03_11_7027_12a.jpeg"><img src="lymphoma-trung-that_anh/2015_11_images_03_11_7027_12a.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_images_03_11_7027_12b.jpeg"><img src="lymphoma-trung-that_anh/2015_11_images_03_11_7027_12b.jpeg" alt="" width="1487" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_images_03_11_7027_12c.jpeg"><img src="lymphoma-trung-that_anh/2015_11_images_03_11_7027_12c.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-clvt">IV. Chẩn đoán CLVT</h2>
+<p><span class="c-xanh">– Ngưỡng kích thước hạch:</span><br>+ Đường kính trục ngắn trên 10 mm thường được xem là hạch to ở nhiều vùng trung thất; ngưỡng phụ thuộc vị trí hạch và bối cảnh lâm sàng.<br>+ Kích thước đơn thuần không xác định bản chất hạch: hạch chưa to vẫn có thể bị lymphoma, còn hạch to có thể do viêm hoặc phản ứng.<br>+ Theo Lugano 2014, hạch cần có đường kính trục dài trên 1,5 cm mới đủ điều kiện làm tổn thương đo được trên CT; đây là tiêu chí đo tổn thương, không phải ngưỡng chẩn đoán lymphoma.</p>
+<p><span class="c-xanh">– Đặc điểm khối u lympho:</span><br>+ Thường là khối mô mềm hoặc các hạch hợp lưu, bờ nhiều thùy và tỷ trọng tương đối đồng nhất; tổn thương có thể lan qua nhiều khoang trung thất.<br>+ Khối lớn hoặc tiến triển nhanh có thể không đồng nhất, có ổ giảm tỷ trọng do hoại tử hoặc thoái hóa nang; đây không phải dấu hiệu bắt buộc.<br>+ Khối có thể bao quanh hoặc đè đẩy mạch máu lớn và khí phế quản; lòng mạch đôi khi vẫn thông dù mạch bị bao quanh. Lớp mỡ còn bảo tồn gợi ý chưa có xâm lấn đại thể, nhưng mất lớp mỡ đơn thuần không đủ khẳng định xâm lấn.<br>+ Sau tiêm thuốc cản quang, mức độ ngấm thuốc thay đổi, thường tương đối đồng nhất nếu chưa hoại tử và không có kiểu ngấm thuốc đặc hiệu.<br>+ CLVT không phân biệt chắc chắn lymphoma Hodgkin với lymphoma không Hodgkin; cần mô bệnh học để xác định thể bệnh.</p>
+<p><span class="c-xanh">– Vôi hóa:</span><br>+ Vôi hóa trước điều trị hiếm; cần cân nhắc nguyên nhân khác như di chứng bệnh dạng hạt, nhưng dấu hiệu này không loại trừ lymphoma.<br>+ Vôi hóa có thể xuất hiện sau điều trị, kể cả trong lymphoma Hodgkin; không dùng riêng dấu hiệu này để kết luận còn bệnh hoạt động hay đã lui bệnh.</p>
+<p><span class="c-xanh">– Vai trò PET-CT theo Lugano 2014:</span><br>+ PET-CT được ưu tiên để đánh giá giai đoạn và đáp ứng điều trị ở các thể lymphoma bắt FDG; với thể bắt FDG kém hoặc không bắt FDG, CT vẫn giữ vai trò quan trọng.<br>+ Điểm 1–3 trên thang Deauville thường tương ứng đáp ứng chuyển hóa hoàn toàn, dù có thể còn khối tồn dư trên CT; ý nghĩa điểm 3 phụ thuộc thời điểm đánh giá và phác đồ.<br>+ Ở giữa điều trị, điểm 4–5 nhưng mức bắt FDG giảm so với ban đầu có thể biểu thị đáp ứng chuyển hóa một phần; cần diễn giải theo thời điểm và diễn biến so với hình ảnh nền.<br>+ Cuối điều trị, điểm 4–5 gợi ý còn hoạt tính chuyển hóa nhưng có thể dương tính giả do viêm. Nếu cân nhắc điều trị thêm dựa trên bắt FDG tồn dư, nên xem xét sinh thiết hoặc chụp theo dõi.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-16.jpg"><img src="lymphoma-trung-that_anh/2015_11_1-16.jpg" alt="" width="1313" height="1077" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-15.jpg"><img src="lymphoma-trung-that_anh/2015_11_2-15.jpg" alt="" width="1585" height="593" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_a.jpg"><img src="lymphoma-trung-that_anh/2015_11_a.jpg" alt="" width="1158" height="650" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_868626.jpg"><img src="lymphoma-trung-that_anh/2015_11_868626.jpg" alt="" width="1030" height="585" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_Screenshot-2022-09-13-203142.jpg"><img src="lymphoma-trung-that_anh/2015_11_Screenshot-2022-09-13-203142.jpg" alt="" width="883" height="304" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_13244_2012_201_Fig22_HTML.jpg"><img src="lymphoma-trung-that_anh/2015_11_13244_2012_201_Fig22_HTML.jpg" alt="" width="709" height="404" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_645897.jpg"><img src="lymphoma-trung-that_anh/2015_11_645897.jpg" alt="" width="1510" height="677" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_images_03_11_7027_13.jpeg"><img src="lymphoma-trung-that_anh/2015_11_images_03_11_7027_13.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Loại Hodgkin</span></strong><br>– Phân bố hạch:<br>+ Hạch có thể xuất hiện thành các nhóm riêng rẽ hoặc hợp lưu thành khối; xu hướng lan liên tục từ nhóm hạch này sang nhóm kế cận.<br>+ So với Hodgkin, lymphoma không Hodgkin thường có kiểu lan đa dạng hơn, có thể không liên tục hoặc ngoài hạch; đây không phải dấu hiệu phân biệt tuyệt đối và thay đổi theo thể bệnh.<br>+ Vị trí thường gặp là các nhóm hạch trung thất trước-trên, đặc biệt vùng trước mạch máu và cạnh khí quản.<br>– Vôi hóa trước và sau điều trị:<br>+ Vôi hóa trước điều trị rất hiếm, được ghi nhận ở dưới 1% trong các loạt bệnh được tổng quan; nếu có, cần cân nhắc nguyên nhân khác nhưng không loại trừ Hodgkin.<br>+ Vôi hóa hạch sau điều trị được báo cáo ở khoảng 2–8% bệnh nhân; không đồng nghĩa còn lymphoma hoạt động, cần đối chiếu PET-CT và diễn biến theo thời gian.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/g07ma08g03a.jpeg"><img src="lymphoma-trung-that_anh/g07ma08g03a.jpeg" alt="" width="1600" height="1575" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/g07ma08g03b.jpeg"><img src="lymphoma-trung-that_anh/g07ma08g03b.jpeg" alt="" width="1600" height="1374" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/871cfdb2c7b2ad95c037b1933f7aad_jumbo.jpg"><img src="lymphoma-trung-that_anh/871cfdb2c7b2ad95c037b1933f7aad_jumbo.jpg" alt="" width="931" height="909" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/6472bde05e68caaca32c363431b392_big_gallery.jpg"><img src="lymphoma-trung-that_anh/6472bde05e68caaca32c363431b392_big_gallery.jpg" alt="" width="630" height="506" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/604be2115dfa9f342985a74aef656b_jumbo.jpeg"><img src="lymphoma-trung-that_anh/604be2115dfa9f342985a74aef656b_jumbo.jpeg" alt="" width="923" height="962" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/6b05907d0245a5db7eace0754f1d87_big_gallery.jpeg"><img src="lymphoma-trung-that_anh/6b05907d0245a5db7eace0754f1d87_big_gallery.jpeg" alt="" width="630" height="542" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2aeee533d087e761d34b0f68d7ad38_jumbo.jpeg"><img src="lymphoma-trung-that_anh/2aeee533d087e761d34b0f68d7ad38_jumbo.jpeg" alt="" width="959" height="684" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/f7a65f55f5ab22a8ff9d617bb078c6_jumbo.jpeg"><img src="lymphoma-trung-that_anh/f7a65f55f5ab22a8ff9d617bb078c6_jumbo.jpeg" alt="" width="1024" height="967" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/ea543c29b4be56056ba6d5538e78ba_big_gallery.jpeg"><img src="lymphoma-trung-that_anh/ea543c29b4be56056ba6d5538e78ba_big_gallery.jpeg" alt="" width="630" height="433" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_Screenshot-2022-09-13-202859.jpg"><img src="lymphoma-trung-that_anh/2015_11_Screenshot-2022-09-13-202859.jpg" alt="" width="890" height="339" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Tổn thương phối hợp ngoài hạch:</span><br>+ Tổn thương nhu mô phổi được báo cáo ở khoảng 12% người bệnh Hodgkin trong một số tổng quan; thường đi kèm hạch trung thất hoặc rốn phổi và hay do lan trực tiếp từ hạch.<br>+ Hình thái thường gặp gồm đông đặc dạng khối hoặc một hay nhiều nốt; có thể gặp dày quanh bó mạch-phế quản hoặc mô kẽ.<br>+ Tạo hang ít gặp; nếu có, cần phân biệt với nhiễm trùng và các nguyên nhân khác.<br>+ Tràn dịch màng phổi được báo cáo ở 7–30% tùy quần thể; trong đoàn hệ COG gồm 1.423 người bệnh dưới 22 tuổi, tỷ lệ là 15%. Tràn dịch thường đi kèm hạch trung thất lớn, có thể do cản trở dẫn lưu bạch huyết và không tự chứng minh xâm lấn màng phổi.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_PA-chest.jpg"><img src="lymphoma-trung-that_anh/2015_11_PA-chest.jpg" alt="" width="1600" height="1611" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_lateral-chest.jpg"><img src="lymphoma-trung-that_anh/2015_11_lateral-chest.jpg" alt="" width="1567" height="2254" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_Bild15.jpg"><img src="lymphoma-trung-that_anh/2015_11_Bild15.jpg" alt="" width="1478" height="872" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_Bild25.jpg"><img src="lymphoma-trung-that_anh/2015_11_Bild25.jpg" alt="" width="636" height="427" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_Screenshot-2022-09-13-202931.jpg"><img src="lymphoma-trung-that_anh/2015_11_Screenshot-2022-09-13-202931.jpg" alt="" width="891" height="303" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_Screenshot-2022-09-13-203235.jpg"><img src="lymphoma-trung-that_anh/2015_11_Screenshot-2022-09-13-203235.jpg" alt="" width="886" height="307" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2018_11_1-72.jpeg"><img src="lymphoma-trung-that_anh/2018_11_1-72.jpeg" alt="" width="797" height="826" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2018_11_2-73.jpeg"><img src="lymphoma-trung-that_anh/2018_11_2-73.jpeg" alt="" width="723" height="855" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2018_11_3-69.jpeg"><img src="lymphoma-trung-that_anh/2018_11_3-69.jpeg" alt="" width="630" height="413" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2018_11_4-65.jpeg"><img src="lymphoma-trung-that_anh/2018_11_4-65.jpeg" alt="" width="630" height="406" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2018_11_5-44.jpeg"><img src="lymphoma-trung-that_anh/2018_11_5-44.jpeg" alt="" width="582" height="573" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-2.jpeg"><img src="lymphoma-trung-that_anh/2015_11_1-2.jpeg" alt="" width="827" height="789" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_88c01bdd37801c5c696aa8f3733204_jumbo.jpeg"><img src="lymphoma-trung-that_anh/2015_11_88c01bdd37801c5c696aa8f3733204_jumbo.jpeg" alt="" width="793" height="866" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-2.jpeg"><img src="lymphoma-trung-that_anh/2015_11_2-2.jpeg" alt="" width="622" height="408" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-1.jpeg"><img src="lymphoma-trung-that_anh/2015_11_3-1.jpeg" alt="" width="620" height="417" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4-2.jpeg"><img src="lymphoma-trung-that_anh/2015_11_4-2.jpeg" alt="" width="621" height="416" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1.jpg"><img src="lymphoma-trung-that_anh/2015_11_1.jpg" alt="" width="856" height="970" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2.jpg"><img src="lymphoma-trung-that_anh/2015_11_2.jpg" alt="" width="630" height="401" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3.jpg"><img src="lymphoma-trung-that_anh/2015_11_3.jpg" alt="" width="630" height="409" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4.jpg"><img src="lymphoma-trung-that_anh/2015_11_4.jpg" alt="" width="630" height="420" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_5.jpg"><img src="lymphoma-trung-that_anh/2015_11_5.jpg" alt="" width="630" height="421" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-3.jpeg"><img src="lymphoma-trung-that_anh/2015_11_1-3.jpeg" alt="" width="1004" height="942" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-3.jpeg"><img src="lymphoma-trung-that_anh/2015_11_2-3.jpeg" alt="" width="931" height="967" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-2.jpeg"><img src="lymphoma-trung-that_anh/2015_11_3-2.jpeg" alt="" width="602" height="404" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4-3.jpeg"><img src="lymphoma-trung-that_anh/2015_11_4-3.jpeg" alt="" width="600" height="412" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_5-2.jpeg"><img src="lymphoma-trung-that_anh/2015_11_5-2.jpeg" alt="" width="599" height="423" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-5.jpeg"><img src="lymphoma-trung-that_anh/2015_11_1-5.jpeg" alt="" width="1006" height="986" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-5.jpeg"><img src="lymphoma-trung-that_anh/2015_11_2-5.jpeg" alt="" width="757" height="954" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-4.jpeg"><img src="lymphoma-trung-that_anh/2015_11_3-4.jpeg" alt="" width="630" height="508" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4-5.jpeg"><img src="lymphoma-trung-that_anh/2015_11_4-5.jpeg" alt="" width="630" height="530" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_5-4.jpeg"><img src="lymphoma-trung-that_anh/2015_11_5-4.jpeg" alt="" width="630" height="539" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-9.jpeg"><img src="lymphoma-trung-that_anh/2015_11_1-9.jpeg" alt="" width="1024" height="967" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-9.jpeg"><img src="lymphoma-trung-that_anh/2015_11_2-9.jpeg" alt="" width="630" height="405" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-8.jpeg"><img src="lymphoma-trung-that_anh/2015_11_3-8.jpeg" alt="" width="630" height="410" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4-9.jpeg"><img src="lymphoma-trung-that_anh/2015_11_4-9.jpeg" alt="" width="630" height="422" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_5-8.jpeg"><img src="lymphoma-trung-that_anh/2015_11_5-8.jpeg" alt="" width="630" height="438" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 7:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-2.png"><img src="lymphoma-trung-that_anh/2015_11_1-2.png" alt="" width="1600" height="767" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-2.png"><img src="lymphoma-trung-that_anh/2015_11_2-2.png" alt="" width="1600" height="769" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-2.png"><img src="lymphoma-trung-that_anh/2015_11_3-2.png" alt="" width="1600" height="713" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 8:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-14.jpeg"><img src="lymphoma-trung-that_anh/2015_11_1-14.jpeg" alt="" width="977" height="1016" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-14.jpeg"><img src="lymphoma-trung-that_anh/2015_11_2-14.jpeg" alt="" width="630" height="457" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-13.jpeg"><img src="lymphoma-trung-that_anh/2015_11_3-13.jpeg" alt="" width="630" height="460" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4-13.jpeg"><img src="lymphoma-trung-that_anh/2015_11_4-13.jpeg" alt="" width="630" height="481" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_5-12.jpeg"><img src="lymphoma-trung-that_anh/2015_11_5-12.jpeg" alt="" width="630" height="597" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 9:</span></p>
+<div class="bo-anh cot-6"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-4.png"><img src="lymphoma-trung-that_anh/2015_11_1-4.png" alt="" width="951" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-8.jpg"><img src="lymphoma-trung-that_anh/2015_11_2-8.jpg" alt="" width="603" height="369" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-8.jpg"><img src="lymphoma-trung-that_anh/2015_11_3-8.jpg" alt="" width="604" height="386" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4-5.jpg"><img src="lymphoma-trung-that_anh/2015_11_4-5.jpg" alt="" width="602" height="392" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_5-5.jpg"><img src="lymphoma-trung-that_anh/2015_11_5-5.jpg" alt="" width="601" height="395" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_6-3.jpg"><img src="lymphoma-trung-that_anh/2015_11_6-3.jpg" alt="" width="603" height="397" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 10:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-8.jpg"><img src="lymphoma-trung-that_anh/2015_11_1-8.jpg" alt="" width="1477" height="1503" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-16.jpeg"><img src="lymphoma-trung-that_anh/2015_11_2-16.jpeg" alt="" width="519" height="465" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-14.jpeg"><img src="lymphoma-trung-that_anh/2015_11_3-14.jpeg" alt="" width="519" height="441" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4-14.jpeg"><img src="lymphoma-trung-that_anh/2015_11_4-14.jpeg" alt="" width="519" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_5-13.jpeg"><img src="lymphoma-trung-that_anh/2015_11_5-13.jpeg" alt="" width="519" height="459" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_6-1.jpeg"><img src="lymphoma-trung-that_anh/2015_11_6-1.jpeg" alt="" width="519" height="466" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_7-1.jpeg"><img src="lymphoma-trung-that_anh/2015_11_7-1.jpeg" alt="" width="520" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_8.jpeg"><img src="lymphoma-trung-that_anh/2015_11_8.jpeg" alt="" width="520" height="476" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_9.jpeg"><img src="lymphoma-trung-that_anh/2015_11_9.jpeg" alt="" width="520" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_10.jpeg"><img src="lymphoma-trung-that_anh/2015_11_10.jpeg" alt="" width="517" height="520" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 11:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-2.webp"><img src="lymphoma-trung-that_anh/2015_11_1-2.webp" alt="" width="966" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-2.webp"><img src="lymphoma-trung-that_anh/2015_11_2-2.webp" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-1.webp"><img src="lymphoma-trung-that_anh/2015_11_3-1.webp" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4-2.webp"><img src="lymphoma-trung-that_anh/2015_11_4-2.webp" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_5-1.webp"><img src="lymphoma-trung-that_anh/2015_11_5-1.webp" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_6-1.webp"><img src="lymphoma-trung-that_anh/2015_11_6-1.webp" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 12:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-13.png"><img src="lymphoma-trung-that_anh/2015_11_1-13.png" alt="" width="405" height="483" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-9.png"><img src="lymphoma-trung-that_anh/2015_11_2-9.png" alt="" width="373" height="302" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-9.png"><img src="lymphoma-trung-that_anh/2015_11_3-9.png" alt="" width="289" height="302" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4-7.png"><img src="lymphoma-trung-that_anh/2015_11_4-7.png" alt="" width="266" height="540" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Loại không Hodgkin:</strong><br></span></p>
+<p><span class="c-xanh">– Phân bố hạch:</span><br>+ Hạch trung thất và rốn phổi có thể to ở nhiều nhóm, hợp lưu thành khối hoặc biểu hiện nổi trội ở một nhóm hạch.<br>+ Phân bố không liên tục và tổn thương ngoài hạch gặp ở một số thể, nhưng không phải dấu hiệu phân biệt tuyệt đối với Hodgkin.<br>+ Không có khoang ưu thế chung cho toàn bộ lymphoma không Hodgkin: u lympho tế bào B lớn trung thất nguyên phát và u lympho nguyên bào lympho T thường ở trung thất trước; các thể thứ phát có thể ảnh hưởng nhiều nhóm hạch, kể cả vùng rốn phổi, cạnh cột sống hoặc tâm hoành.</p>
+<p><span class="c-xanh">– Tổn thương ngoài hạch ở ngực:</span><br>+ Tổn thương phổi có thể xuất hiện cả khi không có hạch trung thất; đường lan có thể trực tiếp, theo bạch huyết hoặc đường máu.<br>+ Hình thái phổi đa dạng, gồm nốt hoặc khối đơn độc hay nhiều ổ, đông đặc dạng khối và dày quanh bó mạch-phế quản hoặc mô kẽ; kính mờ ít gặp.<br>+ Tổn thương có thể tạo hang, nhất là trong u lympho tế bào B lớn lan tỏa (diffuse large B-cell lymphoma, DLBCL).<br>+ Tổn thương màng phổi có thể biểu hiện bằng tràn dịch, dày dạng nốt hoặc khối màng phổi.</p>
+<p><span class="c-xanh">– Cạm bẫy khi nhận định:</span><br>+ Nốt hoặc khối phổi tạo hang, đông đặc không đặc hiệu; cần phân biệt với lao, nhiễm nấm, di căn và viêm mạch. Hạch đi kèm có thể gợi ý lymphoma nhưng không thay thế chẩn đoán mô bệnh học.<br>+ Khối hoặc dày màng phổi dạng nốt có thể giống u trung biểu mô hoặc di căn; cần đánh giá phân bố hạch và tổn thương ngoài lồng ngực, đồng thời xác nhận mô bệnh học khi kết quả ảnh hưởng xử trí.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lymphoma-trung-that_anh/1-svcs-04.jpg"><img src="lymphoma-trung-that_anh/1-svcs-04.jpg" alt="" width="800" height="405" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/a509797a90df2b_9-NHL.jpg"><img src="lymphoma-trung-that_anh/a509797a90df2b_9-NHL.jpg" alt="" width="765" height="655" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/a509797a90e9f1_10-NHL.jpg"><img src="lymphoma-trung-that_anh/a509797a90e9f1_10-NHL.jpg" alt="" width="671" height="648" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_815898.png"><img src="lymphoma-trung-that_anh/2015_11_815898.png" alt="" width="933" height="738" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_815896.png"><img src="lymphoma-trung-that_anh/2015_11_815896.png" alt="" width="1379" height="514" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_images_03_11_7027_29.jpeg"><img src="lymphoma-trung-that_anh/2015_11_images_03_11_7027_29.jpeg" alt="" width="1600" height="1273" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lymphoma-trung-that_anh/fd2df01fc01b51bbc738f6709f9dcc_jumbo.jpg"><img src="lymphoma-trung-that_anh/fd2df01fc01b51bbc738f6709f9dcc_jumbo.jpg" alt="" width="1024" height="986" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/6a7c9437347fdd1cd3bbaa856cc6e2_big_gallery.jpg"><img src="lymphoma-trung-that_anh/6a7c9437347fdd1cd3bbaa856cc6e2_big_gallery.jpg" alt="" width="630" height="527" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/6c8985b6a3c29fd6817b108076a678_big_gallery.jpg"><img src="lymphoma-trung-that_anh/6c8985b6a3c29fd6817b108076a678_big_gallery.jpg" alt="" width="630" height="544" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/7fc1228530cdf3b2d1afe425986cca_big_gallery.jpg"><img src="lymphoma-trung-that_anh/7fc1228530cdf3b2d1afe425986cca_big_gallery.jpg" alt="" width="621" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_images_large_rg.2021200180.fig4a.jpeg"><img src="lymphoma-trung-that_anh/2015_11_images_large_rg.2021200180.fig4a.jpeg" alt="" width="1487" height="1265" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_images_large_rg.2021200180.fig4b.jpeg"><img src="lymphoma-trung-that_anh/2015_11_images_large_rg.2021200180.fig4b.jpeg" alt="" width="1600" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_images_large_rg.2021200180.fig4c.jpeg"><img src="lymphoma-trung-that_anh/2015_11_images_large_rg.2021200180.fig4c.jpeg" alt="" width="1600" height="915" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Tổn thương phối hợp:</span></p>
+<p>+ Khối hạch do lymphoma có thể lan trực tiếp vào nhu mô phổi kế cận, biểu hiện bằng vùng đông đặc hoặc khối liên tục với hạch; dấu tiếp xúc đơn thuần hoặc mất lớp mỡ không đủ khẳng định xâm lấn.</p>
+<figure><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_F1.large_-15.jpg"><img src="lymphoma-trung-that_anh/2015_11_F1.large_-15.jpg" alt="" width="1600" height="683" loading="lazy" decoding="async"></a></figure>
+<p>+ Tràn dịch màng phổi có thể do chèn ép hoặc tắc nghẽn đường bạch huyết bởi hạch trung thất, hoặc do tổn thương màng phổi; dịch đơn thuần không khẳng định lymphoma đã xâm lấn màng phổi.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lymphoma-trung-that_anh/e59903c45178da78ae5ffc3a787c4c_jumbo-1.jpg"><img src="lymphoma-trung-that_anh/e59903c45178da78ae5ffc3a787c4c_jumbo-1.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/32ca2f266135f16c237af52af32bf7_big_gallery.jpg"><img src="lymphoma-trung-that_anh/32ca2f266135f16c237af52af32bf7_big_gallery.jpg" alt="" width="630" height="557" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/63568c692e403123a8679c2225a89c_big_gallery.jpg"><img src="lymphoma-trung-that_anh/63568c692e403123a8679c2225a89c_big_gallery.jpg" alt="" width="630" height="577" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/video_rtg.jpg"><img src="lymphoma-trung-that_anh/video_rtg.jpg" alt="" width="768" height="788" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/video_ct.jpg"><img src="lymphoma-trung-that_anh/video_ct.jpg" alt="" width="812" height="551" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/8d6e9064346aae301f1cfa5901c4ce_jumbo.jpeg"><img src="lymphoma-trung-that_anh/8d6e9064346aae301f1cfa5901c4ce_jumbo.jpeg" alt="" width="910" height="840" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/a624c40ba4292fb69fb5b088e1b954_big_gallery.jpeg"><img src="lymphoma-trung-that_anh/a624c40ba4292fb69fb5b088e1b954_big_gallery.jpeg" alt="" width="599" height="426" loading="lazy" decoding="async"></a></div>
+<p>+ Tràn dịch màng tim có thể do xâm lấn màng tim hoặc cản trở dẫn lưu bạch huyết; dịch đơn thuần không xác định được nguyên nhân. Dày hoặc nốt màng tim, nhất là khi liên tục với khối u, gợi ý tổn thương màng tim; siêu âm tim đánh giá ảnh hưởng huyết động.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lymphoma-trung-that_anh/34990b76aa4590e0515f92fd4be0c0_jumbo.jpg"><img src="lymphoma-trung-that_anh/34990b76aa4590e0515f92fd4be0c0_jumbo.jpg" alt="" width="649" height="717" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/0c6f178e5a112480f95eae500c53fb_big_gallery.jpg"><img src="lymphoma-trung-that_anh/0c6f178e5a112480f95eae500c53fb_big_gallery.jpg" alt="" width="630" height="541" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/c4139d906f52d0aa22cb68ab3256bb_big_gallery.jpg"><img src="lymphoma-trung-that_anh/c4139d906f52d0aa22cb68ab3256bb_big_gallery.jpg" alt="" width="630" height="543" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/50b87ce17d2d40472cca36eeb4872a_big_gallery.jpg"><img src="lymphoma-trung-that_anh/50b87ce17d2d40472cca36eeb4872a_big_gallery.jpg" alt="" width="630" height="526" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/f81cb53ea08ece05847568b0b2c97c_big_gallery.jpg"><img src="lymphoma-trung-that_anh/f81cb53ea08ece05847568b0b2c97c_big_gallery.jpg" alt="" width="630" height="515" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/0c9b87aa99d5ea2b18ef1ac296f139_big_gallery.jpg"><img src="lymphoma-trung-that_anh/0c9b87aa99d5ea2b18ef1ac296f139_big_gallery.jpg" alt="" width="630" height="516" loading="lazy" decoding="async"></a></div>
+<p>+ Xâm lấn thành ngực có thể lan vào mỡ ngoài màng phổi, cơ hoặc xương sườn, xương ức; CLVT có thể thấy khối mô mềm ngoài màng phổi, thâm nhiễm cơ hoặc phá hủy xương. Mất lớp mỡ tiếp giáp đơn thuần chưa đủ khẳng định xâm lấn.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lymphoma-trung-that_anh/40247db622dd83a84b1a9b71859bca_jumbo.jpg"><img src="lymphoma-trung-that_anh/40247db622dd83a84b1a9b71859bca_jumbo.jpg" alt="" width="899" height="993" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/408efb0d14410a5557c39858c9c351_big_gallery.jpg"><img src="lymphoma-trung-that_anh/408efb0d14410a5557c39858c9c351_big_gallery.jpg" alt="" width="630" height="540" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/b02934a319bffe3567c9567d65be20_big_gallery.jpg"><img src="lymphoma-trung-that_anh/b02934a319bffe3567c9567d65be20_big_gallery.jpg" alt="" width="630" height="535" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/e34c684b75afffeeec668edffcba7e_big_gallery.jpg"><img src="lymphoma-trung-that_anh/e34c684b75afffeeec668edffcba7e_big_gallery.jpg" alt="" width="630" height="545" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/efc9bf30ef416c56355adadd7dda6f_big_gallery.jpg"><img src="lymphoma-trung-that_anh/efc9bf30ef416c56355adadd7dda6f_big_gallery.jpg" alt="" width="630" height="544" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2ad58a61ae551985a3e523c75acbb9_big_gallery.jpg"><img src="lymphoma-trung-that_anh/2ad58a61ae551985a3e523c75acbb9_big_gallery.jpg" alt="" width="630" height="505" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/d7b27a3a197432134cd16055e140b7_big_gallery.jpg"><img src="lymphoma-trung-that_anh/d7b27a3a197432134cd16055e140b7_big_gallery.jpg" alt="" width="608" height="489" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/5fe5a19dac62c894d1895dc3f9a31b_big_gallery.jpg"><img src="lymphoma-trung-that_anh/5fe5a19dac62c894d1895dc3f9a31b_big_gallery.jpg" alt="" width="630" height="540" loading="lazy" decoding="async"></a></div>
+<h2 id="v-phan-biet">V. Phân biệt</h2>
+<figure><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_bang_phan_biet_lymphoma_trung_that_v3-scaled.png"><img src="lymphoma-trung-that_anh/2015_11_bang_phan_biet_lymphoma_trung_that_v3-scaled.png" alt="" width="1600" height="900" loading="lazy" decoding="async"></a></figure>
+<h3 id="1-u-tuyen-uc">1. U tuyến ức</h3>
+<p><span class="c-xanh">– Lymphoma trung thất:</span> thường tạo khối mô mềm lớn, tương đối đồng nhất, có thể hợp lưu từ nhiều nhóm hạch và lan qua nhiều vùng trung thất. Ngoại lệ quan trọng là lymphoma tế bào B lớn trung thất nguyên phát (primary mediastinal large B-cell lymphoma, PMBCL), có thể biểu hiện bằng một khối lớn khu trú ở khoang trước mạch, giống u tuyến ức.</p>
+<p><span class="c-xanh">– U tuyến ức điển hình:</span> thường là khối đơn độc xuất phát từ giường tuyến ức ở khoang trước mạch, thường liên quan một thùy; bờ nhẵn hoặc thùy múi, khá rõ nét và có xu hướng đẩy các cấu trúc lân cận. Các đặc điểm này gợi ý nhưng không đặc hiệu.</p>
+<p><span class="c-xanh">– Liên quan mạch máu:</span> lymphoma có thể bao quanh các mạch lớn nhưng thường không xâm lấn thành mạch thực sự; lòng mạch có thể còn bảo tồn. U tuyến ức thường đẩy mạch, nhưng thể xâm lấn vẫn có thể làm biến dạng hoặc hẹp mạch. Chèn ép nặng cũng có thể xảy ra trong khối lymphoma lớn, nên dấu bao quanh mạch không đủ để kết luận lymphoma.</p>
+<p><span class="c-xanh">– Thành phần và ngấm thuốc:</span> phần lớn u tuyến ức ngấm thuốc tương đối đồng nhất; khoảng một phần ba ngấm không đồng nhất do xuất huyết, hoại tử hoặc thành phần nang. Vôi hóa có thể gặp ở u tuyến ức, dạng chấm, nốt, đường viền hoặc thô trong u; lymphoma chưa điều trị thường ít vôi hóa. Vôi hóa không phải dấu hiệu chẩn đoán tuyệt đối.</p>
+<p><span class="c-xanh">– Dấu hiệu xâm lấn và gợi ý lâm sàng:</span> u tuyến ức nguy cơ cao có thể xâm lấn mỡ trung thất, màng tim, phổi hoặc màng phổi; tổn thương dạng nốt màng phổi gợi ý gieo rắc trong khoang màng phổi. Mất lớp mỡ tiếp giáp đơn thuần chưa đủ khẳng định xâm lấn. Nhược cơ (myasthenia gravis) hỗ trợ hướng chẩn đoán u tuyến ức; tuổi trẻ và khối trước mạch lớn, phát triển nhanh có thể gợi ý PMBCL, nhưng không dấu hiệu nào có tính quyết định.</p>
+<p><span class="c-xanh">– Giới hạn và xác nhận chẩn đoán:</span> lymphoma và u tuyến ức có thể chồng lấp về hình dạng, ngấm thuốc và mức độ chuyển hóa; PET/CT không luôn phân biệt được hai loại. Khi nghi lymphoma, thường cần lấy mô để xác định mô bệnh học trước điều trị toàn thân. Nếu khối khu trú, có vẻ không xâm lấn và có thể cắt bỏ, hướng xử trí u tuyến ức có thể khác; quyết định sinh thiết trước mổ cần được cân nhắc trong hội chẩn đa chuyên khoa.</p>
+<figure><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_Bild4.png"><img src="lymphoma-trung-that_anh/2015_11_Bild4.png" alt="" width="1420" height="739" loading="lazy" decoding="async"></a></figure>
+<h3 id="2-u-te-bao-mam">2. U tế bào mầm</h3>
+<p><span class="c-xanh">* U quái lành tính</span><br>– Đặc điểm hình ảnh:<br>+ U quái trưởng thành (mature teratoma) thường nằm ở trung thất trước, giới hạn rõ, hình tròn hoặc thùy múi; có thể chứa phối hợp dịch, mỡ đại thể, mô mềm và vôi hóa.<br>+ Các loạt bệnh ghi nhận thành phần dịch khoảng 85–90%, mỡ 65–75% và vôi hóa khoảng 20–53%; các tỷ lệ dao động và không phải khối nào cũng có đủ thành phần.<br>+ Mức mỡ–dịch (fat–fluid level) hiếm gặp, được báo cáo khoảng 10% trong một số tài liệu nhưng rất gợi ý u quái; xương hoặc răng trong khối có giá trị chẩn đoán cao.<br>+ Sau tiêm, thành phần dịch và mỡ không ngấm; vách, mô mềm hoặc nốt đặc có thể ngấm thuốc.<br>– Cạm bẫy:<br>+ Thành dày không đều hoặc nốt đặc ngấm thuốc cần cân nhắc biến chứng viêm/vỡ, thành phần chưa trưởng thành hoặc biến đổi ác tính; hình ảnh đơn thuần không xác định được mô học.<br>+ Vỡ u vào khoang màng phổi hoặc màng tim có thể gây tràn dịch và tổn thương đông đặc phổi lân cận.</p>
+<p><span class="c-xanh">* U tế bào mầm ác tính</span><br>– U tinh bào trung thất (mediastinal seminoma) thường là khối lớn, thùy múi, giới hạn tương đối rõ và đồng nhất, ngấm thuốc nhẹ; hình ảnh có thể giống lymphoma. Hoại tử, xuất huyết, nang hóa và vôi hóa thường ít gặp hơn so với thể không tinh bào.<br>– U tế bào mầm không tinh bào (nonseminomatous germ cell tumor, NSGCT) thường không đồng nhất, bờ không đều, có thể có hoại tử, xuất huyết, nang hóa và xâm lấn cấu trúc lân cận. Mỡ có thể gặp, được báo cáo khoảng 40% trong một số loạt bệnh; trong u hỗn hợp, thành phần này có thể phản ánh mô quái phối hợp.<br>– Phân biệt:<br>+ AFP tăng gợi ý thành phần không tinh bào và chống lại chẩn đoán u tinh bào thuần túy; β-hCG có thể tăng ở cả hai nhóm, còn LDH ít đặc hiệu. Dấu ấn bình thường không loại trừ u tế bào mầm.<br>+ Bệnh thường gặp ở người trẻ, đặc biệt nam giới; cần đánh giá tinh hoàn khi xác định nguồn gốc u để loại trừ u sinh dục nguyên phát. Có thể có hạch vùng và di căn xa, thường gặp ở phổi, gan, xương hoặc não.<br>– Cạm bẫy: U tinh bào và lymphoma đều có thể tạo khối lớn, khá đồng nhất; lymphoma tế bào B lớn trung thất nguyên phát cũng có thể khu trú và hoại tử. Không dựa vào một dấu hiệu CT đơn lẻ để phân biệt; cần phối hợp vị trí, phân bố hạch, dấu ấn huyết thanh và mô bệnh học.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lymphoma-trung-that_anh/DSC_7844_Xray.vn_.jpg"><img src="lymphoma-trung-that_anh/DSC_7844_Xray.vn_.jpg" alt="" width="1200" height="1051" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/Mature-Teratoma-a3_Xray.vn_.jpg"><img src="lymphoma-trung-that_anh/Mature-Teratoma-a3_Xray.vn_.jpg" alt="" width="1200" height="553" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/Mature-Teratoma-3_Xray.vn_.jpg"><img src="lymphoma-trung-that_anh/Mature-Teratoma-3_Xray.vn_.jpg" alt="" width="1050" height="914" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/xray.vn-0681_Xray.vn_.jpg"><img src="lymphoma-trung-that_anh/xray.vn-0681_Xray.vn_.jpg" alt="" width="1200" height="832" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/image00750.jpeg"><img src="lymphoma-trung-that_anh/image00750.jpeg" alt="" width="988" height="693" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/125088fig02b.jpeg"><img src="lymphoma-trung-that_anh/125088fig02b.jpeg" alt="" width="1280" height="959" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/chapter28-f02.png"><img src="lymphoma-trung-that_anh/chapter28-f02.png" alt="" width="802" height="576" loading="lazy" decoding="async"></a></div>
+<h3 id="3-phinh-dm-chu-nguc">3. Phình ĐM chủ ngực</h3>
+<p><span class="c-xanh">– Phình động mạch chủ ngực (thoracic aortic aneurysm)</span> có thể làm rộng trung thất hoặc gây lồi, biến dạng bờ quai động mạch chủ trên X-quang. Tỷ lệ khoảng 80% được nêu trong một số tài liệu nhưng thay đổi theo vị trí, kích thước phình và kỹ thuật chụp; dấu hiệu này không đặc hiệu, phim bình thường cũng không loại trừ phình.<br>– CT mạch máu ngực thì động mạch giúp xác định bản chất và phạm vi tổn thương; đo đường kính ngoài thành vuông góc với trục trung tâm động mạch chủ. Túi phình liên tục với lòng động mạch, có thể kèm vôi hóa thành hoặc huyết khối bám thành; lymphoma thường là khối mô mềm ngoài lòng mạch, có thể đẩy hoặc bao quanh mạch nhưng không liên tục với lòng động mạch.<br>– Cạm bẫy: Ngưỡng bề rộng trung thất khoảng 7,4 cm không phải khoảng cách từ khí quản đến quai động mạch chủ hay tiêu chuẩn chẩn đoán phình; số đo này được khảo sát trên phim thẳng tư thế PA trong nghiên cứu bóc tách động mạch chủ cấp, và phụ thuộc tư thế chụp.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lymphoma-trung-that_anh/092d77e338e91b25dfa8c4e54523c4_jumbo.jpg"><img src="lymphoma-trung-that_anh/092d77e338e91b25dfa8c4e54523c4_jumbo.jpg" alt="" width="894" height="807" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/PA-chest1-1.jpg"><img src="lymphoma-trung-that_anh/PA-chest1-1.jpg" alt="Phồng ĐMC" width="1600" height="1535" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/7ace1cb7810bde34e1b2227177618c_jumbo.jpg"><img src="lymphoma-trung-that_anh/7ace1cb7810bde34e1b2227177618c_jumbo.jpg" alt="Phồng ĐMC" width="958" height="870" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/d2ccbe91d453916f76c9b96fc1acff_jumbo.jpg"><img src="lymphoma-trung-that_anh/d2ccbe91d453916f76c9b96fc1acff_jumbo.jpg" alt="Phồng ĐMC" width="907" height="823" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/e54c527fed54253f56fd82a391d923_jumbo.jpg"><img src="lymphoma-trung-that_anh/e54c527fed54253f56fd82a391d923_jumbo.jpg" alt="" width="905" height="827" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/fa120d1119a1b3ea07cd55464c1ff0_jumbo.jpeg"><img src="lymphoma-trung-that_anh/fa120d1119a1b3ea07cd55464c1ff0_jumbo.jpeg" alt="" width="833" height="891" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/transverseaaa.jpg"><img src="lymphoma-trung-that_anh/transverseaaa.jpg" alt="" width="886" height="866" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/c06cc6b16c255c0325651615421bac_jumbo.jpg"><img src="lymphoma-trung-that_anh/c06cc6b16c255c0325651615421bac_jumbo.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<h3 id="4-buou-giap-thong">4. Bướu giáp thòng</h3>
+<p><span class="c-xanh">– Bướu giáp thòng (substernal goiter)</span> thường là khối giới hạn rõ, liên tục với tuyến giáp vùng cổ và lan qua lối vào lồng ngực; dựng hình đa mặt phẳng giúp xác định sự liên tục này.<br>– Trên CT không tiêm, mô giáp thường tăng đậm độ so với cơ do chứa iod và ngấm thuốc mạnh sau tiêm. Hình ảnh có thể không đồng nhất khi có nang hóa, thoái hóa hoặc vôi hóa; khối có thể đẩy, làm lệch hoặc chèn ép khí quản.<br>– So với lymphoma, sự liên tục với tuyến giáp cổ, đậm độ cao trước tiêm và ngấm thuốc mạnh gợi ý bướu giáp thòng; lymphoma thường tạo khối mô mềm tách biệt với tuyến giáp, có thể đi kèm hạch ở nhiều nhóm và bao quanh các cấu trúc trung thất.<br>– Không thấy liên tục với tuyến giáp cổ không loại trừ mô giáp lạc chỗ trong trung thất.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_1-1.jpg"><img src="lymphoma-trung-that_anh/2015_11_1-1.jpg" alt="" width="898" height="925" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_2-1.jpg"><img src="lymphoma-trung-that_anh/2015_11_2-1.jpg" alt="" width="630" height="488" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_3-1.jpg"><img src="lymphoma-trung-that_anh/2015_11_3-1.jpg" alt="" width="630" height="529" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_4-1.jpg"><img src="lymphoma-trung-that_anh/2015_11_4-1.jpg" alt="" width="630" height="565" loading="lazy" decoding="async"></a><a class="o-anh" href="lymphoma-trung-that_anh/2015_11_5-1.jpg"><img src="lymphoma-trung-that_anh/2015_11_5-1.jpg" alt="" width="630" height="585" loading="lazy" decoding="async"></a></div>
+<h2 id="vi-tien-luong-dieu-tri">VI. Tiên lượng &amp; Điều trị</h2>
+<p><span class="c-xanh">– Tiên lượng:</span><br>+ Tiên lượng thay đổi rõ theo thể mô bệnh học; lymphoma Hodgkin thể cổ điển và lymphoma tế bào B lớn trung thất nguyên phát thường có khả năng chữa khỏi cao với điều trị hiện đại, nhưng không thể suy ra tiên lượng chỉ từ kích thước khối trung thất.<br>+ Các yếu tố tiên lượng gồm thể bệnh, giai đoạn Lugano, gánh nặng u hoặc khối lớn, triệu chứng B, tổn thương ngoài hạch, LDH, thể trạng, tuổi và bệnh đồng mắc; có thể dùng thang điểm IPS trong Hodgkin tiến xa và IPI trong lymphoma tế bào B ác tính.<br>+ Đáp ứng chuyển hóa trên PET-CT trong và cuối điều trị có giá trị tiên lượng quan trọng, nhưng cần diễn giải cùng thể bệnh, phác đồ và lâm sàng.</p>
+<p><span class="c-xanh">– Điều trị:</span><br>+ Phác đồ dựa trên mô bệnh học và dấu ấn miễn dịch, giai đoạn, nhóm nguy cơ, tuổi, bệnh đồng mắc và khả năng bảo tồn sinh sản; chuyên khoa huyết học lựa chọn theo hướng dẫn hiện hành, trong đó có ESMO 2025.<br>+ Lymphoma Hodgkin thể cổ điển: điều trị theo giai đoạn và nguy cơ, thường bằng hóa trị như ABVD/AVD hoặc phác đồ phối hợp thuốc kháng PD-1 hay kháng CD30; xạ trị vùng tổn thương được phối hợp hoặc cân nhắc chọn lọc. PET giữa điều trị có thể giúp điều chỉnh phác đồ theo quy trình áp dụng.<br>+ Lymphoma tế bào B lớn trung thất nguyên phát (primary mediastinal large B-cell lymphoma; PMBCL): điều trị toàn thân bằng hóa-miễn dịch trị liệu, thường dùng DA-EPOCH-R hoặc phác đồ dựa trên R-CHOP. Không mặc định xạ trị củng cố khi đạt đáp ứng chuyển hóa hoàn toàn; thử nghiệm ngẫu nhiên IELSG37 (2024) ủng hộ cân nhắc theo dõi không xạ trị ở nhóm bệnh nhân này.<br>+ Các lymphoma không Hodgkin khác cần điều trị theo đúng thể mô bệnh học; ví dụ lymphoma tế bào B lớn lan tỏa có thể dùng R-CHOP hoặc pola-R-CHP ở bệnh nhân phù hợp, còn lymphoma lymphoblastic dòng T thường dùng phác đồ kiểu bệnh bạch cầu cấp dòng lympho.<br>+ Bệnh kháng trị hoặc tái phát cần xác định lại thể bệnh, ưu tiên sinh thiết tổn thương nghi ngờ nếu khả thi; điều trị cứu vãn có thể gồm hóa-miễn dịch trị liệu, tự ghép tế bào gốc tạo máu ở bệnh nhân phù hợp, thuốc nhắm trúng đích hoặc liệu pháp tế bào CAR-T theo phân nhóm.</p>
+<p><span class="c-xanh">– Phẫu thuật:</span> Không cắt u để điều trị triệt căn; phẫu thuật chủ yếu lấy mô chẩn đoán hoặc xử trí biến chứng trong trường hợp chọn lọc.</p>
+<p><span class="c-xanh">– Vai trò hình ảnh trong điều trị:</span><br>+ PET-CT ban đầu làm mốc đánh giá phạm vi bệnh và đáp ứng; cần lưu đối chiếu với hình ảnh giữa/cuối điều trị, đồng thời hỗ trợ lập kế hoạch xạ trị khi có chỉ định.<br>+ PET-CT giữa điều trị chỉ thực hiện theo phác đồ có chiến lược thích ứng theo PET; PET-CT cuối điều trị dùng đánh giá đáp ứng theo Lugano/Deauville và hỗ trợ quyết định theo dõi, xạ trị hoặc khảo sát thêm.<br>+ Khối mô mềm tồn lưu trên CT không đồng nghĩa còn lymphoma hoạt động. Ở PMBCL, bắt FDG tồn lưu, nhất là Deauville 4, có thể không phản ánh bệnh còn sống; Deauville 5 đáng ngờ hơn nhưng không thay thế xác nhận mô học. Khi kết quả có thể làm đổi điều trị, cân nhắc sinh thiết hoặc chụp kiểm tra theo thời điểm phù hợp trước khi kết luận tái phát/kháng trị.</p>
+<p><span class="c-xanh">– Theo dõi:</span><br>+ Sau khi đạt đáp ứng chuyển hóa hoàn toàn và không có triệu chứng, không khuyến cáo PET-CT giám sát định kỳ thường quy; theo dõi lâm sàng và chỉ định hình ảnh khi có triệu chứng, dấu hiệu khám, xét nghiệm hoặc tổn thương tồn lưu cần đánh giá.<br>+ Theo dõi di chứng muộn tùy điều trị đã nhận, gồm độc tính tim-phổi, rối loạn chức năng tuyến giáp, suy giảm khả năng sinh sản và ung thư thứ phát; cân nhắc tư vấn bảo tồn sinh sản trước khi bắt đầu điều trị.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Mediastinal Lymhoma – Alain Rahmouni, MD, Marine Divine, MD, Eric Lepage, MD<br><span class="c-xanh">* </span></em><em>A Diagnostic Approach to Mediastinal Abnormalities – Camilla R. Whitten, MRCS, FRCR, Sameer Khan<br>* Mediastinal masses in children: how helpful is CT in determining their nature? – G. Lembarki, K. Chbani, S. Salam, L. OUZIDANE; Casablanca/MA|<br>* Anterior mediastinum: anatomy and masses – know the normal to find the pathology – B. M. Araujo, A. F. S. Simões, P. M. M. Lopes<br>* Spectrum of imaging findings in anterior mediastinal masses – N. Cañete, P. Ortuño Muro, G. Sanchez, S. Juanpere, M. Teixidor Viñas, S. Pedraza; Girona/ES<br>* The anterior mediastinal masses: diagnostic and etiological approach – A. TAOUFIQ; FES/MA<br>* Primary Mediastinal Large B-Cell Lymphoma: A Review for Radiologists – David Pfau, Daniel A. Smith, Rose Beck<br>* Cross sectional evaluation of Thoracic lyphoma – Young A Bae<br>* Primary Mediastinal Large B-Cell Lymphoma: A Review for Radiologists – David Pfau<br>* A diagnostic approach to the mediastinal masses – Sergi Juanpere<br>* Imaging mediastinal lesions in pediatrics : Beyond lymphomas – A. Parthasarathy, K. GUNASEKARAN ; Coimbatore/IN<br>* Patterns of nodal spread in thoracic malignancies – R. dos Santos, M. Duarte, J. Alpendre, J. Castaño, Z. Seabra, Marques; Lisbon/PT<br>* Lymphoma radio-pathologic correlation: What the radiologist needs to know – T. Bilhim, J. Lourenço, M. Costa Pereira, R. dos Santos, A. Cardoso, Z. Seabra; Lisbon/PT<br>* Thoracic lymphoma: Tackling the diagnostic dilemma – E. J. Goldstraw, H. Verma, N. Bharwani, S. Grubnic; London/UK<br>* A schematic approach to mediastinal masses – F. D’alessandro<br>* A diagnostic approach to the anterior mediastinal masses: Beyond the 4 T’s – R. Grippo<br>* Anatomo-radiological correlations of mediastinal masses in children – Z. Qechchar, R. Taoussi, D. LAOUDIYI, K. Chbani, S. Salam, L. OUZIDANE; Casablanca/MA<br>* Mediastinal Masses in Children – Shashi H. Ranganath, Edward Y. Lee, Ricardo Restrepo<br></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

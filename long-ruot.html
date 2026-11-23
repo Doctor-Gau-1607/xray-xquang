@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lồng Ruột</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · TIÊU HÓA</div>
+   <h1>Lồng Ruột</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/long-ruot/" target="_blank" rel="noopener">Xray.vn — xray.vn/long-ruot</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p>– Lồng ruột (Intussusception) là một cấp cứu bụng ngoại khoa thường gặp, do một đoạn ruột lộn lại và chui vào lòng của đoạn ruột kế cận, là nguyên nhân của tắc ruột cơ học mà cơ chế vừa do bít vừa do thắt.<br>– Lồng ruột có thể gặp ở bất cứ lứa tuổi nào, nh­ưng thường gặp ở trẻ dưới 2 tuổi (chiếm tới 80% các trường hợp lồng ruột), trong đó gặp nhiều nhất là ở lứa tuổi 4-9 tháng.<br>– Lồng ruột gặp ở bé trai nhiều hơn bé gái từ 2-4 lần.<br>– Bệnh ít gặp ở trẻ suy dinh dưỡng, đa số gặp ở trẻ béo tốt, bụ bẫm…<br>– Thường gặp mùa đông xuân, thường sau ỉa chảy, viêm đường hô hấp.<br>– Tần suất lồng ruột tái phát 10% sau tháo lồng, thường sau 48-72 giờ.</p>
+<figure><a class="o-anh" href="long-ruot_anh/2015_08_g06ma22c05x_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_g06ma22c05x_Xray.vn_.jpg" alt="Lồng ruột" width="1200" height="1076" loading="lazy" decoding="async"></a></figure>
+<h3 id="nguyen-nhan">* Nguyên nhân</h3>
+<p><span class="c-xanh"><strong>– Trẻ em: </strong></span>90% là vô căn, có thể liên quan liên quan đến hạch bạch huyết phì đại sau nhiễm trùng.<br>– <strong><span class="c-xanh">Trẻ sơ sinh và người lớn</span><br></strong>– Nguyên nhân được xác định ở 90% trường hợp người lớn (thường gặp u ác tính ở ruột già và lành tính ở ruột non).<br>– Khối u ác tính đường tiêu hóa: ung thư biểu mô đại tràng, di căn, lymphoma ruột non.<br>– Khối u lành tính: GIST, polyp ruột, u mỡ, u máu, u nhầy ruột thừa.<br>– Bẩm sinh: túi thừa Meckel, nang ruột đôi, tụy lạc chỗ.<br>– Viêm ruột<br>– Chấn thương tụ máu thành ruột.</p>
+<h3 id="phan-loai">* Phân loại</h3>
+<p><strong>– </strong>Hình thái lồng ruột được xác định bởi điểm khởi đầu của lồng ruột và vị trí ruột bị lồng.<br>– Lồng ruột hồi – đại tràng (ileocolic – 75%): điểm khởi đầu là đoạn cuối của hồi tràng, sau đó hồi tràng chui vào đại tràng. Van Bauhin ở nguyên tại chỗ (lồng ruột xuyên van), hoặc tạo nên đầu của khối lồng (lồng ruột hồi – manh – đại tràng).<br>– Lồng ruột hồi – hồi tràng đơn thuần: ít gặp (15%).<br>– Lồng ruột đại – đại tràng: rất ít gặp (&lt; 10%).<br>– Lồng ruột thừa vào manh tràng: rất hiếm gặp.<br>– Lồng ruột phức tạp: là sự kết hợp của các thể đã nêu trên.</p>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-chan-doan-sieu-am">II. Chẩn đoán siêu âm</h2>
+<h3 id="giai-phau-thanh-ruot">* Giải phẫu thành ruột</h3>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_images_large_05_13_11661_02a.jpeg"><img src="long-ruot_anh/2015_08_images_large_05_13_11661_02a.jpeg" alt="Thành ruột bình thường" width="1038" height="563" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_images_large_05_13_11661_02b.jpeg"><img src="long-ruot_anh/2015_08_images_large_05_13_11661_02b.jpeg" alt="1. Lớp niêm mạc nông tăng âm / 2. Lớp niêm mạc sâu giảm âm / 3. Lớp dưới niêm mạc tăng âm / 4. Lớp cơ giảm âm / 5. Lớp thanh mạc tăng âm" width="675" height="563" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_ruotnon.png"><img src="long-ruot_anh/2015_08_ruotnon.png" alt="1. Lớp niêm mạc nông tăng âm / 2. Lớp niêm mạc sâu giảm âm / 3. Lớp dưới niêm mạc tăng âm / 4. Lớp cơ giảm âm / 5. Lớp thanh mạc tăng âm" width="1557" height="496" loading="lazy" decoding="async"></a></div>
+<h3 id="tren-mat-cat-ngang">* Trên mặt cắt ngang</h3>
+<figure><a class="o-anh" href="long-ruot_anh/2015_08_311232.png"><img src="long-ruot_anh/2015_08_311232.png" alt="" width="696" height="427" loading="lazy" decoding="async"></a></figure>
+<p>– Trên mặt cắt ngang của siêu âm, khối lồng có hình thái rất thay đổi, chủ yếu do lượng mạc treo bị cuốn theo. Mạc treo bị cuốn theo không có ở đỉnh của khối lồng và tăng dần hướng tới đáy khối lồng (cổ). Ngược lại, lớp quặt ra của đoạn ruột bị lồng dày ở đỉnh hơn ở đáy.<br>– Lớp cắt ngang của siêu âm ở đỉnh cho thấy một vòng ngoài giảm âm với trung tâm giảm âm.<br>– Trong một số trường hợp, hình thái nhiều vòng đồng tâm có thể thấy ở gần đỉnh (Dấu hiệu bia bắn – target sign). Khi khảo sát siêu âm hướng tới đáy khối lồng, hình thái thay đổi dần do tăng lượng mạc treo ở trung tâm.<br>– Ở đáy khối lồng, kích thước của mạc treo lớn nhất; kết quả là một vòng ngoài giảm âm, trung tâm tăng âm hình liềm (the crescent-in-doughnut sign). Đường kính ngang khối lồng từ 2-4.5cm.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_902390.gif"><img src="long-ruot_anh/2015_08_902390.gif" alt="" width="795" height="354" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_badamgiak23-targetsign-2.jpg"><img src="long-ruot_anh/2015_08_badamgiak23-targetsign-2.jpg" alt="" width="1200" height="766" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_881920.jpg"><img src="long-ruot_anh/2015_08_881920.jpg" alt="" width="1391" height="773" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_images_large_12_19_22445_03a.jpeg"><img src="long-ruot_anh/2015_08_images_large_12_19_22445_03a.jpeg" alt="" width="675" height="610" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_DSC_0774_badamgiak23.jpg"><img src="long-ruot_anh/2015_08_DSC_0774_badamgiak23.jpg" alt="" width="1200" height="805" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_DSC_0765_badamgiak23.jpg"><img src="long-ruot_anh/2015_08_DSC_0765_badamgiak23.jpg" alt="" width="1200" height="847" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_DSC_0576_badamgiak23.jpg"><img src="long-ruot_anh/2015_08_DSC_0576_badamgiak23.jpg" alt="" width="1200" height="806" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_115111fig09a_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_115111fig09a_Xray.vn_.jpg" alt="" width="1200" height="1027" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="long-ruot_anh/2015_08_1-392.jpg"><img src="long-ruot_anh/2015_08_1-392.jpg" alt="" width="354" height="378" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-385.jpg"><img src="long-ruot_anh/2015_08_2-385.jpg" alt="" width="354" height="378" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-372.jpg"><img src="long-ruot_anh/2015_08_3-372.jpg" alt="" width="354" height="378" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-333.jpg"><img src="long-ruot_anh/2015_08_4-333.jpg" alt="" width="343" height="421" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_f4.jpg"><img src="long-ruot_anh/2015_08_f4.jpg" alt="" width="354" height="378" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="long-ruot_anh/2015_08_lbox_43408-Afbeelding1.jpg"><img src="long-ruot_anh/2015_08_lbox_43408-Afbeelding1.jpg" alt="" width="378" height="366" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_43409-Afbeelding2.jpg"><img src="long-ruot_anh/2015_08_lbox_43409-Afbeelding2.jpg" alt="" width="378" height="366" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_43410-Afbeelding3.jpg"><img src="long-ruot_anh/2015_08_lbox_43410-Afbeelding3.jpg" alt="" width="378" height="366" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_43413-Afbeelding6.jpg"><img src="long-ruot_anh/2015_08_lbox_43413-Afbeelding6.jpg" alt="" width="378" height="365" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_43411-Afbeelding4.jpg"><img src="long-ruot_anh/2015_08_lbox_43411-Afbeelding4.jpg" alt="" width="378" height="366" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="long-ruot_anh/2015_08_lbox_61619-Afbeelding1.jpg"><img src="long-ruot_anh/2015_08_lbox_61619-Afbeelding1.jpg" alt="" width="472" height="357" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_61621-Afbeelding3.jpg"><img src="long-ruot_anh/2015_08_lbox_61621-Afbeelding3.jpg" alt="" width="472" height="361" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_61622-Afbeelding4.jpg"><img src="long-ruot_anh/2015_08_lbox_61622-Afbeelding4.jpg" alt="" width="472" height="363" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_61620-Afbeelding2.jpg"><img src="long-ruot_anh/2015_08_lbox_61620-Afbeelding2.jpg" alt="" width="473" height="354" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_61623-Afbeelding5.jpg"><img src="long-ruot_anh/2015_08_lbox_61623-Afbeelding5.jpg" alt="" width="644" height="768" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="long-ruot_anh/2015_08_1-667.jpg"><img src="long-ruot_anh/2015_08_1-667.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-668.jpg"><img src="long-ruot_anh/2015_08_2-668.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-638.jpg"><img src="long-ruot_anh/2015_08_3-638.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-570.jpg"><img src="long-ruot_anh/2015_08_4-570.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-361.jpg"><img src="long-ruot_anh/2015_08_5-361.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_1-668.jpg"><img src="long-ruot_anh/2015_08_1-668.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-669.jpg"><img src="long-ruot_anh/2015_08_2-669.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-639.jpg"><img src="long-ruot_anh/2015_08_3-639.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-571.jpg"><img src="long-ruot_anh/2015_08_4-571.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_1-669.jpg"><img src="long-ruot_anh/2015_08_1-669.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-670.jpg"><img src="long-ruot_anh/2015_08_2-670.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-640.jpg"><img src="long-ruot_anh/2015_08_3-640.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-572.jpg"><img src="long-ruot_anh/2015_08_4-572.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 7:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="long-ruot_anh/2015_08_1-836.jpeg"><img src="long-ruot_anh/2015_08_1-836.jpeg" alt="" width="630" height="481" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-829.jpeg"><img src="long-ruot_anh/2015_08_2-829.jpeg" alt="" width="630" height="481" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-814.jpeg"><img src="long-ruot_anh/2015_08_3-814.jpeg" alt="" width="630" height="481" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-762.jpeg"><img src="long-ruot_anh/2015_08_4-762.jpeg" alt="" width="630" height="481" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-617.jpeg"><img src="long-ruot_anh/2015_08_5-617.jpeg" alt="" width="630" height="481" loading="lazy" decoding="async"></a></div>
+<h3 id="tren-mat-cat-doc">* Trên mặt cắt dọc</h3>
+<p>– Trên mặt cắt dọc của siêu âm, sự sắp xếp của mạc treo có thể thấy ở một hoặc cả hai phía lớp trung tâm của đoạn ruột bị lồng. Nếu đoạn giữa của khối lồng được ghi ảnh trên mặt cắt dọc, người ta thấy 3 dải giảm âm song song bị phân cách bởi 2 dải tăng âm. Dải giảm âm ngoài tương ứng với lớp quặt ra bị phù của đoạn ruột bị lồng và đoạn ruột nhận lồng có thành mỏng; dải giảm âm trung tâm là lớp trung tâm của đoạn ruột bị lồng. Dải tăng âm do mạc treo bị kéo theo quai ruột. Hình thái này được gọi là dấu hiệu bánh kẹp (sandwich sign).</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="long-ruot_anh/2015_08_FB_IMG_1478949419234_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_FB_IMG_1478949419234_Xray.vn_.jpg" alt="" width="695" height="535" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_FB_IMG_1475102954474_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_FB_IMG_1475102954474_Xray.vn_.jpg" alt="" width="693" height="496" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_DSC_15667_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_DSC_15667_Xray.vn_.jpg" alt="" width="1200" height="946" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_intussusception-transient-small-bowel-1_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_intussusception-transient-small-bowel-1_Xray.vn_.jpg" alt="" width="892" height="851" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_intussusception-in-a-3-year-3_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_intussusception-in-a-3-year-3_Xray.vn_.jpg" alt="" width="1200" height="1028" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_1-23.webp"><img src="long-ruot_anh/2015_08_1-23.webp" alt="" width="630" height="456" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-22.webp"><img src="long-ruot_anh/2015_08_2-22.webp" alt="Dấu hiệu bia bắn" width="630" height="459" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-20.webp"><img src="long-ruot_anh/2015_08_3-20.webp" alt="" width="630" height="454" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-20.webp"><img src="long-ruot_anh/2015_08_4-20.webp" alt="Dấu hiệu bánh Sandwich" width="630" height="466" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu cái chĩa cỏ (fork sign):</span> là một biến thể của sandwich sign được thấy ở đỉnh của khối lồng. Dấu hiệu cái chĩa cỏ gồm có ba vùng giảm âm song song nhau (các ngạnh của cái chĩa cỏ) tương ứng với các dải giảm âm trong sandwich sign. Các ngạnh được phân cách bởi hai dải tăng âm của mạc treo. Các ngạnh nối ở đỉnh nơi đoạn ruột bị lồng gập lại.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="long-ruot_anh/2015_08_575a9468a30027106a488d173af0c1ca.jpg"><img src="long-ruot_anh/2015_08_575a9468a30027106a488d173af0c1ca.jpg" alt="" width="962" height="722" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_Fig3.png"><img src="long-ruot_anh/2015_08_Fig3.png" alt="" width="703" height="497" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu giả thận (Pseudokidney):</span> dấu hiệu giả thận đề cập đến hình ảnh siêu âm theo chiều dọc của đoạn ruột bị lồng giống như một quả thận. Mạc treo chứa chất béo được kéo vào khối lồng ruột, chứa các mạch máu tăng âm giống như rốn thận, nhu mô thận là thành ruột phù nề.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_902389.gif"><img src="long-ruot_anh/2015_08_902389.gif" alt="" width="793" height="322" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_84-year-old-woman-with-ileocolic-intussusception-resulting-from-cecal-adenocarcinoma-2_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_84-year-old-woman-with-ileocolic-intussusception-resulting-from-cecal-adenocarcinoma-2_Xray.vn_.jpg" alt="" width="1200" height="1200" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_images_large_12_19_22445_03b.jpeg"><img src="long-ruot_anh/2015_08_images_large_12_19_22445_03b.jpeg" alt="" width="1400" height="701" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_84-year-old-woman-with-ileocolic-intussusception-resulting-from-cecal-adenocarcinoma-1_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_84-year-old-woman-with-ileocolic-intussusception-resulting-from-cecal-adenocarcinoma-1_Xray.vn_.jpg" alt="" width="1200" height="1200" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_DSC_7833_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_DSC_7833_Xray.vn_.jpg" alt="" width="1200" height="918" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_intussusception-18-1_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_intussusception-18-1_Xray.vn_.jpg" alt="" width="943" height="651" loading="lazy" decoding="async"></a></div>
+<h3 id="sieu-am-doppler">* Siêu âm doppler</h3>
+<p>– Siêu âm Doppler xác định tình trạng mạch máu có thể tiên lượng cho điều trị, lồng gây thắt nghẹt không thấy mạch máu nuôi dưỡng thường có chỉ định mổ cấp cứu.</p>
+<figure><a class="o-anh" href="long-ruot_anh/2015_08_Screenshot-2022-10-20-203232.jpg"><img src="long-ruot_anh/2015_08_Screenshot-2022-10-20-203232.jpg" alt="" width="809" height="412" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-1022.jpg"><img src="long-ruot_anh/2015_08_1-1022.jpg" alt="" width="614" height="464" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-1026.jpg"><img src="long-ruot_anh/2015_08_2-1026.jpg" alt="" width="589" height="463" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-1004.jpg"><img src="long-ruot_anh/2015_08_3-1004.jpg" alt="" width="680" height="473" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-587.jpeg"><img src="long-ruot_anh/2015_08_1-587.jpeg" alt="" width="630" height="428" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-587.jpeg"><img src="long-ruot_anh/2015_08_2-587.jpeg" alt="" width="630" height="428" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-584.jpeg"><img src="long-ruot_anh/2015_08_3-584.jpeg" alt="" width="630" height="428" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-563.jpeg"><img src="long-ruot_anh/2015_08_4-563.jpeg" alt="" width="630" height="428" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-456.jpeg"><img src="long-ruot_anh/2015_08_5-456.jpeg" alt="" width="630" height="428" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_6-196.jpeg"><img src="long-ruot_anh/2015_08_6-196.jpeg" alt="" width="630" height="428" loading="lazy" decoding="async"></a></div>
+<h3 id="cac-dau-hieu-khac">* Các dấu hiệu khác</h3>
+<p>– Quai ruột phía trên giãn<br>– Dịch tự do ổ bụng<br>– Đánh giá nguyên nhân:  viêm hạch mạc treo, viêm ruột, khối u…</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_881921.jpg"><img src="long-ruot_anh/2015_08_881921.jpg" alt="" width="1392" height="771" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_519471.jpg"><img src="long-ruot_anh/2015_08_519471.jpg" alt="" width="1502" height="771" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_519472.jpg"><img src="long-ruot_anh/2015_08_519472.jpg" alt="" width="1505" height="747" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1: tắc ruột do lồng</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2021_11_1234.jpg"><img src="long-ruot_anh/2021_11_1234.jpg" alt="" width="1600" height="2063" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-1027.jpg"><img src="long-ruot_anh/2015_08_2-1027.jpg" alt="" width="592" height="464" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-1005.jpg"><img src="long-ruot_anh/2015_08_3-1005.jpg" alt="" width="590" height="467" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2: dịch ổ bụng – hạch mạc treo / lồng ruột</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_lbox_26793.jpg"><img src="long-ruot_anh/2015_08_lbox_26793.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_26796.jpg"><img src="long-ruot_anh/2015_08_lbox_26796.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_26794.jpg"><img src="long-ruot_anh/2015_08_lbox_26794.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_26797.jpg"><img src="long-ruot_anh/2015_08_lbox_26797.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_26800.jpg"><img src="long-ruot_anh/2015_08_lbox_26800.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_26799.jpg"><img src="long-ruot_anh/2015_08_lbox_26799.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="long-ruot_anh/2015_08_lbox_38459-Afbeelding1.jpg"><img src="long-ruot_anh/2015_08_lbox_38459-Afbeelding1.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_38460-Afbeelding2.jpg"><img src="long-ruot_anh/2015_08_lbox_38460-Afbeelding2.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_38461-Afbeelding3.jpg"><img src="long-ruot_anh/2015_08_lbox_38461-Afbeelding3.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_38463-Afbeelding5.jpg"><img src="long-ruot_anh/2015_08_lbox_38463-Afbeelding5.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_lbox_38468-Afbeelding10.jpg"><img src="long-ruot_anh/2015_08_lbox_38468-Afbeelding10.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Video siêu âm lồng ruột:</span></p>
+<h2 id="iii-chan-doan-x-quang">III. Chẩn đoán x-quang</h2>
+<h3 id="phim-chup-bung">* Phim chụp bụng</h3>
+<p>– Khối thường thấy ở 1/4 trên phải ổ bụng phủ trước thận phải.<br>– Không thấy rõ hình ảnh khí trong đại tràng lên, manh tràng. Sự ngắt quãng đột ngột của khí trong đại tràng do khối lồng =&gt; dấu hiệu “cắt cụt đại tràng”.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_images_05_10_7271_08a.jpeg"><img src="long-ruot_anh/2015_08_images_05_10_7271_08a.jpeg" alt="" width="1455" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_images_05_10_7271_08b.jpeg"><img src="long-ruot_anh/2015_08_images_05_10_7271_08b.jpeg" alt="" width="1600" height="1515" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_images_05_10_7271_08c_cmyk.jpeg"><img src="long-ruot_anh/2015_08_images_05_10_7271_08c_cmyk.jpeg" alt="" width="1280" height="1157" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu bia bắn (target sign):</span> có thể thấy trong 24% trường hợp. Hình ảnh bóng mờ của khối lồng, gồm 2 vòng tròn đồng tâm hoặc các viền đồng tâm sáng, chúng do mỡ mạc treo của khối lồng tạo nên. Thường thấy ở một phần tư trên phải ổ bụng xoá bờ gan liền kề.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="long-ruot_anh/2015_08_67cf21094e9e57e2115da709091481_jumbo.jpeg"><img src="long-ruot_anh/2015_08_67cf21094e9e57e2115da709091481_jumbo.jpeg" alt="" width="670" height="804" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_Target-sign_Xray.vn_-e1701403455960.jpg"><img src="long-ruot_anh/2015_08_Target-sign_Xray.vn_-e1701403455960.jpg" alt="" width="1165" height="1407" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_Intussusception-1_Xray.vn_-e1701403482945.jpg"><img src="long-ruot_anh/2015_08_Intussusception-1_Xray.vn_-e1701403482945.jpg" alt="" width="1158" height="1116" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_09e7ba2fdd91add9931ceb14189984_jumbo-e1701403497638.jpg"><img src="long-ruot_anh/2015_08_09e7ba2fdd91add9931ceb14189984_jumbo-e1701403497638.jpg" alt="" width="715" height="902" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_907969.jpg"><img src="long-ruot_anh/2015_08_907969.jpg" alt="" width="1329" height="1273" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu mặt khum (meniscus sign – hình thấu kính):</span> bao gồm một liềm khí bên trong lòng đại tràng viền quanh đỉnh của khối lồng.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_edpract-2008-February-93-1-30-F2.large_-e1701403371662.jpg"><img src="long-ruot_anh/2015_08_edpract-2008-February-93-1-30-F2.large_-e1701403371662.jpg" alt="" width="1253" height="1422" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_xray.vn-0758_Xray.vn_-e1701403391135.jpg"><img src="long-ruot_anh/2015_08_xray.vn-0758_Xray.vn_-e1701403391135.jpg" alt="" width="1200" height="758" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_Radiographs-of-2-year-old-child-with-intussusception_Xray.vn_-e1701403410488.jpg"><img src="long-ruot_anh/2015_08_Radiographs-of-2-year-old-child-with-intussusception_Xray.vn_-e1701403410488.jpg" alt="" width="1164" height="1418" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_43546-e1701403425405.jpg"><img src="long-ruot_anh/2015_08_43546-e1701403425405.jpg" alt="" width="680" height="830" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/Picture1-8.png"><img src="long-ruot_anh/Picture1-8.png" alt="Bơm hơi" width="482" height="692" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_Screenshot-2021-11-24-205217.png"><img src="long-ruot_anh/2015_08_Screenshot-2021-11-24-205217.png" alt="" width="613" height="796" loading="lazy" decoding="async"></a></div>
+<p>– Hố chậu phải rỗng do manh tràng di lệch, không thấy khí trong đại tràng từ vị trí khối lồng.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_edpract-2008-February-93-1-30-F3.large_-e1701403322327.jpg"><img src="long-ruot_anh/2015_08_edpract-2008-February-93-1-30-F3.large_-e1701403322327.jpg" alt="" width="1277" height="1404" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_kub-intussuception-1-e1701403348562.png"><img src="long-ruot_anh/2015_08_kub-intussuception-1-e1701403348562.png" alt="" width="699" height="798" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_Screenshot-2021-11-24-204613.png"><img src="long-ruot_anh/2015_08_Screenshot-2021-11-24-204613.png" alt="" width="1035" height="704" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-1020.jpg"><img src="long-ruot_anh/2015_08_1-1020.jpg" alt="" width="1417" height="1544" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-1024.jpg"><img src="long-ruot_anh/2015_08_2-1024.jpg" alt="" width="601" height="456" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-1002.jpg"><img src="long-ruot_anh/2015_08_3-1002.jpg" alt="" width="598" height="458" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-1021.jpg"><img src="long-ruot_anh/2015_08_1-1021.jpg" alt="" width="1578" height="1740" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-1025.jpg"><img src="long-ruot_anh/2015_08_2-1025.jpg" alt="" width="613" height="458" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-1003.jpg"><img src="long-ruot_anh/2015_08_3-1003.jpg" alt="" width="616" height="471" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2021_11_1234.jpg"><img src="long-ruot_anh/2021_11_1234.jpg" alt="" width="1600" height="2063" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-1027.jpg"><img src="long-ruot_anh/2015_08_2-1027.jpg" alt="" width="592" height="464" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-1005.jpg"><img src="long-ruot_anh/2015_08_3-1005.jpg" alt="" width="590" height="467" loading="lazy" decoding="async"></a></div>
+<p>– Hình ảnh quai ruột giãn, mức nước-hơi giai đoạn muộn.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.13297.162210.jpg"><img src="long-ruot_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.13297.162210.jpg" alt="" width="1500" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_screenshot_1701402509.png"><img src="long-ruot_anh/2015_08_screenshot_1701402509.png" alt="" width="1584" height="832" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_screenshot_1701402813.png"><img src="long-ruot_anh/2015_08_screenshot_1701402813.png" alt="" width="1026" height="755" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_screenshot_1701402734.png"><img src="long-ruot_anh/2015_08_screenshot_1701402734.png" alt="" width="740" height="830" loading="lazy" decoding="async"></a></div>
+<h3 id="chup-khung-dai-trang">* Chụp khung đại tràng</h3>
+<p>– Ở trẻ em: chụp khung đại tràng bơm hơi có hai mục đích chẩn đoán và điều trị<br>– Ở người lớn: chụp khung đại tràng cản quang baryte hoặc cản quang tan trong nước. Thuốc dừng lại ở vị trí lồng có hình càng cua hoặc đáy chén.<br>– Dấu hiệu lò xo (coiled spring) được tạo ra khi các nếp niêm mạc phù ở lớp quặt ra của phần ruột bị lồng được phủ bởi chất cản quang trong lòng đại tràng.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_Meniscus-and-coiled-spring-signs-2_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_Meniscus-and-coiled-spring-signs-2_Xray.vn_.jpg" alt="" width="1200" height="1462" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_xray.vn-0744_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_xray.vn-0744_Xray.vn_.jpg" alt="" width="1200" height="832" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_xray.vn-0750_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_xray.vn-0750_Xray.vn_.jpg" alt="" width="1200" height="832" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_intussusception-13-5_Xray.vn_.jpg"><img src="long-ruot_anh/2015_08_intussusception-13-5_Xray.vn_.jpg" alt="" width="713" height="1023" loading="lazy" decoding="async"></a></div>
+<p>– Dấu hiệu mặt khum (meniscus sign – hình thấu kính), tương tự với dấu hiệu mặt khum trong phim X quang thường qui và được tạo ra bởi đỉnh tròn của phần ruột bị lồng (intussusceptum) lồi vào cột thuốc cản quang.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_Meniscus-and-coiled-spring-signs-1_Xray.vn_-e1701403564213.jpg"><img src="long-ruot_anh/2015_08_Meniscus-and-coiled-spring-signs-1_Xray.vn_-e1701403564213.jpg" alt="Chụp Baryte." width="1165" height="1401" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_collage_20150628060611185_Xray.vn_-e1701403587226.jpg"><img src="long-ruot_anh/2015_08_collage_20150628060611185_Xray.vn_-e1701403587226.jpg" alt="" width="1190" height="1030" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/Picture1-8.png"><img src="long-ruot_anh/Picture1-8.png" alt="Bơm hơi" width="482" height="692" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_xray.vn-0742_Xray.vn_-e1701403610661.jpg"><img src="long-ruot_anh/2015_08_xray.vn-0742_Xray.vn_-e1701403610661.jpg" alt="Tháo lồng." width="1200" height="546" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1: tháo lồng</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_a1.jpeg"><img src="long-ruot_anh/2015_08_a1.jpeg" alt="" width="591" height="703" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_a2.jpeg"><img src="long-ruot_anh/2015_08_a2.jpeg" alt="" width="579" height="704" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_1-82.jpeg"><img src="long-ruot_anh/2015_08_1-82.jpeg" alt="" width="569" height="700" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-86.jpeg"><img src="long-ruot_anh/2015_08_2-86.jpeg" alt="" width="571" height="701" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-86.jpeg"><img src="long-ruot_anh/2015_08_3-86.jpeg" alt="" width="573" height="701" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-84.jpeg"><img src="long-ruot_anh/2015_08_4-84.jpeg" alt="" width="578" height="702" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-64.jpeg"><img src="long-ruot_anh/2015_08_5-64.jpeg" alt="" width="580" height="698" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_6-45.jpeg"><img src="long-ruot_anh/2015_08_6-45.jpeg" alt="" width="570" height="696" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2: tháo lồng</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-177.jpg"><img src="long-ruot_anh/2015_08_1-177.jpg" alt="" width="630" height="490" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-172.jpg"><img src="long-ruot_anh/2015_08_2-172.jpg" alt="" width="630" height="518" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-173.jpg"><img src="long-ruot_anh/2015_08_3-173.jpg" alt="" width="630" height="519" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-160.jpg"><img src="long-ruot_anh/2015_08_4-160.jpg" alt="" width="722" height="1004" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-103.jpg"><img src="long-ruot_anh/2015_08_5-103.jpg" alt="" width="729" height="984" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_6-73.jpg"><img src="long-ruot_anh/2015_08_6-73.jpg" alt="" width="744" height="1000" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3: tháo lồng</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-507.jpeg"><img src="long-ruot_anh/2015_08_1-507.jpeg" alt="" width="630" height="445" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-508.jpeg"><img src="long-ruot_anh/2015_08_2-508.jpeg" alt="" width="630" height="453" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-511.jpeg"><img src="long-ruot_anh/2015_08_3-511.jpeg" alt="" width="845" height="1013" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-492.jpeg"><img src="long-ruot_anh/2015_08_4-492.jpeg" alt="" width="781" height="982" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-396.jpeg"><img src="long-ruot_anh/2015_08_5-396.jpeg" alt="" width="803" height="1002" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_6-157.jpeg"><img src="long-ruot_anh/2015_08_6-157.jpeg" alt="" width="832" height="993" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4: tháo lồng</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_1-1024.jpg"><img src="long-ruot_anh/2015_08_1-1024.jpg" alt="" width="445" height="565" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-1028.jpg"><img src="long-ruot_anh/2015_08_2-1028.jpg" alt="" width="523" height="564" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-1006.jpg"><img src="long-ruot_anh/2015_08_3-1006.jpg" alt="" width="458" height="564" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-881.jpg"><img src="long-ruot_anh/2015_08_4-881.jpg" alt="" width="485" height="564" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5: tháo lồng</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-1095.jpg"><img src="long-ruot_anh/2015_08_1-1095.jpg" alt="" width="1294" height="1275" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-1098.jpg"><img src="long-ruot_anh/2015_08_2-1098.jpg" alt="" width="1600" height="1145" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-1071.jpg"><img src="long-ruot_anh/2015_08_3-1071.jpg" alt="" width="1600" height="1133" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-937.jpg"><img src="long-ruot_anh/2015_08_4-937.jpg" alt="" width="1600" height="1209" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-602.jpg"><img src="long-ruot_anh/2015_08_5-602.jpg" alt="" width="1128" height="1285" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_6-305.jpg"><img src="long-ruot_anh/2015_08_6-305.jpg" alt="" width="1458" height="1629" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-clvt">IV. Chẩn đoán CLVT</h2>
+<p>– Cấu trúc ống tiêu hóa lồng vào nhau tạo hình ảnh bia bắn và bán Sanwich tương tự trên siêu âm.<br>– Tỷ trọng mỡ mạc treo và mạch mạc treo trong khối lồng.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="long-ruot_anh/2015_08_Screenshot-2021-11-24-204136.png"><img src="long-ruot_anh/2015_08_Screenshot-2021-11-24-204136.png" alt="" width="1054" height="492" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_658986.jpg"><img src="long-ruot_anh/2015_08_658986.jpg" alt="" width="1600" height="1023" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_519475.jpg"><img src="long-ruot_anh/2015_08_519475.jpg" alt="" width="1502" height="771" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_519477.jpg"><img src="long-ruot_anh/2015_08_519477.jpg" alt="" width="1502" height="723" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_519478.jpg"><img src="long-ruot_anh/2015_08_519478.jpg" alt="" width="1502" height="771" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_911834.gif"><img src="long-ruot_anh/2015_08_911834.gif" alt="" width="879" height="340" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_519485.jpg"><img src="long-ruot_anh/2015_08_519485.jpg" alt="" width="1502" height="759" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_896220.jpg"><img src="long-ruot_anh/2015_08_896220.jpg" alt="" width="954" height="730" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_screenshot_1700407052.png"><img src="long-ruot_anh/2015_08_screenshot_1700407052.png" alt="" width="1582" height="833" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_screenshot_1700407178.png"><img src="long-ruot_anh/2015_08_screenshot_1700407178.png" alt="" width="1583" height="835" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_g06ma22g04b.jpeg"><img src="long-ruot_anh/2015_08_g06ma22g04b.jpeg" alt="" width="1280" height="1014" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_g06ma22g10a.jpeg"><img src="long-ruot_anh/2015_08_g06ma22g10a.jpeg" alt="" width="1280" height="933" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_g06ma22g10b.jpeg"><img src="long-ruot_anh/2015_08_g06ma22g10b.jpeg" alt="" width="1280" height="933" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_g06ma22g11b.jpeg"><img src="long-ruot_anh/2015_08_g06ma22g11b.jpeg" alt="" width="1280" height="1040" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_g06ma22g13a.jpeg"><img src="long-ruot_anh/2015_08_g06ma22g13a.jpeg" alt="" width="1280" height="988" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-651.jpeg"><img src="long-ruot_anh/2015_08_1-651.jpeg" alt="" width="623" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-647.jpeg"><img src="long-ruot_anh/2015_08_2-647.jpeg" alt="" width="623" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-647.jpeg"><img src="long-ruot_anh/2015_08_3-647.jpeg" alt="" width="623" height="513" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-618.jpeg"><img src="long-ruot_anh/2015_08_4-618.jpeg" alt="" width="623" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-501.jpeg"><img src="long-ruot_anh/2015_08_5-501.jpeg" alt="" width="623" height="513" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_6-230.jpeg"><img src="long-ruot_anh/2015_08_6-230.jpeg" alt="" width="544" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-22.jpeg"><img src="long-ruot_anh/2015_08_1-22.jpeg" alt="Lồng đại tràng ngang" width="630" height="416" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-22.jpeg"><img src="long-ruot_anh/2015_08_2-22.jpeg" alt="" width="630" height="424" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-22.jpeg"><img src="long-ruot_anh/2015_08_3-22.jpeg" alt="" width="630" height="428" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-22.jpeg"><img src="long-ruot_anh/2015_08_4-22.jpeg" alt="" width="500" height="538" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-17.jpeg"><img src="long-ruot_anh/2015_08_5-17.jpeg" alt="" width="514" height="543" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_6-13.jpeg"><img src="long-ruot_anh/2015_08_6-13.jpeg" alt="" width="527" height="538" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-23.jpeg"><img src="long-ruot_anh/2015_08_1-23.jpeg" alt="Lồng đại tràng" width="555" height="381" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-23.jpeg"><img src="long-ruot_anh/2015_08_2-23.jpeg" alt="" width="575" height="395" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-23.jpeg"><img src="long-ruot_anh/2015_08_3-23.jpeg" alt="" width="580" height="400" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-18.jpeg"><img src="long-ruot_anh/2015_08_5-18.jpeg" alt="" width="511" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_6-14.jpeg"><img src="long-ruot_anh/2015_08_6-14.jpeg" alt="" width="539" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-23.jpeg"><img src="long-ruot_anh/2015_08_4-23.jpeg" alt="" width="522" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_a-8.jpeg"><img src="long-ruot_anh/2015_08_a-8.jpeg" alt="" width="560" height="401" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_b-7.jpeg"><img src="long-ruot_anh/2015_08_b-7.jpeg" alt="" width="463" height="561" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_c-6.jpeg"><img src="long-ruot_anh/2015_08_c-6.jpeg" alt="" width="445" height="575" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="long-ruot_anh/2015_08_1-87.jpeg"><img src="long-ruot_anh/2015_08_1-87.jpeg" alt="Lồng ruột thừa" width="588" height="411" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-91.jpeg"><img src="long-ruot_anh/2015_08_2-91.jpeg" alt="" width="596" height="415" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-91.jpeg"><img src="long-ruot_anh/2015_08_3-91.jpeg" alt="" width="598" height="414" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-89.jpeg"><img src="long-ruot_anh/2015_08_4-89.jpeg" alt="" width="607" height="415" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-69.jpeg"><img src="long-ruot_anh/2015_08_5-69.jpeg" alt="" width="610" height="415" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="long-ruot_anh/2015_08_1-176.jpg"><img src="long-ruot_anh/2015_08_1-176.jpg" alt="" width="570" height="401" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-171.jpg"><img src="long-ruot_anh/2015_08_2-171.jpg" alt="" width="574" height="399" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-172.jpg"><img src="long-ruot_anh/2015_08_3-172.jpg" alt="" width="572" height="404" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-159.jpg"><img src="long-ruot_anh/2015_08_4-159.jpg" alt="" width="584" height="405" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-102.jpg"><img src="long-ruot_anh/2015_08_5-102.jpg" alt="" width="590" height="405" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 7:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-602.jpeg"><img src="long-ruot_anh/2015_08_1-602.jpeg" alt="" width="630" height="438" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-598.jpeg"><img src="long-ruot_anh/2015_08_2-598.jpeg" alt="" width="630" height="438" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-598.jpeg"><img src="long-ruot_anh/2015_08_3-598.jpeg" alt="" width="630" height="438" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-574.jpeg"><img src="long-ruot_anh/2015_08_4-574.jpeg" alt="" width="630" height="438" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-466.jpeg"><img src="long-ruot_anh/2015_08_5-466.jpeg" alt="" width="630" height="438" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_6-203.jpeg"><img src="long-ruot_anh/2015_08_6-203.jpeg" alt="" width="630" height="438" loading="lazy" decoding="async"></a></div>
+<p>– Phát hiện nguyên nhân gây lồng ruột: viêm, polyp, khối u, túi thừa meckel…</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_168518.jpg"><img src="long-ruot_anh/2015_08_168518.jpg" alt="U mỡ" width="980" height="416" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_519487.jpg"><img src="long-ruot_anh/2015_08_519487.jpg" alt="Ung thư biểu mô" width="1502" height="783" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_311329.jpg"><img src="long-ruot_anh/2015_08_311329.jpg" alt="Polyp" width="664" height="352" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_Screenshot-2021-11-24-203902.jpg"><img src="long-ruot_anh/2015_08_Screenshot-2021-11-24-203902.jpg" alt="Khối u" width="1044" height="802" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1: lồng ruột do u</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_1-410.jpg"><img src="long-ruot_anh/2015_08_1-410.jpg" alt="Lồng ruột do u" width="800" height="564" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-403.jpg"><img src="long-ruot_anh/2015_08_2-403.jpg" alt="" width="800" height="564" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-388.jpg"><img src="long-ruot_anh/2015_08_3-388.jpg" alt="" width="800" height="564" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_sag.jpg"><img src="long-ruot_anh/2015_08_sag.jpg" alt="" width="800" height="950" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2: lồng ruột do u mỡ</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_1-26.jpeg"><img src="long-ruot_anh/2015_08_1-26.jpeg" alt="" width="548" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-25.jpeg"><img src="long-ruot_anh/2015_08_2-25.jpeg" alt="" width="554" height="464" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-27.jpeg"><img src="long-ruot_anh/2015_08_3-27.jpeg" alt="" width="559" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-27.jpeg"><img src="long-ruot_anh/2015_08_4-27.jpeg" alt="" width="556" height="464" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3: lồng ruột do u</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_4-57.jpeg"><img src="long-ruot_anh/2015_08_4-57.jpeg" alt="" width="536" height="579" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-60.jpeg"><img src="long-ruot_anh/2015_08_3-60.jpeg" alt="" width="526" height="577" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-60.jpeg"><img src="long-ruot_anh/2015_08_2-60.jpeg" alt="" width="518" height="577" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_1-58.jpeg"><img src="long-ruot_anh/2015_08_1-58.jpeg" alt="" width="495" height="578" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4: lồng ruột do u</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_a-16.png"><img src="long-ruot_anh/2015_08_a-16.png" alt="" width="1204" height="842" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2020_10_2-3.png"><img src="long-ruot_anh/2020_10_2-3.png" alt="" width="1207" height="838" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2020_10_3-4.png"><img src="long-ruot_anh/2020_10_3-4.png" alt="" width="1201" height="840" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2020_10_4-4.png"><img src="long-ruot_anh/2020_10_4-4.png" alt="" width="1204" height="838" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2020_10_5-4.png"><img src="long-ruot_anh/2020_10_5-4.png" alt="" width="1205" height="839" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2020_10_6-2.png"><img src="long-ruot_anh/2020_10_6-2.png" alt="" width="1205" height="839" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2020_10_7.png"><img src="long-ruot_anh/2020_10_7.png" alt="" width="1205" height="839" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2020_10_8.png"><img src="long-ruot_anh/2020_10_8.png" alt="" width="1203" height="840" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5: lồng ruột do u</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="long-ruot_anh/2015_08_1-841.jpg"><img src="long-ruot_anh/2015_08_1-841.jpg" alt="Lồng đại tràng - đại tràng / U đại tràng lên" width="630" height="543" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-844.jpg"><img src="long-ruot_anh/2015_08_2-844.jpg" alt="" width="630" height="543" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-818.jpg"><img src="long-ruot_anh/2015_08_3-818.jpg" alt="" width="630" height="543" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-736.jpg"><img src="long-ruot_anh/2015_08_4-736.jpg" alt="" width="630" height="543" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_5-478.jpg"><img src="long-ruot_anh/2015_08_5-478.jpg" alt="" width="629" height="541" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_6-214.jpg"><img src="long-ruot_anh/2015_08_6-214.jpg" alt="" width="630" height="542" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6: lồng ruột do u lymphoma</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_1-985.jpeg"><img src="long-ruot_anh/2015_08_1-985.jpeg" alt="" width="675" height="460" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-991.jpeg"><img src="long-ruot_anh/2015_08_2-991.jpeg" alt="" width="675" height="483" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-972.jpeg"><img src="long-ruot_anh/2015_08_3-972.jpeg" alt="" width="675" height="573" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-896.jpeg"><img src="long-ruot_anh/2015_08_4-896.jpeg" alt="" width="675" height="610" loading="lazy" decoding="async"></a></div>
+<h2 id="v-phan-biet">V. Phân biệt</h2>
+<h3 id="van-hoi-manh-trang">* Van hồi manh tràng</h3>
+<p>– Van hồi manh tràng (Ileocecal valve) có thể được chẩn đoán nhầm với một lồng ruột vị trí hồi manh tràng.</p>
+<figure><a class="o-anh" href="long-ruot_anh/2015_08_usg-16052-f3.gif"><img src="long-ruot_anh/2015_08_usg-16052-f3.gif" alt="" width="1173" height="423" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<h3 id="long-ruot-thoang-qua">* Lồng ruột thoáng qua</h3>
+<p><span class="c-xanh">– Lồng ruột thoáng qua (Transient intussusception) tức là khối lồng không gây tắc ruột, thường tự tháog.<br>– Thường lồng trên 1 đoạn ngắn, gặp lồng hỗng tràng – hỗng tràng.<br>– Đặc điểm hình ảnh:<br>+ Đường kính búi lồng nhỏ &lt; 2cm.<br>+ Còn thấy nhu động ruột trong búi lồng.<br>+ Không thấy nguyên nhân gây lồng ruột<br>+ Doppler: còn thấy tưới máu trên búi lồng.<br>+ Không thấy hình ảnh khối lồng khi đánh giá lại.</span></p>
+<figure><a class="o-anh" href="long-ruot_anh/2015_08_47qv-3339.jpg"><img src="long-ruot_anh/2015_08_47qv-3339.jpg" alt="" width="1075" height="539" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="long-ruot_anh/2015_08_1-521.jpeg"><img src="long-ruot_anh/2015_08_1-521.jpeg" alt="" width="630" height="318" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_2-523.jpeg"><img src="long-ruot_anh/2015_08_2-523.jpeg" alt="" width="630" height="472" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_3-524.jpeg"><img src="long-ruot_anh/2015_08_3-524.jpeg" alt="" width="630" height="529" loading="lazy" decoding="async"></a><a class="o-anh" href="long-ruot_anh/2015_08_4-506.jpeg"><img src="long-ruot_anh/2015_08_4-506.jpeg" alt="Khối lồng tự tháo" width="630" height="429" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Intussusception in Children: Current Concepts in Diagnosis and Enema Reduction – Gloria del-Pozo, MD<br><span class="c-xanh">* </span></em><em>Adult Intestinal Intussusception: CT Appearances and Identification of a Causative Lead Point – Young H. Kim, MD, Michael A. Blake, FFR(RCSI), FRCR, Mukesh G. Harisinghani, MD<br>* Can CT Features Be Used to Diagnose Surgical Adult Bowel Intussusceptions – Baskaran Sundaram, Carl N. Miller<br>* Paediatric Intussusceptions: What the general radiologist needs to know – J. James, M. Tapp, E. Morris; Torquay/UK<br>* Intestinal Intussusception: CT and Ultrasound appearances – D. Cardoso, D. Silva, A. C. Mota<br>* Adult intussusception: Is there a role for MDCT in predicting the degree of vascular compromise? A radiologic-pathologic correlation – P. Sedati, M. Telesca, F. Macrì<br>* Adult Intestinal Intussusception: Radiologic-Pathologic Correlation – C. Rubio Hervás, A. Verón Sánchez, A. Díez Tascón<br>* Intussusception; A to Z – S. W. Shin, Y. Kim, E. T. Kim<br>* Intussusception in adults: contribution of CT and ultrasound – C. Lozano Cejudo, M. L. Rozas Rodríguez, M. E. Banegas Illescas<br>* Intestinal intussusception in adults: X-ray, US, CT, and MRI findings – F. Sandomenico, O. Catalano, A. Nunziata, V. De Rosa, A. Petrillo, A. Siani; Naples/IT<br>* CT in adult intussusception: Radiologic-pathologic correlation – C. Triantopoulou, P. Maniatis, I. Siafas, N. Giannakou, C. Avgerinos, C. Dervenis, J. Papailiou; Athens/GR<br>* Adult intussusception: Imaging and causes- S. Baleato González, R. García Figueiras, C. Villalba Martín<br>* Colocolic intussusceptions in children: a pictorial essay and review of the literature Edward J Richer, Paula N Dickson<br>* Air Versus Barium for Pediatric Intussusception Reduction, what the radiologist needs to know – M. Del Río, S. E. Kettenhofen, O. Medellin Najera, R. D. Pichardo Palacios, M. A. Carrillo Martinez<br>* Practical Imaging Strategies for Intussusception in Children – : Domen Plut, Grace S. Phillips, Patrick R. Johnston</em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bezoars</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · TIÊU HÓA</div>
+   <h1>Bezoars</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/bezoars/" target="_blank" rel="noopener">Xray.vn — xray.vn/bezoars</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Bezoar</span> là khối vật chất khó hoặc không thể tiêu hóa, kết tụ và lưu lại trong lòng đường tiêu hóa.</p>
+<p><span class="c-xanh">– Phân loại:</span> Dựa vào thành phần, gồm khối tóc/lông (trichobezoar), khối thực vật (phytobezoar), khối thuốc (pharmacobezoar), khối sữa (lactobezoar) và thể phối hợp.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Đặc điểm tuổi và giới thay đổi theo loại; trichobezoar thường gặp ở nữ trẻ.</p>
+<p><span class="c-xanh">– Căn nguyên:</span><br>+ Vật liệu hình thành khối tùy theo thể, gồm tóc/lông, chất xơ thực vật, thuốc kết tụ hoặc sữa đông.<br>+ Yếu tố thuận lợi gồm rối loạn nhu động hoặc làm rỗng dạ dày, tiền sử phẫu thuật dạ dày và nhai không hiệu quả.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span><br>+ Vật liệu khó tiêu bị giữ lại và kết tụ khi vận chuyển trong đường tiêu hóa chậm hoặc không hiệu quả.<br>+ Khối tích tụ lớn dần có thể cản trở lưu thông, gây tắc nghẽn hoặc tổn thương niêm mạc.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Tùy vị trí và kích thước, người bệnh có thể không triệu chứng hoặc biểu hiện no sớm, đau bụng, buồn nôn, nôn hay tắc ruột.</p>
+<p><span class="c-xanh">– Phân bố:</span> Bezoar thường gặp ở dạ dày và ruột non; vị trí khối ảnh hưởng đến biểu hiện và nguy cơ biến chứng.</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span> Phát hiện, xác định vị trí và đặc điểm khối; đánh giá tắc ruột, tổn thương liên quan và hỗ trợ phân biệt với các nguyên nhân khác.</p>
+<figure><a class="o-anh" href="bezoars_anh/2015_09_KYUMLKAZ-343920-3-JPG.jpg"><img src="bezoars_anh/2015_09_KYUMLKAZ-343920-3-JPG.jpg" alt="Bezoars" width="1000" height="1000" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-phan-loai">II. Phân loại</h2>
+<h3 id="khoi-toc-trichobezoar">* Khối tóc (trichobezoar)</h3>
+<p><span class="c-xanh">– Khối tóc</span> tích tụ chủ yếu trong dạ dày sau khi nuốt tóc; đôi khi kéo dài qua môn vị xuống ruột non.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Tóc khó tiêu hóa và khó được đẩy đi theo nhu động do bề mặt trơn; tóc mắc giữa các nếp gấp niêm mạc dạ dày, kết tụ cùng chất nhầy và thức ăn khi bị nuốt lặp lại.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Thường gặp ở nữ giới trẻ, đặc biệt ở lứa tuổi thanh thiếu niên; vẫn có thể gặp ở nam giới và trẻ nhỏ.</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Thường liên quan đến hành vi ăn tóc (trichophagia), có thể đi kèm nhổ tóc cưỡng bức (trichotillomania) hoặc rối loạn tâm thần, phát triển.</p>
+<p><span class="c-xanh">– Biến chứng:</span> Khối lớn có thể gây căng dạ dày và cản trở làm rỗng dạ dày.</p>
+<p><span class="c-xanh">– Hội chứng Rapunzel:</span> Khối tóc trong dạ dày có phần đuôi kéo dài qua môn vị vào ruột non; có thể gây tắc ruột.</p>
+<h3 id="khoi-thuc-vat-phytobezoar">* Khối thực vật (phytobezoar)</h3>
+<p><span class="c-xanh">– Định nghĩa:</span> Là khối kết tụ từ các thành phần thực vật khó tiêu hóa, chủ yếu là chất xơ trong rau và quả.</p>
+<p><span class="c-xanh">– Căn nguyên:</span><br>+ Nguy cơ tăng khi làm rỗng dạ dày chậm, giảm nhu động hoặc giảm tiết acid; nhai kém, đái tháo đường và suy giáp cũng có thể là yếu tố thuận lợi.<br>+ Phẫu thuật dạ dày làm thay đổi giải phẫu và chức năng dạ dày, là yếu tố nguy cơ quan trọng.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Một số nghiên cứu báo cáo tỷ lệ hình thành phytobezoar sau phẫu thuật dạ dày khoảng 5–12%.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Chất xơ khó tiêu bị lưu giữ trong dạ dày; khi nhu động và quá trình làm rỗng dạ dày suy giảm, chúng kết tụ thành khối.</p>
+<p><span class="c-xanh">– Khối bã quả hồng (diospyrobezoar):</span> Hình thành sau khi ăn nhiều quả hồng chưa chín; tannin trong quả có thể polymer hóa trong môi trường acid dạ dày, tạo khối rắn chắc.</p>
+<p><span class="c-xanh">– Điều trị:</span> Coca-Cola có thể hỗ trợ làm mềm hoặc hòa tan phytobezoar trong dạ dày; đôi khi được phối hợp với nội soi để phân mảnh hoặc lấy khối. Hiệu quả thấp hơn với khối bã quả hồng và không bảo đảm tránh phẫu thuật.</p>
+<p><span class="c-xanh">– Khối tóc–thực vật (trichophytobezoar):</span> Là khối kết tụ gồm tóc và các thành phần có nguồn gốc thực vật.</p>
+<h3 id="khoi-thuoc-pharmacobezoar">* Khối thuốc (pharmacobezoar)</h3>
+<p><span class="c-xanh">– Định nghĩa:</span> Là khối kết tụ trong đường tiêu hóa gồm một hoặc nhiều chế phẩm thuốc; có thể chứa viên nén, viên nang hoặc các thành phần thuốc khó hòa tan.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Thuốc lưu lại lâu trong đường tiêu hóa rồi kết tụ; nguy cơ tăng khi nhu động hoặc quá trình làm rỗng dạ dày suy giảm.</p>
+<h3 id="khoi-sua-lactobezoar">* Khối sữa (lactobezoar)</h3>
+<p><span class="c-xanh">– Định nghĩa:</span> Là khối kết tụ chủ yếu gồm protein sữa đông và chất nhầy trong dạ dày trẻ bú sữa.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Được ghi nhận chủ yếu ở trẻ sơ sinh, đặc biệt là trẻ non tháng hoặc nhẹ cân.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Protein sữa và chất nhầy dễ kết tụ khi chức năng tiêu hóa hoặc quá trình làm rỗng dạ dày chưa trưởng thành; sữa công thức cô đặc, giàu năng lượng hoặc casein và tình trạng mất nước có thể là yếu tố thuận lợi.</p>
+<p><span class="c-xanh">– Biến chứng:</span> Khối lớn có thể gây chướng dạ dày và tắc đường ra dạ dày.</p>
+<h2 id="iii-chan-doan-x-quang">III. Chẩn đoán x-quang</h2>
+<p><span class="c-xanh">– X-quang bụng không chuẩn bị:</span><br>+ Khi khối đủ lớn, dạ dày giãn có thể chứa một đám mờ mô mềm, bên trong có các ổ sáng khí lốm đốm; khối có thể tạo hình theo lòng dạ dày.<br>+ Hình ảnh này gợi ý nhưng không đặc hiệu, vì thức ăn tồn lưu cũng có thể tạo hình lốm đốm tương tự.</p>
+<p><span class="c-xanh">– Chụp dạ dày cản quang:</span><br>+ Khối tạo hình khuyết thuốc trong lòng dạ dày, kích thước thay đổi, bờ có thể tròn hoặc không đều; thuốc cản quang viền quanh khối.<br>+ Thuốc cản quang có thể len vào các khe giữa thành phần của khối, tạo hình lốm đốm; một phần thuốc có thể còn mắc trong các khe trên phim muộn sau khi thuốc ở phần còn lại đã thoát khỏi dạ dày.<br>+ Khối nằm tự do có thể đổi vị trí trong lòng dạ dày giữa các lần soi chiếu; tính di động gợi ý khối nằm trong lòng nhưng không đặc hiệu, và khối lớn hoặc bị kẹt có thể ít di động.<br>+ Khối lớn có thể chiếm gần hết dạ dày hoặc kéo dài qua môn vị; mảnh vỡ di chuyển xuống ruột có thể tạo thêm các khuyết thuốc.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Hình ảnh lốm đốm khí và thuốc cản quang không xác định được thành phần khối; thức ăn tồn lưu có thể bắt chước bezoar.<br>+ X-quang bụng không chuẩn bị âm tính không loại trừ bezoar; nếu nghi ngờ vẫn còn sau chụp cản quang, cần đối chiếu bằng phương tiện phù hợp như CT hoặc nội soi.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bezoars_anh/2015_09_hhhhh.png"><img src="bezoars_anh/2015_09_hhhhh.png" alt="" width="773" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_d505dd60c70b4242fa2d66fed596c5c7e817aee7e8fad96a09c53956514aa307_jumbo.webp"><img src="bezoars_anh/2015_09_d505dd60c70b4242fa2d66fed596c5c7e817aee7e8fad96a09c53956514aa307_jumbo.webp" alt="" width="1024" height="1004" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_bezoar_has.jpg"><img src="bezoars_anh/2015_09_bezoar_has.jpg" alt="" width="600" height="809" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_ba9e392d15a899d27fa480be8f2255_jumbo.jpeg"><img src="bezoars_anh/2015_09_ba9e392d15a899d27fa480be8f2255_jumbo.jpeg" alt="" width="907" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/Picture1-6.png"><img src="bezoars_anh/Picture1-6.png" alt="" width="863" height="948" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/Picture2-2.png"><img src="bezoars_anh/Picture2-2.png" alt="" width="963" height="798" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/Picture3-3.png"><img src="bezoars_anh/Picture3-3.png" alt="" width="678" height="939" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_556897.jpg"><img src="bezoars_anh/2015_09_556897.jpg" alt="" width="869" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_556900.jpg"><img src="bezoars_anh/2015_09_556900.jpg" alt="" width="898" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_607458.jpg"><img src="bezoars_anh/2015_09_607458.jpg" alt="" width="1600" height="992" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bezoars_anh/2015_09_1-57.jpeg"><img src="bezoars_anh/2015_09_1-57.jpeg" alt="" width="834" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-57.jpeg"><img src="bezoars_anh/2015_09_2-57.jpeg" alt="" width="866" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-57.jpeg"><img src="bezoars_anh/2015_09_3-57.jpeg" alt="" width="899" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-53.jpeg"><img src="bezoars_anh/2015_09_4-53.jpeg" alt="" width="898" height="1024" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-clvt">IV. Chẩn đoán CLVT</h2>
+<h3 id="dac-diem-hinh-anh">* Đặc điểm hình ảnh</h3>
+<p>– Bezoar thường là khối nằm trong lòng ruột, hình bầu dục hoặc tròn, cấu trúc không đồng nhất, đậm độ thay đổi theo thành phần; ranh giới thường rõ nhưng không nhất thiết có vỏ thật.<br>– Các ổ khí nhỏ mắc giữa thành phần khối tạo hình lốm đốm; dấu hiệu này giúp nhận diện khối nhưng không đặc hiệu nếu đứng riêng lẻ.</p>
+<p><span class="c-xanh">– Vị trí:</span><br>+ Khi gây tắc, khối thường nằm tại điểm chuyển tiếp giữa quai ruột giãn phía gần và quai ruột xẹp hoặc khẩu kính bình thường phía xa.<br>+ Khối lớn có thể lấp lòng ruột. Dựng hình đa mặt phẳng giúp xác định vị trí, chiều dài khối và điểm chuyển tiếp; cần khảo sát toàn bộ đường tiêu hóa để tìm các khối đồng thời.</p>
+<p><span class="c-xanh">– Biến chứng:</span><br>+ Dày thành ruột và phù nề niêm mạc có thể xuất hiện ở đoạn ruột lân cận, nhất là khi có tắc nghẽn; đây là dấu hiệu thứ phát, không đặc hiệu cho bezoar.<br>+ Đánh giá riêng mức độ ngấm thuốc của thành ruột: giảm hoặc mất ngấm thuốc, dịch mạc treo, khí trong thành ruột hay khí ngoài lòng ruột gợi ý thiếu máu, hoại tử hoặc thủng.<br>– Sau tiêm thuốc cản quang: Bản thân khối thường không ngấm thuốc; không nhầm đặc điểm này với mức độ ngấm thuốc của thành ruột xung quanh.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bezoars_anh/2015_09_652477.png"><img src="bezoars_anh/2015_09_652477.png" alt="" width="473" height="608" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_607459.jpg"><img src="bezoars_anh/2015_09_607459.jpg" alt="" width="911" height="826" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-407.jpg"><img src="bezoars_anh/2015_09_2-407.jpg" alt="" width="600" height="460" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-393.jpg"><img src="bezoars_anh/2015_09_3-393.jpg" alt="" width="600" height="472" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-359.jpg"><img src="bezoars_anh/2015_09_4-359.jpg" alt="" width="600" height="461" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_401749.jpg"><img src="bezoars_anh/2015_09_401749.jpg" alt="" width="954" height="781" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_532994.jpg"><img src="bezoars_anh/2015_09_532994.jpg" alt="" width="932" height="701" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_1-415.jpg"><img src="bezoars_anh/2015_09_1-415.jpg" alt="" width="1600" height="1466" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-408.jpg"><img src="bezoars_anh/2015_09_2-408.jpg" alt="" width="1600" height="1634" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-394.jpg"><img src="bezoars_anh/2015_09_3-394.jpg" alt="" width="1600" height="998" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-360-scaled.jpg"><img src="bezoars_anh/2015_09_4-360-scaled.jpg" alt="" width="1600" height="1837" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_Screenshot-2023-11-21-170644.png"><img src="bezoars_anh/2015_09_Screenshot-2023-11-21-170644.png" alt="" width="1153" height="858" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_Screenshot-2023-11-21-170952.jpg"><img src="bezoars_anh/2015_09_Screenshot-2023-11-21-170952.jpg" alt="" width="1600" height="855" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_Screenshot-2025-10-15-110053.jpg"><img src="bezoars_anh/2015_09_Screenshot-2025-10-15-110053.jpg" alt="" width="1600" height="820" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_screenshot_1768929112-1.jpg"><img src="bezoars_anh/2015_09_screenshot_1768929112-1.jpg" alt="" width="1600" height="845" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bezoars_anh/2015_09_1-538.jpg"><img src="bezoars_anh/2015_09_1-538.jpg" alt="" width="1257" height="1040" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-528.jpg"><img src="bezoars_anh/2015_09_2-528.jpg" alt="" width="1256" height="1043" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-516.jpg"><img src="bezoars_anh/2015_09_3-516.jpg" alt="" width="1252" height="1044" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-458.jpg"><img src="bezoars_anh/2015_09_4-458.jpg" alt="" width="1260" height="1041" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_5-327.jpg"><img src="bezoars_anh/2015_09_5-327.jpg" alt="" width="1254" height="1045" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_6-140.jpg"><img src="bezoars_anh/2015_09_6-140.jpg" alt="" width="1254" height="1044" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bezoars_anh/2015_09_3-35.jpg"><img src="bezoars_anh/2015_09_3-35.jpg" alt="" width="605" height="456" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_1-36.jpg"><img src="bezoars_anh/2015_09_1-36.jpg" alt="" width="613" height="456" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-36.jpg"><img src="bezoars_anh/2015_09_2-36.jpg" alt="" width="609" height="456" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-34.jpg"><img src="bezoars_anh/2015_09_4-34.jpg" alt="" width="593" height="456" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_5-18.jpg"><img src="bezoars_anh/2015_09_5-18.jpg" alt="" width="574" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bezoars_anh/2015_09_1-59.jpeg"><img src="bezoars_anh/2015_09_1-59.jpeg" alt="" width="551" height="418" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-59.jpeg"><img src="bezoars_anh/2015_09_2-59.jpeg" alt="" width="565" height="586" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-59.jpeg"><img src="bezoars_anh/2015_09_3-59.jpeg" alt="" width="569" height="586" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-54.jpeg"><img src="bezoars_anh/2015_09_4-54.jpeg" alt="" width="571" height="586" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_5-39.jpeg"><img src="bezoars_anh/2015_09_5-39.jpeg" alt="" width="481" height="586" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bezoars_anh/2015_09_1-245.jpeg"><img src="bezoars_anh/2015_09_1-245.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-244.jpeg"><img src="bezoars_anh/2015_09_2-244.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-239.jpeg"><img src="bezoars_anh/2015_09_3-239.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-228.jpeg"><img src="bezoars_anh/2015_09_4-228.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_5-182.jpeg"><img src="bezoars_anh/2015_09_5-182.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bezoars_anh/2015_09_1-84.png"><img src="bezoars_anh/2015_09_1-84.png" alt="" width="819" height="297" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-90.png"><img src="bezoars_anh/2015_09_2-90.png" alt="" width="637" height="302" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-87.png"><img src="bezoars_anh/2015_09_3-87.png" alt="" width="730" height="427" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bezoars_anh/2015_09_1-117.png"><img src="bezoars_anh/2015_09_1-117.png" alt="Thâm nhiễm mỡ quanh tá tràng" width="934" height="900" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-125.png"><img src="bezoars_anh/2015_09_2-125.png" alt="Thâm nhiễm mỡ quanh tá tràng" width="934" height="900" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-114.png"><img src="bezoars_anh/2015_09_3-114.png" alt="Dày thành tá tràng" width="931" height="901" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-95.png"><img src="bezoars_anh/2015_09_4-95.png" alt="Bã thức ăn khu trú" width="933" height="899" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_5-86.png"><img src="bezoars_anh/2015_09_5-86.png" alt="Bã thức ăn khu trú" width="934" height="896" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_6-49.png"><img src="bezoars_anh/2015_09_6-49.png" alt="Bã thức ăn khu trú" width="932" height="897" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_7-25.png"><img src="bezoars_anh/2015_09_7-25.png" alt="Bã thức ăn khu trú / Dày thành tá tràng" width="934" height="897" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_8-25.png"><img src="bezoars_anh/2015_09_8-25.png" alt="Bã thức ăn khu trú / Dày thành tá tràng" width="932" height="899" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 7:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bezoars_anh/2015_09_687215.jpg"><img src="bezoars_anh/2015_09_687215.jpg" alt="" width="1600" height="1610" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_687216.jpg"><img src="bezoars_anh/2015_09_687216.jpg" alt="" width="520" height="520" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_687217.jpg"><img src="bezoars_anh/2015_09_687217.jpg" alt="" width="512" height="435" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_687218.png"><img src="bezoars_anh/2015_09_687218.png" alt="" width="360" height="480" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 8:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bezoars_anh/2015_09_687247.jpg"><img src="bezoars_anh/2015_09_687247.jpg" alt="" width="1112" height="1126" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_687248.jpg"><img src="bezoars_anh/2015_09_687248.jpg" alt="" width="1126" height="952" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_687249.jpg"><img src="bezoars_anh/2015_09_687249.jpg" alt="" width="1124" height="1126" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 9:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bezoars_anh/2015_09_1-558.jpg"><img src="bezoars_anh/2015_09_1-558.jpg" alt="" width="1600" height="856" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-545.jpg"><img src="bezoars_anh/2015_09_2-545.jpg" alt="" width="1600" height="859" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-534.jpg"><img src="bezoars_anh/2015_09_3-534.jpg" alt="" width="1600" height="858" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-470.jpg"><img src="bezoars_anh/2015_09_4-470.jpg" alt="" width="827" height="861" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu mảnh vụn đậm độ mỡ lơ lửng (floating fat-density debris sign):</span><br>+ Trong quai ruột giãn phía gần điểm tắc, có thể thấy các mảnh vụn đậm độ mỡ lơ lửng trong dịch lòng ruột, thường khoảng −50 đến −150 HU.<br>+ Dấu hiệu này nằm phía gần chỗ tắc, không phải chính khối bezoar tại điểm chuyển tiếp; khi đi kèm khối trong lòng ruột hình tròn hoặc bầu dục, có khí lốm đốm ở điểm chuyển tiếp, sẽ hỗ trợ chẩn đoán tắc ruột do bezoar.<br>+ Cần phân biệt với dấu phân trong ruột non, vốn thường là chất chứa dạng hạt lẫn khí kéo dài trong quai ruột giãn phía gần chỗ tắc. Hai dấu hiệu có thể chồng lấp, nên không dùng mảnh vụn đậm độ mỡ đơn độc để kết luận.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bezoars_anh/2015_09_a1-4.jpeg"><img src="bezoars_anh/2015_09_a1-4.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_a2-3.jpeg"><img src="bezoars_anh/2015_09_a2-3.jpeg" alt="" width="1494" height="1494" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_a3-1.jpeg"><img src="bezoars_anh/2015_09_a3-1.jpeg" alt="" width="1512" height="1512" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bezoars_anh/2015_09_1-566.jpg"><img src="bezoars_anh/2015_09_1-566.jpg" alt="" width="1600" height="1757" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-1-1.jpg"><img src="bezoars_anh/2015_09_2-1-1.jpg" alt="" width="1600" height="853" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-1-1.png"><img src="bezoars_anh/2015_09_3-1-1.png" alt="Tắc ruột do khối bã thức ăn / Mảnh vụn chất béo" width="988" height="767" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-1-1.png"><img src="bezoars_anh/2015_09_4-1-1.png" alt="" width="928" height="862" loading="lazy" decoding="async"></a></div>
+<h3 id="hoi-chung-rapunzel">* Hội chứng Rapunzel</h3>
+<p><span class="c-xanh">– Định nghĩa:</span> Là trichobezoar trong dạ dày có phần đuôi kéo qua môn vị xuống ruột non; có thể gây tắc ruột, thường ở đoạn ruột non, nhưng không đồng nghĩa với tắc đường ra dạ dày.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Có thể chán ăn, chướng bụng, no sớm, đau thượng vị, nôn sau ăn và sút cân; các triệu chứng này không đặc hiệu.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Trên CT, khối trong dạ dày thường không đồng nhất, giới hạn rõ, có các ổ khí lốm đốm; dựng hình đa mặt phẳng giúp theo dõi phần đuôi qua môn vị xuống tá tràng, hỗng tràng hoặc xa hơn.<br>+ Khi có tắc ruột, quai ruột phía trên điểm chuyển tiếp giãn; dày thành ruột và phù nề niêm mạc lân cận có thể đi kèm nhưng không đặc hiệu.<br>+ Bản thân khối thường không ngấm thuốc. Cần đánh giá riêng mức độ ngấm thuốc của thành ruột để nhận diện tổn thương thành ruột hoặc thiếu máu.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bezoars_anh/2015_09_Screenshot-2025-03-07-200201-1.png"><img src="bezoars_anh/2015_09_Screenshot-2025-03-07-200201-1.png" alt="" width="828" height="826" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_Screenshot-2025-03-07-195902.jpg"><img src="bezoars_anh/2015_09_Screenshot-2025-03-07-195902.jpg" alt="" width="1516" height="955" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-Figure8-1.jpg"><img src="bezoars_anh/2015_09_4-Figure8-1.jpg" alt="" width="1245" height="1016" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_261_2024_4634_Fig3_HTML.jpg"><img src="bezoars_anh/2015_09_261_2024_4634_Fig3_HTML.jpg" alt="" width="1200" height="1256" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_article_river_e0449e80fa5d11eea9feaf77ec97a4b5-FIG.1.jpg"><img src="bezoars_anh/2015_09_article_river_e0449e80fa5d11eea9feaf77ec97a4b5-FIG.1.jpg" alt="" width="986" height="1005" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_image1.jpeg"><img src="bezoars_anh/2015_09_image1.jpeg" alt="" width="1161" height="720" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bezoars_anh/2015_09_rapunzel-syndrome-trichobezoar-2-1.jpg"><img src="bezoars_anh/2015_09_rapunzel-syndrome-trichobezoar-2-1.jpg" alt="" width="643" height="705" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_rapunzel-syndrome-trichobezoar-2-2.jpg"><img src="bezoars_anh/2015_09_rapunzel-syndrome-trichobezoar-2-2.jpg" alt="" width="643" height="705" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_rapunzel-syndrome-trichobezoar-2-3.jpg"><img src="bezoars_anh/2015_09_rapunzel-syndrome-trichobezoar-2-3.jpg" alt="" width="643" height="705" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_rapunzel-syndrome-trichobezoar-2-4.jpg"><img src="bezoars_anh/2015_09_rapunzel-syndrome-trichobezoar-2-4.jpg" alt="" width="643" height="705" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_rapunzel-syndrome-trichobezoar-2.jpg"><img src="bezoars_anh/2015_09_rapunzel-syndrome-trichobezoar-2.jpg" alt="" width="643" height="705" loading="lazy" decoding="async"></a></div>
+<h2 id="v-phan-biet">V. Phân biệt</h2>
+<h3 id="khoi-phan-ket-khoi-fecaloma">* Khối phân kết khối (fecaloma)</h3>
+<p><span class="c-xanh">– Định nghĩa:</span> Là khối phân tích tụ, khô cứng và bị giữ lại trong lòng ruột; thường gặp ở trực tràng hoặc đại tràng sigma, nhưng hiếm khi có thể xuất hiện ở manh tràng hay ruột non. Táo bón kéo dài là bối cảnh gợi ý.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Trên CT, khối thường có đậm độ phân, bờ rõ, đôi khi có dạng phân lớp hoặc khí lốm đốm bên trong.<br>+ Thường nằm trong đoạn đại tràng chứa nhiều phân. Khối không bám niêm mạc và có thể di động trong lòng ruột, nhưng cũng có thể bị kẹt khi gây tắc.</p>
+<p><span class="c-xanh">– Phân biệt với bezoar:</span><br>+ Fecaloma được ủng hộ khi khối nằm ở trực tràng hoặc đại tràng sigma, đi kèm ứ phân và tiền sử táo bón; trường hợp ở ruột non có thể gây tắc nhưng hiếm gặp.<br>+ Bezoar thường là khối khu trú hình tròn hoặc bầu dục, cấu trúc không đồng nhất với khí lốm đốm, thường ở dạ dày hoặc ruột non và có thể nằm tại điểm chuyển tiếp gây tắc; một khối tương tự trong dạ dày cũng hỗ trợ chẩn đoán.<br>+ Hai loại có thể cùng có bờ rõ, khí lốm đốm, không bám niêm mạc và đôi khi di động. Vị trí, bối cảnh táo bón hoặc yếu tố nguy cơ tạo bezoar, kiểu ứ phân và điểm chuyển tiếp cần được đánh giá phối hợp; kích thước và tính di động đơn độc không đủ để phân biệt.</p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bezoars_anh/2021_02_1.jpg"><img src="bezoars_anh/2021_02_1.jpg" alt="" width="842" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_2.jpg"><img src="bezoars_anh/2021_02_2.jpg" alt="" width="842" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_3.jpg"><img src="bezoars_anh/2021_02_3.jpg" alt="" width="609" height="392" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_4-1.jpg"><img src="bezoars_anh/2021_02_4-1.jpg" alt="" width="605" height="399" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_5.jpg"><img src="bezoars_anh/2021_02_5.jpg" alt="" width="601" height="393" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_6.jpg"><img src="bezoars_anh/2021_02_6.jpg" alt="" width="508" height="524" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bezoars_anh/2021_02_1-7.jpeg"><img src="bezoars_anh/2021_02_1-7.jpeg" alt="U phân trực tràng - đại tràng sigma chèn ép bàng quang" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_2-7.jpeg"><img src="bezoars_anh/2021_02_2-7.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_3-8.jpeg"><img src="bezoars_anh/2021_02_3-8.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_4-7.jpeg"><img src="bezoars_anh/2021_02_4-7.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_5-4.jpeg"><img src="bezoars_anh/2021_02_5-4.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_6-3.jpeg"><img src="bezoars_anh/2021_02_6-3.jpeg" alt="" width="415" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bezoars_anh/2021_02_1.png"><img src="bezoars_anh/2021_02_1.png" alt="" width="630" height="419" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_2.png"><img src="bezoars_anh/2021_02_2.png" alt="" width="630" height="419" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_3.png"><img src="bezoars_anh/2021_02_3.png" alt="" width="630" height="419" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_4-9.jpeg"><img src="bezoars_anh/2021_02_4-9.jpeg" alt="" width="517" height="615" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_5-6.jpeg"><img src="bezoars_anh/2021_02_5-6.jpeg" alt="" width="515" height="615" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_6-5.jpeg"><img src="bezoars_anh/2021_02_6-5.jpeg" alt="" width="515" height="615" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bezoars_anh/2021_02_1-9.jpeg"><img src="bezoars_anh/2021_02_1-9.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_2-9.jpeg"><img src="bezoars_anh/2021_02_2-9.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_3-10.jpeg"><img src="bezoars_anh/2021_02_3-10.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_4-10.jpeg"><img src="bezoars_anh/2021_02_4-10.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_5-7.jpeg"><img src="bezoars_anh/2021_02_5-7.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2021_02_6-6.jpeg"><img src="bezoars_anh/2021_02_6-6.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bezoars_anh/2015_09_1-348.jpeg"><img src="bezoars_anh/2015_09_1-348.jpeg" alt="" width="622" height="438" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-346.jpeg"><img src="bezoars_anh/2015_09_2-346.jpeg" alt="" width="622" height="438" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-341.jpeg"><img src="bezoars_anh/2015_09_3-341.jpeg" alt="" width="622" height="436" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_4-319.jpeg"><img src="bezoars_anh/2015_09_4-319.jpeg" alt="" width="622" height="436" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_5-252.jpeg"><img src="bezoars_anh/2015_09_5-252.jpeg" alt="" width="621" height="567" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_6-112.jpeg"><img src="bezoars_anh/2015_09_6-112.jpeg" alt="" width="622" height="620" loading="lazy" decoding="async"></a></div>
+<h3 id="phan-trong-ruot-non">* Phân trong ruột non</h3>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Trên CT, trong lòng quai ruột non giãn có chất dạng hạt giống phân xen lẫn các bóng khí nhỏ; chất chứa có thể kéo dài trên một đoạn quai ruột, thường ở ruột non đoạn xa.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Thường phản ánh tình trạng ứ trệ, khiến thức ăn chưa tiêu hóa trộn với khí; tăng hấp thu nước và vi khuẩn tăng sinh có thể góp phần tạo hình ảnh này. Hiếm khi chất trong lòng ruột do niêm mạc bong trong thiếu máu mạc treo có thể bắt chước dấu hiệu.</p>
+<p><span class="c-xanh">– Vị trí:</span> Dấu hiệu thường nằm ở quai ruột giãn phía gần và nổi bật tại hoặc ngay trước điểm chuyển tiếp; có thể hỗ trợ định vị chỗ tắc nhưng không xác định nguyên nhân.</p>
+<p><span class="c-xanh">– Ý nghĩa:</span> Thường gặp hơn trong tắc ruột tiến triển mức độ vừa hoặc cao, nhưng vẫn có thể xuất hiện khi tắc nhẹ; không dùng riêng dấu hiệu này để kết luận nguyên nhân do dính, mức độ tắc hoặc tiên lượng.</p>
+<p><span class="c-xanh">– Phân biệt:</span><br>+ Dấu phân trong ruột non thường là chất dạng hạt lẫn khí trải dài trong quai ruột giãn phía gần điểm chuyển tiếp; bezoar thường là khối khu trú hình tròn hoặc bầu dục, không đồng nhất, có khí lốm đốm và nằm tại điểm chuyển tiếp.<br>+ Hai hình ảnh có thể chồng lấp; cần đối chiếu hình thái, chiều dài và vị trí so với điểm chuyển tiếp, đồng thời khảo sát toàn bộ đường tiêu hóa.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bezoars_anh/2015_08_Screenshot-2022-05-25-201717.jpg"><img src="bezoars_anh/2015_08_Screenshot-2022-05-25-201717.jpg" alt="" width="1049" height="451" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_1-416.jpg"><img src="bezoars_anh/2015_09_1-416.jpg" alt="" width="1425" height="2500" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-409.jpg"><img src="bezoars_anh/2015_09_2-409.jpg" alt="" width="1600" height="1370" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-395.jpg"><img src="bezoars_anh/2015_09_3-395.jpg" alt="" width="1600" height="1450" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_image04622.jpeg"><img src="bezoars_anh/2015_08_image04622.jpeg" alt="" width="650" height="650" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_5.png"><img src="bezoars_anh/2015_08_5.png" alt="" width="481" height="508" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_4.png"><img src="bezoars_anh/2015_08_4.png" alt="" width="671" height="511" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/11_04_0050_01b.jpeg"><img src="bezoars_anh/11_04_0050_01b.jpeg" alt="" width="1280" height="1051" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_20190105_052541_20190105053900593.jpg"><img src="bezoars_anh/2015_08_20190105_052541_20190105053900593.jpg" alt="" width="1400" height="802" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_652393.png"><img src="bezoars_anh/2015_08_652393.png" alt="" width="388" height="472" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="bezoars_anh/2015_08_1-725.jpeg"><img src="bezoars_anh/2015_08_1-725.jpeg" alt="" width="621" height="533" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_2-718.jpeg"><img src="bezoars_anh/2015_08_2-718.jpeg" alt="" width="622" height="532" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_3-710.jpeg"><img src="bezoars_anh/2015_08_3-710.jpeg" alt="" width="624" height="525" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_4-670.jpeg"><img src="bezoars_anh/2015_08_4-670.jpeg" alt="" width="623" height="526" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_5-547.jpeg"><img src="bezoars_anh/2015_08_5-547.jpeg" alt="" width="626" height="521" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="bezoars_anh/2015_08_1-489.jpeg"><img src="bezoars_anh/2015_08_1-489.jpeg" alt="" width="893" height="910" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_2-491.jpeg"><img src="bezoars_anh/2015_08_2-491.jpeg" alt="" width="550" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_3-494.jpeg"><img src="bezoars_anh/2015_08_3-494.jpeg" alt="" width="550" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_4-477.jpeg"><img src="bezoars_anh/2015_08_4-477.jpeg" alt="" width="550" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_5-383.jpeg"><img src="bezoars_anh/2015_08_5-383.jpeg" alt="" width="550" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_6-151.jpeg"><img src="bezoars_anh/2015_08_6-151.jpeg" alt="" width="550" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">=&gt; Phân biệt khối bã thực vật (phytobezoar) với dấu hiệu phân trong ruột non:</span></p>
+<p><span class="c-xanh">– Khối bã thực vật:</span><br>+ Trên CT thường là khối khu trú trong lòng ruột, hình tròn hoặc bầu dục, cấu trúc không đồng nhất với khí lốm đốm; thường nằm tại điểm chuyển tiếp gây tắc. Một khối tương tự trong dạ dày hỗ trợ chẩn đoán.<br>+ Khối thường ngắn; mốc &lt; 10 cm chỉ là dấu gợi ý, không phải ngưỡng chẩn đoán. Bờ có thể rõ; đôi khi có viền tăng đậm độ tạo hình như vỏ, nhưng không nhất thiết có vỏ thật.<br>+ Vị trí tắc có thể ở hỗng tràng hoặc hồi tràng; vị trí đoạn xa ruột non đơn độc không đủ để phân biệt.<br>+ Dấu hiệu mảnh vụn đậm độ mỡ lơ lửng có thể gặp trong quai ruột giãn phía gần điểm tắc, không phải chính khối bezoar; đậm độ khoảng −50 đến −150 HU. Đậm độ thấp có thể do hiệu ứng thể tích trung bình giữa mảnh vụn và khí mắc trong đó, không chứng minh có mô mỡ thật.</p>
+<p><span class="c-xanh">– Dấu phân trong ruột non:</span> Thường là chất dạng hạt lẫn khí trải dài trong quai ruột giãn phía gần điểm chuyển tiếp, thay vì một khối rời rạc khu trú.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Hai dấu hiệu có thể cùng có khí lốm đốm và chồng lấp về chiều dài; không dùng ngưỡng kích thước, vị trí đoạn xa hay tính di động đơn độc để kết luận.<br>+ Không có thâm nhiễm mỡ mạc treo không phải tiêu chuẩn bắt buộc của bezoar; phản ứng mỡ quanh ruột có thể xuất hiện khi có viêm hoặc tắc. Nếu CT chưa phân biệt chắc chắn, cần đối chiếu toàn bộ đường tiêu hóa và bối cảnh lâm sàng; siêu âm bổ sung có thể hỗ trợ.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bezoars_anh/2015_09_652449.jpg"><img src="bezoars_anh/2015_09_652449.jpg" alt="" width="992" height="497" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_images_11_07_4004_01.jpeg"><img src="bezoars_anh/2015_08_images_11_07_4004_01.jpeg" alt="Khối dị vật hình trứng ranh giới rõ tại vị trí tắc nghẽn + mảnh vụn mỡ trôi nổi gần dị vật tắc nghẽn." width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_images_11_07_4004_06.jpeg"><img src="bezoars_anh/2015_08_images_11_07_4004_06.jpeg" alt="Khối dị vật hình trứng ranh giới rõ tại vị trí tắc nghẽn + mảnh vụn mỡ trôi nổi gần dị vật tắc nghẽn." width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_08_images_11_07_4004_05.jpeg"><img src="bezoars_anh/2015_08_images_11_07_4004_05.jpeg" alt="Khối dị vật hình trứng ranh giới rõ tại vị trí tắc nghẽn + mảnh vụn mỡ trôi nổi gần dị vật tắc nghẽn." width="1494" height="1494" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="bezoars_anh/2015_09_a-5.png"><img src="bezoars_anh/2015_09_a-5.png" alt="" width="870" height="313" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_b-3.png"><img src="bezoars_anh/2015_09_b-3.png" alt="" width="741" height="501" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="bezoars_anh/2015_09_1-58.jpeg"><img src="bezoars_anh/2015_09_1-58.jpeg" alt="" width="897" height="944" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_2-58.jpeg"><img src="bezoars_anh/2015_09_2-58.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_3-58.jpeg"><img src="bezoars_anh/2015_09_3-58.jpeg" alt="" width="493" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="bezoars_anh/2015_09_fb8e9ae6169fb9261f394e412a74f7_big_gallery.jpeg"><img src="bezoars_anh/2015_09_fb8e9ae6169fb9261f394e412a74f7_big_gallery.jpeg" alt="" width="630" height="473" loading="lazy" decoding="async"></a></div>
+<h2 id="vi-tien-luong-dieu-tri">VI. Tiên lượng &amp; Điều trị</h2>
+<p><span class="c-xanh">1. Tiên lượng</span><br>– Tiên lượng thay đổi theo loại bezoar, kích thước, vị trí, số lượng, mức độ tắc nghẽn và tổn thương thành ống tiêu hóa; đồng thời phụ thuộc bệnh nền và việc xử trí có kịp thời hay không.<br>– Bezoar dạ dày chưa gây biến chứng thường có thể được xử trí bằng phương pháp phù hợp. Khối lớn, tồn tại dai dẳng hoặc gây loét, xuất huyết, tắc nghẽn hay thủng làm tăng nguy cơ biến chứng và nhu cầu can thiệp.<br>– Bezoar ruột non gây tắc có thể dẫn đến thiếu máu, hoại tử hoặc thủng ruột; cần đánh giá khẩn khi có dấu hiệu tắc nghẽn nặng hay biến chứng.<br>– Nguy cơ tái phát có thể còn nếu yếu tố thuận lợi chưa được xử lý. Với trichobezoar, cần lưu ý hành vi ăn tóc kéo dài hoặc tái diễn.</p>
+<p><span class="c-xanh">2. Nguyên tắc điều trị</span><br>– Lựa chọn phương pháp dựa trên thành phần, vị trí, kích thước, số lượng và khả năng tiếp cận khối, cùng với tình trạng lâm sàng và biến chứng.<br>– Trường hợp đau bụng cấp, tắc ruột tiến triển, nghi thiếu máu hoặc thủng ruột, xuất huyết đáng kể hay tình trạng toàn thân không ổn định cần được đánh giá và xử trí khẩn, phối hợp chuyên khoa phù hợp.<br>– Mục tiêu là làm tan, lấy bỏ hoặc giải quyết khối gây tắc, đồng thời hạn chế nguy cơ mảnh vỡ di chuyển xuống ruột và xử lý yếu tố thuận lợi nếu có.</p>
+<p><span class="c-xanh">3. Điều trị theo loại và vị trí</span><br>– Phytobezoar dạ dày: Ở người bệnh ổn định, chưa có biến chứng nặng, có thể cân nhắc biện pháp làm mềm/hòa tan dưới giám sát lâm sàng. Nội soi có thể được dùng để làm vỡ và lấy khối; đôi khi phối hợp với biện pháp hòa tan. Cần bảo đảm việc lấy bỏ hoặc theo dõi thích hợp các mảnh vỡ.<br>– Diospyrobezoar: Khối thường cứng và có thể đáp ứng kém với biện pháp hòa tan. Nội soi để phân mảnh và lấy bỏ có thể được cân nhắc; phẫu thuật được xem xét khi khối lớn, không tiếp cận được, điều trị thất bại hoặc có biến chứng.<br>– Trichobezoar: Khối lớn, chắc hoặc lan rộng thường khó lấy qua nội soi và có thể cần phẫu thuật. Nội soi chỉ phù hợp trong một số trường hợp được chọn lọc. Nếu khối kéo dài qua môn vị xuống ruột non, cần đánh giá phạm vi lan rộng và nguy cơ tắc ruột; đặc điểm này không đồng nghĩa với tắc đường ra dạ dày.<br>– Bezoar ruột non gây tắc: Tắc kéo dài hoặc có dấu hiệu biến chứng thường cần phẫu thuật lấy khối; có thể phải xử lý đoạn ruột tổn thương nếu cần. Khi can thiệp, cần đánh giá các đoạn ruột khác để phát hiện khối đồng thời.<br>– Lactobezoar ở trẻ sơ sinh: Có thể xử trí ban đầu bằng các biện pháp hỗ trợ như tạm ngừng ăn đường miệng, bù dịch và giải áp/dẫn lưu dạ dày theo chỉ định. Can thiệp xâm lấn được cân nhắc khi tình trạng không cải thiện hoặc có biến chứng.<br>– Pharmacobezoar: Cần xác định tác nhân, ngừng phơi nhiễm và lựa chọn xử trí theo nguy cơ độc chất; cân nhắc hội chẩn chuyên khoa độc chất và can thiệp khi khối gây tắc hoặc không giải quyết được bằng biện pháp phù hợp.</p>
+<p><span class="c-xanh">4. Theo dõi và hạn chế tái phát</span><br>– Theo dõi đáp ứng lâm sàng và xác nhận khối đã được giải quyết theo phương pháp phù hợp với từng trường hợp.<br>– Đánh giá và xử lý yếu tố thuận lợi như rối loạn làm rỗng dạ dày, bất thường giải phẫu, tiền sử phẫu thuật tiêu hóa, chế độ ăn hoặc thuốc liên quan. Với trichobezoar, cần đánh giá và hỗ trợ đối với hành vi ăn tóc để hạn chế tái phát.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Gastrointestinal Bezoars: Sonographic and CT Characteristics – Tomás Ripollés, Javier García-Aguayo, María-Jesús Martínez and Pedro Gil<br>* CT Findings of Patients with Small Bowel Obstruction due to Bezoar – Fatih Altintoprak, Bumin Degirmenci, Enis Dikicier<br>* Small-Bowel Bezoar Versus Small-Bowel Feces: CT Evaluation – Eric Delabrousse, Jean Lubrano, Nicolas Sailley<br>* Bezoar como causa de obstrucción intestinal en el adulto. Revisión retrospectiva en nuestro hospital – P. Pérez Sánchez, J. J. Herrero Reyes, C. M. Asencio Moreno<br>* CT findings of tumors and tumor-like conditions of small intestine – T. Tsuda, M. Takechi, H. Tanaka, T. Mochizuki; Ehime/JP<br>* Gastrointestinal phytobezoars in correlation to predisposing factors: CT evaluation – M. Sidiropoulou, A. MARKOU, P. Georgiou<br>* Phytobezoars: A Single Tertiary Center 7-Year Experience – G. Çakmak, K. Özdemir, M. Y. Uzunoğlu<br>* Bezoar review: A rare cause of gastrintestinal obstruction – M. Grando, R. V. S. Fonseca, A. Filho<br>* MDCT findings in small bowel obstruction secondary to bezoar and differential diagnosis with “small-bowel faeces sign” – J. Herrero Reyes, C. M. Asencio Moreno<br>* Bezoar-induced small bowel obstruction : For more confirmative radiologic diagnosis – K. H. Lee, H. Y. Han; Deajeon/KR, Daejeon/KR<br>* How to diagnose a bezoar: imaging findings in CT – I. López Blasco, S. Paz Maya, D. Soriano Mena<br>* Small Bowel Bezoar Versus Small Bowel Feces: CT Evaluation – Eric Delabrousse<br></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

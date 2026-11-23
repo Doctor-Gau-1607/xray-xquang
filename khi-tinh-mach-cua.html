@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Khí Tĩnh Mạch Cửa</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · TIÊU HÓA</div>
+   <h1>Khí Tĩnh Mạch Cửa</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/khi-tinh-mach-cua/" target="_blank" rel="noopener">Xray.vn — xray.vn/khi-tinh-mach-cua</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Khí tĩnh mạch cửa (portal venous gas)</span> là sự tích tụ bất thường của khí bên trong hệ thống tĩnh mạch cửa và các nhánh trong gan:<br>+ Không phải một thực thể bệnh lý độc lập mà là dấu hiệu hình ảnh thứ phát cảnh báo nhiều tình trạng cấp cứu ổ bụng hoặc biến chứng thủ thuật.<br>+ Dấu hiệu này được Wolf và Evans mô tả lần đầu tiên trên X-quang bụng ở trẻ sơ sinh bị viêm ruột hoại tử vào năm 1955.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Tỷ lệ phát hiện trên lâm sàng ngày càng gia tăng nhờ sự phổ biến và độ phân giải cao của cắt lớp vi tính đa dãy:<br>+ Gặp ở cả trẻ sơ sinh (chủ yếu liên quan viêm ruột hoại tử) và người lớn (thường liên quan thiếu máu mạc treo cấp, tắc ruột hoặc sau can thiệp).<br>+ Tỷ lệ tử vong chung đã giảm từ &gt; 75% trong các báo cáo X-quang kinh điển xuống khoảng 25–40% hiện nay nhờ phát hiện sớm nhiều trường hợp lành tính hoặc thoáng qua trên cắt lớp vi tính.</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Phân bố nguyên nhân phản ánh phổ bệnh lý từ cấp cứu hoại tử đến các tình trạng giãn lòng ruột hoặc sau thủ thuật lành tính:<br>+ Nhóm thiếu máu và hoại tử ruột chiếm tỷ lệ hàng đầu (khoảng 43% trong tổng quan kinh điển và dao động 33–53% trong các loạt nghiên cứu cắt lớp vi tính đa trung tâm), chủ yếu do thiếu máu mạc treo cấp tính hoặc xoắn nghẹt ruột.<br>+ Nhóm giãn lòng ống tiêu hóa do tắc ruột cơ học hoặc liệt ruột (khoảng 12%) làm tăng áp lực nội lòng đột ngột.<br>+ Nhóm nhiễm trùng và áp xe trong ổ bụng (khoảng 11%) như viêm túi thừa, viêm ruột thừa thủng, viêm phúc mạc hoặc viêm đường mật sinh mủ.<br>+ Nhóm bệnh lý viêm loét niêm mạc ống tiêu hóa gồm viêm loét đại tràng (khoảng 4%), loét dạ dày – tá tràng (khoảng 4%) và bệnh Crohn (khoảng 4%).<br>+ Nhóm liên quan thủ thuật y khoa (khoảng 4% trong thống kê kinh điển và có xu hướng tăng lên rõ rệt trong thực hành cắt lớp vi tính hiện đại) như nội soi tiêu hóa, nong thực quản, sinh thiết hoặc sau phẫu thuật bụng.<br>+ Nhóm u ác tính ổ bụng (khoảng 3%) và các nguyên nhân khác hoặc vô căn (khoảng 15%) như viêm ruột hoại tử sơ sinh, chấn thương bụng kín.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Sự xâm nhập khí vào hệ tĩnh mạch mạc treo – cửa hình thành qua ba cơ chế chính thường phối hợp nhau:<br>+ Tổn thương hàng rào niêm mạc ruột do thiếu máu, hoại tử hoặc viêm loét tạo lối vào trực tiếp cho khí từ lòng ruột xuyên qua thành tĩnh mạch tạng.<br>+ Tăng áp lực trong lòng ống tiêu hóa do tắc nghẽn hoặc thủ thuật bơm hơi đẩy khí qua lớp niêm mạc bị tổn thương hoặc thậm chí còn nguyên vẹn vào tĩnh mạch thành ruột.<br>+ Sự sinh hơi tại chỗ của vi khuẩn kỵ khí xâm nhập vào hệ tĩnh mạch mạc treo hoặc từ các ổ áp xe trong ổ bụng dẫn lưu về hệ cửa.<br>+ Các bọt khí theo dòng chảy hướng gan (hepatopetal) của hệ tĩnh mạch cửa di chuyển ra tận các nhánh tận ngoại vi sát bao gan.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Triệu chứng không đặc hiệu và phụ thuộc hoàn toàn vào bệnh lý nền gây ra khí tĩnh mạch cửa:<br>+ Bối cảnh cấp cứu ngoại khoa biểu hiện bằng đau bụng dữ dội, chướng bụng, phản ứng thành bụng, nôn ói, đi ngoài ra máu hoặc sốc nhiễm trùng – nhiễm độc.<br>+ Bối cảnh lành tính hoặc sau thủ thuật có thể chỉ đau bụng nhẹ thoáng qua hoặc hoàn toàn không triệu chứng, tình cờ phát hiện trên chẩn đoán hình ảnh.</p>
+<p><span class="c-xanh">– Phân bố:</span> Vị trí tích tụ khí phản ánh nguồn gốc giải phẫu của tổn thương và đặc điểm huyết động hệ cửa:<br>+ Trong nhu mô gan, khí ưu tiên tập trung ở ngoại vi (cách bao gan &lt; 2 cm) và thường nổi trội ở thùy trái do vị trí giải phẫu nằm phía trước trên khi bệnh nhân nằm ngửa.<br>+ Trường hợp khí số lượng lớn có thể lấp đầy cả thân chính tĩnh mạch cửa, tĩnh mạch mạc treo tràng trên, tĩnh mạch mạc treo tràng dưới hoặc tĩnh mạch lách.</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span> Cắt lớp vi tính giữ vai trò hàng đầu trong chẩn đoán xác định và định hướng thái độ xử trí:<br>+ Phát hiện nhạy các bọt khí nhỏ trong hệ tĩnh mạch cửa – mạc treo ngay cả khi X-quang bụng không chuẩn bị âm tính.<br>+ Xác định nguyên nhân nền và đánh giá mức độ tổn thương ruột phối hợp (khí thành ruột, giảm ngấm thuốc thành ruột, huyết khối mạch mạc treo, khí tự do ổ bụng) để phân tầng chỉ định phẫu thuật cấp cứu hay theo dõi bảo tồn.</p>
+<figure><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_08_Screenshot-2021-12-18-230001.png"><img src="khi-tinh-mach-cua_anh/2015_08_Screenshot-2021-12-18-230001.png" alt="" width="881" height="298" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-giai-phau">II. Giải phẫu</h2>
+<p><span class="c-xanh">– Cấu trúc hợp lưu và đường đi:</span> Thân chính tĩnh mạch cửa được hình thành phía sau cổ tụy (ngang mức đốt sống L1–L2) bởi sự hợp lưu của tĩnh mạch mạc treo tràng trên và tĩnh mạch lách; chạy chếch lên trên, sang phải trong bờ tự do của mạc nối nhỏ (dây chằng gan – tá tràng), nằm phía sau động mạch gan riêng và ống mật chủ trước khi chia nhánh tại rốn gan.</p>
+<p><span class="c-xanh">– Phân nhánh trong gan:</span> Tại rốn gan, thân chính chia thành nhánh phải và nhánh trái đi kèm các nhánh tương ứng của động mạch gan và đường mật trong bao Glisson:<br>+ Nhánh phải tĩnh mạch cửa: Ngắn và lớn hơn, chia tiếp thành nhánh phân thùy trước (cấp máu cho hạ phân thùy V, VIII) và nhánh phân thùy sau (cấp máu cho hạ phân thùy VI, VII).<br>+ Nhánh trái tĩnh mạch cửa: Dài hơn và chạy ngang sang trái, gồm đoạn ngang và đoạn rốn, cấp máu cho thùy trái (hạ phân thùy II, III, IV) và cho các nhánh nhỏ vào thùy đuôi (hạ phân thùy I).</p>
+<p><span class="c-xanh">– Kích thước và huyết động bình thường:</span> Khẩu kính thân chính đo trên siêu âm ở tư thế nhịn đói thường ≤ 13 mm; cung cấp khoảng 75–80% tổng lưu lượng máu và khoảng 50% lượng oxy cho nhu mô gan với dòng chảy hướng gan (hepatopetal), vận tốc trung bình 15–20 cm/s và phổ Doppler ít dao động theo nhịp thở hoặc nhịp tim.</p>
+<p><span class="c-xanh">– Biến thể giải phẫu thường gặp:</span> Chiếm khoảng 20–35% dân số và có ý nghĩa quyết định trong lập kế hoạch phẫu thuật cắt gan hoặc can thiệp nội mạch:<br>+ Chạc ba tĩnh mạch cửa (trifurcation): Thân chính chia đồng thời thành ba nhánh gồm nhánh phân thùy trước phải, nhánh phân thùy sau phải và nhánh trái (chiếm khoảng 10–15%).<br>+ Nhánh phân thùy sau phải xuất phát sớm từ thân chính (early origin of right posterior portal vein): Nhánh phân thùy sau phải tách trực tiếp từ thân chính trước khi chia nhánh trái và nhánh phân thùy trước phải (chiếm khoảng 5–10%).<br>+ Nhánh phân thùy trước phải xuất phát từ nhánh trái tĩnh mạch cửa: Dễ gây tổn thương hoặc thắt nhầm nhánh cấp máu cho gan phải khi phẫu thuật cắt gan trái nếu không nhận diện trước mổ.</p>
+<p><span class="c-xanh">– Hệ thống tuần hoàn bàng hệ cửa – chủ:</span> Tĩnh mạch cửa không có van nên khi tăng áp lực hoặc tắc nghẽn, dòng máu đảo chiều qua các vòng nối giải phẫu chính gồm vòng nối thực quản – dạ dày (qua tĩnh mạch vị trái và tĩnh mạch vị ngắn), vòng nối rốn (tái thông tĩnh mạch cạnh rốn trong dây chằng tròn), vòng nối trực tràng (tĩnh mạch trực tràng trên – giữa/dưới) và vòng nối sau phúc mạc (tĩnh mạch lách – thận trái).</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_giaiphau.png"><img src="khi-tinh-mach-cua_anh/2015_09_giaiphau.png" alt="" width="976" height="872" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2016_11_5-4.jpg"><img src="khi-tinh-mach-cua_anh/2016_11_5-4.jpg" alt="" width="1062" height="1281" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_2-42.png"><img src="khi-tinh-mach-cua_anh/2015_09_2-42.png" alt="" width="832" height="393" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_1-38.png"><img src="khi-tinh-mach-cua_anh/2015_09_1-38.png" alt="" width="858" height="277" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_gptmc.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_gptmc.jpg" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_index-61.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_index-61.jpg" alt="" width="716" height="663" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_index-1-31.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_index-1-31.jpg" alt="" width="597" height="575" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_3-40.png"><img src="khi-tinh-mach-cua_anh/2015_09_3-40.png" alt="" width="936" height="453" loading="lazy" decoding="async"></a></div>
+<h2 id="iii-chan-doan-sieu-am">III. Chẩn đoán siêu âm</h2>
+<p><span class="c-xanh">– Kỹ thuật khảo sát:</span> Siêu âm thang xám kết hợp Doppler giúp phát hiện trực tiếp các bọt khí di động theo thời gian thực ngay tại giường bệnh:<br>+ Sử dụng đầu dò cong tần số thấp (2–5 MHz) đánh giá tổng thể hệ tĩnh mạch cửa – mạc treo và đầu dò thẳng tần số cao (7–12 MHz) để phát hiện rõ các vi bọt khí ở vùng ngoại vi sát bao gan.<br>+ Hạ mức khuếch đại tổng thể (gain) giúp tăng độ tương phản giữa các bọt khí hồi âm dày với lòng mạch giảm âm chứa máu lưu thông.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Các bọt khí trong hệ tĩnh mạch mạc treo – cửa biểu hiện bằng hình thái tăng hồi âm điển hình và tính chất di động theo dòng chảy:<br>+ Trong lòng tĩnh mạch mạc treo tràng trên, tĩnh mạch mạc treo tràng dưới, tĩnh mạch lách và thân chính tĩnh mạch cửa, khí xuất hiện dưới dạng các chấm hoặc đốm tăng hồi âm mạnh trôi tự do về phía rốn gan.<br>+ Khác với sỏi hoặc huyết khối vôi hóa cố định bám thành mạch, các chấm tăng hồi âm này di chuyển liên tục theo nhịp dòng chảy hướng gan (hepatopetal) trên siêu âm thời gian thực.<br>+ Trên siêu âm Doppler xung, các bọt khí đi qua cửa sổ khảo sát tạo ra các vạch nhiễu tín hiệu thẳng đứng hai chiều sắc nhọn kèm tiếng lách tách đặc trưng trên phổ âm thanh.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh trong nhu mô gan:</span> Các bọt khí theo dòng máu tĩnh mạch cửa vào gan phân bố dưới dạng các dải hoặc đường tăng hồi âm mạnh phân nhánh dạng cành cây ở vùng ngoại vi:<br>+ Bọt khí di chuyển theo dòng chảy hướng gan (hepatopetal) ra tận các nhánh tận ngoại vi sát bao gan (&lt; 2 cm), ưu thế ở phần trước thùy trái khi bệnh nhân nằm ngửa.<br>+ Phía sau các ổ khí tạo giả ảnh phản xạ nhiều lần dạng đuôi sao chổi (comet-tail artifact) hoặc bóng cản bẩn, cần tránh nhầm với nốt vôi hóa nhu mô gan hay sỏi đường mật trong gan.<br>+ Dấu hiệu phân biệt với khí đường mật (pneumobilia) dựa vào vị trí phân bố: khí tĩnh mạch cửa lan tỏa ra sát ngoại vi bao gan theo chiều dòng máu cửa, trong khi khí đường mật tập trung ở trung tâm rốn gan do dòng chảy mật hướng tâm.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_648201.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_648201.jpg" alt="" width="723" height="540" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_Zierler-ch022-image005.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_Zierler-ch022-image005.jpg" alt="" width="1200" height="854" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_165c5a86cc68c10c9e22913ba9bd7a.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_165c5a86cc68c10c9e22913ba9bd7a.jpg" alt="" width="1299" height="1114" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_fetalneonatal-2009-May-94-3-F183-F1.large_.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_fetalneonatal-2009-May-94-3-F183-F1.large_.jpg" alt="" width="1440" height="1227" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_2-Figure2-1-1.png"><img src="khi-tinh-mach-cua_anh/2015_09_2-Figure2-1-1.png" alt="" width="1268" height="678" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_fetalneonatal-2013-September-98-5-F445-F4.large_.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_fetalneonatal-2013-September-98-5-F445-F4.large_.jpg" alt="" width="1600" height="1078" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_maxresdefault-1.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_maxresdefault-1.jpg" alt="" width="977" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_jcu22774-fig-0001-m.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_jcu22774-fig-0001-m.jpg" alt="" width="1600" height="1038" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_Figure-3-Ultrasound-showing-portal-venous-gas-as-echogenic-spots-within-the-liver-and-1.png"><img src="khi-tinh-mach-cua_anh/2015_09_Figure-3-Ultrasound-showing-portal-venous-gas-as-echogenic-spots-within-the-liver-and-1.png" alt="" width="850" height="637" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_3-Figure2-1-2.png"><img src="khi-tinh-mach-cua_anh/2015_09_3-Figure2-1-2.png" alt="" width="1334" height="1088" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_Capture-8.png"><img src="khi-tinh-mach-cua_anh/2015_09_Capture-8.png" alt="" width="1169" height="444" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_1-224.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_1-224.jpeg" alt="" width="942" height="825" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_2-222.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_2-222.jpeg" alt="" width="844" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_3-209.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_3-209.jpg" alt="" width="1179" height="772" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_5-144.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_5-144.jpg" alt="" width="1206" height="1421" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_6-40.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_6-40.jpg" alt="" width="894" height="1356" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_4-189.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_4-189.jpg" alt="" width="1299" height="932" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_7-23.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_7-23.jpg" alt="" width="1522" height="908" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_8-18.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_8-18.jpg" alt="" width="1495" height="971" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-x-quang">IV. Chẩn đoán x-quang</h2>
+<p><span class="c-xanh">– Kỹ thuật chụp:</span> Phim X-quang bụng không chuẩn bị tư thế nằm ngửa hoặc tư thế nằm nghiêng trái (left lateral decubitus) giúp quan sát rõ vùng gan:<br>+ Tư thế nằm nghiêng trái làm khí nổi lên trên theo trọng lực, tập trung ở phần cao của thùy phải gan sát vòm hoành để dễ nhận diện và tránh chồng hình với hơi trong đại tràng.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Khí trong hệ tĩnh mạch cửa biểu hiện bằng các dải sáng phân nhánh dạng cành cây (arborizing lucencies) chồng lên bóng mờ gan:<br>+ Khí có xu hướng lan tỏa ra tận vùng ngoại vi nhu mô gan (cách bao gan &lt; 2 cm) do dòng chảy tĩnh mạch cửa hướng gan (hepatopetal) đẩy các bọt khí tới các nhánh tận nhỏ.<br>+ Khi lượng khí tích tụ lớn, các dải sáng dạng ống có thể lan ngược về thân chính tĩnh mạch cửa tại rốn gan, tĩnh mạch mạc treo tràng trên hoặc tĩnh mạch lách.<br>+ Độ nhạy của X-quang bụng thấp (chỉ phát hiện được khoảng 15–20% số trường hợp có khí tĩnh mạch cửa trên cắt lớp vi tính), nên phim âm tính không loại trừ được chẩn đoán và dấu hiệu này thường phản ánh giai đoạn muộn với khối lượng khí lớn.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_Screenshot-2021-12-18-230256.png"><img src="khi-tinh-mach-cua_anh/2015_09_Screenshot-2021-12-18-230256.png" alt="" width="1073" height="439" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_4-22-1.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_4-22-1.jpeg" alt="" width="1024" height="759" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_6e64da8051fefddfdfe3ce1796df73_jumbo.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_6e64da8051fefddfdfe3ce1796df73_jumbo.jpg" alt="" width="945" height="824" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_portal-venous-gas-neonate_Xray.vn_.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_portal-venous-gas-neonate_Xray.vn_.jpg" alt="" width="700" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_GasinPortaVein2Child.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_GasinPortaVein2Child.jpg" alt="" width="730" height="853" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Tổn thương phối hợp:</span> Phim X-quang bụng có thể bộc lộ các dấu hiệu đi kèm giúp định hướng nguyên nhân nền và cảnh báo tình trạng thiếu máu hoại tử ruột:<br>+ Tắc ruột cơ học hoặc liệt ruột biểu hiện bằng các quai ruột non hoặc đại tràng giãn chướng hơi kèm mức nước – hơi trên phim chụp tư thế đứng hoặc nằm nghiêng.<br>+ Khí thành ruột (pneumatosis intestinalis) xuất hiện dưới dạng các dải sáng chạy dọc song song thành quai ruột hoặc các bóng khí tròn nhỏ dạng chùm nho xếp lớp trong thành ruột.<br>+ Khí trong hệ tĩnh mạch mạc treo biểu hiện bằng các dải sáng phân nhánh nhỏ nằm ở vùng trung tâm ổ bụng hướng về phía tĩnh mạch cửa, thường khó tách biệt với hơi trong lòng ruột trên phim thường quy.<br>+ Liềm hơi dưới vòm hoành (pneumoperitoneum) báo hiệu biến chứng thủng tạng rỗng thứ phát sau hoại tử xuyên thành, đòi hỏi chỉ định phẫu thuật cấp cứu tức thì.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_phoihop1.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_phoihop1.jpeg" alt="" width="986" height="881" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_phoihop2.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_phoihop2.jpg" alt="" width="934" height="1058" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_phoihop3.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_phoihop3.jpeg" alt="" width="903" height="939" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_phoihop4.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_phoihop4.jpeg" alt="" width="946" height="969" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_eb30144a33eae79e2a6df860ef169b_jumbo.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_eb30144a33eae79e2a6df860ef169b_jumbo.jpeg" alt="" width="1024" height="816" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2016_11_1-23.jpeg"><img src="khi-tinh-mach-cua_anh/2016_11_1-23.jpeg" alt="" width="822" height="998" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_123-1.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_123-1.jpeg" alt="" width="951" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_Abdominal-radiographs-show-bowel-loops-that-exhibit-the-linear-pattern-of-intramural-gas.png"><img src="khi-tinh-mach-cua_anh/2015_09_Abdominal-radiographs-show-bowel-loops-that-exhibit-the-linear-pattern-of-intramural-gas.png" alt="" width="850" height="429" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_1-238.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_1-238.jpeg" alt="Khí TMC" width="950" height="836" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_2-237.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_2-237.jpeg" alt="Tắc ruột / Khí thành ruột" width="848" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_5-176.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_5-176.jpeg" alt="Khí TMC" width="630" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_6-64.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_6-64.jpeg" alt="" width="630" height="387" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_3-231.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_3-231.jpeg" alt="Khí TMC" width="580" height="372" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_4-221.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_4-221.jpeg" alt="Tắc ruột / Khí thành ruột" width="550" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Phân biệt:</span> Đối chiếu trực tiếp với các dải sáng dạng khí khác chồng lên vùng gan trên phim X-quang bụng không chuẩn bị:<br>+ Khí đường mật trong gan (pneumobilia): Khí tập trung ở vùng trung tâm quanh rốn gan và dừng lại cách xa bao gan (&gt; 2 cm) do dòng chảy dịch mật hướng tâm ra rốn gan đẩy bọt khí về các ống mật lớn.<br>+ Khí tĩnh mạch cửa (portal venous gas): Khí phân nhánh nhỏ mịn lan tỏa ra tận vùng ngoại vi sát bao gan (&lt; 2 cm) theo dòng chảy hướng gan (hepatopetal), thường kèm khí trong hệ tĩnh mạch mạc treo hoặc khí thành ruột.<br>+ Khí trong ổ áp xe gan hoặc nhồi máu gan sinh hơi: Tạo ổ sáng khu trú dạng bọt xà phòng hoặc mức khí – dịch cố định trong nhu mô gan, không phân nhánh liên tục theo cây mạch máu hay đường mật.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-tinh-mach-cua_anh/2021_12_Screenshot-2021-12-20-224126.png"><img src="khi-tinh-mach-cua_anh/2021_12_Screenshot-2021-12-20-224126.png" alt="" width="1052" height="652" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_08_42-year-old-woman-with-pancreatic-head-adenocarcinoma-and-biliary-stent-that-was-misplaced-in-cystic-duct.-1_Xray.vn_.jpg"><img src="khi-tinh-mach-cua_anh/2015_08_42-year-old-woman-with-pancreatic-head-adenocarcinoma-and-biliary-stent-that-was-misplaced-in-cystic-duct.-1_Xray.vn_.jpg" alt="" width="1086" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_08_20171221_191636_xray.vn_.png"><img src="khi-tinh-mach-cua_anh/2015_08_20171221_191636_xray.vn_.png" alt="" width="778" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_08_20190901_192426_xray.vn_.jpg"><img src="khi-tinh-mach-cua_anh/2015_08_20190901_192426_xray.vn_.jpg" alt="" width="755" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_08_20190902_060957_xray.vn_.jpg"><img src="khi-tinh-mach-cua_anh/2015_08_20190902_060957_xray.vn_.jpg" alt="" width="766" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_08_Aerobilia-1.jpg"><img src="khi-tinh-mach-cua_anh/2015_08_Aerobilia-1.jpg" alt="" width="1078" height="839" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_08_PhotoGrid_1403784397619_badamgiak23.jpg"><img src="khi-tinh-mach-cua_anh/2015_08_PhotoGrid_1403784397619_badamgiak23.jpg" alt="" width="689" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_08_x1-2-scaled.jpg"><img src="khi-tinh-mach-cua_anh/2015_08_x1-2-scaled.jpg" alt="" width="1600" height="1950" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_08_x2-2.jpg"><img src="khi-tinh-mach-cua_anh/2015_08_x2-2.jpg" alt="" width="867" height="1024" loading="lazy" decoding="async"></a></div>
+<h2 id="v-chan-doan-clvt">V. Chẩn đoán CLVT</h2>
+<p><span class="c-xanh">– Kỹ thuật khảo sát:</span> Cắt lớp vi tính bụng – chậu đa dãy đầu thu (MDCT) tiêm thuốc cản quang tĩnh mạch đa thì là phương tiện tiêu chuẩn vàng để phát hiện khí tĩnh mạch cửa và tìm căn nguyên:<br>+ Chụp đủ ba thì gồm thì không tiêm thuốc cản quang (nhận diện khí nhỏ, vôi hóa thành mạch và xuất huyết trong thành ruột), thì động mạch (đánh giá tắc nghẽn động mạch mạc treo tràng trên/dưới) và thì tĩnh mạch cửa (đánh giá độ ngấm thuốc thành ruột và huyết khối hệ tĩnh mạch cửa – mạc treo).<br>+ Thay đổi độ rộng cửa sổ sang cửa sổ phổi hoặc cửa sổ gan mở rộng giúp phân biệt rõ các ổ khí đậm độ âm sâu (-1000 HU đến -200 HU) với mô mỡ quanh mạch máu.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Khí trong hệ tĩnh mạch cửa biểu hiện bằng các cấu trúc giảm đậm độ âm sâu dạng ống phân nhánh theo cây mạch cửa:<br>+ Khí tạo hình ảnh các nhánh giảm đậm độ dạng cành cây chạy song hành với các nhánh động mạch gan trong khoảng cửa, đi xa khỏi rốn gan và lan tỏa ra tận vùng ngoại vi nhu mô gan (cách bao gan &lt; 2 cm) do dòng chảy tĩnh mạch cửa hướng gan (hepatopetal).<br>+ Khi lượng khí ít, các bọt khí thường nổi lên và tập trung ưu thế ở vùng trước trên của gan trái (hạ phân thùy II, III, IV) theo tác động của trọng lực ở tư thế bệnh nhân nằm ngửa.<br>+ Trường hợp khí số lượng lớn có thể lấp đầy thân chính tĩnh mạch cửa tại rốn gan, tĩnh mạch lách, tĩnh mạch mạc treo tràng trên hoặc tĩnh mạch mạc treo tràng dưới.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_Portal-vein-gas-3_Xray.vn_.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_Portal-vein-gas-3_Xray.vn_.jpg" alt="" width="902" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_Portal-vein-gas-4_Xray.vn_.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_Portal-vein-gas-4_Xray.vn_.jpg" alt="" width="900" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_renal-and-hepatic-infarcts-and-hepatic-portal-vein-gas_Xray.vn_.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_renal-and-hepatic-infarcts-and-hepatic-portal-vein-gas_Xray.vn_.jpg" alt="" width="815" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_635794.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_635794.jpg" alt="" width="1256" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Tổn thương phối hợp:</span> Cắt lớp vi tính đa thì phát hiện chính xác các dấu hiệu đi kèm giúp xác định căn nguyên và phân tầng mức độ nặng của tổn thương ống tiêu hóa:<br>+ Khí trong hệ tĩnh mạch mạc treo (portomesenteric venous gas): Các ổ hoặc dải khí chạy dọc theo nhánh tĩnh mạch mạc treo tràng trên, tĩnh mạch mạc treo tràng dưới hoặc tĩnh mạch lách hướng về rốn gan, giúp định vị trực tiếp đoạn ống tiêu hóa bị tổn thương.<br>+ Khí thành ruột (pneumatosis intestinalis): Hình thái dải khí chạy dọc chu vi thành ruột (linear pneumatosis) gợi ý mạnh thiếu máu hoại tử ruột khi đi kèm khí tĩnh mạch cửa, trong khi dạng nang tròn nhỏ (cystic pneumatosis) thường gặp trong bệnh lý lành tính.<br>+ Bất thường tưới máu và thành ruột: Thành ruột dày phù nề hình bia bắn (tăng sinh mạch phản ứng) hoặc thành ruột mỏng như giấy kèm giảm hoặc không ngấm thuốc cản quang thì tĩnh mạch cửa (dấu hiệu đặc hiệu của hoại tử ruột xuyên thành).<br>+ Tắc nghẽn mạch máu mạc treo và biến chứng ổ bụng: Huyết khối lấp đầy lòng động mạch hoặc tĩnh mạch mạc treo trên thì mạch máu, dịch tự do ổ bụng và khí tự do trong khoang phúc mạc (pneumoperitoneum) báo hiệu biến chứng thủng ruột cần phẫu thuật cấp cứu.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_phoihop-1.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_phoihop-1.jpg" alt="" width="615" height="518" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_phoihop-2.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_phoihop-2.jpg" alt="" width="802" height="598" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_phoihop-3.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_phoihop-3.jpg" alt="" width="851" height="538" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_1-223.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_1-223.jpeg" alt="" width="630" height="557" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_2-221.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_2-221.jpeg" alt="" width="630" height="553" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_3-214.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_3-214.jpeg" alt="" width="503" height="565" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_4-204.jpeg"><img src="khi-tinh-mach-cua_anh/2015_09_4-204.jpeg" alt="" width="630" height="525" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_d1-1.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_d1-1.jpg" alt="" width="630" height="603" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_d2.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_d2.jpg" alt="" width="589" height="601" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_d3.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_d3.jpg" alt="" width="612" height="584" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_d4.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_d4.jpg" alt="" width="630" height="588" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_d5.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_d5.jpg" alt="" width="630" height="593" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_1-224.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_1-224.jpg" alt="" width="615" height="536" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_2-219.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_2-219.jpg" alt="" width="614" height="548" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_3-208.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_3-208.jpg" alt="" width="613" height="570" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_4-188.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_4-188.jpg" alt="" width="614" height="583" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_5-143.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_5-143.jpg" alt="" width="612" height="591" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_6-39.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_6-39.jpg" alt="" width="630" height="593" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_7-22.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_7-22.jpg" alt="" width="630" height="601" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_8-17.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_8-17.jpg" alt="" width="630" height="591" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-tinh-mach-cua_anh/2016_11_1-9.jpg"><img src="khi-tinh-mach-cua_anh/2016_11_1-9.jpg" alt="" width="756" height="937" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2016_11_2-8.jpg"><img src="khi-tinh-mach-cua_anh/2016_11_2-8.jpg" alt="" width="725" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2016_11_3-8.jpg"><img src="khi-tinh-mach-cua_anh/2016_11_3-8.jpg" alt="" width="743" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2016_11_4-9.jpg"><img src="khi-tinh-mach-cua_anh/2016_11_4-9.jpg" alt="" width="744" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2016_11_5-6.jpg"><img src="khi-tinh-mach-cua_anh/2016_11_5-6.jpg" alt="" width="1077" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2016_11_6-4.jpg"><img src="khi-tinh-mach-cua_anh/2016_11_6-4.jpg" alt="" width="1071" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-tinh-mach-cua_anh/2016_11_7-1.jpg"><img src="khi-tinh-mach-cua_anh/2016_11_7-1.jpg" alt="" width="1227" height="888" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">* Phân biệt khí đường mật</span></p>
+<p><span class="c-xanh">– Khí đường mật trong gan (pneumobilia):</span> Khí tập trung ưu thế ở vùng trung tâm rốn gan và thùy trái, dừng lại cách xa bao gan (&gt; 2 cm) do dòng chảy dịch mật hướng tâm ra rốn gan đẩy bọt khí về các ống mật lớn:<br>+ Trên cắt lớp vi tính, các nhánh khí nằm ở trung tâm khoảng cửa (vị trí ống mật) và thường đi kèm tiền sử nối mật – ruột, cắt cơ vòng Oddi, đặt stent đường mật hoặc sỏi rò mật – ruột.<br>+ Không đi kèm khí trong hệ tĩnh mạch mạc treo hay khí thành ruột thiếu máu.</p>
+<p><span class="c-xanh">– Khí tĩnh mạch cửa (portal venous gas):</span> Khí phân nhánh nhỏ mịn lan tỏa ra tận vùng ngoại vi nhu mô gan (cách bao gan &lt; 2 cm) do dòng chảy tĩnh mạch cửa hướng gan (hepatopetal) đẩy khí tới các nhánh tận ngoại vi:<br>+ Thường đi kèm khí trong tĩnh mạch mạc treo tràng trên/dưới, khí thành ruột hoặc dấu hiệu thiếu máu hoại tử ống tiêu hóa trên cùng lần chụp cắt lớp vi tính.<br>+ Trường hợp khí số lượng lớn có thể lan ngược về thân chính tĩnh mạch cửa tại rốn gan nhưng vẫn duy trì phân bố ngoại vi đặc trưng.</p>
+<p><span class="c-xanh">– Cạm bẫy phân biệt trên cắt lớp vi tính:</span> Khi lượng khí tĩnh mạch cửa quá nhiều làm lấp đầy cả thân chính tại rốn gan hoặc khi khí đường mật lan rộng trong trường hợp tắc nghẽn đường mật sinh hơi, cần đối chiếu đồng thời sự hiện diện của khí tĩnh mạch mạc treo, tiền sử can thiệp đường mật và vị trí nhánh tận cách bao gan (&lt; 2 cm hay &gt; 2 cm) để tránh chẩn đoán nhầm.</p>
+<figure><a class="o-anh" href="khi-tinh-mach-cua_anh/2015_09_index-60.jpg"><img src="khi-tinh-mach-cua_anh/2015_09_index-60.jpg" alt="Khí đường mật vs Khí tĩnh mạch cửa" width="881" height="459" loading="lazy" decoding="async"></a></figure>
+<h2 id="vi-tien-luong-dieu-tri">VI. Tiên lượng &amp; Điều trị</h2>
+<h3 id="tien-luong">* Tiên lượng</h3>
+<p>– Diễn tiến tự nhiên và yếu tố tiên lượng: Bản thân khí tĩnh mạch cửa không tự quyết định tiên lượng mà phụ thuộc trực tiếp vào bệnh lý nền gây ra nó, bám sát hướng dẫn của Hiệp hội Phẫu thuật Cấp cứu Thế giới (WSES, 2022) về quản lý thiếu máu mạc treo cấp:<br>+ Tỷ lệ tử vong cao nhất (55–75%) gặp ở nhóm có thiếu máu và hoại tử ruột xuyên thành, tăng vọt khi có đồng thời khí thành ruột dạng dải, huyết khối mạch mạc treo hoặc toan chuyển hóa nặng.<br>+ Tiên lượng tốt (tỷ lệ sống &gt; 90%) ở nhóm nguyên nhân lành tính hoặc thoáng qua như sau nội soi tiêu hóa, thủ thuật can thiệp đường mật, giãn ống tiêu hóa đơn thuần không thiếu máu hoặc viêm ruột nhẹ.<br>+ Trên hình ảnh, sự phối hợp của ba dấu hiệu gồm khí tĩnh mạch cửa, khí thành ruột và giảm ngấm thuốc thành ruột là yếu tố dự báo mạnh nhất của hoại tử ruột không hồi phục.</p>
+<h3 id="nguyen-tac-dieu-tri">* Nguyên tắc điều trị</h3>
+<p>– Chiến lược phân tầng xử trí: Quyết định phẫu thuật cấp cứu hay điều trị bảo tồn dựa trên sự kết hợp giữa lâm sàng, xét nghiệm (lactate máu, tình trạng toan chuyển hóa) và dấu hiệu tổn thương ruột trên cắt lớp vi tính theo khuyến cáo của WSES (2022):<br>+ Chỉ định phẫu thuật mở bụng thăm dò cấp cứu ngay khi có dấu hiệu viêm phúc mạc, sốc nhiễm trùng, khí tự do ổ bụng, tắc nghẽn động mạch mạc treo cấp tính hoặc dấu hiệu hoại tử thành ruột trên cắt lớp vi tính.<br>+ Chỉ định điều trị bảo tồn (nhịn ăn, đặt ống thông dạ dày giảm áp, bù dịch – điện giải, kháng sinh phổ rộng) cho các trường hợp lâm sàng ổn định, không có bằng chứng thiếu máu ruột hoặc thủng tạng rỗng (thường gặp sau thủ thuật nội soi, liệt ruột cơ năng hoặc viêm dạ dày – ruột cấp).<br>+ Can thiệp nội mạch tái thông mạch mạc treo được cân nhắc tại các trung tâm chuyên sâu ở giai đoạn thiếu máu sớm trước khi xuất hiện hoại tử ruột xuyên thành hoặc viêm phúc mạc.</p>
+<h3 id="vai-tro-cdha">* Vai trò CĐHA</h3>
+<p>– Đánh giá phân tầng và theo dõi diễn tiến: Chẩn đoán hình ảnh giữ vai trò cốt lõi trong việc tránh phẫu thuật không cần thiết cho nhóm lành tính và không bỏ sót chỉ định mổ cấp cứu ở nhóm hoại tử ruột:<br>+ Trước can thiệp, cắt lớp vi tính đa thì xác định chính xác vị trí tắc nghẽn mạch máu, chiều dài đoạn ruột thiếu máu và phân tầng nguy cơ hoại tử để định hướng đường mổ hoặc can thiệp nội mạch.<br>+ Ở nhóm điều trị bảo tồn, chụp cắt lớp vi tính kiểm tra sau 24–48 giờ (hoặc siêu âm theo dõi tại giường) giúp đánh giá mức độ thoái triển của khí tĩnh mạch cửa và phát hiện sớm tình trạng tiến triển thành thiếu máu ruột muộn.<br>+ Sau phẫu thuật cắt đoạn ruột hoại tử hoặc tái thông mạch, cắt lớp vi tính giúp theo dõi tình trạng tưới máu miệng nối, tái phát huyết khối và các biến chứng áp xe tồn dư trong ổ bụng.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Portomesenteric Vein Gas: Pathologic Mechanisms, CT Findings, and Prognosis – Carmen Sebastià, MD, Sergi Quiroga, MD, Eloy Espin, MD<br>* CT Diagnosis of Acute Mesenteric Ischemia from Various Causes – Akira Furukawa, Shuzo Kanasaki, Naoaki Kono<br>* Chronic Mesenteric Ischemia: Imaging and Percutaneous Treatment – François Cognet, MD, Douraied Ben Salem, MD, Marie Dranssart, MD<br>* Multi–Detector Row CT of Mesenteric Ischemia: Can It Be Done? – Karen M. Horton, MD, and Elliot K. Fishman, MD<br>* Bowel wall thickening – CT-pattern – Richard Gore and Robin Smithuis<br>* Pneumatosis Intestinalis: when to worry? – F. Rego Costa, C. Maciel, C. Esteves, L. Melão<br>* CT of Bowel Wall Thickening: A Diagnostic Approach in Patients with Acute Abdominal Pain – J. Abreu e Silva, C. Fernandes<br>* The role of contrast enhanced CT and regular vessels analysis in detection of unsuspected mesenteric vein thrombosis – S. Jovanoska, S. Jakimovska, A. Lazarevska<br></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

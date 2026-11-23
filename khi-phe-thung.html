@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Giãn Phế Nang</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>Giãn Phế Nang</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/khi-phe-thung/" target="_blank" rel="noopener">Xray.vn — xray.vn/khi-phe-thung</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Khí phế thũng (pulmonary emphysema)</span> là tình trạng giãn rộng vĩnh viễn các khoang khí phía xa tiểu phế quản tận, kèm phá hủy thành phế nang và không có xơ hóa rõ.</p>
+<p><span class="c-xanh">– Đặc điểm mô bệnh học:</span> Xơ hóa mô kẽ liên quan hút thuốc có thể cùng tồn tại; điều này không loại trừ khí phế thũng khi có phá hủy thành phế nang điển hình.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Các hạt và khí độc hại gây viêm, stress oxy hóa và mất cân bằng protease–antiprotease, góp phần phá hủy vách phế nang và làm giảm lực đàn hồi phổi, dẫn đến xẹp đường thở khi thở ra, ứ khí và tăng thể tích phổi.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Bệnh phổi tắc nghẽn mạn tính (chronic obstructive pulmonary disease, COPD) là bệnh lý không đồng nhất gây triệu chứng hô hấp mạn tính và tắc nghẽn luồng khí dai dẳng do bất thường đường thở và/hoặc phế nang. Khí phế thũng là một kiểu tổn thương có thể gặp trong COPD; viêm phế quản mạn là hội chứng lâm sàng có thể đồng mắc.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Tổng quan hệ thống và mô hình hóa của Adeloye và cộng sự (2015) ước tính năm 2010 có 384 triệu người từ 30 tuổi trở lên mắc COPD (11,7%; KTC 95%: 8,4–15,0%). Ước tính cập nhật của Adeloye và cộng sự (2022), theo định nghĩa GOLD, là 391,9 triệu người 30–79 tuổi năm 2019 (10,3%; KTC 95%: 312,6–487,9 triệu). WHO ghi nhận 3,4 triệu ca tử vong do COPD toàn cầu năm 2023 (cập nhật năm 2026).</p>
+<p><strong><span class="c-xanh">* Lâm sàng:<br></span></strong><span class="c-xanh">– Triệu chứng:</span> Khó thở tiến triển, thường khởi đầu khi gắng sức; ho và khạc đờm thay đổi, thường ít hơn ở kiểu hình ưu thế khí phế thũng.</p>
+<p><span class="c-xanh">– Dấu hiệu:</span> Khi bệnh tiến triển có thể gặp thở ra kéo dài, giảm rì rào phế nang và lồng ngực tăng đường kính trước–sau; thở mím môi, huy động cơ hô hấp phụ hoặc thở nhanh có thể xuất hiện khi khó thở nhiều. Tư thế chống tay thường gặp khi gắng sức hô hấp tăng.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Kiểu hình ưu thế khí phế thũng thường nổi bật khó thở, còn viêm phế quản mạn nổi bật ho khạc đờm kéo dài; hai biểu hiện có thể đồng tồn tại trong COPD, nên không phân chia tuyệt đối bằng triệu chứng.</p>
+<p><span class="c-xanh">– Biến chứng:</span> Tâm phế mạn có thể xuất hiện ở COPD tiến triển, thường liên quan tăng áp động mạch phổi; đây không phải dấu hiệu đặc hiệu của khí phế thũng.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Tím tái phản ánh giảm oxy máu; tăng CO₂ máu thường gặp ở bệnh nặng hoặc đợt cấp. Hai dấu hiệu này không phân biệt tin cậy khí phế thũng với viêm phế quản mạn.</p>
+<p><strong><span class="c-xanh">* Yếu tố bệnh sinh: </span></strong></p>
+<p><span class="c-xanh">– Hút thuốc lá:</span> Yếu tố nguy cơ hàng đầu; khói thuốc gây viêm mạn, stress oxy hóa và mất cân bằng protease–antiprotease, dẫn đến phá hủy vách phế nang và giảm lực đàn hồi. Phơi nhiễm khói sinh khối, bụi hoặc khí nghề nghiệp và ô nhiễm không khí cũng góp phần.</p>
+<p><span class="c-xanh">– Tiêm tĩnh mạch viên methylphenidate nghiền:</span> Tá dược không tan, đặc biệt talc, có thể lắng đọng ở phổi, gây u hạt dị vật và tổn thương mạch máu, nhu mô; trường hợp hiếm có thể tiến triển thành khí phế thũng nặng, ưu thế vùng đáy, đôi khi kèm tăng áp động mạch phổi. Bằng chứng chủ yếu từ báo cáo ca và loạt ca.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Tỷ lệ 90% quy cho hút thuốc phụ thuộc quần thể và mẫu số; không khái quát thành ước tính toàn cầu về khí phế thũng.<br>+ Nhiễm trùng hô hấp nặng hoặc tái diễn, đặc biệt trong thời thơ ấu, có thể ảnh hưởng sự phát triển phổi và làm tăng nguy cơ bệnh phổi mạn; không nên xem “viêm nhiễm” nói chung là nguyên nhân trực tiếp thường gặp của khí phế thũng ở người lớn.</p>
+<p><span class="c-xanh">– Thiếu hụt α1-antitrypsin:</span> Rối loạn di truyền do biến thể SERPINA1 làm giảm nồng độ hoặc chức năng α1-antitrypsin; hoạt tính elastase bạch cầu trung tính không được kiểm soát sẽ phá hủy vách phế nang, thường gây khí phế thũng toàn tiểu thùy ưu thế đáy phổi và khởi phát sớm. Hút thuốc làm bệnh nặng thêm.</p>
+<figure><a class="o-anh" href="khi-phe-thung_anh/2015_08_Fotolia_37337486_Enfisema.jpg"><img src="khi-phe-thung_anh/2015_08_Fotolia_37337486_Enfisema.jpg" alt="Fotolia_37337486_Enfisema" width="1600" height="1496" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<p><span class="c-xanh"><strong>* Hình thái tổn thương:</strong></span></p>
+<p><span class="c-xanh">– Khí phế thũng trung tâm tiểu thùy (centrilobular emphysema):</span><br>+ Là thể thường gặp nhất, liên quan chặt với hút thuốc lá; có thể đồng mắc viêm phế quản mạn.<br>+ Tổn thương khởi phát quanh các tiểu phế quản hô hấp và tiểu động mạch ở trung tâm tiểu thùy thứ cấp, gây giãn các khoang khí và phá hủy vách phế nang. Ở giai đoạn sớm, phần ngoại vi tương đối được bảo tồn nhưng có thể bị ảnh hưởng khi bệnh tiến triển.<br>+ Phân bố thường ưu thế ở vùng phổi trên so với vùng đáy.</p>
+<figure><a class="o-anh" href="khi-phe-thung_anh/0519b3770e0753306f716e6817cfc1_jumbo.jpeg"><img src="khi-phe-thung_anh/0519b3770e0753306f716e6817cfc1_jumbo.jpeg" alt="" width="1024" height="984" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Khí phế thũng toàn tiểu thùy (panlobular emphysema):</span><br>+ Giãn và phá hủy lan tỏa các cấu trúc phía xa tiểu phế quản tận, từ tiểu phế quản hô hấp đến phế nang; tổn thương thường tương đối đồng nhất nhưng mức độ có thể khác nhau giữa các vùng.<br>+ Thường ưu thế ở thùy dưới, đặc biệt trong thiếu hụt α1-antitrypsin.<br>+ Có thể đồng tồn tại với thể trung tâm tiểu thùy, nhất là ở người hút thuốc.</p>
+<figure><a class="o-anh" href="khi-phe-thung_anh/6e9925c9977fd1cd2c114e9b535e77_jumbo.jpeg"><img src="khi-phe-thung_anh/6e9925c9977fd1cd2c114e9b535e77_jumbo.jpeg" alt="" width="1024" height="986" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Khí phế thũng cạnh vách (paraseptal emphysema):</span><br>+ Tổn thương ưu thế ở phần ngoại vi của tiểu thùy thứ cấp, sát màng phổi, vách liên tiểu thùy và dọc khe liên thùy.<br>+ Có thể đồng tồn tại với các thể trung tâm tiểu thùy hoặc toàn tiểu thùy; tổn thương dưới màng phổi có thể tạo bóng khí.<br>+ Vỡ bóng khí dưới màng phổi có thể gây tràn khí màng phổi tự phát.</p>
+<figure><a class="o-anh" href="khi-phe-thung_anh/76795cd356e0d2280593a914fc36e7_jumbo.jpeg"><img src="khi-phe-thung_anh/76795cd356e0d2280593a914fc36e7_jumbo.jpeg" alt="" width="1024" height="988" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Khí phế thũng cạnh vùng sẹo (Paracicatricial emphysema):</span> các tổn thương gây căng trướng, hủy các cấu trúc chứa khí tận cùng, nằm cạnh vùng xơ hóa, thường gặp các trường hợp lao phổi.</p>
+<p><span class="c-xanh">– Khí phế thũng cạnh vùng sẹo (paracicatricial emphysema):</span> là tình trạng giãn các khoang khí kèm phá hủy vách phế nang ở nhu mô sát vùng xơ hóa; thường khu trú quanh sẹo xơ sau lao phổi và có thể kèm co kéo, biến dạng cấu trúc phổi.</p>
+<figure><a class="o-anh" href="khi-phe-thung_anh/cb0135338011.jpeg"><img src="khi-phe-thung_anh/cb0135338011.jpeg" alt="cb0135338011" width="1440" height="1043" loading="lazy" decoding="async"></a></figure>
+<h2 id="ii-chan-doan-x-quang">II. Chẩn đoán x-quang</h2>
+<p>X-quang ngực khó phát hiện khí phế thũng nhẹ; ở bệnh vừa hoặc nặng có thể thấy tăng thể tích phổi và dấu hiệu phá hủy nhu mô. Tăng thể tích là dấu hiệu gián tiếp, không đặc hiệu; bóng khí là dấu hiệu đặc hiệu của phá hủy nhu mô nhưng không thường gặp.</p>
+<p><span class="c-xanh"><strong>* Tăng thể tích phổi (Lung hyperinflation)</strong></span></p>
+<p>– Phổi tăng thể tích, vòm hoành dẹt và hạ thấp; đây là dấu hiệu quan trọng, có thể đánh giá trên phim thẳng và phim nghiêng.<br>– Trên phim thẳng, vòm hoành phải ở ngang hoặc thấp hơn đầu trước xương sườn VII. Một tiêu chuẩn khác là đỉnh vòm hoành phải cao dưới 1,5 cm so với đường nối góc sườn-hoành ngoài và góc sống-hoành.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2015_08_chronic-obstructive-airways-disease-increased-lung-volume-1.png"><img src="khi-phe-thung_anh/2015_08_chronic-obstructive-airways-disease-increased-lung-volume-1.png" alt="" width="687" height="806" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/f5d59654f23fb6a15fbdec355693ef_jumbo.jpeg"><img src="khi-phe-thung_anh/f5d59654f23fb6a15fbdec355693ef_jumbo.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/b9df4aa9131f55c952a26bbba108f1_jumbo.jpg"><img src="khi-phe-thung_anh/b9df4aa9131f55c952a26bbba108f1_jumbo.jpg" alt="" width="897" height="1006" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/5e8b58a879d8e39476fbd0fea98f47_jumbo.jpg"><img src="khi-phe-thung_anh/5e8b58a879d8e39476fbd0fea98f47_jumbo.jpg" alt="" width="835" height="953" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/copd1-1.png"><img src="khi-phe-thung_anh/copd1-1.png" alt="" width="1154" height="637" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_1.2.392.200036.9125.9.0.3508838484.419437312.3491844268.jpg"><img src="khi-phe-thung_anh/2015_08_1.2.392.200036.9125.9.0.3508838484.419437312.3491844268.jpg" alt="" width="1579" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.14637.136040.jpg"><img src="khi-phe-thung_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.14637.136040.jpg" alt="" width="1500" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.29401.46541.jpg"><img src="khi-phe-thung_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.29401.46541.jpg" alt="" width="1556" height="1800" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1: dẹt vòm hoành phải (COPD)</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2021_07_3681.jpg"><img src="khi-phe-thung_anh/2021_07_3681.jpg" alt="" width="812" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2021_07_3682.jpg"><img src="khi-phe-thung_anh/2021_07_3682.jpg" alt="" width="812" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2021_07_3679.jpg"><img src="khi-phe-thung_anh/2021_07_3679.jpg" alt="" width="812" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2021_07_3680.jpg"><img src="khi-phe-thung_anh/2021_07_3680.jpg" alt="" width="812" height="1000" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2: dẹt vòm hoành phải (COPD)</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2021_07_3683.jpg"><img src="khi-phe-thung_anh/2021_07_3683.jpg" alt="" width="823" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2021_07_3684.jpg"><img src="khi-phe-thung_anh/2021_07_3684.jpg" alt="" width="823" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2021_07_3685.jpg"><img src="khi-phe-thung_anh/2021_07_3685.jpg" alt="" width="797" height="1000" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2021_07_3686.jpg"><img src="khi-phe-thung_anh/2021_07_3686.jpg" alt="" width="797" height="1000" loading="lazy" decoding="async"></a></div>
+<p>– Trên phim nghiêng, chiều cao vòm hoành phải dưới 2,7 cm, đo vuông góc với đường nối hai góc sườn-hoành trước và sau.<br>– Khoảng sáng sau xương ức trên phim nghiêng rộng trên 4,4 cm, đo tại vị trí cách khớp cán–thân ức 3 cm.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_chronic-obstructive-airways-disease-increased-lung-volume-2-1.png"><img src="khi-phe-thung_anh/2015_08_chronic-obstructive-airways-disease-increased-lung-volume-2-1.png" alt="" width="467" height="581" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/388b42f9409f7934dcd3a848ab932f_jumbo.jpeg"><img src="khi-phe-thung_anh/388b42f9409f7934dcd3a848ab932f_jumbo.jpeg" alt="" width="1024" height="979" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/5e8b58a879d8e39476fbd0fea98f47_jumbo-1.jpg"><img src="khi-phe-thung_anh/5e8b58a879d8e39476fbd0fea98f47_jumbo-1.jpg" alt="" width="869" height="951" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_778228.jpg"><img src="khi-phe-thung_anh/2015_08_778228.jpg" alt="" width="1472" height="1754" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_abc.jpg"><img src="khi-phe-thung_anh/2015_08_abc.jpg" alt="" width="728" height="859" loading="lazy" decoding="async"></a></div>
+<p>– Đường kính trước–sau lồng ngực tăng, khoang liên sườn rộng và xương sườn nằm ngang; góc sườn-hoành bên hoặc sau có thể tù, nhưng dấu hiệu này không đặc hiệu.<br>– Bẫy khí: Khi so sánh phim hít vào tối đa và thở ra tối đa, biên độ di động dọc của cơ hoành dưới 3 cm có thể gợi ý giảm di động; ngưỡng này phụ thuộc kỹ thuật và không dùng đơn độc để chẩn đoán.<br>– Dấu hiệu phá hủy nhu mô:<br>+ Phổi tăng sáng, thường không đồng đều; mạch máu ngoại vi thưa hoặc nhỏ.<br>+ Bóng khí là dấu hiệu đặc hiệu nhưng không thường gặp; không thấy bóng khí không loại trừ khí phế thũng.<br>– Dấu hiệu kèm theo: Khí quản hình vỏ kiếm (saber-sheath trachea): đường kính ngang giảm, đường kính trước–sau tăng; có thể gặp trong COPD nhưng không đặc hiệu cho khí phế thũng.</p>
+<p><span class="c-xanh"><strong>* Thay đổi mạch máu phổi</strong></span></p>
+<p>– Dấu hiệu chủ yếu là giảm độ phong phú và khẩu kính mạch máu ngoại vi (vascular attenuation), không nhất thiết đồng nghĩa với giảm tổng lượng máu đến phổi:<br>+ Mạch máu phân bố thưa, nhỏ hơn; có thể giảm hoặc mất mạch ở 1/3 ngoại vi phổi.<br>+ Các nhánh nhỏ hẹp dần rồi biến mất ở ngoại vi, tạo hình ảnh “cắt cụt” (vascular pruning).<br>+ Những thay đổi này có thể liên quan đến chèn ép mạch nhỏ bởi các khoảng khí phế thũng, co mạch do thiếu oxy hoặc tái cấu trúc mạch. Đây là dấu hiệu gợi ý, không tự nó chứng minh có các khoảng khí phế thũng không nhìn thấy trên phim.<br>– Ở vùng phổi ít bị ảnh hưởng, mạch máu có thể nổi bật hoặc lớn hơn tương đối so với vùng tổn thương; không nên mặc định đây là giãn mạch thật.<br>– Khi bệnh tiến triển và có tăng áp động mạch phổi, có thể gặp:<br>+ Giãn các động mạch phổi trung tâm; đây là dấu hiệu của tăng áp phổi, không phải dấu hiệu đặc hiệu của khí phế thũng.<br>+ Giãn hoặc phì đại thất phải, tiến triển thành tâm phế mạn. X-quang có thể gợi ý qua bóng tim to và động mạch phổi trung tâm giãn, nhưng không xác định chắc phì đại thất phải.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/56-year-old-man-with-severe-generalized-emphysema._Xray.vn_.jpg"><img src="khi-phe-thung_anh/56-year-old-man-with-severe-generalized-emphysema._Xray.vn_.jpg" alt="" width="675" height="791" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/58-year-old-man-with-giant-bullous-disease_Xray.vn_.jpg"><img src="khi-phe-thung_anh/58-year-old-man-with-giant-bullous-disease_Xray.vn_.jpg" alt="" width="675" height="647" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/20150522_000153_badamgiak23.jpg"><img src="khi-phe-thung_anh/20150522_000153_badamgiak23.jpg" alt="" width="1200" height="1374" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/20160505_160647_Xray.vn_.jpg"><img src="khi-phe-thung_anh/20160505_160647_Xray.vn_.jpg" alt="" width="1200" height="1363" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_20181229_212527_xray.vn_.jpg"><img src="khi-phe-thung_anh/2015_08_20181229_212527_xray.vn_.jpg" alt="" width="1200" height="1370" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/1-4.jpg"><img src="khi-phe-thung_anh/1-4.jpg" alt="" width="1200" height="1456" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2-2.jpg"><img src="khi-phe-thung_anh/2-2.jpg" alt="" width="1200" height="1401" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/20170510_084412_xray.vn_.png"><img src="khi-phe-thung_anh/20170510_084412_xray.vn_.png" alt="" width="1200" height="1319" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_Anonymize.Seq1_.Ser1001.Img1_jumbo-4.jpeg"><img src="khi-phe-thung_anh/2015_08_Anonymize.Seq1_.Ser1001.Img1_jumbo-4.jpeg" alt="" width="887" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.30978.135466.jpg"><img src="khi-phe-thung_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.30978.135466.jpg" alt="" width="1500" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_778227.jpg"><img src="khi-phe-thung_anh/2015_08_778227.jpg" alt="" width="1507" height="1637" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Khí phế thũng thùy phổi bẩm sinh:<br></strong></span></p>
+<p>– Là tình trạng một hoặc nhiều thùy phổi căng giãn quá mức do ứ khí, thường không kèm phá hủy thành phế nang như khí phế thũng mắc phải; có thể chèn ép nhu mô lân cận và trung thất.<br>– Nguyên nhân thường chưa rõ. Có thể liên quan bất thường sụn phế quản gây xẹp đường thở khi thở ra, tắc nghẽn trong lòng phế quản hoặc chèn ép từ bên ngoài.<br>– Thường biểu hiện ở trẻ sơ sinh hoặc vài tháng đầu đời; mức độ từ nhẹ đến suy hô hấp nặng. Đôi khi khởi phát muộn hơn, nên không nên giới hạn biểu hiện ở tháng đầu sau sinh.</p>
+<p><span class="c-xanh">– Hình ảnh X-quang:</span><br>+ Thường gặp nhất ở thùy trên trái, tiếp theo là thùy giữa phải và thùy trên phải; thùy dưới ít gặp.<br>+ Thùy bị ảnh hưởng tăng thể tích và tăng sáng, tạo hiệu ứng choán chỗ; có thể làm dẹt hoặc hạ thấp cơ hoành cùng bên và đẩy trung thất sang bên đối diện.<br>+ Thùy bị căng giãn có thể chèn ép nhu mô lân cận, gây xẹp thùy kế cận.<br>+ Mạch máu trong thùy tăng căng có thể bị kéo giãn, tách xa và thưa hoặc giảm khẩu kính. Tuy nhiên, mức độ biến đổi không đồng nhất: mạch có thể còn bảo tồn, bình thường hoặc trông nổi bật; không dùng riêng dấu hiệu này để loại trừ bệnh.<br>+ Nhận diện mạch máu chạy trong vùng tăng sáng là dấu hiệu hỗ trợ phân biệt với một khoang khí đơn độc hoặc bóng khí lớn; nếu hình ảnh chưa rõ, cần cân nhắc CT để làm rõ.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2015_09_Screenshot-2022-02-25-232702.png"><img src="khi-phe-thung_anh/2015_09_Screenshot-2022-02-25-232702.png" alt="" width="849" height="787" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_gr15_lrg.jpg"><img src="khi-phe-thung_anh/2015_09_gr15_lrg.jpg" alt="" width="1295" height="1271" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_778323.jpg"><img src="khi-phe-thung_anh/2015_09_778323.jpg" alt="" width="775" height="1152" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_123-1-1.jpeg"><img src="khi-phe-thung_anh/2015_09_123-1-1.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_123-1-1.jpg"><img src="khi-phe-thung_anh/2015_09_123-1-1.jpg" alt="" width="964" height="778" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_123-2-1.jpeg"><img src="khi-phe-thung_anh/2015_09_123-2-1.jpeg" alt="" width="996" height="884" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_123-2-1.jpg"><img src="khi-phe-thung_anh/2015_09_123-2-1.jpg" alt="" width="873" height="801" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_123-3-1.jpg"><img src="khi-phe-thung_anh/2015_09_123-3-1.jpg" alt="" width="956" height="906" loading="lazy" decoding="async"></a></div>
+<h2 id="iii-chan-doan-clvt">III. Chẩn đoán CLVT</h2>
+<h3 id="phe-thung-trung-tam-tieu-thuy">* Phế thũng trung tâm tiểu thùy</h3>
+<p><span class="c-xanh">* Khí phế thũng trung tâm tiểu thùy (centrilobular/centriacinar emphysema):</span><br>– Là thể hình thái phổ biến nhất, thường liên quan hút thuốc. Bệnh nhẹ có thể chưa gây triệu chứng; không nên mô tả thể này là thường gặp ở người lớn tuổi không triệu chứng.<br>– Phân bố ưu thế ở các thùy trên và phân thùy trên của thùy dưới; thường gặp ở vùng đỉnh và vùng trung tâm phổi.<br>– Tổn thương thường phân bố không đồng đều.<br>– Trên CLVT, biểu hiện bằng các vùng giảm đậm độ hình tròn hoặc bầu dục, thường vài milimét, xuất phát từ trung tâm tiểu thùy. Ở giai đoạn sớm, các vùng này thường không có thành rõ và được bao quanh bởi nhu mô phổi bình thường; khi tổn thương lớn lên hoặc hợp lưu, mô phổi lân cận bị chèn ép có thể tạo bờ rõ hoặc “thành giả”.<br>– Trong vùng giảm đậm độ đôi khi thấy một chấm trung tâm (central dot sign), thường là nhánh động mạch phổi đi kèm tiểu thùy. Dấu hiệu này có thể hỗ trợ nhận diện thể trung tâm tiểu thùy nhưng không phải lúc nào cũng thấy.<br>– Ngưỡng dưới −950 HU có thể được dùng trong phân tích định lượng CLVT để ước tính gánh nặng khí phế thũng; không dùng riêng ngưỡng này để kết luận một vùng hoặc toàn bộ phổi có khí phế thũng. Kết quả phụ thuộc kỹ thuật chụp và tái tạo ảnh.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2015_08_screenshot_1751814922-1.png"><img src="khi-phe-thung_anh/2015_08_screenshot_1751814922-1.png" alt="" width="1092" height="528" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-1115.jpg"><img src="khi-phe-thung_anh/2015_08_1-1115.jpg" alt="" width="668" height="324" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-1115.jpg"><img src="khi-phe-thung_anh/2015_08_2-1115.jpg" alt="" width="1196" height="925" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_index-52.png"><img src="khi-phe-thung_anh/2015_08_index-52.png" alt="" width="970" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_Screenshot-2022-11-01-213836.jpg"><img src="khi-phe-thung_anh/2015_08_Screenshot-2022-11-01-213836.jpg" alt="" width="514" height="649" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_837529.jpg"><img src="khi-phe-thung_anh/2015_08_837529.jpg" alt="" width="637" height="573" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_screenshot_1751815331-1.png"><img src="khi-phe-thung_anh/2015_08_screenshot_1751815331-1.png" alt="" width="1093" height="527" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_screenshot_1751815403-1.png"><img src="khi-phe-thung_anh/2015_08_screenshot_1751815403-1.png" alt="" width="1091" height="527" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-557.jpg"><img src="khi-phe-thung_anh/2015_08_1-557.jpg" alt="" width="549" height="366" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-554.jpg"><img src="khi-phe-thung_anh/2015_08_2-554.jpg" alt="" width="554" height="384" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-535.jpg"><img src="khi-phe-thung_anh/2015_08_3-535.jpg" alt="" width="555" height="404" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-476.jpg"><img src="khi-phe-thung_anh/2015_08_4-476.jpg" alt="" width="562" height="414" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_5-296.jpg"><img src="khi-phe-thung_anh/2015_08_5-296.jpg" alt="" width="559" height="426" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-558.jpg"><img src="khi-phe-thung_anh/2015_08_1-558.jpg" alt="" width="630" height="518" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-555.jpg"><img src="khi-phe-thung_anh/2015_08_2-555.jpg" alt="" width="630" height="527" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-536.jpg"><img src="khi-phe-thung_anh/2015_08_3-536.jpg" alt="" width="630" height="533" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-477.jpg"><img src="khi-phe-thung_anh/2015_08_4-477.jpg" alt="" width="630" height="540" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_5-297.jpg"><img src="khi-phe-thung_anh/2015_08_5-297.jpg" alt="" width="630" height="547" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-559.jpg"><img src="khi-phe-thung_anh/2015_08_1-559.jpg" alt="" width="630" height="386" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-556.jpg"><img src="khi-phe-thung_anh/2015_08_2-556.jpg" alt="" width="630" height="425" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-537.jpg"><img src="khi-phe-thung_anh/2015_08_3-537.jpg" alt="" width="630" height="452" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-478.jpg"><img src="khi-phe-thung_anh/2015_08_4-478.jpg" alt="" width="630" height="464" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_5-298.jpg"><img src="khi-phe-thung_anh/2015_08_5-298.jpg" alt="" width="630" height="469" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-470.jpeg"><img src="khi-phe-thung_anh/2015_08_1-470.jpeg" alt="" width="850" height="931" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-472.jpeg"><img src="khi-phe-thung_anh/2015_08_2-472.jpeg" alt="" width="630" height="337" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-475.jpeg"><img src="khi-phe-thung_anh/2015_08_3-475.jpeg" alt="" width="630" height="346" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-459.jpeg"><img src="khi-phe-thung_anh/2015_08_4-459.jpeg" alt="" width="630" height="350" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_5-368.jpeg"><img src="khi-phe-thung_anh/2015_08_5-368.jpeg" alt="" width="630" height="354" loading="lazy" decoding="async"></a></div>
+<h3 id="phe-thung-toan-bo-tieu-thuy">* Phế thũng toàn bộ tiểu thùy</h3>
+<p><span class="c-xanh">– Khí phế thũng toàn bộ tiểu thùy (panlobular emphysema, thường được dùng đồng nghĩa với panacinar emphysema)</span> thường ưu thế ở vùng đáy phổi, kinh điển liên quan thiếu alpha-1 antitrypsin.<br>– Trên CLVT, toàn bộ acinus bị ảnh hưởng tương đối đồng đều, tạo các vùng giảm đậm độ lan tỏa, thường không có thành rõ. Đậm độ thấp làm vùng tổn thương tăng tính thấu quang và tối hơn trên cửa sổ phổi, do tăng khí và phá hủy vách phế nang.<br>– Tổn thương có thể khá đồng nhất nhưng không nhất thiết đồng đều tuyệt đối; do ít tương phản và thiếu ranh giới rõ, khó phân định với nhu mô phổi bảo tồn.<br>– Mạch máu phổi trong vùng tổn thương thường thưa hoặc giảm khẩu kính.<br>– Tăng thể tích phổi có thể đi kèm.<br>– Có thể kèm giãn phế quản hoặc dày thành phế quản, nhất là trong bối cảnh thiếu alpha-1 antitrypsin hoặc nhiễm trùng tái diễn; đánh giá cùng bệnh cảnh phối hợp.<br>– Cạm bẫy: Giãn phế quản đi kèm không tự nó chứng minh xơ hóa hoặc là dấu hiệu định nghĩa của thể này.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_712947.jpg"><img src="khi-phe-thung_anh/2015_08_712947.jpg" alt="" width="663" height="324" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_712948.jpg"><img src="khi-phe-thung_anh/2015_08_712948.jpg" alt="" width="523" height="416" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_index-1-24.png"><img src="khi-phe-thung_anh/2015_08_index-1-24.png" alt="" width="863" height="509" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_837513.jpg"><img src="khi-phe-thung_anh/2015_08_837513.jpg" alt="" width="957" height="343" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_q12-1.png"><img src="khi-phe-thung_anh/2015_08_q12-1.png" alt="" width="1092" height="528" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-560.jpg"><img src="khi-phe-thung_anh/2015_08_1-560.jpg" alt="" width="610" height="503" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-557.jpg"><img src="khi-phe-thung_anh/2015_08_2-557.jpg" alt="" width="614" height="508" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-538.jpg"><img src="khi-phe-thung_anh/2015_08_3-538.jpg" alt="" width="619" height="518" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-479.jpg"><img src="khi-phe-thung_anh/2015_08_4-479.jpg" alt="" width="624" height="525" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_5-299.jpg"><img src="khi-phe-thung_anh/2015_08_5-299.jpg" alt="" width="621" height="617" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-561.jpg"><img src="khi-phe-thung_anh/2015_08_1-561.jpg" alt="" width="630" height="495" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-558.jpg"><img src="khi-phe-thung_anh/2015_08_2-558.jpg" alt="" width="630" height="502" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-539.jpg"><img src="khi-phe-thung_anh/2015_08_3-539.jpg" alt="" width="630" height="499" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-480.jpg"><img src="khi-phe-thung_anh/2015_08_4-480.jpg" alt="" width="630" height="499" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_5-300.jpg"><img src="khi-phe-thung_anh/2015_08_5-300.jpg" alt="" width="630" height="494" loading="lazy" decoding="async"></a></div>
+<h3 id="phe-thung-canh-vach">* Phế thũng cạnh vách</h3>
+<p><span class="c-xanh">– Khí phế thũng cạnh vách (paraseptal emphysema)</span> ảnh hưởng phần ngoại vi của acinus phổi, sát màng phổi, khe liên thùy và vách liên tiểu thùy; thường ưu thế ở vùng trên phổi.<br>– Trên CLVT, thấy các khoảng giảm đậm độ nhỏ, hình dạng thay đổi, thường từ vài milimét đến khoảng 1 cm, phân bố sát màng phổi hoặc dọc khe liên thùy; có thể xếp thành hàng hay chuỗi. Các vách liên tiểu thùy mỏng có thể còn nhận ra và phân cách các khoảng khí.<br>– Bóng khí: Khoang khí phế thũng lớn hơn 1 cm, có thành rất mỏng, thường được gọi là bóng khí (bulla). Bóng khí có thể vỡ gây tràn khí màng phổi tự phát; thuật ngữ bleb được dùng không thống nhất, nên không gộp bleb và bulla theo cùng một ngưỡng kích thước.<br>– Phân biệt với tổ ong: Tổ ong thường gồm nhiều hàng nang khí có thành xơ, kèm biến dạng cấu trúc phổi và các dấu hiệu xơ hóa; vách không đơn thuần bị phá hủy.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="khi-phe-thung_anh/2015_08_713288.jpg"><img src="khi-phe-thung_anh/2015_08_713288.jpg" alt="" width="663" height="324" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_713289.jpg"><img src="khi-phe-thung_anh/2015_08_713289.jpg" alt="" width="1279" height="886" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_kptcanhvach.jpg"><img src="khi-phe-thung_anh/2015_08_kptcanhvach.jpg" alt="" width="1034" height="372" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_123-40.jpg"><img src="khi-phe-thung_anh/2015_08_123-40.jpg" alt="" width="946" height="331" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_screenshot_1751815650-1.png"><img src="khi-phe-thung_anh/2015_08_screenshot_1751815650-1.png" alt="" width="1092" height="530" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_screenshot_1751815660-1.png"><img src="khi-phe-thung_anh/2015_08_screenshot_1751815660-1.png" alt="" width="1091" height="528" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-562.jpg"><img src="khi-phe-thung_anh/2015_08_1-562.jpg" alt="" width="596" height="350" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-559.jpg"><img src="khi-phe-thung_anh/2015_08_2-559.jpg" alt="" width="564" height="383" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-540.jpg"><img src="khi-phe-thung_anh/2015_08_3-540.jpg" alt="" width="582" height="471" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-481.jpg"><img src="khi-phe-thung_anh/2015_08_4-481.jpg" alt="" width="581" height="475" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-563.jpg"><img src="khi-phe-thung_anh/2015_08_1-563.jpg" alt="" width="630" height="440" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-560.jpg"><img src="khi-phe-thung_anh/2015_08_2-560.jpg" alt="" width="630" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-541.jpg"><img src="khi-phe-thung_anh/2015_08_3-541.jpg" alt="" width="630" height="484" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-482.jpg"><img src="khi-phe-thung_anh/2015_08_4-482.jpg" alt="" width="630" height="498" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_5-301.jpg"><img src="khi-phe-thung_anh/2015_08_5-301.jpg" alt="" width="630" height="495" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-564.jpg"><img src="khi-phe-thung_anh/2015_08_1-564.jpg" alt="" width="630" height="426" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-561.jpg"><img src="khi-phe-thung_anh/2015_08_2-561.jpg" alt="" width="630" height="441" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-542.jpg"><img src="khi-phe-thung_anh/2015_08_3-542.jpg" alt="" width="630" height="449" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-483.jpg"><img src="khi-phe-thung_anh/2015_08_4-483.jpg" alt="" width="630" height="457" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_5-302.jpg"><img src="khi-phe-thung_anh/2015_08_5-302.jpg" alt="" width="630" height="464" loading="lazy" decoding="async"></a></div>
+<h3 id="phe-thung-canh-vung-seo">* Phế thũng cạnh vùng sẹo</h3>
+<figure><a class="o-anh" href="khi-phe-thung_anh/cb0135338011.jpeg"><img src="khi-phe-thung_anh/cb0135338011.jpeg" alt="cb0135338011" width="1440" height="1043" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Khí phế thũng cạnh vùng sẹo (paracicatricial emphysema, còn gọi là khí phế thũng không đều)</span> là tình trạng giãn và phá hủy các khoang khí không theo ranh giới của acinus phổi hoặc tiểu thùy phổi thứ cấp, nằm sát vùng sẹo hay xơ hóa.<br>– Trên CLVT, các vùng giảm đậm độ có hình dạng và phân bố không đều, xen kẽ hoặc kề cận vùng xơ hóa; có thể gặp cạnh sẹo khu trú, xơ phổi lan tỏa hoặc tổn thương do bệnh bụi phổi.</p>
+<h3 id="phe-thung-thuy-phoi-bam-sinh">* Phế thũng thùy phổi bẩm sinh</h3>
+<p><span class="c-xanh">– Khí thũng thuỳ phổi bẩm sinh (Congenital Lobar Emphysema) hay Tăng căng thùy phổi bẩm sinh (congenital lobar overinflation)</span> là tình trạng một hoặc nhiều thùy phổi căng giãn quá mức do ứ khí, thường liên quan cơ chế van một chiều tại phế quản; cấu trúc phế nang thường được bảo tồn.</p>
+<p><span class="c-xanh">– Nguyên nhân:</span><br>+ Khoảng một nửa trường hợp chưa xác định được nguyên nhân; bất thường, thiểu sản hoặc không có sụn phế quản được ghi nhận ở khoảng một phần tư trường hợp, có thể gây xẹp đường thở khi thở ra.<br>+ Các nguyên nhân khác gồm tắc nghẽn trong lòng phế quản hoặc chèn ép đường thở từ bên ngoài.<br>+ Thùy đa phế nang và bất thường mô liên kết nâng đỡ phế nang là các giả thuyết nhu mô; vai trò chưa được xác định rõ.</p>
+<p><span class="c-xanh">– Vị trí:</span><br>+ Thùy trên trái thường gặp nhất (43%), tiếp theo là thùy giữa phải (32%) và thùy trên phải (21%); thùy dưới hiếm gặp (khoảng 2%).<br>+ Tổn thương nhiều thùy hiếm gặp; tỷ lệ khoảng 5% là ước tính, chưa được xác nhận trong các nguồn đã rà soát.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Thùy bệnh tăng thể tích rõ, giảm đậm độ lan tỏa và làm biến dạng hoặc đẩy lệch các khe liên thùy; trường hợp nặng có thể thoát vị qua trung thất.<br>+ Các mạch phổi trong thùy thường bị kéo dài, tách xa, thưa hoặc giảm khẩu kính, nhưng vẫn có thể nhận thấy chạy trong nhu mô; mật độ mạch máu thay đổi giữa các trường hợp.<br>+ Hiệu ứng choán chỗ có thể làm xẹp ép các thùy lân cận, chèn ép phổi đối bên và đẩy lệch trung thất.<br>+ CLVT xác định thùy tổn thương, mức độ tăng căng, tình trạng nhu mô còn lại và các biến đổi do chèn ép.<br>+ Thường không thấy các khoang nang thật; nhiều nang có thành rõ gợi ý dị dạng đường thở phổi bẩm sinh (CPAM) hoặc tổn thương phối hợp, dù hiếm khi có thể cùng tồn tại.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2015_09_778323.jpg"><img src="khi-phe-thung_anh/2015_09_778323.jpg" alt="" width="775" height="1152" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_gr3_lrg-1.jpg"><img src="khi-phe-thung_anh/2015_09_gr3_lrg-1.jpg" alt="" width="1600" height="770" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_images_large_105508fig10b.jpeg"><img src="khi-phe-thung_anh/2015_09_images_large_105508fig10b.jpeg" alt="" width="1600" height="1391" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_925232.jpg"><img src="khi-phe-thung_anh/2015_09_925232.jpg" alt="" width="1600" height="526" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-565.jpg"><img src="khi-phe-thung_anh/2015_08_1-565.jpg" alt="" width="758" height="747" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-562.jpg"><img src="khi-phe-thung_anh/2015_08_2-562.jpg" alt="" width="515" height="342" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-543.jpg"><img src="khi-phe-thung_anh/2015_08_3-543.jpg" alt="" width="509" height="366" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-484.jpg"><img src="khi-phe-thung_anh/2015_08_4-484.jpg" alt="" width="504" height="376" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_5-303.jpg"><img src="khi-phe-thung_anh/2015_08_5-303.jpg" alt="" width="486" height="388" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-566.jpg"><img src="khi-phe-thung_anh/2015_08_1-566.jpg" alt="" width="945" height="864" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-563.jpg"><img src="khi-phe-thung_anh/2015_08_2-563.jpg" alt="" width="611" height="393" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-544.jpg"><img src="khi-phe-thung_anh/2015_08_3-544.jpg" alt="" width="598" height="422" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-485.jpg"><img src="khi-phe-thung_anh/2015_08_4-485.jpg" alt="" width="577" height="552" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_5-304.jpg"><img src="khi-phe-thung_anh/2015_08_5-304.jpg" alt="" width="486" height="557" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_1-97.png"><img src="khi-phe-thung_anh/2015_08_1-97.png" alt="" width="1268" height="935" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_2-564.jpg"><img src="khi-phe-thung_anh/2015_08_2-564.jpg" alt="" width="515" height="342" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_3-100.png"><img src="khi-phe-thung_anh/2015_08_3-100.png" alt="" width="694" height="546" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_4-91.png"><img src="khi-phe-thung_anh/2015_08_4-91.png" alt="" width="693" height="563" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_5-75.png"><img src="khi-phe-thung_anh/2015_08_5-75.png" alt="" width="778" height="685" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="khi-phe-thung_anh/2015_09_11_04_0190_08a.jpeg"><img src="khi-phe-thung_anh/2015_09_11_04_0190_08a.jpeg" alt="" width="1280" height="1220" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_11_04_0190_08b.jpeg"><img src="khi-phe-thung_anh/2015_09_11_04_0190_08b.jpeg" alt="" width="1280" height="1175" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_11_04_0190_08c.jpeg"><img src="khi-phe-thung_anh/2015_09_11_04_0190_08c.jpeg" alt="" width="1280" height="1208" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="khi-phe-thung_anh/2015_09_1-492.jpeg"><img src="khi-phe-thung_anh/2015_09_1-492.jpeg" alt="" width="1600" height="1143" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-491.jpeg"><img src="khi-phe-thung_anh/2015_09_2-491.jpeg" alt="" width="1530" height="1284" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_3-480.jpeg"><img src="khi-phe-thung_anh/2015_09_3-480.jpeg" alt="" width="1280" height="826" loading="lazy" decoding="async"></a></div>
+<h3 id="phe-thung-khong-lo-vo-can">* Phế thũng khổng lồ vô căn</h3>
+<p><span class="c-xanh"><span class="c-xanh">– Khí phế thũng khổng lồ vô căn (Idiopathic giant bullous emphysema)</span> còn gọi là hội chứng phổi biến mất (Vanishing Lung Syndrome – VLS)</span> là hội chứng hình ảnh hiếm gặp với một hoặc nhiều bóng khí lớn, thường ở thùy trên, chiếm ít nhất một phần ba một bên lồng ngực và chèn ép nhu mô phổi còn lại.<br>– Thường gặp ở nam giới trẻ tuổi, đặc biệt người hút thuốc; bóng khí có thể lớn dần và phối hợp với khí phế thũng cạnh vách hoặc trung tâm tiểu thùy.<br>– Có thể liên quan đến bệnh mô liên kết như hội chứng Marfan, hội chứng Ehlers-Danlos hoặc thiếu alpha-1 antitrypsin; đây là các liên quan hiếm gặp, không mặc định là nguyên nhân ở mọi trường hợp.</p>
+<p><span class="c-xanh">– Đặc điểm CLVT:</span><br>+ Bóng khí thường ở vùng dưới màng phổi và thùy trên; có thể một hoặc hai bên nhưng thường phân bố không đối xứng.<br>+ Bóng khí có thành rất mỏng hoặc khó nhận thấy, bên trong không có mạch phổi; đường kính được báo cáo khoảng 1–20 cm.<br>+ Nhu mô phổi còn lại bị ép dẹt hoặc xẹp, thường ở vùng đáy hay sát rốn phổi; CLVT giúp xác định mức độ chèn ép, phần phổi còn chức năng và khí phế thũng đi kèm.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="khi-phe-thung_anh/2015_08_index-3-6.png"><img src="khi-phe-thung_anh/2015_08_index-3-6.png" alt="" width="946" height="449" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_index-2-7.png"><img src="khi-phe-thung_anh/2015_08_index-2-7.png" alt="" width="1253" height="1026" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_index-3-5.png"><img src="khi-phe-thung_anh/2015_08_index-3-5.png" alt="" width="1408" height="999" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_giant-apical-bulla.jpg"><img src="khi-phe-thung_anh/2015_08_giant-apical-bulla.jpg" alt="" width="728" height="733" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_giant-apical-bulla-1.jpg"><img src="khi-phe-thung_anh/2015_08_giant-apical-bulla-1.jpg" alt="" width="708" height="730" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_giant-apical-bulla-2.jpg"><img src="khi-phe-thung_anh/2015_08_giant-apical-bulla-2.jpg" alt="" width="740" height="724" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_giant-apical-bulla-3.jpg"><img src="khi-phe-thung_anh/2015_08_giant-apical-bulla-3.jpg" alt="" width="794" height="735" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_giant-apical-bulla-4.jpg"><img src="khi-phe-thung_anh/2015_08_giant-apical-bulla-4.jpg" alt="" width="698" height="734" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-phan-biet">IV. Chẩn đoán phân biệt</h2>
+<h3 id="ton-thuong-dang-ken">* Tổn thương dạng kén</h3>
+<p>– Nang phổi thật (lung cyst) là ổ giảm đậm độ tròn hoặc bầu dục, ranh giới rõ, có thành mỏng (thường dưới 2 mm) và thường được bao quanh bởi nhu mô phổi bình thường.<br>– Khí phế thũng thường biểu hiện bằng các vùng giảm đậm độ không có thành rõ. Khi tổn thương lớn, nhu mô phổi bị ép xung quanh có thể tạo bờ giả.<br>– Bóng khí (bulla) là khoang khí phế thũng lớn hơn 1 cm, thường có thành rất mỏng hoặc khó thấy, hay nằm dưới màng phổi; đây là một dạng tổn thương của khí phế thũng, không phải nang phổi thật. Khí phế thũng cũng có thể đồng tồn tại với bệnh phổi dạng nang thật sự.<br>– Cạm bẫy: Không phân biệt chỉ dựa vào sự hiện diện của thành. Thành nang rất mỏng, bờ giả quanh vùng khí phế thũng và bóng khí có thể gây chồng lấp; cần phối hợp hình dạng, phân bố và các dấu hiệu ở nhu mô phổi lân cận.</p>
+<figure><a class="o-anh" href="khi-phe-thung_anh/2015_08_phanbiet.jpg"><img src="khi-phe-thung_anh/2015_08_phanbiet.jpg" alt="" width="1400" height="524" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"><strong></strong></span></p>
+<h3 id="benh-mo-bao-langerhans">* Bệnh mô bào Langerhans</h3>
+<p><span class="c-xanh">– Bệnh mô bào Langerhans (Langerhans cell histiocytosis, LCH)</span>, trước đây gọi là bệnh mô bào X, là bệnh tăng sinh đơn dòng của tế bào có kiểu hình Langerhans kèm phản ứng viêm; tổn thương có thể khu trú ở phổi hoặc thuộc bệnh đa hệ.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span><br>+ Tổn thương thường có đột biến hoạt hóa đường truyền MAPK.<br>+ Ở phổi, tổn thương tập trung quanh tiểu phế quản nhỏ; quá trình viêm và phá hủy thành đường thở có thể tiến triển từ nốt sang tổn thương tạo hang, nang khí và sẹo xơ.</p>
+<p><span class="c-xanh">– Phân loại:</span><br>+ LCH đơn hệ: chỉ ảnh hưởng một hệ cơ quan, có thể là phổi đơn độc.<br>+ LCH đa hệ: ảnh hưởng từ hai hệ cơ quan trở lên.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Bệnh phổi chủ yếu gặp ở người trẻ hút thuốc, không ưu thế giới; khoảng 90–95% bệnh nhân mắc thể phổi có hút thuốc.</p>
+<p><span class="c-xanh">– Hình thái lâm sàng:</span> Ho khan và khó thở khi gắng sức thường không đặc hiệu. Tràn khí màng phổi có thể là biểu hiện ban đầu ở khoảng 10–30% bệnh nhân và xuất hiện trong diễn tiến ở khoảng 30–45%.</p>
+<p><span class="c-xanh">– Đặc điểm CLVT:</span><br>+ Giai đoạn sớm thường có các nốt nhỏ quanh tiểu phế quản, đôi khi có hình cây nảy chồi (tree-in-bud) hoặc tạo hang.<br>+ Khi bệnh tiến triển, xuất hiện các nang thành dày rồi thành mỏng, hình dạng không đều; có thể đồng thời thấy nốt và nang ở các giai đoạn khác nhau.<br>+ Tổn thương ưu thế ở vùng giữa và trên phổi, thường bảo tồn góc sườn-hoành.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2015_09_notmo.jpg"><img src="khi-phe-thung_anh/2015_09_notmo.jpg" alt="" width="936" height="355" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/1-91.jpg"><img src="khi-phe-thung_anh/1-91.jpg" alt="" width="894" height="993" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2-86.jpg"><img src="khi-phe-thung_anh/2-86.jpg" alt="" width="630" height="492" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_dangnot123.png"><img src="khi-phe-thung_anh/2015_09_dangnot123.png" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_dangnot1234a.png"><img src="khi-phe-thung_anh/2015_09_dangnot1234a.png" alt="" width="1482" height="1039" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_dangnot1234.png"><img src="khi-phe-thung_anh/2015_09_dangnot1234.png" alt="" width="1502" height="1163" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_nodule.jpg"><img src="khi-phe-thung_anh/2015_09_nodule.jpg" alt="" width="1365" height="727" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2015_09_1-220.jpeg"><img src="khi-phe-thung_anh/2015_09_1-220.jpeg" alt="" width="956" height="890" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-40.png"><img src="khi-phe-thung_anh/2015_09_2-40.png" alt="" width="788" height="529" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_3-38.png"><img src="khi-phe-thung_anh/2015_09_3-38.png" alt="" width="787" height="534" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_4-30.png"><img src="khi-phe-thung_anh/2015_09_4-30.png" alt="" width="786" height="555" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_5-24.png"><img src="khi-phe-thung_anh/2015_09_5-24.png" alt="" width="791" height="612" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_6-11.png"><img src="khi-phe-thung_anh/2015_09_6-11.png" alt="" width="788" height="631" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_7-7.png"><img src="khi-phe-thung_anh/2015_09_7-7.png" alt="" width="787" height="635" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_8-7.png"><img src="khi-phe-thung_anh/2015_09_8-7.png" alt="" width="786" height="644" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_1-221.jpeg"><img src="khi-phe-thung_anh/2015_09_1-221.jpeg" alt="" width="630" height="466" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-219.jpeg"><img src="khi-phe-thung_anh/2015_09_2-219.jpeg" alt="" width="630" height="500" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_3-212.jpeg"><img src="khi-phe-thung_anh/2015_09_3-212.jpeg" alt="" width="630" height="524" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_4-202.jpeg"><img src="khi-phe-thung_anh/2015_09_4-202.jpeg" alt="" width="630" height="528" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_5-161.jpeg"><img src="khi-phe-thung_anh/2015_09_5-161.jpeg" alt="" width="630" height="516" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_c1.jpg"><img src="khi-phe-thung_anh/2015_09_c1.jpg" alt="" width="1600" height="1706" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_c2.jpg"><img src="khi-phe-thung_anh/2015_09_c2.jpg" alt="" width="1600" height="1825" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_c3.jpg"><img src="khi-phe-thung_anh/2015_09_c3.jpg" alt="" width="512" height="348" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_c4.jpg"><img src="khi-phe-thung_anh/2015_09_c4.jpg" alt="" width="512" height="382" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_c5.jpg"><img src="khi-phe-thung_anh/2015_09_c5.jpg" alt="" width="507" height="369" loading="lazy" decoding="async"></a></div>
+<p>+ Các nốt có thể hang hóa, tạo hang thành dày không đều, rồi tiến triển thành nang khí thành mỏng; có thể đồng thời thấy tổn thương ở nhiều giai đoạn.</p>
+<figure><a class="o-anh" href="khi-phe-thung_anh/2015_09_12345-1.png"><img src="khi-phe-thung_anh/2015_09_12345-1.png" alt="" width="1600" height="781" loading="lazy" decoding="async"></a></figure>
+<p>+ Dạng nang: ưu thế vùng giữa và trên hai phổi, thường bảo tồn vùng đáy/góc sườn-hoành. Nang nhỏ thường &lt; 1 cm; ở bệnh tiến triển, nang có thể lớn hơn và hiếm khi đạt khoảng 5 cm. Thành nang thay đổi theo giai đoạn: có thể dày &gt;2 mm ở tổn thương sớm, rồi thường mỏng &lt; 2 mm. Nang có thể giãn và hợp lưu, tạo hình hai thùy, cloverleaf, phân nhánh hoặc dạng bất thường.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_dangken.png"><img src="khi-phe-thung_anh/2015_09_dangken.png" alt="" width="1039" height="1063" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/1-92.jpg"><img src="khi-phe-thung_anh/1-92.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_dangken2.png"><img src="khi-phe-thung_anh/2015_09_dangken2.png" alt="" width="1126" height="1257" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_bnm.jpg"><img src="khi-phe-thung_anh/2015_09_bnm.jpg" alt="" width="956" height="678" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/03_ac0908_04.jpeg"><img src="khi-phe-thung_anh/03_ac0908_04.jpeg" alt="" width="1600" height="1542" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/F2.large_-33.jpg"><img src="khi-phe-thung_anh/F2.large_-33.jpg" alt="" width="1280" height="473" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_dangken23.png"><img src="khi-phe-thung_anh/2015_09_dangken23.png" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_nang12.png"><img src="khi-phe-thung_anh/2015_09_nang12.png" alt="" width="1232" height="1201" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_nangghf.png"><img src="khi-phe-thung_anh/2015_09_nangghf.png" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_giaidoannang.jpg"><img src="khi-phe-thung_anh/2015_09_giaidoannang.jpg" alt="" width="1378" height="976" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_1-24.jpeg"><img src="khi-phe-thung_anh/2015_09_1-24.jpeg" alt="" width="630" height="478" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-23.jpeg"><img src="khi-phe-thung_anh/2015_09_2-23.jpeg" alt="" width="630" height="488" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_3-23.jpeg"><img src="khi-phe-thung_anh/2015_09_3-23.jpeg" alt="" width="630" height="486" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_4-19.jpeg"><img src="khi-phe-thung_anh/2015_09_4-19.jpeg" alt="" width="630" height="496" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_5-16.jpeg"><img src="khi-phe-thung_anh/2015_09_5-16.jpeg" alt="" width="630" height="498" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="khi-phe-thung_anh/2015_09_PA-chest-1.jpg"><img src="khi-phe-thung_anh/2015_09_PA-chest-1.jpg" alt="" width="992" height="1035" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_AB.jpg"><img src="khi-phe-thung_anh/2015_09_AB.jpg" alt="" width="573" height="597" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-44.jpg"><img src="khi-phe-thung_anh/2015_09_2-44.jpg" alt="" width="922" height="276" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_1-221.jpg"><img src="khi-phe-thung_anh/2015_09_1-221.jpg" alt="" width="964" height="957" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-216.jpg"><img src="khi-phe-thung_anh/2015_09_2-216.jpg" alt="" width="630" height="390" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_3-205.jpg"><img src="khi-phe-thung_anh/2015_09_3-205.jpg" alt="" width="630" height="402" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_4-185.jpg"><img src="khi-phe-thung_anh/2015_09_4-185.jpg" alt="" width="630" height="402" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_5-140.jpg"><img src="khi-phe-thung_anh/2015_09_5-140.jpg" alt="" width="630" height="403" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="khi-phe-thung_anh/2015_09_index-2-16.jpg"><img src="khi-phe-thung_anh/2015_09_index-2-16.jpg" alt="" width="717" height="713" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_index-6.jpg"><img src="khi-phe-thung_anh/2015_09_index-6.jpg" alt="" width="960" height="380" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_index-1-29.jpg"><img src="khi-phe-thung_anh/2015_09_index-1-29.jpg" alt="" width="766" height="720" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/20171004_152724_xray.vn_.png"><img src="khi-phe-thung_anh/20171004_152724_xray.vn_.png" alt="" width="1200" height="1201" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/20171004_152959_xray.vn_.png"><img src="khi-phe-thung_anh/20171004_152959_xray.vn_.png" alt="" width="1200" height="699" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/20171004_153012_xray.vn_.png"><img src="khi-phe-thung_anh/20171004_153012_xray.vn_.png" alt="" width="1200" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/20171004_155427_xray.vn_.png"><img src="khi-phe-thung_anh/20171004_155427_xray.vn_.png" alt="" width="1200" height="734" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/20171004_153025_xray.vn_.png"><img src="khi-phe-thung_anh/20171004_153025_xray.vn_.png" alt="" width="1200" height="757" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/5-42.jpg"><img src="khi-phe-thung_anh/5-42.jpg" alt="" width="957" height="809" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/a-5.png"><img src="khi-phe-thung_anh/a-5.png" alt="" width="1200" height="904" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/b-2.png"><img src="khi-phe-thung_anh/b-2.png" alt="" width="1200" height="916" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/c-1.png"><img src="khi-phe-thung_anh/c-1.png" alt="" width="1200" height="912" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/6-29.jpg"><img src="khi-phe-thung_anh/6-29.jpg" alt="" width="539" height="436" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 7:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_a1-2.jpg"><img src="khi-phe-thung_anh/2015_09_a1-2.jpg" alt="" width="1600" height="1618" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_a2-1.jpg"><img src="khi-phe-thung_anh/2015_09_a2-1.jpg" alt="" width="1600" height="1568" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_a3-1.jpg"><img src="khi-phe-thung_anh/2015_09_a3-1.jpg" alt="" width="502" height="345" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_a4-1.jpg"><img src="khi-phe-thung_anh/2015_09_a4-1.jpg" alt="" width="508" height="369" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_a5-1.jpg"><img src="khi-phe-thung_anh/2015_09_a5-1.jpg" alt="" width="452" height="368" loading="lazy" decoding="async"></a></div>
+<p>+ Dấu hiệu phối hợp/biến chứng: có thể gặp hình kính mờ và bóng khí dạng khí phế thũng, thường trên nền tổn thương do hút thuốc; giảm đậm độ dạng khảm hoặc ứ khí cũng có thể xuất hiện nhưng không đặc hiệu. Tràn khí màng phổi là biến chứng đáng lưu ý. Hạch rốn phổi hoặc trung thất ít gặp (khoảng 10%).</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/5-43.jpg"><img src="khi-phe-thung_anh/5-43.jpg" alt="" width="933" height="872" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/6-30.jpg"><img src="khi-phe-thung_anh/6-30.jpg" alt="" width="583" height="559" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/7-11.jpg"><img src="khi-phe-thung_anh/7-11.jpg" alt="" width="630" height="509" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/8-5.jpg"><img src="khi-phe-thung_anh/8-5.jpg" alt="" width="624" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Phân biệt với khí phế thũng:</span> Khí phế thũng thường tạo các vùng giảm đậm độ không có thành rõ, theo kiểu phân bố trung tâm tiểu thùy hoặc cạnh màng phổi. LCH được gợi ý bởi sự phối hợp giữa nốt quanh tiểu phế quản, nốt tạo hang và nang thành không đều, cùng kiểu phân bố ưu thế vùng giữa–trên phổi và thường chừa góc sườn-hoành.</p>
+<p><span class="c-xanh">– Chẩn đoán xác định:</span> Khi cần xác nhận mô học, tìm tế bào tổn thương biểu hiện CD1a hoặc CD207 (langerin).</p>
+<h3 id="u-co-tron-bach-mach">* U cơ trơn bạch mạch</h3>
+<p><span class="c-xanh">– Bệnh u cơ trơn bạch mạch (lymphangioleiomyomatosis – LAM)</span> là bệnh tân sinh hiếm, tiến triển chậm, chủ yếu gặp ở phụ nữ. Bệnh có thể xuất hiện rải rác hoặc liên quan đến xơ cứng củ (TSC).<br>– Tế bào LAM bất thường, có hình thái giống tế bào cơ trơn, thâm nhiễm tiểu phế quản nhỏ, mạch máu và hệ bạch huyết. Tăng sinh quanh tiểu phế quản có thể gây bẫy khí; tổn thương và phá hủy nhu mô dẫn đến hình thành các nang lan tỏa.<br>– Thường khởi phát ở phụ nữ trong độ tuổi sinh sản; đôi khi gặp sau mãn kinh.<br>– Diễn tiến thay đổi giữa các bệnh nhân. Không nên khẳng định hầu hết bệnh nhân tử vong trong vòng 10 năm từ khi khởi phát.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ HRCT: nhiều nang thành mỏng, tròn hoặc bầu dục, bờ đều, kích thước thay đổi; phân bố lan tỏa hai phổi, kể cả vùng đáy và góc sườn-hoành. Nhu mô phổi giữa các nang thường tương đối bảo tồn.<br>+ Dấu hiệu phối hợp: tràn khí màng phổi tự phát, thường dễ tái phát; tràn dịch dưỡng chấp màng phổi; hạch trung thất hoặc ổ bụng/khối bạch huyết. U cơ mỡ mạch thận là dấu hiệu ngoài phổi có thể hỗ trợ chẩn đoán.<br>+ Phân biệt LAM với khí phế thũng: LAM thường có nhiều nang tròn, thành mỏng rõ, phân bố lan tỏa cả vùng đáy/góc sườn-hoành, với nhu mô giữa nang tương đối bảo tồn. Khí phế thũng thường tạo vùng giảm đậm độ không có thành rõ; bóng khí lớn có thể gây chồng lấp hình ảnh, và hai bệnh có thể đồng mắc.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2015_09_LAMdep.jpg"><img src="khi-phe-thung_anh/2015_09_LAMdep.jpg" alt="" width="1300" height="461" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/1f5c87b176c2804426a232e4ae5028_big_gallery.jpeg"><img src="khi-phe-thung_anh/1f5c87b176c2804426a232e4ae5028_big_gallery.jpeg" alt="" width="630" height="445" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/03_ac0908_05.jpeg"><img src="khi-phe-thung_anh/03_ac0908_05.jpeg" alt="" width="1600" height="1542" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_79d3732c283ddea5a86ccf09257a2d_big_gallery.jpg"><img src="khi-phe-thung_anh/2015_09_79d3732c283ddea5a86ccf09257a2d_big_gallery.jpg" alt="" width="390" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_a4ba5ae5d130de7ad0e59d042caea5_big_gallery.jpg"><img src="khi-phe-thung_anh/2015_09_a4ba5ae5d130de7ad0e59d042caea5_big_gallery.jpg" alt="" width="626" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_lymphangioma.jpg"><img src="khi-phe-thung_anh/2015_09_lymphangioma.jpg" alt="" width="675" height="396" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_lam123-scaled.jpg"><img src="khi-phe-thung_anh/2015_09_lam123-scaled.jpg" alt="" width="1600" height="1081" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_longlam1.jpg"><img src="khi-phe-thung_anh/2015_09_longlam1.jpg" alt="" width="1306" height="848" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_longlam2.jpg"><img src="khi-phe-thung_anh/2015_09_longlam2.jpg" alt="" width="1164" height="1045" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_long54lam-1.jpg"><img src="khi-phe-thung_anh/2015_09_long54lam-1.jpg" alt="" width="1600" height="1330" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_long54lam-2.jpg"><img src="khi-phe-thung_anh/2015_09_long54lam-2.jpg" alt="" width="738" height="467" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_long54lam-3.jpg"><img src="khi-phe-thung_anh/2015_09_long54lam-3.jpg" alt="" width="1600" height="1359" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2015_09_1-29.jpeg"><img src="khi-phe-thung_anh/2015_09_1-29.jpeg" alt="" width="630" height="413" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-28.jpeg"><img src="khi-phe-thung_anh/2015_09_2-28.jpeg" alt="" width="630" height="444" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_3-28.jpeg"><img src="khi-phe-thung_anh/2015_09_3-28.jpeg" alt="" width="630" height="463" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_4-24.jpeg"><img src="khi-phe-thung_anh/2015_09_4-24.jpeg" alt="" width="630" height="484" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_5-20.jpeg"><img src="khi-phe-thung_anh/2015_09_5-20.jpeg" alt="" width="630" height="499" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_6-14.jpeg"><img src="khi-phe-thung_anh/2015_09_6-14.jpeg" alt="" width="630" height="509" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_7-7.jpeg"><img src="khi-phe-thung_anh/2015_09_7-7.jpeg" alt="" width="625" height="511" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_8-7.jpeg"><img src="khi-phe-thung_anh/2015_09_8-7.jpeg" alt="" width="615" height="525" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_1-162.jpeg"><img src="khi-phe-thung_anh/2015_09_1-162.jpeg" alt="" width="630" height="437" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-163.jpeg"><img src="khi-phe-thung_anh/2015_09_2-163.jpeg" alt="" width="630" height="453" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_3-158.jpeg"><img src="khi-phe-thung_anh/2015_09_3-158.jpeg" alt="" width="630" height="466" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_4-151.jpeg"><img src="khi-phe-thung_anh/2015_09_4-151.jpeg" alt="" width="630" height="472" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_5-118.jpeg"><img src="khi-phe-thung_anh/2015_09_5-118.jpeg" alt="" width="630" height="485" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_1-220.jpg"><img src="khi-phe-thung_anh/2015_09_1-220.jpg" alt="" width="1003" height="1022" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-215.jpg"><img src="khi-phe-thung_anh/2015_09_2-215.jpg" alt="" width="547" height="318" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_3-204.jpg"><img src="khi-phe-thung_anh/2015_09_3-204.jpg" alt="" width="551" height="339" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_4-184.jpg"><img src="khi-phe-thung_anh/2015_09_4-184.jpg" alt="" width="549" height="354" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_5-139.jpg"><img src="khi-phe-thung_anh/2015_09_5-139.jpg" alt="" width="545" height="368" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2015_09_1-219.jpeg"><img src="khi-phe-thung_anh/2015_09_1-219.jpeg" alt="" width="1024" height="958" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-37.png"><img src="khi-phe-thung_anh/2015_09_2-37.png" alt="" width="783" height="533" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_3-35.png"><img src="khi-phe-thung_anh/2015_09_3-35.png" alt="" width="782" height="552" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_4-27.png"><img src="khi-phe-thung_anh/2015_09_4-27.png" alt="" width="776" height="574" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_5-21.png"><img src="khi-phe-thung_anh/2015_09_5-21.png" alt="" width="764" height="588" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_6-10.png"><img src="khi-phe-thung_anh/2015_09_6-10.png" alt="" width="766" height="596" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_7-6.png"><img src="khi-phe-thung_anh/2015_09_7-6.png" alt="" width="769" height="586" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_8-6.png"><img src="khi-phe-thung_anh/2015_09_8-6.png" alt="" width="767" height="602" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_1-35.png"><img src="khi-phe-thung_anh/2015_09_1-35.png" alt="" width="768" height="435" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-38.png"><img src="khi-phe-thung_anh/2015_09_2-38.png" alt="" width="762" height="444" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_3-36.png"><img src="khi-phe-thung_anh/2015_09_3-36.png" alt="" width="764" height="470" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_4-28.png"><img src="khi-phe-thung_anh/2015_09_4-28.png" alt="" width="761" height="480" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_5-22.png"><img src="khi-phe-thung_anh/2015_09_5-22.png" alt="" width="769" height="495" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_1-36.png"><img src="khi-phe-thung_anh/2015_09_1-36.png" alt="" width="857" height="567" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2-39.png"><img src="khi-phe-thung_anh/2015_09_2-39.png" alt="" width="857" height="562" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_3-37.png"><img src="khi-phe-thung_anh/2015_09_3-37.png" alt="" width="857" height="564" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_4-29.png"><img src="khi-phe-thung_anh/2015_09_4-29.png" alt="" width="857" height="563" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_5-23.png"><img src="khi-phe-thung_anh/2015_09_5-23.png" alt="" width="857" height="570" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 7:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="khi-phe-thung_anh/a0d38f9acb3b6f6193b9c85872a258_jumbo.jpg"><img src="khi-phe-thung_anh/a0d38f9acb3b6f6193b9c85872a258_jumbo.jpg" alt="" width="947" height="944" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/59451ac8bdafd51d935efab8c9cfb3_big_gallery.jpg"><img src="khi-phe-thung_anh/59451ac8bdafd51d935efab8c9cfb3_big_gallery.jpg" alt="" width="630" height="493" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/4fed199756c202e18f2727994586cc_big_gallery.jpg"><img src="khi-phe-thung_anh/4fed199756c202e18f2727994586cc_big_gallery.jpg" alt="" width="630" height="490" loading="lazy" decoding="async"></a></div>
+<h3 id="ton-thuong-dang-to-ong">* Tổn thương dạng tổ ong</h3>
+<p><span class="c-xanh">– Tổn thương dạng tổ ong (honeycombing)</span> là dấu hiệu hình ảnh của xơ hóa phổi tiến triển, không phải một bệnh riêng; gặp trong nhiều bệnh phổi kẽ xơ hóa.<br>– Trên CLVT: các khoang khí dạng nang có thành rõ, thường xếp sát nhau thành cụm và nhiều lớp, ưu thế dưới màng phổi. Đường kính thường khoảng 3–10 mm nhưng có thể lớn hơn; trong kiểu hình UIP, thường ưu thế vùng đáy và ngoại vi phổi.<br>– Thường kèm lưới xơ, biến dạng cấu trúc và giãn phế quản/tiểu phế quản co kéo; có thể kèm dày vách liên tiểu thùy. Thể tích phổi thường giảm, nhưng có thể được bảo tồn khi đồng mắc khí phế thũng.</p>
+<p><span class="c-xanh">– Phân biệt với khí phế thũng, đặc biệt thể cạnh vách:</span> tổ ong gồm các khoang dạng nang có thành rõ, đi kèm dấu hiệu xơ hóa; khí phế thũng thường là vùng giảm đậm độ không có thành rõ, dù bóng khí lớn có thể gây chồng lấp hình ảnh. Xơ hóa, biến dạng cấu trúc và giãn phế quản co kéo ủng hộ tổ ong; hai bệnh cũng có thể đồng mắc.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_71fbfdf6062f0a2da1b9c402a73c8954.jpg"><img src="khi-phe-thung_anh/2015_09_71fbfdf6062f0a2da1b9c402a73c8954.jpg" alt="" width="1585" height="905" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_index-1-30.jpg"><img src="khi-phe-thung_anh/2015_09_index-1-30.jpg" alt="" width="1056" height="715" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_13cce0599f4af821b575881342246349.jpg"><img src="khi-phe-thung_anh/2015_09_13cce0599f4af821b575881342246349.jpg" alt="" width="1278" height="1018" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_5603aa5c5968106554a126b649a117.jpg"><img src="khi-phe-thung_anh/2015_09_5603aa5c5968106554a126b649a117.jpg" alt="" width="1510" height="1189" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_thoraxjnl-2014-March-69-3-216-F3.large_.jpg"><img src="khi-phe-thung_anh/2015_09_thoraxjnl-2014-March-69-3-216-F3.large_.jpg" alt="" width="1600" height="1267" loading="lazy" decoding="async"></a></div>
+<h3 id="hoi-chung-swyer-james">* Hội chứng Swyer-James</h3>
+<p><span class="c-xanh">– Hội chứng Swyer–James–MacLeod (Swyer-James-MacLeod syndrome, SJMS)</span>, còn gọi là hội chứng Swyer–James; “Bret syndrome” là tên gọi lịch sử, ít dùng. Đây thường là di chứng viêm tiểu phế quản tắc nghẽn sau nhiễm trùng hô hấp nặng thời thơ ấu, làm giảm phát triển đường thở nhỏ và giường mạch phổi, đồng thời gây bẫy khí và giãn quá mức phế nang.<br>– Giảm tưới máu liên quan đến giảm phát triển và biến đổi giường mạch phổi; co mạch do thiếu oxy có thể góp phần nhưng không phải cơ chế duy nhất.<br>– Thường khu trú một bên, có thể ở một thùy hoặc toàn bộ phổi; đôi khi tổn thương hai bên nhưng không đối xứng.<br>– Phổi bên bệnh có thể nhỏ hoặc thể tích gần bình thường; không nhất thiết luôn teo nhỏ.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ X-quang: trường phổi một bên hoặc một vùng tăng sáng, thường kèm giảm các bóng mạch và rốn phổi nhỏ. Thể tích bên bệnh thường nhỏ hoặc bình thường.<br>+ Thì thở ra: vùng bệnh giảm thể tích kém và còn tăng sáng do ứ khí; trung thất có thể lệch về bên bệnh khi hít vào và về bên lành khi thở ra.<br>+ CLVT: xác định vùng bẫy khí và giảm độ phong phú mạch máu; có thể thấy giãn phế quản dạng ống hoặc dạng túi, bóng khí, xẹp phổi hoặc sẹo. Mức độ tổn thương hai phổi có thể không đồng đều.<br>+ Vận động cơ hoành bên bệnh có thể giảm; đây là dấu hiệu phụ, không đặc hiệu.</p>
+<p><span class="c-xanh">– Phân biệt với khí phế thũng:</span><br>+ SJMS thường gây tăng sáng khu trú một bên hoặc một thùy, với phổi bên bệnh nhỏ hoặc thể tích bình thường, giảm mạch máu và bẫy khí rõ trên thì thở ra.<br>+ Khí phế thũng mắc phải thường gây giảm đậm độ không đồng đều, thường hai bên, kèm tăng thể tích phổi. Bóng khí lớn hoặc khí phế thũng khu trú có thể bắt chước SJMS; giảm phát triển mạch phổi, bẫy khí theo vùng và giãn phế quản hỗ trợ SJMS. Hai tình trạng có thể cùng hiện diện.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_08_Swyer-James.jpg"><img src="khi-phe-thung_anh/2015_08_Swyer-James.jpg" alt="" width="1584" height="770" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_bmjcr-2021-September-14-9-F2.large_.jpg"><img src="khi-phe-thung_anh/2015_08_bmjcr-2021-September-14-9-F2.large_.jpg" alt="" width="1235" height="1243" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_gr1-1.jpeg"><img src="khi-phe-thung_anh/2015_08_gr1-1.jpeg" alt="" width="1500" height="1494" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_images_large_ryct.2020190246.fig1_.jpeg"><img src="khi-phe-thung_anh/2015_08_images_large_ryct.2020190246.fig1_.jpeg" alt="" width="1500" height="1533" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_mi-02-05-00053-g01.jpg"><img src="khi-phe-thung_anh/2015_08_mi-02-05-00053-g01.jpg" alt="" width="1600" height="1037" loading="lazy" decoding="async"></a></div>
+<h3 id="hoi-chung-birt-hogg-dube">* Hội chứng Birt–Hogg–Dubé</h3>
+<p><span class="c-xanh">– Hội chứng Birt–Hogg–Dubé (Birt–Hogg–Dubé syndrome)</span> là bệnh di truyền trội trên nhiễm sắc thể thường, liên quan đến biến thể gây bệnh ở gen FLCN.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ CT ngực thường cho thấy nhiều nang hai bên, thành mỏng, kích thước và hình dạng thay đổi; nang thường bầu dục hoặc thuôn dài, đôi khi không đều hoặc có nhiều thùy.<br>+ Nang ưu thế ở vùng đáy và cạnh trung thất, thường dưới màng phổi hoặc quanh bó mạch; có thể gặp ở các thùy khác nhưng ít hơn ở vùng đỉnh. Nhu mô phổi giữa các nang thường được bảo tồn; số lượng và kích thước nang thường ít thay đổi theo thời gian.</p>
+<p><span class="c-xanh">– Hình thái lâm sàng:</span> Tràn khí màng phổi tự phát hoặc tái phát, tiền sử gia đình, fibrofolliculoma ở da và u thận là các dấu hiệu gợi ý; không phải bệnh nhân nào cũng có đủ các biểu hiện này. Cân nhắc xét nghiệm gen FLCN khi phù hợp; hình ảnh CT đơn độc không xác lập chẩn đoán.</p>
+<p><span class="c-xanh">– Phân biệt với khí phế thũng (pulmonary emphysema):<br></span>+ Birt–Hogg–Dubé thường tạo các khoang nang riêng biệt có thành mỏng nhận diện được, phân bố ưu thế ở vùng đáy/cạnh trung thất, với nhu mô tương đối bảo tồn giữa nang.<br>+ Khí phế thũng thường gây các vùng giảm đậm độ không có thành riêng biệt, kèm giảm số lượng hoặc độ rõ của mạch phổi; phân bố thay đổi theo kiểu hình và có thể ưu thế vùng đáy. Bóng khí do khí phế thũng có thể có thành rất mỏng và chèn ép nhu mô lân cận, gây chồng lấp; hai bệnh cũng có thể đồng tồn tại, nên không phân biệt chỉ dựa vào thành nang.<br>+ So với LAM (lymphangioleiomyomatosis), nang Birt–Hogg–Dubé thường đa dạng hình dạng và ưu thế vùng đáy/cạnh trung thất hơn, trong khi LAM thường có các nang tròn, phân bố lan tỏa.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="khi-phe-thung_anh/2015_08_13023_2020_1448_Fig1_HTML.png"><img src="khi-phe-thung_anh/2015_08_13023_2020_1448_Fig1_HTML.png" alt="" width="1600" height="594" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_F1.large_-38.jpg"><img src="khi-phe-thung_anh/2015_08_F1.large_-38.jpg" alt="" width="1600" height="640" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_images_02_10_4757_01.jpeg"><img src="khi-phe-thung_anh/2015_08_images_02_10_4757_01.jpeg" alt="" width="1512" height="1219" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_08_images_02_10_4757_02b.jpeg"><img src="khi-phe-thung_anh/2015_08_images_02_10_4757_02b.jpeg" alt="" width="1350" height="1085" loading="lazy" decoding="async"></a></div>
+<h3 id="viem-phoi-mo-ke-lympho-bao">* Viêm phổi mô kẽ lympho bào</h3>
+<p><span class="c-xanh">– Viêm phổi mô kẽ lympho bào (lymphocytic interstitial pneumonia, LIP)</span> là rối loạn tăng sinh lympho bào đa dòng, thường lành tính, với thâm nhiễm lympho bào và tương bào vào mô kẽ phổi.</p>
+<p><span class="c-xanh">– Dịch tễ và bệnh kèm:</span><br>+ Thường gặp ở người lớn trung niên và nữ nhiều hơn nam; có thể gặp ở mọi lứa tuổi. Ở trẻ em, cần lưu ý bối cảnh suy giảm miễn dịch, đặc biệt HIV.<br>+ Thường liên quan hội chứng Sjögren; các liên quan khác gồm HIV, amyloidosis, bệnh mô liên kết và suy giảm miễn dịch. Một số trường hợp vô căn.</p>
+<p><span class="c-xanh">– Hình thái lâm sàng:</span> Khó thở và ho, thường ho khan, khởi phát âm ỉ; thời gian diễn tiến thay đổi. Có thể kèm sốt, mệt mỏi, đau khớp, vã mồ hôi đêm, sụt cân hoặc phì đại tuyến nước bọt, nhất là khi có hội chứng Sjögren.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Tổn thương thường hai bên, lan tỏa hoặc ưu thế vùng giữa và dưới phổi; phân bố có thể thay đổi.<br>+ Dày vách liên tiểu thùy và bó mạch-phế quản theo phân bố quanh mạch-phế quản, vách liên tiểu thùy và dưới màng phổi.<br>+ Có nhiều nang thành mỏng, kích thước và hình dạng thay đổi, thường phân bố rải rác; có thể kèm kính mờ và các nốt nhỏ mờ, thường quanh tiểu thùy trung tâm.<br>+ Hạch rốn phổi hoặc trung thất ít gặp.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="khi-phe-thung_anh/2015_09_LIP1.png"><img src="khi-phe-thung_anh/2015_09_LIP1.png" alt="" width="715" height="834" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_2bb8c52100086fae791dc4e11c54c1_big_gallery.jpg"><img src="khi-phe-thung_anh/2015_09_2bb8c52100086fae791dc4e11c54c1_big_gallery.jpg" alt="" width="630" height="498" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_lip-scaled.jpg"><img src="khi-phe-thung_anh/2015_09_lip-scaled.jpg" alt="" width="1600" height="732" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_lip2.jpg"><img src="khi-phe-thung_anh/2015_09_lip2.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"></a><a class="o-anh" href="khi-phe-thung_anh/2015_09_liptyu.jpg"><img src="khi-phe-thung_anh/2015_09_liptyu.jpg" alt="" width="870" height="963" loading="lazy" decoding="async"></a></div>
+<h2 id="v-tien-luong-dieu-tri">V. Tiên lượng &amp; Điều trị</h2>
+<p><span class="c-xanh">– Tiên lượng:</span><br>+ Diễn tiến thay đổi đáng kể giữa các bệnh nhân; nguy cơ phụ thuộc mức độ tắc nghẽn luồng khí, khó thở, đợt cấp, khả năng gắng sức, tình trạng dinh dưỡng, thiếu oxy máu, tiếp tục hút thuốc và bệnh đồng mắc.<br>+ Không dùng FEV₁ hoặc mức độ khí phế thũng trên CT đơn độc để tiên lượng. Chỉ số BODE kết hợp BMI, FEV₁, mức độ khó thở và quãng đường đi bộ 6 phút để đánh giá nguy cơ toàn diện hơn.<br>+ CT giúp xác định mức độ, phân bố và tính không đồng nhất của khí phế thũng, đặc biệt khi xem xét giảm thể tích phổi; không thay thế hô hấp ký và đánh giá lâm sàng.</p>
+<p><span class="c-xanh">– Điều trị:</span><br>+ Mục tiêu là giảm triệu chứng và đợt cấp, cải thiện khả năng gắng sức, duy trì oxy hóa máu và hạn chế tiến triển bệnh.<br>+ Ngừng hút thuốc, tránh khói thuốc và phơi nhiễm nghề nghiệp là nền tảng điều trị; phối hợp hỗ trợ cai thuốc khi cần. Tiêm chủng theo tuổi, nguy cơ và hướng dẫn địa phương; phục hồi chức năng hô hấp giúp cải thiện khó thở, khả năng gắng sức và chất lượng sống.<br>+ Điều trị thuốc dựa trên triệu chứng và tiền sử đợt cấp, không dựa riêng vào hình ảnh CT: dùng thuốc giãn phế quản tác dụng ngắn để giảm triệu chứng khi cần; thuốc chủ vận β₂ tác dụng kéo dài (LABA) và/hoặc thuốc kháng muscarinic tác dụng kéo dài (LAMA) cho điều trị duy trì. Chỉ cân nhắc corticosteroid dạng hít (ICS) khi có hen đồng mắc hoặc đợt cấp tái diễn với khả năng đáp ứng phù hợp theo bạch cầu ái toan máu; không chỉ định ICS chỉ vì CT có khí phế thũng (GOLD, 2026).<br>+ Định lượng alpha-1 antitrypsin ở người mắc COPD; khởi phát sớm, khí phế thũng ưu thế vùng đáy hoặc tiền sử gia đình càng gợi ý thiếu hụt alpha-1 antitrypsin (AATD). Điều trị bổ sung alpha-1 antitrypsin chỉ dành cho một số trường hợp thiếu hụt nặng đã xác nhận, sau đánh giá chuyên khoa và theo hướng dẫn phù hợp.<br>+ Liệu pháp oxy dài hạn được chỉ định khi có thiếu oxy máu mạn tính nặng lúc nghỉ, được xác nhận trong tình trạng ổn định: PaO₂ ≤55 mmHg hoặc SpO₂ ≤88%; hoặc PaO₂ 56–59 mmHg (SpO₂ 89%) kèm phù, hematocrit ≥55% hoặc dấu hiệu tâm phế mạn trên điện tâm đồ. Thường dùng ít nhất 15 giờ/ngày; không dùng thường quy cho thiếu oxy máu mức độ vừa lúc nghỉ (SpO₂ 89–93%). Có thể cân nhắc oxy khi gắng sức nếu giảm oxy máu nặng khi vận động (ATS, 2020).<br>+ Cắt bóng khí có thể hữu ích khi bóng khí lớn gây chèn ép nhu mô phổi còn chức năng.<br>+ Phẫu thuật hoặc giảm thể tích phổi qua nội soi bằng van một chiều dành cho bệnh nhân được chọn lọc, còn triệu chứng và tăng căng phổi nặng dù đã điều trị tối ưu. Lựa chọn cần phối hợp CT định lượng/phân bố tổn thương, đánh giá khe liên thùy và thông khí bàng hệ, chức năng phổi, khả năng gắng sức cùng bệnh đồng mắc (GOLD, 2026).<br>+ Ghép phổi chỉ xem xét ở một số bệnh nhân bệnh giai đoạn cuối sau đánh giá chuyên khoa đa ngành.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Pulmonary Emphysema: Size Distribution of Emphysematous Spaces on Multidetector CT Images – Comparison with Macroscopic and Microscopic Morphometry – Afarine Madani, MD, Alain Van Muylem, PhD<br><span class="c-xanh">* </span></em><em>Imaging Studies in Emphysema – Paul J. Friedman<br>* CT and MRI of the Whole Body, 6e – John R. Haaga, MD<br>* Grainger &amp; Allison’s Diagnostic Radiology – Andreas Adam<br>* Cystic pattern in lung diseases: a simplified HRCT guide based on free-hand drawings – D. C. Caltabiano, V. Costanzo, L. Mammino<br></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

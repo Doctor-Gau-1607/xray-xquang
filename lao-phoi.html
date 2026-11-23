@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lao Phổi</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>Lao Phổi</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/lao-phoi/" target="_blank" rel="noopener">Xray.vn — xray.vn/lao-phoi</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Bệnh lao (tuberculosis)</span> là bệnh nhiễm trùng có thể ảnh hưởng nhiều cơ quan và hệ thống.</p>
+<p><span class="c-xanh">– Nguyên nhân:</span><br>+ Tác nhân gây bệnh chủ yếu là Mycobacterium tuberculosis.<br>+ Một tỷ lệ nhỏ trường hợp do Mycobacterium bovis, thường liên quan đến việc sử dụng sữa chưa tiệt trùng hoặc tiếp xúc gần với gia súc nhiễm bệnh.</p>
+<p><span class="c-xanh">– Dịch tễ:</span><br>+ Lao là nguyên nhân gây tử vong hàng đầu do một tác nhân truyền nhiễm đơn lẻ trên toàn cầu.<br>+ Năm 2024, ước tính có khoảng 10,7 triệu người mắc lao và 1,23 triệu người tử vong do bệnh.<br>+ Khoảng 1/4 dân số thế giới nhiễm lao tiềm ẩn.<br>+ Khoảng 5–10% người nhiễm tiến triển thành lao bệnh trong đời nếu không được điều trị.<br>+ Gánh nặng bệnh tập trung ở các quốc gia thu nhập thấp và trung bình.<br>+ Người nhiễm HIV có nguy cơ mắc lao bệnh cao gấp khoảng 16 lần so với người không nhiễm HIV.<br>+ Năm 2024, khoảng 5,8% số ca lao mới ước tính xảy ra ở người nhiễm HIV.<br>+ Lao phổi sau nguyên phát có hang là nguồn lây quan trọng, do tổn thương hang thường đi kèm tải lượng vi khuẩn cao; vi khuẩn lao lây chủ yếu qua không khí trong các hạt khí dung phát tán từ người mắc lao phổi hoạt động.<br>+ Năm 2024, ước tính có khoảng 390.000 người mắc lao đa kháng thuốc/kháng rifampicin (multidrug-resistant/rifampicin-resistant tuberculosis, MDR/RR-TB); 164.545 người được điều trị, tương đương khoảng 42% số ca ước tính.</p>
+<p><span class="c-xanh">– Vị trí:</span> Phổi là vị trí thường gặp nhất của bệnh lao.</p>
+<p><span class="c-xanh">– Hình thái lâm sàng:</span> Biểu hiện lao phổi rất đa dạng, phụ thuộc một phần vào lao nguyên phát hay lao sau nguyên phát.</p>
+<figure><a class="o-anh" href="lao-phoi_anh/facts-about-tuberculosis-e1791980717354.jpg"><img src="lao-phoi_anh/facts-about-tuberculosis-e1791980717354.jpg" alt="Lao phổi" width="1200" height="768" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"><strong>* Lâm sàng:</strong></span><br><span class="c-xanh">– Lao nguyên phát (primary pulmonary tuberculosis) thường không có triệu chứng:</span><br>+ Ở người có miễn dịch bình thường, khoảng 5% người nhiễm tiến triển thành lao nguyên phát tiến triển.<br>+ Lao nguyên phát tiến triển gặp nhiều hơn ở người suy giảm miễn dịch.<br>+ Một phần nhỏ trường hợp lao nguyên phát lan tràn theo đường máu, gây lao kê (miliary tuberculosis).</p>
+<p><span class="c-xanh">– Lao phổi sau nguyên phát (post-primary tuberculosis) thường không có triệu chứng hoặc chỉ gây ho khan mạn tính:</span><br>+ Khi có triệu chứng, biểu hiện toàn thân thường nổi bật, gồm sốt, mệt mỏi và sụt cân.<br>+ Ho khạc đờm có thể xuất hiện; đôi khi đờm lẫn máu.<br>+ Ho ra máu nặng có thể do bào mòn động mạch phế quản.</p>
+<p><span class="c-xanh">– Ở người nhiễm HIV, đặc biệt người mắc AIDS (acquired immunodeficiency syndrome), biểu hiện lao phổi thay đổi theo mức độ suy giảm miễn dịch và số lượng tế bào CD4+:</span><br>+ Khi số lượng tế bào CD4+ còn tương đối bảo tồn, biểu hiện thường giống lao sau nguyên phát.<br>+ Khi CD4+ giảm nặng (thường dưới 200 tế bào/mm³), biểu hiện không điển hình hoặc giống lao nguyên phát thường gặp hơn; hạch rốn phổi hoặc trung thất to và lao kê cũng có thể xuất hiện.</p>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<p><span class="c-xanh"><strong>* Vị trí tổn thương:</strong></span><br>– Lao nguyên phát (primary pulmonary tuberculosis):<br>+ Ở trẻ em, tổn thương có thể gặp ở bất kỳ vị trí nào trong phổi.<br>+ Ở người lớn, tổn thương thường gặp ở thùy giữa hoặc thùy dưới.<br>– Lao sau nguyên phát (post-primary tuberculosis) thường ưu thế ở vùng đỉnh phổi.<br>– Lao kê (miliary tuberculosis): Các nốt phân bố lan tỏa hai phổi, tương đối đồng đều.</p>
+<p><span class="c-xanh"><strong>* Cơ chế bệnh sinh</strong></span><br><span class="c-xanh">– Giai đoạn sơ nhiễm:</span><br>+ Nhiễm Mycobacterium tuberculosis qua hạt khí dung.<br>+ Sau khoảng 2–8 tuần, đáp ứng miễn dịch qua trung gian tế bào phát triển và nghiệm pháp Mantoux có thể chuyển dương tính.<br>+ Ổ Ghon cùng viêm mạch bạch huyết và hạch rốn phổi và/hoặc trung thất cùng bên tạo thành phức hợp nguyên phát (primary complex).<br>+ Phần lớn tổn thương sơ nhiễm được kiểm soát và thoái triển; ổ phổi và hạch có thể xơ hóa, vôi hóa.<br>+ Vi khuẩn có thể lan theo đường máu, gieo rắc đến đỉnh phổi, đầu xương dài đang phát triển và vỏ thận.</p>
+<p><span class="c-xanh">– Giai đoạn lao bệnh:</span><br>+ Khi đáp ứng miễn dịch qua trung gian tế bào suy yếu, sự kiểm soát của u hạt có thể thất bại, khiến vi khuẩn tăng sinh và gây lao bệnh do tiến triển từ sơ nhiễm hoặc tái hoạt.<br>+ Nguy cơ tiến triển thành lao bệnh cao nhất trong 2 năm đầu sau nhiễm.<br>+ Lao bệnh có thể xuất hiện sớm sau nhiễm hoặc do tái hoạt sau thời gian tiềm ẩn kéo dài nhiều năm, thậm chí hàng chục năm.</p>
+<figure><a class="o-anh" href="lao-phoi_anh/2015_08_Lao-phoi.jpg"><img src="lao-phoi_anh/2015_08_Lao-phoi.jpg" alt="" width="1185" height="1186" loading="lazy" decoding="async"></a></figure>
+<h2 id="ii-chan-doan-x-quang">II. Chẩn đoán x-quang</h2>
+<h3 id="lao-nguyen-phat">* Lao nguyên phát</h3>
+<p><span class="c-xanh">– Lao nguyên phát (primary pulmonary tuberculosis)</span> là bệnh lao xuất hiện sau lần nhiễm Mycobacterium tuberculosis đầu tiên.<br><span class="c-xanh">– Dịch tễ:</span> Lao nguyên phát thường gặp nhất ở trẻ em, nhưng cũng ngày càng được ghi nhận ở người lớn.<br><span class="c-xanh">– Hình thái lâm sàng:</span><br>+ Đa số không có triệu chứng và được phát hiện tình cờ.<br>+ Khoảng 5–10% có triệu chứng nhẹ như sốt, ho và sụt cân.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Ổ nhiễm trùng ban đầu có thể xuất hiện ở bất kỳ vị trí nào trong phổi; hình ảnh không đặc hiệu, từ ổ nhỏ khó phát hiện đến các đám đông đặc rải rác hoặc đông đặc thùy.<br>+ Tạo hang ít gặp hơn lao sau nguyên phát, khoảng 10–30% trường hợp.<br>+ Tổn thương ban đầu có thể tạo u hạt hoại tử bã đậu dưới màng phổi (ổ Ghon, Ghon focus); khi lành có thể xơ hóa hoặc vôi hóa.<br>+ Phức hợp nguyên phát gồm ổ Ghon ngoại vi dưới màng phổi, viêm mạch bạch huyết và hạch rốn phổi và/hoặc trung thất cùng bên.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="lao-phoi_anh/09_07_3896_01a-1.jpeg"><img src="lao-phoi_anh/09_07_3896_01a-1.jpeg" alt="" width="1422" height="1409" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_images_09_07_3896_01b.jpeg"><img src="lao-phoi_anh/2015_08_images_09_07_3896_01b.jpeg" alt="" width="1600" height="1555" loading="lazy" decoding="async"></a></div>
+<p>+ Hạch rốn phổi và trung thất, thường ưu thế bên phải, là dấu hiệu nổi bật ở trẻ nhỏ; hạch lớn được ghi nhận ở 91–100% trẻ dưới 5 tuổi, tỷ lệ giảm theo tuổi. Ở người lớn, tỷ lệ khoảng 10–30%.<br>+ Hạch lớn có thể chèn ép đường dẫn khí lân cận, gây xẹp phổi ở vùng phổi phía xa; biến chứng này thường gặp hơn ở trẻ em.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lao-phoi_anh/2015_08_622102.jpg"><img src="lao-phoi_anh/2015_08_622102.jpg" alt="" width="850" height="744" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_ghon-143A6A2F2A24638989B.png"><img src="lao-phoi_anh/2015_08_ghon-143A6A2F2A24638989B.png" alt="" width="856" height="828" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_94bfde6766f6bf57f09c48ecc053d7_big_gallery.jpg"><img src="lao-phoi_anh/2015_08_94bfde6766f6bf57f09c48ecc053d7_big_gallery.jpg" alt="" width="429" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_456.webp"><img src="lao-phoi_anh/2015_08_456.webp" alt="" width="1024" height="1022" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_a-60.jpg"><img src="lao-phoi_anh/2015_08_a-60.jpg" alt="" width="965" height="1023" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_b-53.jpg"><img src="lao-phoi_anh/2015_08_b-53.jpg" alt="" width="980" height="1024" loading="lazy" decoding="async"></a></div>
+<p>+ Trên X-quang, có thể không thấy đủ các thành phần của phức hợp nguyên phát; đôi khi chỉ thấy hạch rốn phổi to. Đánh giá hạch trên X-quang có độ nhạy hạn chế; CT nhạy hơn trong phát hiện hạch.<br>+ Khi đáp ứng miễn dịch kiểm soát được nhiễm trùng, tổn thương phổi và hạch thường thoái triển.<br>+ Vôi hóa hạch gặp ở tới 35% trường hợp. Phức hợp Ranke (Ranke complex) là ổ Ghon đã vôi hóa kèm hạch vôi hóa cùng bên.<br>+ Hạch lớn thường gặp trong lao nguyên phát nhưng ít gặp trong lao sau nguyên phát, trừ người nhiễm HIV.</p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_1-576.jpg"><img src="lao-phoi_anh/2015_08_1-576.jpg" alt="Hạch rốn phổi phải" width="546" height="476" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-574.jpg"><img src="lao-phoi_anh/2015_08_2-574.jpg" alt="Sau 2 tháng điều trị" width="534" height="459" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-552.jpg"><img src="lao-phoi_anh/2015_08_3-552.jpg" alt="Sau 4 tháng điều trị" width="551" height="476" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-492.jpg"><img src="lao-phoi_anh/2015_08_4-492.jpg" alt="Kết thúc điều trị" width="569" height="476" loading="lazy" decoding="async"></a></div>
+<p>+ Đông đặc nhu mô thấy trên X-quang ở khoảng 70% trẻ em và 90% người lớn; thường một bên và không ưu thế vùng phổi cụ thể.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="lao-phoi_anh/2015_08_images_09_07_3896_02a.jpeg"><img src="lao-phoi_anh/2015_08_images_09_07_3896_02a.jpeg" alt="" width="1467" height="1548" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_images_09_07_3896_02b.jpeg"><img src="lao-phoi_anh/2015_08_images_09_07_3896_02b.jpeg" alt="" width="1600" height="1704" loading="lazy" decoding="async"></a></div>
+<p>+ Tràn dịch màng phổi gặp ở khoảng 30–40% người lớn và 5–10% trẻ em; thường một bên, cùng bên với ổ lao chính.</p>
+<h3 id="lao-tham-nhiem-som">* Lao thâm nhiễm sớm</h3>
+<p><span class="c-xanh">– Thâm nhiễm Assmann (Assmann focus)</span> là thuật ngữ hình ảnh học lịch sử mô tả tổn thương thâm nhiễm sớm vùng dưới đòn; không nên xem đây là giai đoạn trung gian chuẩn giữa lao nguyên phát và lao sau nguyên phát.<br>– Đặc điểm hình ảnh:<br>+ Trên X-quang thường thấy đám mờ hoặc nốt mờ đơn độc, bờ không rõ, kích thước khoảng 1–2 cm ở vùng dưới đòn; tổn thương thường nằm ở vùng đỉnh sau, sát màng phổi.<br>+ Hình ảnh không đặc hiệu.<br>– Theo dõi:<br>+ Khi điều trị hiệu quả, tổn thương có thể thoái triển, để lại sẹo xơ.<br>+ Nếu không điều trị, tổn thương có thể lan rộng, hoại tử bã đậu, tạo hang và tiến triển thành các thể lao sau nguyên phát.</p>
+<figure><a class="o-anh" href="lao-phoi_anh/20150319_154017_badamgiak23-1.jpg"><img src="lao-phoi_anh/20150319_154017_badamgiak23-1.jpg" alt="" width="1200" height="1485" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Chẩn đoán phân biệt:</span><br><span class="c-xanh">+ Hội chứng Löffler (Löffler syndrome):</span> Đặc trưng bởi các đám mờ phổi thoáng qua, có thể di chuyển trên phim chụp nối tiếp, kèm tăng bạch cầu ái toan máu ngoại vi. Bệnh thường liên quan đến ký sinh trùng, đôi khi do thuốc hoặc không xác định được căn nguyên; tổn thương thường tự thoái triển trong vòng khoảng một tháng. Khác với lao thâm nhiễm sớm, tổn thương không di chuyển và có thể tồn tại hoặc tiến triển nếu không điều trị.</p>
+<p><span class="c-xanh">+ Viêm phổi không điển hình (atypical pneumonia):</span> Thường có mờ mô kẽ hoặc các đám mờ rải rác; đôi khi tổn thương khu trú và chồng lấp với lao thâm nhiễm sớm. Nếu do vi khuẩn, đáp ứng với kháng sinh phù hợp căn nguyên có thể hỗ trợ chẩn đoán, nhưng mức độ và thời gian hồi phục thay đổi; hình ảnh X-quang có thể tồn tại sau khi triệu chứng cải thiện.</p>
+<h3 id="lao-tai-nhiem-man-tinh">* Lao tái nhiễm / Mạn tính</h3>
+<p><span class="c-xanh">– Lao sau nguyên phát (post-primary tuberculosis)</span>, còn gọi là lao thứ phát, xảy ra ở người đã từng nhiễm Mycobacterium tuberculosis do tái hoạt ổ nhiễm tiềm ẩn hoặc tái nhiễm; suy giảm miễn dịch làm tăng nguy cơ tái hoạt.<br>– Vị trí: Tổn thương thường ưu thế ở phân thùy đỉnh và sau của thùy trên, cũng như phân thùy trên của thùy dưới.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Hình ảnh thường gồm các đám đông đặc rải rác, không đồng nhất, bờ không rõ, các nốt mờ bờ không rõ hoặc đám mờ dạng dải.<br>+ Hang lao gặp ở khoảng 20–45% trường hợp, thường gặp hơn lao nguyên phát; khoảng 85% hang nằm ở phân thùy sau thùy trên.<br>+ Mức khí–dịch gặp ở khoảng 10–20% hang, gợi ý hang thông với đường thở và có thể liên quan bội nhiễm. Hang lao, nhất là hang thông với phế quản, liên quan tải lượng vi khuẩn cao và nguy cơ lây truyền tăng.<br>+ Lan tràn theo đường phế quản thường gặp; trên CT biểu hiện bằng các nốt trung tâm tiểu thùy 2–4 mm và kiểu hình nụ trên cành (tree-in-bud pattern).<br>+ Hạch rốn phổi to gặp ở khoảng 1/3 trường hợp.<br>+ Đông đặc thùy, củ lao và lao kê là các biểu hiện ít gặp hơn.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_images_large_03_12_8961_11a.jpeg"><img src="lao-phoi_anh/2015_08_images_large_03_12_8961_11a.jpeg" alt="" width="675" height="693" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_387796658_6550712205039902_1754524647323355115_n.jpg"><img src="lao-phoi_anh/2015_08_387796658_6550712205039902_1754524647323355115_n.jpg" alt="" width="1600" height="1737" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_387799847_6550742808370175_8919170476068116513_n.jpg"><img src="lao-phoi_anh/2015_08_387799847_6550742808370175_8919170476068116513_n.jpg" alt="" width="1600" height="1718" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/20150319_154017_badamgiak23.jpg"><img src="lao-phoi_anh/20150319_154017_badamgiak23.jpg" alt="" width="1200" height="1485" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/34016c35faed74606ebbb15b984155_jumbo-1.jpg"><img src="lao-phoi_anh/34016c35faed74606ebbb15b984155_jumbo-1.jpg" alt="" width="959" height="939" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/20150402_094827_badamgiak23.jpg"><img src="lao-phoi_anh/20150402_094827_badamgiak23.jpg" alt="" width="1200" height="1383" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/20151029_105454_Xray.vn_.jpg"><img src="lao-phoi_anh/20151029_105454_Xray.vn_.jpg" alt="" width="1200" height="1527" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/pulmonary-tuberculosis-3_Xray.vn_.jpg"><img src="lao-phoi_anh/pulmonary-tuberculosis-3_Xray.vn_.jpg" alt="" width="912" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/pulmonary-tuberculosis-14-1_Xray.vn_.jpg"><img src="lao-phoi_anh/pulmonary-tuberculosis-14-1_Xray.vn_.jpg" alt="" width="801" height="929" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/tuberculosis-left-upper-lobe-1_Xray.vn_.jpg"><img src="lao-phoi_anh/tuberculosis-left-upper-lobe-1_Xray.vn_.jpg" alt="" width="892" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_thamnhiem.jpg"><img src="lao-phoi_anh/2015_08_thamnhiem.jpg" alt="" width="851" height="755" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_notmodongdac.jpg"><img src="lao-phoi_anh/2015_08_notmodongdac.jpg" alt="" width="1600" height="1336" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="lao-phoi_anh/2015_08_1-575.jpg"><img src="lao-phoi_anh/2015_08_1-575.jpg" alt="" width="1051" height="918" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-573.jpg"><img src="lao-phoi_anh/2015_08_2-573.jpg" alt="" width="1600" height="666" loading="lazy" decoding="async"></a></div>
+<p>+ Tổn thương có thể lan rộng, hoại tử bã đậu, hóa lỏng rồi dẫn lưu qua đường thở để tạo hang; hang gặp ở khoảng 20–45% trường hợp.<br>+ Hang hoạt động thường có thành dày, bờ trong không đều; sau điều trị, thành hang có thể mỏng và nhẵn.<br>+ Mức khí–dịch gặp ở 20% hang, gợi ý thông với đường thở; khi mới xuất hiện cần nghĩ đến bội nhiễm.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_622115.jpg"><img src="lao-phoi_anh/2015_08_622115.jpg" alt="" width="906" height="755" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_622126.jpg"><img src="lao-phoi_anh/2015_08_622126.jpg" alt="" width="837" height="754" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_622144.jpg"><img src="lao-phoi_anh/2015_08_622144.jpg" alt="" width="1422" height="759" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_622157.jpg"><img src="lao-phoi_anh/2015_08_622157.jpg" alt="" width="1433" height="765" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/lao-phoi-dfdsaf.jpg"><img src="lao-phoi_anh/lao-phoi-dfdsaf.jpg" alt="" width="1200" height="1190" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_index-126.jpg"><img src="lao-phoi_anh/2015_08_index-126.jpg" alt="" width="816" height="756" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_hanglao1.jpg"><img src="lao-phoi_anh/2015_08_hanglao1.jpg" alt="" width="1600" height="658" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_20150531_152421_badamgiak23.jpg"><img src="lao-phoi_anh/2015_08_20150531_152421_badamgiak23.jpg" alt="" width="733" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_20160617_144049_Xray.vn_.jpg"><img src="lao-phoi_anh/2015_08_20160617_144049_Xray.vn_.jpg" alt="" width="776" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_index-2-32.jpg"><img src="lao-phoi_anh/2015_08_index-2-32.jpg" alt="" width="885" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_miliary_TB_jumbo.jpeg"><img src="lao-phoi_anh/2015_08_miliary_TB_jumbo.jpeg" alt="" width="965" height="945" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_Screenshot-2022-05-07-203956.jpg"><img src="lao-phoi_anh/2015_08_Screenshot-2022-05-07-203956.jpg" alt="" width="782" height="587" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_697616.jpg"><img src="lao-phoi_anh/2015_08_697616.jpg" alt="" width="786" height="633" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_697618.jpg"><img src="lao-phoi_anh/2015_08_697618.jpg" alt="" width="659" height="628" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_1234556.jpg"><img src="lao-phoi_anh/2015_08_1234556.jpg" alt="" width="1500" height="1800" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-187.png"><img src="lao-phoi_anh/2015_08_1-187.png" alt="" width="970" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-197.png"><img src="lao-phoi_anh/2015_08_2-197.png" alt="" width="630" height="394" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-194.png"><img src="lao-phoi_anh/2015_08_3-194.png" alt="" width="630" height="394" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-182.png"><img src="lao-phoi_anh/2015_08_4-182.png" alt="" width="630" height="394" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-157.png"><img src="lao-phoi_anh/2015_08_5-157.png" alt="" width="630" height="394" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_1-571.jpeg"><img src="lao-phoi_anh/2015_08_1-571.jpeg" alt="" width="936" height="989" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-573.jpeg"><img src="lao-phoi_anh/2015_08_2-573.jpeg" alt="" width="727" height="944" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-729.jpg"><img src="lao-phoi_anh/2015_08_3-729.jpg" alt="" width="936" height="989" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-660.jpg"><img src="lao-phoi_anh/2015_08_4-660.jpg" alt="" width="727" height="944" loading="lazy" decoding="async"></a></div>
+<p>+ Kiểu hình lao hang lan rộng thường gồm một hang lớn kèm nhiều hang nhỏ vệ tinh; tổn thương có thể hai bên, không đối xứng, ưu thế một bên, với thâm nhiễm và đông đặc xung quanh.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_x1-1.jpg"><img src="lao-phoi_anh/2015_08_x1-1.jpg" alt="" width="1422" height="759" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_x2-1.jpg"><img src="lao-phoi_anh/2015_08_x2-1.jpg" alt="" width="1428" height="756" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_x3-1.jpg"><img src="lao-phoi_anh/2015_08_x3-1.jpg" alt="" width="1433" height="765" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_x4.jpg"><img src="lao-phoi_anh/2015_08_x4.jpg" alt="" width="837" height="754" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_hanglaolong.jpg"><img src="lao-phoi_anh/2015_08_hanglaolong.jpg" alt="" width="1600" height="1478" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_1-214.jpg"><img src="lao-phoi_anh/2015_08_1-214.jpg" alt="" width="1055" height="1125" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-208.jpg"><img src="lao-phoi_anh/2015_08_2-208.jpg" alt="" width="1003" height="1322" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-204.jpg"><img src="lao-phoi_anh/2015_08_3-204.jpg" alt="" width="1473" height="784" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-186.jpg"><img src="lao-phoi_anh/2015_08_4-186.jpg" alt="" width="1403" height="735" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/09_07_3896_04a.jpeg"><img src="lao-phoi_anh/09_07_3896_04a.jpeg" alt="" width="1440" height="1312" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/09_07_3896_04b.jpeg"><img src="lao-phoi_anh/09_07_3896_04b.jpeg" alt="" width="1600" height="1145" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/05_14_13483_02a.jpeg"><img src="lao-phoi_anh/05_14_13483_02a.jpeg" alt="" width="631" height="544" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/05_14_13483_02b.jpeg"><img src="lao-phoi_anh/05_14_13483_02b.jpeg" alt="" width="675" height="544" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-437.jpg"><img src="lao-phoi_anh/2015_08_1-437.jpg" alt="" width="835" height="904" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-432.jpg"><img src="lao-phoi_anh/2015_08_2-432.jpg" alt="" width="985" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-411.jpg"><img src="lao-phoi_anh/2015_08_3-411.jpg" alt="" width="912" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-365.jpg"><img src="lao-phoi_anh/2015_08_4-365.jpg" alt="" width="890" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-211.jpg"><img src="lao-phoi_anh/2015_08_5-211.jpg" alt="" width="916" height="843" loading="lazy" decoding="async"></a></div>
+<p>+ Hạch rốn phổi hoặc trung thất lớn hiếm gặp ở người miễn dịch bình thường mắc lao sau nguyên phát, khoảng 5–10% trường hợp.<br>+ Hạch rốn phổi và trung thất gặp thường xuyên hơn ở người suy giảm miễn dịch, đặc biệt người nhiễm HIV.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/4c49518e0520918c078ca095fd8a8b_jumbo.jpg"><img src="lao-phoi_anh/4c49518e0520918c078ca095fd8a8b_jumbo.jpg" alt="" width="841" height="949" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/09_07_3896_01a.jpeg"><img src="lao-phoi_anh/09_07_3896_01a.jpeg" alt="" width="1422" height="1409" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/09_07_3896_02a.jpeg"><img src="lao-phoi_anh/09_07_3896_02a.jpeg" alt="" width="1467" height="1548" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/PhotoGrid_1411686248816_badamgiak23.jpg"><img src="lao-phoi_anh/PhotoGrid_1411686248816_badamgiak23.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Củ lao (tuberculoma):</span><br>+ Thường ở thùy trên và đơn độc ở khoảng 80% trường hợp.<br>+ Có thể là dấu hiệu X-quang duy nhất ở khoảng 5% trường hợp; gặp trong cả lao nguyên phát và lao sau nguyên phát.<br>+ Là nốt hoặc khối tròn, bầu dục, bờ rõ, đường kính khoảng 0,5–4 cm.<br>+ Thường kèm các nốt vệ tinh xung quanh.<br>+ Có thể vôi hóa; vôi hóa dạng chấm hoặc đồng tâm gợi u hạt lành tính nhưng không đặc hiệu và không loại trừ ung thư phổi.<br>+ Có thể tạo hang ở khoảng 20–30% trường hợp.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lao-phoi_anh/2015_08_tuberculoma.jpg"><img src="lao-phoi_anh/2015_08_tuberculoma.jpg" alt="" width="771" height="753" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/ymj-48-127-g001-l-1.jpg"><img src="lao-phoi_anh/ymj-48-127-g001-l-1.jpg" alt="" width="902" height="353" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_diagnostics-11-00930-g003.jpg"><img src="lao-phoi_anh/2015_08_diagnostics-11-00930-g003.jpg" alt="" width="1600" height="436" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lao-phoi_anh/2015_08_10_10_7262_11a.jpeg"><img src="lao-phoi_anh/2015_08_10_10_7262_11a.jpeg" alt="" width="1576" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_10_10_7262_11b.jpeg"><img src="lao-phoi_anh/2015_08_10_10_7262_11b.jpeg" alt="" width="1576" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_10_10_7262_11c_cmyk.jpeg"><img src="lao-phoi_anh/2015_08_10_10_7262_11c_cmyk.jpeg" alt="" width="1280" height="1028" loading="lazy" decoding="async"></a></div>
+<p>+ Tràn dịch màng phổi do lao thường một bên, gặp ở khoảng 15–20% trường hợp.<br>+ Tràn dịch có thể tự thoái triển hoặc tiến triển thành tràn mủ màng phổi lao mạn; tràn mủ mạn có thể để lại dày dính, xơ hóa và vôi hóa màng phổi.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lao-phoi_anh/2015_08_tran-dich-mang-phoi.jpg"><img src="lao-phoi_anh/2015_08_tran-dich-mang-phoi.jpg" alt="Viêm mủ màng phổi" width="1026" height="722" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_viem-mu-mang-phoi.jpg"><img src="lao-phoi_anh/2015_08_viem-mu-mang-phoi.jpg" alt="Viêm mủ màng phổi" width="667" height="744" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_khoang-can-mang-phoi.jpg"><img src="lao-phoi_anh/2015_08_khoang-can-mang-phoi.jpg" alt="Khoang cặn màng phổi" width="1021" height="705" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_ton-thuogn-thanh-nguc..jpg"><img src="lao-phoi_anh/2015_08_ton-thuogn-thanh-nguc..jpg" alt="Tổn thương thành ngực" width="1022" height="615" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_ton-thuong-xuong-2.jpg"><img src="lao-phoi_anh/2015_08_ton-thuong-xuong-2.jpg" alt="Tổn thương xương" width="1024" height="616" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_ton-thuong-xuong.jpg"><img src="lao-phoi_anh/2015_08_ton-thuong-xuong.jpg" alt="Tổn thương xương" width="1022" height="603" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lao-phoi_anh/2015_08_a-19.jpg"><img src="lao-phoi_anh/2015_08_a-19.jpg" alt="" width="733" height="698" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_b-15.jpg"><img src="lao-phoi_anh/2015_08_b-15.jpg" alt="" width="554" height="676" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_c-12.jpg"><img src="lao-phoi_anh/2015_08_c-12.jpg" alt="" width="1328" height="641" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Rò phế quản–màng phổi:</span><br>+ Là biến chứng hiếm gặp nhưng đe dọa tính mạng của lao phổi.<br>+ Thường do hang lao vỡ vào khoang màng phổi; ít gặp hơn, hạch hoại tử bã đậu có thể ăn mòn vào phế quản và khoang màng phổi. Tình trạng này thường kèm tràn mủ màng phổi.<br>+ Trên X-quang có thể thấy tràn khí–dịch màng phổi dai dẳng hoặc tái phát; CT có thể thấy trực tiếp đường thông giữa phế quản và khoang màng phổi.</p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="lao-phoi_anh/2015_08_1-239.jpg"><img src="lao-phoi_anh/2015_08_1-239.jpg" alt="" width="1600" height="987" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-233.jpg"><img src="lao-phoi_anh/2015_08_2-233.jpg" alt="" width="1291" height="1742" loading="lazy" decoding="async"></a></div>
+<p>– Tổn thương đường dẫn khí: Hạch chèn ép từ ngoài hoặc lao nội phế quản có thể gây xẹp phổi, ứ khí, hẹp phế quản và xơ hóa.</p>
+<figure><a class="o-anh" href="lao-phoi_anh/2015_08_hachlao.jpg"><img src="lao-phoi_anh/2015_08_hachlao.jpg" alt="" width="884" height="357" loading="lazy" decoding="async"></a></figure>
+<p>– Di chứng sau điều trị: Tổn thương có thể để lại xơ hóa, vôi hóa hạch, giãn phế quản và giảm thể tích phổi.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_2015-01-05-17.48.08_badamgiak23.jpg"><img src="lao-phoi_anh/2015_08_2015-01-05-17.48.08_badamgiak23.jpg" alt="" width="1151" height="1126" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_20150107_142804_badamgiak23.jpg"><img src="lao-phoi_anh/2015_08_20150107_142804_badamgiak23.jpg" alt="" width="896" height="1073" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_20150108_105151_badamgiak23.jpg"><img src="lao-phoi_anh/2015_08_20150108_105151_badamgiak23.jpg" alt="" width="885" height="1074" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_20151119_093628_Xray.vn_.jpg"><img src="lao-phoi_anh/2015_08_20151119_093628_Xray.vn_.jpg" alt="" width="985" height="1079" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_20190311_103307_xray.vn_.jpg"><img src="lao-phoi_anh/2015_08_20190311_103307_xray.vn_.jpg" alt="" width="954" height="1076" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5997613183615713298_Xray.vn_.jpg"><img src="lao-phoi_anh/2015_08_5997613183615713298_Xray.vn_.jpg" alt="" width="830" height="1029" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_giamthetichphoi.jpg"><img src="lao-phoi_anh/2015_08_giamthetichphoi.jpg" alt="" width="803" height="753" loading="lazy" decoding="async"></a></div>
+<p>– Biến chứng: Hang lao có thể bội nhiễm nấm, tạo u nấm; lao màng phổi có thể biến chứng tràn mủ màng phổi.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lao-phoi_anh/2015_08_28cce4a8d3db7db683cb84ec0ae47c.jpg"><img src="lao-phoi_anh/2015_08_28cce4a8d3db7db683cb84ec0ae47c.jpg" alt="" width="1200" height="1272" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_20170925_161723_xray.vn_.png"><img src="lao-phoi_anh/2015_08_20170925_161723_xray.vn_.png" alt="" width="927" height="1080" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_http___2.bp_.blogspot.com_-KFP9NP3jni0_UElt6weXEaI_AAAAAAAAAGo_gef9U0jmDTY_s1600_aircrescentcopy_Xr.jpg"><img src="lao-phoi_anh/2015_08_http___2.bp_.blogspot.com_-KFP9NP3jni0_UElt6weXEaI_AAAAAAAAAGo_gef9U0jmDTY_s1600_aircrescentcopy_Xr.jpg" alt="" width="1131" height="1149" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_http___api.ning_.com_files_3YnG4IYlItukGnNYFd3WkgppjOQIJF1sPeIBFWMRXx-bK15blscY67mG8qg7usHG0q3IM8qgmw.jpg"><img src="lao-phoi_anh/2015_08_http___api.ning_.com_files_3YnG4IYlItukGnNYFd3WkgppjOQIJF1sPeIBFWMRXx-bK15blscY67mG8qg7usHG0q3IM8qgmw.jpg" alt="" width="850" height="892" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_http___images.radiopaedia.org_images_627567_987954fc6525bf985cac06152256ee_badamgiak23.jpg"><img src="lao-phoi_anh/2015_08_http___images.radiopaedia.org_images_627567_987954fc6525bf985cac06152256ee_badamgiak23.jpg" alt="" width="1600" height="1736" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_dichkhi.jpg"><img src="lao-phoi_anh/2015_08_dichkhi.jpg" alt="" width="1434" height="763" loading="lazy" decoding="async"></a></div>
+<h3 id="lao-ke">* Lao kê</h3>
+<p><span class="c-xanh">– Lao kê (miliary tuberculosis)</span> là thể lao lan tràn theo đường máu từ ổ nhiễm trùng chưa được kiểm soát; gặp trong cả lao nguyên phát và lao sau nguyên phát.<br><span class="c-xanh">– Dịch tễ:</span><br>+ Chiếm khoảng 1–2% các trường hợp lao ở người lớn có miễn dịch bình thường.<br>+ Thể nguyên phát gặp chủ yếu ở trẻ em; thể sau nguyên phát gặp ở người cao tuổi, suy yếu hoặc suy giảm miễn dịch.<br><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Có vô số nốt kê nhỏ, kích thước tương đối đồng đều 1–3 mm, phân bố ngẫu nhiên và lan tỏa tương đối đồng đều ở hai phế trường, không ưu thế vùng.<br>+ Có thể kèm dày vách liên tiểu thùy.<br>+ Nốt kê rất nhỏ (&lt;2 mm) hoặc bờ mờ có thể khó nhận diện và bị bỏ sót trên CT.<br>+ Ở người suy giảm miễn dịch, biểu hiện phụ thuộc mức độ suy giảm miễn dịch, không chia thành giai đoạn sớm/muộn của lao kê: khi miễn dịch còn tương đối bảo tồn có thể gặp kiểu lao sau nguyên phát ở thùy trên, đôi khi tạo hang; khi suy giảm nặng hơn, có thể thấy đông đặc khoang khí, mờ lưới–nốt, tràn dịch màng phổi và hạch rốn phổi/trung thất to hoại tử.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/65896e519b88fcf6b081c0d80503dd.jpeg"><img src="lao-phoi_anh/65896e519b88fcf6b081c0d80503dd.jpeg" alt="Lao kê" width="808" height="824" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/09_07_3896_05a.jpeg"><img src="lao-phoi_anh/09_07_3896_05a.jpeg" alt="Lao kê" width="1566" height="1371" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/09_07_3896_06a.jpeg"><img src="lao-phoi_anh/09_07_3896_06a.jpeg" alt="Lao kê" width="1600" height="1389" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/ec8e556cd024e679bd107ea76a182f_jumbo.jpg"><img src="lao-phoi_anh/ec8e556cd024e679bd107ea76a182f_jumbo.jpg" alt="Lao kê" width="874" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_laoke1.jpg"><img src="lao-phoi_anh/2015_08_laoke1.jpg" alt="" width="1024" height="947" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_lao-ke.jpg"><img src="lao-phoi_anh/2015_08_lao-ke.jpg" alt="" width="991" height="851" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_laoke2.jpg"><img src="lao-phoi_anh/2015_08_laoke2.jpg" alt="" width="1600" height="741" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_IM-0001-0001_jumbo.jpeg"><img src="lao-phoi_anh/2015_08_IM-0001-0001_jumbo.jpeg" alt="" width="979" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_454942_1_En_6_Fig11_HTML.jpg"><img src="lao-phoi_anh/2015_08_454942_1_En_6_Fig11_HTML.jpg" alt="" width="686" height="854" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_868610.jpg"><img src="lao-phoi_anh/2015_08_868610.jpg" alt="" width="1239" height="591" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_692845.jpg"><img src="lao-phoi_anh/2015_08_692845.jpg" alt="" width="1600" height="1618" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-53.png"><img src="lao-phoi_anh/2015_08_1-53.png" alt="" width="1600" height="1591" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-400.jpeg"><img src="lao-phoi_anh/2015_08_2-400.jpeg" alt="" width="630" height="370" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-400.jpeg"><img src="lao-phoi_anh/2015_08_3-400.jpeg" alt="" width="630" height="428" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-384.jpeg"><img src="lao-phoi_anh/2015_08_4-384.jpeg" alt="" width="630" height="460" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-308.jpeg"><img src="lao-phoi_anh/2015_08_5-308.jpeg" alt="" width="630" height="479" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="lao-phoi_anh/2015_08_a-36.jpg"><img src="lao-phoi_anh/2015_08_a-36.jpg" alt="" width="1051" height="975" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_b-31.jpg"><img src="lao-phoi_anh/2015_08_b-31.jpg" alt="" width="1450" height="716" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Phân biệt:</span><br>+ K di căn thể kê: nốt kích thước không đều, tập trung ưu thế đáy phổi, khác lao kê nốt đồng đều lan tỏa.</p>
+<figure><a class="o-anh" href="lao-phoi_anh/http___images.radiopaedia.org_images_381768_98da9ed47e61ad83408254cf3175f8_badamgiak23-1.jpg"><img src="lao-phoi_anh/http___images.radiopaedia.org_images_381768_98da9ed47e61ad83408254cf3175f8_badamgiak23-1.jpg" alt="" width="1200" height="1264" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"> + Bệnh bụi phổi:</span> nốt tập trung quanh rốn phổi và lan xuống đáy phổi, kèm hạch vôi hóa vỏ trứng (eggshell calcification), gặp ở người có tiền sử tiếp xúc bụi, khác lao kê nốt ngẫu nhiên không kèm vôi hóa vỏ trứng.</p>
+<figure><a class="o-anh" href="lao-phoi_anh/Silicosis_simple.jpg"><img src="lao-phoi_anh/Silicosis_simple.jpg" alt="" width="1516" height="1347" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"> + Ứ huyết phổi do bệnh tim:</span> hình mờ kích thước không đều tập trung rốn phổi tỏa ra xung quanh, kèm bóng tim lớn bệnh lý, khác lao kê nốt đồng đều không kèm bóng tim lớn.</p>
+<figure><a class="o-anh" href="lao-phoi_anh/5e7cfb6d90bbcf70e73493819e691a_jumbo.jpg"><img src="lao-phoi_anh/5e7cfb6d90bbcf70e73493819e691a_jumbo.jpg" alt="" width="1004" height="952" loading="lazy" decoding="async"></a></figure>
+<h3 id="lao-mang-phoi">* Lao màng phổi</h3>
+<p>– Lao màng phổi là thể lao ngoài phổi tại màng phổi, gồm tràn dịch, tràn mủ và dày dính màng phổi.<br>– Dịch tễ: Là thể lao ngoài phổi thường gặp thứ hai sau lao hạch; tần suất thay đổi theo mức lưu hành lao, gặp nhiều ở người trẻ, người suy giảm miễn dịch và vùng lưu hành lao cao.<br>– Cơ chế bệnh sinh: Thường do phản ứng quá mẫn muộn sau khi ổ bã đậu dưới màng phổi vỡ vào khoang màng phổi, xảy ra khoảng 6–12 tuần sau nhiễm nguyên phát hoặc do tái hoạt.<br>– Hình thái lâm sàng: Ở người có miễn dịch bình thường, thường khởi phát cấp hoặc bán cấp với sốt, ho và đau ngực kiểu màng phổi.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Tràn dịch thường một bên, không ưu thế bên phải hay bên trái; thường tự do nhưng có thể vách hóa. Trên CT có thể thấy dày màng phổi trơn và tổn thương nhu mô kèm theo như vi nốt dưới màng phổi hoặc quanh bó mạch–phế quản.<br>+ Dịch màng phổi lao thường ít trực khuẩn nên soi/cấy có độ nhạy thấp. ADA hỗ trợ chẩn đoán khi xác suất trước xét nghiệm phù hợp nhưng không dùng đơn độc; sinh thiết màng phổi để làm mô học và cấy được cân nhắc khi cần xác định căn nguyên.<br>+ Dịch lao thường ưu thế lympho bào, nhưng giai đoạn sớm có thể ưu thế bạch cầu đa nhân; tràn dịch cạnh viêm phổi thường ưu thế bạch cầu đa nhân và có thể cải thiện với kháng sinh phù hợp.<br>+ Tràn mủ lao có thể có dày ngấm thuốc hai lá màng phổi, tách nhau bởi dịch hoặc mủ (dấu hiệu tách màng phổi, split pleura sign); dấu hiệu này gợi ý mủ màng phổi nhưng không đặc hiệu cho lao.<br>+ Tràn mủ mạn tính có thể để lại dày dính màng phổi lan tỏa, vôi hóa và xơ hóa màng phổi (fibrothorax). Dày nốt có thể gợi ý ác tính nhưng không đặc hiệu, vì lao cũng có thể gây nốt màng phổi.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_1-206.jpg"><img src="lao-phoi_anh/2015_08_1-206.jpg" alt="" width="1600" height="1347" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-200.jpg"><img src="lao-phoi_anh/2015_08_2-200.jpg" alt="" width="1291" height="1869" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-6.png"><img src="lao-phoi_anh/2015_08_3-6.png" alt="" width="1316" height="722" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-8.png"><img src="lao-phoi_anh/2015_08_4-8.png" alt="" width="1201" height="916" loading="lazy" decoding="async"></a></div>
+<h3 id="phe-quan-phe-viem">* Phế quản phế viêm</h3>
+<p>– Phế quản-phế viêm lao là tổn thương viêm, đông đặc nhu mô quanh phế quản do vi khuẩn và chất bã đậu từ ổ lao hoại tử lan theo đường phế quản; có thể khu trú ở một hoặc nhiều thùy, một bên hoặc hai phổi.<br>– Cơ chế bệnh sinh: Khi ổ bã đậu thông với phế quản, vi khuẩn và chất bã đậu theo đường rò vào nhu mô quanh phế quản, có thể lan trong cùng thùy hoặc sang thùy khác.<br>– Hình thái lâm sàng: Có thể khởi phát cấp như viêm phổi cộng đồng với ho khan, sốt và đau ngực. So với viêm phổi vi khuẩn, biểu hiện nhiễm độc và khó thở có thể ít nổi bật hơn, nhưng sụt cân thường rõ hơn; triệu chứng thường kéo dài trên 2 tuần.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Trên X-quang có thể thấy đông đặc quanh phế quản, thường đồng nhất theo thùy hoặc phân thùy; tổn thương có thể nhiều ổ, một hay nhiều thùy, đôi khi hai phổi, và dễ mô phỏng viêm phổi do phế cầu.<br>+ CT có thể thấy nốt trung tâm tiểu thùy dạng cây nảy chồi (tree-in-bud), gợi ý lan theo đường phế quản; có thể kèm hang.<br>– Phân biệt: Viêm phổi do phế cầu (pneumococcal pneumonia) thường khởi phát cấp, đông đặc thùy hoặc phân thùy và thường cải thiện với kháng sinh thích hợp. Lao có thể có hang trong vùng tổn thương hoặc cùng bên, nhưng đây không phải dấu hiệu đặc hiệu; triệu chứng kéo dài hoặc không cải thiện với kháng sinh thích hợp là dấu gợi ý cần khảo sát lao, không đủ để khẳng định. Cần phối hợp lâm sàng, dịch tễ, hình ảnh và xét nghiệm vi sinh; đồng nhiễm vi khuẩn cũng có thể xảy ra.<br>– Biến chứng: Có thể gây suy hô hấp cấp hoặc hội chứng suy hô hấp cấp tiến triển (ARDS), nhất là ở trẻ em; tổn thương nội phế quản có thể để lại hẹp phế quản.<br>– Theo dõi: Cần nghĩ đến lao và chẩn đoán sớm để khởi trị kháng lao kịp thời; trì hoãn chẩn đoán hoặc điều trị có thể làm bệnh tiến triển, tăng nguy cơ biến chứng nặng và tử vong.</p>
+<figure><a class="o-anh" href="lao-phoi_anh/2015_08_20200630_100621_xray.vn_-scaled.jpg"><img src="lao-phoi_anh/2015_08_20200630_100621_xray.vn_-scaled.jpg" alt="" width="1600" height="1712" loading="lazy" decoding="async"></a></figure>
+<h2 id="iii-chan-doan-clvt">III. Chẩn đoán CLVT</h2>
+<p><span class="c-xanh">– Hình thái tổn thương:</span> nốt, hang, đông đặc nhu mô, giãn phế quản, xẹp phổi, vôi hóa, xơ.</p>
+<h3 id="ton-thuong-dong-dac">* Tổn thương đông đặc</h3>
+<p>– Đông đặc nhu mô là tình trạng khí trong phế nang bị thay thế bởi dịch viêm và tế bào; trong lao, vùng đông đặc có thể chứa chất bã đậu.<br>– Cơ chế tạo hình ảnh: Viêm và hoại tử bã đậu gây đông đặc nhu mô; vi khuẩn và chất bã đậu có thể lan theo đường phế quản từ ổ hoại tử. Ở một số tổn thương, chất bã đậu hóa lỏng rồi thoát qua cây phế quản, tạo hang.<br>– Đặc điểm hình ảnh:<br>+ Trong lao sau nguyên phát điển hình ở người lớn, đông đặc thường lốm đốm, không đồng nhất, bờ không rõ, ưu thế ở phân thùy đỉnh và sau của thùy trên; thường liên quan hơn một phân thùy, nhưng phân bố có thể thay đổi.<br>+ Có thể kèm các nốt trung tâm tiểu thùy 2–4 mm và hình cành-nụ (tree-in-bud), gợi ý lan theo đường phế quản. Hạch rốn phổi/trung thất, nhất là hạch hoại tử, hoặc hang đi kèm làm tăng nghi ngờ lao hoạt động; không dấu hiệu nào trong số này đặc hiệu khi đứng riêng lẻ.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_dd.jpg"><img src="lao-phoi_anh/2015_08_dd.jpg" alt="" width="814" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_875743.jpg"><img src="lao-phoi_anh/2015_08_875743.jpg" alt="" width="1600" height="469" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_875744.jpg"><img src="lao-phoi_anh/2015_08_875744.jpg" alt="" width="1600" height="567" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_692842.jpg"><img src="lao-phoi_anh/2015_08_692842.jpg" alt="" width="1600" height="1538" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_692850.jpg"><img src="lao-phoi_anh/2015_08_692850.jpg" alt="" width="512" height="512" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_1-111.png"><img src="lao-phoi_anh/2015_08_1-111.png" alt="" width="1012" height="908" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-118.png"><img src="lao-phoi_anh/2015_08_2-118.png" alt="" width="1011" height="906" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-115.png"><img src="lao-phoi_anh/2015_08_3-115.png" alt="" width="1013" height="906" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-106.png"><img src="lao-phoi_anh/2015_08_4-106.png" alt="" width="1011" height="905" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-1-1.jpg"><img src="lao-phoi_anh/2015_08_5-1-1.jpg" alt="" width="1014" height="908" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-2-1.jpg"><img src="lao-phoi_anh/2015_08_5-2-1.jpg" alt="" width="1009" height="899" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-3-1.jpg"><img src="lao-phoi_anh/2015_08_5-3-1.jpg" alt="" width="1015" height="913" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-4-1.jpg"><img src="lao-phoi_anh/2015_08_5-4-1.jpg" alt="" width="1017" height="911" loading="lazy" decoding="async"></a></div>
+<h3 id="ton-thuong-not">* Tổn thương nốt</h3>
+<p>– Nốt trung tâm tiểu thùy, đặc biệt dạng cây-nụ, là biểu hiện thường gặp của lao phổi hoạt động khi lan theo đường phế quản; có thể đi kèm đông đặc hoặc hang nhưng không nhất thiết.<br>– Hình thái: Nốt trung tâm tiểu thùy (lan theo phế quản), nốt phân bố ngẫu nhiên (lan theo đường máu, điển hình trong lao kê) và nốt quanh bạch huyết (dọc bó mạch–phế quản, vách liên tiểu thùy hoặc vùng dưới màng phổi).<br><span class="c-xanh">– Nụ trên cành (tree-in-bud):</span><br>+ Trên CT lát mỏng, biểu hiện bằng các nốt trung tâm tiểu thùy tỷ trọng mô mềm, thường 2–4 mm, nối với các dải mờ phân nhánh; nhánh có thể chia hình V/Y và tận cùng bằng nốt nhỏ. Các nốt thường nằm trong tiểu thùy, không áp sát màng phổi hoặc khe liên thùy.<br>+ Về giải phẫu bệnh, “thân cây” tương ứng với tiểu phế quản trong tiểu thùy bị viêm hoặc chứa chất; “nụ” tương ứng với các ống phế nang chứa chất viêm. Trong lao, có thể gặp chất bã đậu, tế bào viêm và mảnh vụn trong hoặc quanh các cấu trúc này; hình ảnh gợi ý lan theo đường phế quản.<br>+ Tiểu phế quản ngoại vi bình thường rất nhỏ, thường dưới 2 mm, thành mỏng nên khó phân giải trực tiếp trên CT; khi lòng hoặc thành chứa chất viêm hay bã đậu, chúng hiện gián tiếp thành các nhánh và nốt.<br>+ Dấu hiệu này không đặc hiệu cho lao: có thể gặp trong các nhiễm trùng khác, xơ nang, giãn phế quản hoặc rối loạn thanh thải nhầy (kể cả hội chứng Kartagener), viêm tiểu phế quản, hít sặc và một số bệnh miễn dịch/mô liên kết; hiếm hơn, tổn thương u hoặc mạch máu có thể mô phỏng.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_images_large_03_13_11463_03.jpeg"><img src="lao-phoi_anh/2015_08_images_large_03_13_11463_03.jpeg" alt="" width="1038" height="1338" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/Tree_in_bud_sign.jpg"><img src="lao-phoi_anh/Tree_in_bud_sign.jpg" alt="" width="1183" height="734" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_u8.jpg"><img src="lao-phoi_anh/2015_08_u8.jpg" alt="" width="1219" height="1247" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_images_large_03_12_8961_11d.jpeg"><img src="lao-phoi_anh/2015_08_images_large_03_12_8961_11d.jpeg" alt="" width="675" height="675" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_images_12_09_3401_03b.jpeg"><img src="lao-phoi_anh/2015_08_images_12_09_3401_03b.jpeg" alt="" width="1395" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_868230.jpg"><img src="lao-phoi_anh/2015_08_868230.jpg" alt="" width="1110" height="783" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/047a2639f49a4f06d28fbb3b78c9b7_big_gallery.jpg"><img src="lao-phoi_anh/047a2639f49a4f06d28fbb3b78c9b7_big_gallery.jpg" alt="" width="630" height="535" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/05_14_13483_02c.jpeg"><img src="lao-phoi_anh/05_14_13483_02c.jpeg" alt="" width="675" height="544" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_868600.jpg"><img src="lao-phoi_anh/2015_08_868600.jpg" alt="" width="1177" height="874" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_images_12_09_3401_02.jpeg"><img src="lao-phoi_anh/2015_08_images_12_09_3401_02.jpeg" alt="" width="1600" height="1586" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_images_12_09_3401_05.jpeg"><img src="lao-phoi_anh/2015_08_images_12_09_3401_05.jpeg" alt="" width="1204" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_images_12_09_3401_06.jpeg"><img src="lao-phoi_anh/2015_08_images_12_09_3401_06.jpeg" alt="" width="1494" height="1368" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_d1.jpg"><img src="lao-phoi_anh/2015_08_d1.jpg" alt="" width="1000" height="903" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_d2.jpg"><img src="lao-phoi_anh/2015_08_d2.jpg" alt="" width="931" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_d3.jpg"><img src="lao-phoi_anh/2015_08_d3.jpg" alt="" width="916" height="843" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_d4.jpg"><img src="lao-phoi_anh/2015_08_d4.jpg" alt="" width="931" height="843" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-239.jpeg"><img src="lao-phoi_anh/2015_08_1-239.jpeg" alt="" width="823" height="873" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-242.jpeg"><img src="lao-phoi_anh/2015_08_2-242.jpeg" alt="" width="568" height="580" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-237.jpeg"><img src="lao-phoi_anh/2015_08_3-237.jpeg" alt="" width="568" height="582" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-230.jpeg"><img src="lao-phoi_anh/2015_08_4-230.jpeg" alt="" width="568" height="580" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-174.jpeg"><img src="lao-phoi_anh/2015_08_5-174.jpeg" alt="" width="568" height="583" loading="lazy" decoding="async"></a></div>
+<h3 id="cu-lao">* Củ lao</h3>
+<p>– Củ lao là tổn thương dạng u hạt được bao quanh bởi mô xơ-liên kết, thường có hoại tử bã đậu ở trung tâm.<br>– Dịch tễ: Tần suất thay đổi theo quần thể và mẫu số nghiên cứu; một tổng quan ước tính khoảng 7–9% ở người bệnh lao.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Thường là tổn thương tròn hoặc bầu dục, kích thước thường khoảng 0,5–4 cm nhưng có thể lớn hơn; hay gặp ở thùy trên. Bờ thường khá rõ nhưng cũng có thể không đều, múi hoặc tua gai.<br>+ Có thể kèm nốt vệ tinh, đông đặc quanh tổn thương, vôi hóa và ít gặp hơn là hang. Vôi hóa có thể gặp ở các dạng trung tâm, lan tỏa hoặc nhiều lớp/đồng tâm; không phải củ lao nào cũng vôi hóa.<br>– Phân biệt:<br>+ Ung thư phổi nguyên phát thường có bờ múi hoặc tua gai, nhưng củ lao cũng có thể có các đặc điểm này. Nốt vệ tinh và vôi hóa có thể gợi ý tổn thương dạng u hạt nhưng không khẳng định lành tính; ung thư cũng có thể đồng tồn tại với lao.<br>+ Vôi hóa trung tâm, lan tỏa hoặc nhiều lớp/đồng tâm nghiêng về u hạt lành tính; vôi hóa lấm tấm hoặc lệch tâm không đủ để loại trừ ác tính. Ở người nguy cơ cao hoặc tổn thương không điển hình, cần đánh giá tổng thể, so sánh phim cũ và cân nhắc sinh thiết, xét nghiệm vi sinh hoặc mô bệnh học.<br>– Theo dõi: Củ lao có thể co nhỏ chậm, ổn định hoặc tăng thoáng qua trong giai đoạn đầu điều trị; không nên mặc định là thất bại điều trị hoặc tự kéo dài thuốc chỉ dựa vào kích thước. Điều trị theo phác đồ phù hợp; nếu tổn thương tiếp tục tăng sau điều trị thích hợp, cần đánh giá lại tuân thủ, kháng thuốc và chẩn đoán khác, đặc biệt là ung thư; cân nhắc sinh thiết hoặc phẫu thuật sau hội chẩn.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="lao-phoi_anh/ymj-48-127-g001-l.jpg"><img src="lao-phoi_anh/ymj-48-127-g001-l.jpg" alt="" width="902" height="353" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_875746.jpg"><img src="lao-phoi_anh/2015_08_875746.jpg" alt="" width="1106" height="535" loading="lazy" decoding="async"></a></div>
+<h3 id="hang-lao">* Hang lao</h3>
+<p>– Hang lao là khoang chứa khí hình thành trong vùng đông đặc, nốt hoặc khối sau khi chất bã đậu hoại tử hóa lỏng và được dẫn lưu qua phế quản.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Thành hang có thể mỏng, trơn hoặc dày, không đều; mức hơi–dịch ít gặp.<br>+ Quanh hang có thể thấy đông đặc và nốt trung tâm tiểu thùy/dạng cây nảy chồi do lan theo đường phế quản. Khi tổn thương lành, có thể để lại xơ hóa và giãn phế quản co kéo khu trú.<br>+ Dày màng phổi vùng đỉnh có thể đi kèm, nhất là khi có xơ hóa mạn.<br>+ Chất từ hang có thể lan theo cây phế quản sang phân thùy khác, gây nốt trung tâm tiểu thùy hoặc đông đặc dạng phế quản-phế viêm.<br>– Phân biệt: Hang ung thư thường có thành trong dạng nốt sùi hoặc không đều; hang lao có thể kèm nốt vệ tinh trung tâm tiểu thùy/dạng cây nảy chồi và đông đặc quanh hang. Tuy nhiên, các đặc điểm này chồng lấp: thành hang không đều không khẳng định ung thư, và thiếu nốt vệ tinh cũng không loại trừ lao. Cần phối hợp lâm sàng, xét nghiệm vi sinh, phim cũ và sinh thiết khi cần.<br>– Theo dõi: Thành hang dày, không đều kèm đông đặc quanh hang thường gợi ý bệnh hoạt động; sau điều trị, thành hang có thể mỏng và trơn, nhưng hình thái đơn độc không xác định chắc chắn tình trạng hoạt động. Mức hơi–dịch mới xuất hiện cần nghĩ đến bội nhiễm vi khuẩn hoặc nấm, đồng thời đối chiếu triệu chứng và xét nghiệm.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_09_07_3896_04a.jpeg"><img src="lao-phoi_anh/2015_08_09_07_3896_04a.jpeg" alt="" width="1440" height="1312" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_09_07_3896_04b.jpeg"><img src="lao-phoi_anh/2015_08_09_07_3896_04b.jpeg" alt="" width="1600" height="1145" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_rg.2017160032.fig11a.jpeg"><img src="lao-phoi_anh/2015_08_rg.2017160032.fig11a.jpeg" alt="" width="807" height="740" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_rg.2017160032.fig11b.jpeg"><img src="lao-phoi_anh/2015_08_rg.2017160032.fig11b.jpeg" alt="" width="868" height="740" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_laophoi-1.jpg"><img src="lao-phoi_anh/2015_08_laophoi-1.jpg" alt="" width="1256" height="572" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_hang-lao.png"><img src="lao-phoi_anh/2015_08_hang-lao.png" alt="" width="1024" height="470" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_868227.jpg"><img src="lao-phoi_anh/2015_08_868227.jpg" alt="" width="1600" height="670" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_875745.jpg"><img src="lao-phoi_anh/2015_08_875745.jpg" alt="" width="1600" height="508" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_875747.jpg"><img src="lao-phoi_anh/2015_08_875747.jpg" alt="" width="1359" height="767" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_875750.jpg"><img src="lao-phoi_anh/2015_08_875750.jpg" alt="" width="1600" height="745" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-413.jpg"><img src="lao-phoi_anh/2015_08_1-413.jpg" alt="" width="800" height="776" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-406.jpg"><img src="lao-phoi_anh/2015_08_2-406.jpg" alt="" width="800" height="520" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-391.jpg"><img src="lao-phoi_anh/2015_08_3-391.jpg" alt="" width="800" height="750" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-350.jpg"><img src="lao-phoi_anh/2015_08_4-350.jpg" alt="" width="800" height="575" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-201.jpg"><img src="lao-phoi_anh/2015_08_5-201.jpg" alt="" width="800" height="608" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-106.png"><img src="lao-phoi_anh/2015_08_1-106.png" alt="" width="776" height="436" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-113.png"><img src="lao-phoi_anh/2015_08_2-113.png" alt="" width="778" height="437" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-111.png"><img src="lao-phoi_anh/2015_08_3-111.png" alt="" width="782" height="441" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-102.png"><img src="lao-phoi_anh/2015_08_4-102.png" alt="" width="783" height="451" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-85.png"><img src="lao-phoi_anh/2015_08_5-85.png" alt="" width="756" height="658" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_5-309.jpg"><img src="lao-phoi_anh/2015_08_5-309.jpg" alt="" width="630" height="373" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_1-574.jpg"><img src="lao-phoi_anh/2015_08_1-574.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-572.jpg"><img src="lao-phoi_anh/2015_08_2-572.jpg" alt="" width="630" height="322" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-551.jpg"><img src="lao-phoi_anh/2015_08_3-551.jpg" alt="" width="630" height="344" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-491.jpg"><img src="lao-phoi_anh/2015_08_4-491.jpg" alt="" width="630" height="361" loading="lazy" decoding="async"></a></div>
+<h3 id="lao-ke-2">* Lao kê</h3>
+<p><span class="c-xanh">– Lao kê (miliary tuberculosis)</span> là thể lao lan theo đường máu, tạo nhiều nốt nhỏ phân bố ngẫu nhiên trong phổi.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Trên HRCT có thể thấy vô số nốt nhỏ, kích thước thường khoảng 1–4 mm, tương đối đồng đều và phân bố ngẫu nhiên, lan tỏa ở cả hai phổi, từ vùng trung tâm đến ngoại vi sát màng phổi và khe liên thùy; có thể kèm dày vách liên tiểu thùy. Không mặc định ưu thế đáy, dù đôi khi có thể hơi ưu thế vùng thấp.<br>+ Nốt kê có phân bố ngẫu nhiên, không tập trung ở trung tâm tiểu thùy; khác với nốt trung tâm tiểu thùy và hình cây-nụ trong lan tràn theo đường phế quản.<br>– Cạm bẫy: Các nốt rất nhỏ, mờ hoặc ranh giới không rõ có thể bị bỏ sót trên CT ban đầu. Nếu nghi ngờ lâm sàng vẫn cao nhưng hình ảnh chưa kết luận được, cân nhắc rà soát lại phim hoặc chụp kiểm tra theo diễn tiến lâm sàng; không chụp CT lặp lại thường quy chỉ vì nghi ngờ.<br>– Theo dõi:<br>+ Độ nhạy soi AFB đờm và PCR/NAAT được báo cáo khoảng 20–40% và 60–80% trong một số nghiên cứu; các tỷ lệ này thay đổi theo bệnh phẩm và quần thể, và thường thấp hơn ở lao kê so với lao phổi nói chung.<br>+ CT/HRCT có giá trị trong phát hiện sớm nốt kê, kể cả khi X-quang ngực chưa biểu hiện rõ; hình ảnh hỗ trợ nhận diện và đánh giá bệnh nhưng không thay thế xét nghiệm vi sinh hoặc mô bệnh học khi cần.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_u1.jpeg"><img src="lao-phoi_anh/2015_08_u1.jpeg" alt="" width="1566" height="1371" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_u2.jpeg"><img src="lao-phoi_anh/2015_08_u2.jpeg" alt="" width="1600" height="1195" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_u3.jpeg"><img src="lao-phoi_anh/2015_08_u3.jpeg" alt="" width="1600" height="1389" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_u4.jpeg"><img src="lao-phoi_anh/2015_08_u4.jpeg" alt="" width="1458" height="1093" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_868233.jpg"><img src="lao-phoi_anh/2015_08_868233.jpg" alt="" width="1600" height="755" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_868608.jpg"><img src="lao-phoi_anh/2015_08_868608.jpg" alt="" width="1450" height="716" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_838507-scaled.jpg"><img src="lao-phoi_anh/2015_08_838507-scaled.jpg" alt="" width="1600" height="681" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-443.jpeg"><img src="lao-phoi_anh/2015_08_1-443.jpeg" alt="" width="837" height="838" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-110.png"><img src="lao-phoi_anh/2015_08_2-110.png" alt="" width="767" height="387" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-108.png"><img src="lao-phoi_anh/2015_08_3-108.png" alt="" width="767" height="429" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-99.png"><img src="lao-phoi_anh/2015_08_4-99.png" alt="" width="770" height="447" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-82.png"><img src="lao-phoi_anh/2015_08_5-82.png" alt="" width="790" height="476" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-104.png"><img src="lao-phoi_anh/2015_08_1-104.png" alt="" width="715" height="395" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-111.png"><img src="lao-phoi_anh/2015_08_2-111.png" alt="" width="713" height="422" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-109.png"><img src="lao-phoi_anh/2015_08_3-109.png" alt="" width="718" height="443" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-100.png"><img src="lao-phoi_anh/2015_08_4-100.png" alt="" width="701" height="456" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-83.png"><img src="lao-phoi_anh/2015_08_5-83.png" alt="" width="689" height="464" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-105.png"><img src="lao-phoi_anh/2015_08_1-105.png" alt="" width="1106" height="935" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-112.png"><img src="lao-phoi_anh/2015_08_2-112.png" alt="" width="784" height="545" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-110.png"><img src="lao-phoi_anh/2015_08_3-110.png" alt="" width="784" height="571" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-101.png"><img src="lao-phoi_anh/2015_08_4-101.png" alt="" width="779" height="580" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-84.png"><img src="lao-phoi_anh/2015_08_5-84.png" alt="" width="756" height="586" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-444.jpeg"><img src="lao-phoi_anh/2015_08_1-444.jpeg" alt="" width="630" height="493" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-447.jpeg"><img src="lao-phoi_anh/2015_08_2-447.jpeg" alt="" width="630" height="521" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-445.jpeg"><img src="lao-phoi_anh/2015_08_3-445.jpeg" alt="" width="630" height="523" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-429.jpeg"><img src="lao-phoi_anh/2015_08_4-429.jpeg" alt="" width="620" height="514" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-346.jpeg"><img src="lao-phoi_anh/2015_08_5-346.jpeg" alt="" width="630" height="480" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_1-822.jpeg"><img src="lao-phoi_anh/2015_08_1-822.jpeg" alt="" width="630" height="496" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-815.jpeg"><img src="lao-phoi_anh/2015_08_2-815.jpeg" alt="" width="630" height="513" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-801.jpeg"><img src="lao-phoi_anh/2015_08_3-801.jpeg" alt="" width="629" height="531" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-751.jpeg"><img src="lao-phoi_anh/2015_08_4-751.jpeg" alt="" width="630" height="544" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-607.jpeg"><img src="lao-phoi_anh/2015_08_5-607.jpeg" alt="" width="630" height="548" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_6-305.jpeg"><img src="lao-phoi_anh/2015_08_6-305.jpeg" alt="" width="630" height="542" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_7-119.jpeg"><img src="lao-phoi_anh/2015_08_7-119.jpeg" alt="" width="629" height="553" loading="lazy" decoding="async"></a></div>
+<h3 id="hach-lao">* Hạch lao</h3>
+<p>– Hạch lao là viêm hạch do lao, thường có hoại tử bã đậu ở trung tâm.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Trên CT có tiêm thuốc, hạch có thể giảm đậm độ hoặc không ngấm thuốc ở trung tâm do hoại tử, kèm viền ngoại vi tăng quang; đôi khi có vôi hóa, nhất là ở giai đoạn di chứng.<br>– Phân biệt:<br>+ Sarcoidosis điển hình có hạch rốn phổi hai bên đối xứng và hạch cạnh khí quản phải, thường không hoại tử. Hạch lao thường có hoại tử trung tâm và có thể phân bố bất đối xứng, nhưng cũng có thể gặp ở nhiều nhóm hạch hai bên.<br>+ Hoại tử hạch hiếm khi cũng gặp trong sarcoidosis và một số bệnh khác. Nếu hình ảnh, lâm sàng và xét nghiệm chưa phân biệt được, cân nhắc lấy mẫu hạch để làm mô bệnh học và xét nghiệm vi sinh, vì hướng điều trị khác nhau.<br>– Theo dõi: Hạch thường giảm kích thước khi đáp ứng điều trị. Vôi hóa tồn lưu thường phù hợp với di chứng viêm hạt cũ, nhưng không tự nó chứng minh bệnh đã hết hoạt động.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_images_large_03_12_8961_12.jpeg"><img src="lao-phoi_anh/2015_08_images_large_03_12_8961_12.jpeg" alt="" width="675" height="675" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_h1.jpeg"><img src="lao-phoi_anh/2015_08_h1.jpeg" alt="" width="1422" height="1409" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_h2.jpeg"><img src="lao-phoi_anh/2015_08_h2.jpeg" alt="" width="1600" height="1555" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_h3.jpeg"><img src="lao-phoi_anh/2015_08_h3.jpeg" alt="" width="1467" height="1548" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_h4.jpeg"><img src="lao-phoi_anh/2015_08_h4.jpeg" alt="" width="1600" height="1704" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/PA-chest.jpg"><img src="lao-phoi_anh/PA-chest.jpg" alt="" width="1568" height="1648" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/lateral-chest.jpg"><img src="lao-phoi_anh/lateral-chest.jpg" alt="" width="1199" height="1749" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/ans1.jpg"><img src="lao-phoi_anh/ans1.jpg" alt="" width="1483" height="897" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/ans2.jpg"><img src="lao-phoi_anh/ans2.jpg" alt="" width="1427" height="773" loading="lazy" decoding="async"></a></div>
+<h3 id="bien-chung">* Biến chứng</h3>
+<p><span class="c-xanh">– U nấm phổi (aspergilloma)</span> là khối sợi nấm trộn với chất nhầy và mảnh vụn, thường khu trú trong hang phổi có sẵn, hay gặp ở hang lao.<br>– Dịch tễ: Khoảng 25–55% người bệnh aspergilloma được báo cáo có tiền sử lao hang mạn; tỷ lệ thay đổi theo quần thể.<br>– Đặc điểm hình ảnh:<br>+ Khối tròn hoặc bầu dục nằm trong hang, thường có liềm khí ngăn cách khối với thành hang (air crescent sign); khối có thể đổi vị trí theo tư thế (Monod sign).<br>+ Khối đôi khi vôi hóa. Dày màng phổi quanh hang có thể là dấu gợi ý sớm; dày thành hang đơn thuần không đặc hiệu cho u nấm.<br>– Phân biệt: Liềm khí không đặc hiệu; có thể gặp trong hang lao, kén sán có màng bong, áp xe, ung thư phế quản hoại tử và viêm phổi do Pneumocystis. Khối trong hang di động theo tư thế làm tăng khả năng aspergilloma nhưng cần đối chiếu với bệnh cảnh và các xét nghiệm liên quan.<br>– Theo dõi:<br>+ Ho ra máu là biến chứng thường gặp, có thể liên quan đến mô hạt giàu mạch và mạch phế quản phì đại quanh hang. Chảy máu nặng hoặc tái phát có thể cần nút động mạch phế quản; nếu không kiểm soát được hoặc u nấm khu trú có triệu chứng, cân nhắc phẫu thuật cắt bỏ (có thể cắt thùy tùy vị trí) ở người đủ điều kiện sau đánh giá nguy cơ.<br>+ Khi chẩn đoán chưa rõ, có thể so sánh hình ảnh ở tư thế nằm ngửa và nằm sấp để xác nhận khối di động; không cần chụp thêm thường quy nếu hình ảnh đã điển hình.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/5e17154cf1c0fcd46750dd67f65f27_big_gallery.jpg"><img src="lao-phoi_anh/5e17154cf1c0fcd46750dd67f65f27_big_gallery.jpg" alt="" width="630" height="453" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/298804.jpg"><img src="lao-phoi_anh/298804.jpg" alt="" width="970" height="774" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/beb4eb495c62a4853ca65d0461b9d8_big_gallery.jpeg"><img src="lao-phoi_anh/beb4eb495c62a4853ca65d0461b9d8_big_gallery.jpeg" alt="" width="630" height="623" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/ed053cf5558e445b0b6f4f7ab05d12_big_gallery.jpg"><img src="lao-phoi_anh/ed053cf5558e445b0b6f4f7ab05d12_big_gallery.jpg" alt="" width="630" height="469" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/F4.large_-9.jpg"><img src="lao-phoi_anh/F4.large_-9.jpg" alt="" width="1600" height="929" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/g01jl03g3x.jpeg"><img src="lao-phoi_anh/g01jl03g3x.jpeg" alt="" width="1600" height="944" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/g01jl03g4x.jpeg"><img src="lao-phoi_anh/g01jl03g4x.jpeg" alt="" width="1600" height="1122" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/g01jl03g5a.jpeg"><img src="lao-phoi_anh/g01jl03g5a.jpeg" alt="" width="1600" height="1129" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Giãn phế quản và xơ phổi:</span><br>+ Giãn phế quản sau lao có thể do tổn thương thành phế quản, hẹp phế quản và/hoặc xơ hóa co kéo; thường gặp ở thùy trên nhưng không giới hạn ở vị trí này. Hình thái có thể là dạng trụ, dạng tĩnh mạch hoặc dạng nang, kèm biến dạng kiến trúc và giảm thể tích phổi.<br>+ Xơ hóa co kéo sau lao thường ưu thế ở thùy trên, gây biến dạng nhu mô và giảm thể tích thùy; có thể kéo rốn phổi hoặc cơ hoành lên cao, kèm dày dính màng phổi lân cận.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_1-102.jpg"><img src="lao-phoi_anh/2015_08_1-102.jpg" alt="" width="645" height="717" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-100.jpg"><img src="lao-phoi_anh/2015_08_2-100.jpg" alt="" width="716" height="359" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-100.jpg"><img src="lao-phoi_anh/2015_08_3-100.jpg" alt="" width="702" height="401" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-92.jpg"><img src="lao-phoi_anh/2015_08_4-92.jpg" alt="" width="690" height="452" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Tràn mủ màng phổi:</span><br>+ Tràn mủ màng phổi lao mạn là nhiễm trùng mủ kéo dài trong khoang màng phổi, thường do ổ bã đậu hoặc ổ lao hoại tử vỡ/thông vào khoang màng phổi; khác với tràn dịch lao đơn thuần, thường ít trực khuẩn và có thể tự thoái triển.<br>+ CT có thể thấy dịch hoặc mủ khu trú, hai lá màng phổi dày và tăng quang, tách nhau bởi dịch (dấu tách màng phổi). Ở thể mạn có thể kèm vôi hóa màng phổi và tăng sinh mỡ ngoài màng phổi.<br>– Phân biệt: Dày màng phổi dạng nốt làm tăng nghi ngờ ác tính nhưng không đặc hiệu; lao cũng có thể gây dày nốt. Khi hình ảnh và bối cảnh lâm sàng chưa đủ phân biệt, cân nhắc sinh thiết màng phổi để làm mô bệnh học và cấy, nhất là khi kết quả có thể thay đổi hướng điều trị.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="lao-phoi_anh/2015_08_875751.jpg"><img src="lao-phoi_anh/2015_08_875751.jpg" alt="" width="1600" height="497" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_thoraxjnl-2010-August-65-Suppl-2-ii4-F4.large_.jpg"><img src="lao-phoi_anh/2015_08_thoraxjnl-2010-August-65-Suppl-2-ii4-F4.large_.jpg" alt="" width="1600" height="1020" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Phình mạch Rasmussen:</span><br>+ Là giả phình mạch của nhánh động mạch phổi, thường nằm sát hoặc trong hang lao; đây là biến chứng hiếm gặp.<br>+ Cơ chế bệnh sinh: Tổn thương lao xâm lấn thành mạch, làm thành mạch yếu và hình thành giả phình mạch. Khi vỡ vào hang hoặc đường thở, có thể gây ho ra máu ồ ạt.<br>+ Đặc điểm hình ảnh: CT mạch máu thấy túi hoặc nốt ngấm thuốc tương tự lòng mạch, liên tục với nhánh động mạch phổi và nằm trong hoặc cạnh hang lao; đôi khi thấy thoát thuốc nếu đang chảy máu.<br>+ Theo dõi: Vỡ có thể gây ho ra máu đe dọa tính mạng, cần xử trí khẩn. Thường ưu tiên can thiệp nội mạch; lựa chọn nút nhánh động mạch phổi hoặc động mạch phế quản/mạch hệ thống tùy nguồn cấp máu xác định trên CT mạch và chụp mạch. Cân nhắc phẫu thuật nếu can thiệp nội mạch không khả thi hoặc thất bại, sau khi đánh giá nguy cơ và hội chẩn chuyên khoa.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_c1-9.jpg"><img src="lao-phoi_anh/2015_08_c1-9.jpg" alt="" width="924" height="863" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_454942_1_En_6_Fig10_HTML.jpg"><img src="lao-phoi_anh/2015_08_454942_1_En_6_Fig10_HTML.jpg" alt="" width="686" height="436" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_912070.png"><img src="lao-phoi_anh/2015_08_912070.png" alt="" width="492" height="587" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_912071.png"><img src="lao-phoi_anh/2015_08_912071.png" alt="" width="549" height="592" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_912072.png"><img src="lao-phoi_anh/2015_08_912072.png" alt="" width="635" height="540" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lao-phoi_anh/09_07_3896_12a.jpeg"><img src="lao-phoi_anh/09_07_3896_12a.jpeg" alt="" width="1584" height="1535" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/09_07_3896_12b.jpeg"><img src="lao-phoi_anh/09_07_3896_12b.jpeg" alt="" width="1583" height="1656" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/09_07_3896_12c.jpeg"><img src="lao-phoi_anh/09_07_3896_12c.jpeg" alt="" width="1032" height="1278" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-573.jpg"><img src="lao-phoi_anh/2015_08_1-573.jpg" alt="" width="630" height="595" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-571.jpg"><img src="lao-phoi_anh/2015_08_2-571.jpg" alt="" width="580" height="366" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-550.jpg"><img src="lao-phoi_anh/2015_08_3-550.jpg" alt="" width="580" height="377" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-490.jpg"><img src="lao-phoi_anh/2015_08_4-490.jpg" alt="" width="622" height="500" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-308.jpg"><img src="lao-phoi_anh/2015_08_5-308.jpg" alt="" width="625" height="589" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_1-445.jpeg"><img src="lao-phoi_anh/2015_08_1-445.jpeg" alt="" width="605" height="438" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-448.jpeg"><img src="lao-phoi_anh/2015_08_2-448.jpeg" alt="" width="605" height="438" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-446.jpeg"><img src="lao-phoi_anh/2015_08_3-446.jpeg" alt="" width="603" height="430" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-430.jpeg"><img src="lao-phoi_anh/2015_08_4-430.jpeg" alt="" width="603" height="429" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="lao-phoi_anh/2015_08_1-138.png"><img src="lao-phoi_anh/2015_08_1-138.png" alt="" width="631" height="572" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-148.png"><img src="lao-phoi_anh/2015_08_2-148.png" alt="" width="630" height="477" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-143.png"><img src="lao-phoi_anh/2015_08_3-143.png" alt="" width="630" height="487" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-133.png"><img src="lao-phoi_anh/2015_08_4-133.png" alt="" width="630" height="497" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-109.png"><img src="lao-phoi_anh/2015_08_5-109.png" alt="" width="630" height="497" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_images_09_09_4161_02a.jpeg"><img src="lao-phoi_anh/2015_08_images_09_09_4161_02a.jpeg" alt="" width="1169" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_images_09_09_4161_02b.jpeg"><img src="lao-phoi_anh/2015_08_images_09_09_4161_02b.jpeg" alt="" width="1494" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_images_09_09_4161_02c.jpeg"><img src="lao-phoi_anh/2015_08_images_09_09_4161_02c.jpeg" alt="" width="1489" height="1800" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_images_09_09_4161_02d.jpeg"><img src="lao-phoi_anh/2015_08_images_09_09_4161_02d.jpeg" alt="" width="1400" height="1692" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_1-562.jpeg"><img src="lao-phoi_anh/2015_08_1-562.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-563.jpeg"><img src="lao-phoi_anh/2015_08_2-563.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-561.jpeg"><img src="lao-phoi_anh/2015_08_3-561.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-540.jpeg"><img src="lao-phoi_anh/2015_08_4-540.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_5-437.jpeg"><img src="lao-phoi_anh/2015_08_5-437.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_6-188.jpeg"><img src="lao-phoi_anh/2015_08_6-188.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_7-82.jpeg"><img src="lao-phoi_anh/2015_08_7-82.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_8-77.jpeg"><img src="lao-phoi_anh/2015_08_8-77.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Rò phế quản–màng phổi:</span><br>+ Là đường thông bất thường giữa cây phế quản và khoang màng phổi. Trong lao, rò có thể hình thành khi ổ hoại tử hoặc hang lao vỡ thông vào khoang màng phổi, hoặc là biến chứng của tràn mủ màng phổi.<br>– Đặc điểm hình ảnh:<br>+ Tràn khí–dịch màng phổi hoặc rò khí dai dẳng/tái phát dù đã dẫn lưu làm tăng nghi ngờ rò phế quản–màng phổi, nhưng không đặc hiệu.<br>+ MDCT lát mỏng, tái tạo đa mặt phẳng có thể cho thấy đường thông hoặc khuyết thành phế quản nối với khoang màng phổi; không phải trường hợp nào cũng thấy trực tiếp lỗ rò.<br>– Theo dõi:<br>+ Điều trị gồm kháng lao phù hợp, dẫn lưu khoang màng phổi khi cần và kiểm soát nhiễm trùng; theo dõi rò khí và khả năng nở phổi.<br>+ Khi rò kéo dài hoặc có biến chứng, cần hội chẩn chuyên khoa để cân nhắc đóng rò qua nội soi phế quản hoặc phẫu thuật. Có thể phối hợp bóc vỏ khi có mủ màng phổi tổ chức hóa/phổi bị bẫy, hoặc cắt phổi khu trú ở trường hợp chọn lọc; không mặc định cần bóc vỏ hay cắt phổi–màng phổi cho mọi ca.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="lao-phoi_anh/2015_08_ro-mang-phoi-4556.jpg"><img src="lao-phoi_anh/2015_08_ro-mang-phoi-4556.jpg" alt="" width="830" height="562" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_ro-phe-qua-55.jpg"><img src="lao-phoi_anh/2015_08_ro-phe-qua-55.jpg" alt="" width="520" height="602" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_ro-phe-quan-123.jpg"><img src="lao-phoi_anh/2015_08_ro-phe-quan-123.jpg" alt="" width="1307" height="440" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="lao-phoi_anh/2015_08_1-572.jpg"><img src="lao-phoi_anh/2015_08_1-572.jpg" alt="" width="595" height="356" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_2-570.jpg"><img src="lao-phoi_anh/2015_08_2-570.jpg" alt="" width="594" height="358" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_3-549.jpg"><img src="lao-phoi_anh/2015_08_3-549.jpg" alt="" width="596" height="358" loading="lazy" decoding="async"></a><a class="o-anh" href="lao-phoi_anh/2015_08_4-489.jpg"><img src="lao-phoi_anh/2015_08_4-489.jpg" alt="" width="593" height="362" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-tien-luong-dieu-tri">IV. Tiên lượng &amp; Điều trị</h2>
+<p><span class="c-xanh"><strong>1. Tiên lượng</strong></span></p>
+<p>– Lao phổi nhạy thuốc nhìn chung có thể điều trị khỏi nếu được chẩn đoán kịp thời, dùng phác đồ phù hợp và hoàn tất đủ liều, đủ thời gian. Tiên lượng phụ thuộc vào mức độ lan rộng của bệnh, tình trạng kháng thuốc, thời điểm bắt đầu điều trị, tuân thủ điều trị và các bệnh đồng mắc.<br>– Nguy cơ đáp ứng kém, tái phát hoặc tử vong tăng khi có tổn thương phổi lan rộng/hai bên, hang và tải lượng vi khuẩn cao; chẩn đoán hoặc điều trị chậm, phác đồ không phù hợp/gián đoạn; lao kháng thuốc; suy giảm miễn dịch, HIV, đái tháo đường, suy dinh dưỡng hoặc bệnh phổi mạn tính.<br>– Khỏi bệnh về mặt vi khuẩn học không đồng nghĩa với hình ảnh phổi trở về bình thường. Có thể còn xơ hóa, giảm thể tích, hang tồn lưu, giãn phế quản hoặc dày màng phổi; một số người bệnh còn di chứng phổi sau lao (post-tuberculosis lung disease, PTLD), như khó thở, ho khạc đờm, ho ra máu, giảm chức năng phổi hoặc nhiễm trùng hô hấp tái diễn.<br>– Diễn giải hình ảnh cần phối hợp diễn biến lâm sàng và vi khuẩn học: tổn thương tồn lưu trên X-quang/CT đơn độc không đủ khẳng định lao còn hoạt động hay tái phát; hình ảnh cải thiện cũng không thay thế tiêu chí đánh giá vi khuẩn học.</p>
+<p><span class="c-xanh"><strong>2. Điều trị</strong></span></p>
+<p><span class="c-xanh">– Nguyên tắc:</span><br>+ Khi khả thi, lấy bệnh phẩm để xét nghiệm vi khuẩn học và đánh giá kháng thuốc trước hoặc trong khi khởi trị. Chọn phác đồ theo kết quả nhạy thuốc, tiền sử điều trị, bệnh đồng mắc, tương tác thuốc và hướng dẫn của Chương trình Chống lao Quốc gia.<br>+ Bảo đảm người bệnh dùng đủ các thuốc trong phác đồ, hỗ trợ tuân thủ và theo dõi độc tính. Không tự ý ngừng thuốc, bỏ liều hoặc thay đổi phác đồ.</p>
+<p><span class="c-xanh">– Lao phổi nhạy thuốc:</span><br>+ Phác đồ thường dùng là 2HRZE/4HR: 2 tháng isoniazid (H), rifampicin (R), pyrazinamide (Z), ethambutol (E), tiếp theo 4 tháng H và R.<br>+ Một số hướng dẫn hiện hành có lựa chọn phác đồ 4 tháng 2HPZM/2HPM cho người bệnh đủ tiêu chí: 2 tháng H, rifapentine (P), Z, moxifloxacin (M), tiếp theo 2 tháng H, P, M. Đây là lựa chọn có điều kiện, không thay thế phác đồ chuẩn cho mọi người bệnh; cần đối chiếu tiêu chuẩn áp dụng và hướng dẫn quốc gia.</p>
+<p><span class="c-xanh">– Lao kháng rifampicin/đa kháng thuốc: </span>Điều trị cần dựa trên xét nghiệm kháng thuốc và tư vấn chuyên khoa/chương trình lao. Các phác đồ uống ngắn hơn như BPaLM (bedaquiline, pretomanid, linezolid, moxifloxacin) hoặc BPaL (bedaquiline, pretomanid, linezolid) có thể phù hợp với một số người bệnh; việc lựa chọn phụ thuộc vào kiểu kháng thuốc, tiền sử dùng thuốc, chống chỉ định và tiêu chuẩn của hướng dẫn áp dụng.</p>
+<p><span class="c-xanh">– Theo dõi đáp ứng và di chứng:</span><br>+ Theo dõi triệu chứng, thể trạng, tuân thủ, tác dụng không mong muốn và xét nghiệm vi khuẩn học theo lịch của phác đồ/chương trình. Xét nghiệm phân tử như Xpert chủ yếu hỗ trợ chẩn đoán và phát hiện kháng thuốc; không nên dùng đơn độc để kết luận khỏi bệnh hoặc đánh giá đáp ứng điều trị.<br>+ X-quang ngực hỗ trợ theo dõi diễn tiến. CT thường dành cho trường hợp nghi biến chứng, đáp ứng lâm sàng–vi khuẩn học không tương xứng hoặc cần làm rõ tổn thương; không dùng CT đơn độc để quyết định ngừng điều trị.<br>+ Nếu còn khó thở, ho ra máu hoặc nhiễm trùng hô hấp tái diễn sau điều trị, đánh giá di chứng phổi sau lao, chức năng hô hấp và các biến chứng như giãn phế quản, hang tồn lưu hoặc u nấm.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><em><span class="c-xanh">* Pulmonary Tuberculosis: Up-to-Date Imaging and Management – Yeon Joo Jeong and Kyung Soo Lee<br>* Manifestations of pulmonary tuberculosis: radiographic findings – Cluj-Napoca/RO<br>* Radiographic Aspects of Pulmonary Tuberculosis Sequelae – Vila Nova de Gaia/PT<br>* Childhood pulmonary tuberculosis; Imaging characterstics – A. Muldini, A. latic; 35000/HR, Slavonski Brod/HR<br>* Pulmonary Mycobacterium Tuberculosis infection: Retrospective Analysis of radiologic findings – Santa cruz, Santa Cruz/BO<br>* Tuberculosis: A Multiorgan Disease – A. R. Pugliesi, M. I. Vögele, W. Kersjes<br>* Tuberculosis, uncommon lung findings – S. Joral del Hoyo, I. Jimenez Cuenca, M. R. López Pedreira<br>* Thoracic tuberculosis – lungs and beyond – L. W. Souza, R. Guerrini, E. K. U. N. Fonseca<br>* Tuberculosis: almost everywhere! – F. C. Sarioglu, H. Sahin, Y. Pekcevik<br>* Manifestations of pulmonary tuberculosis: radiographic findings – R. G. Ghinea; Cluj-Napoca/RO<br>* The role of imaging in pulmonary tuberculosis – M. J. Lucena González, M. C. Ruiz Yagüe, R. Morcillo Carratalá<br>* Radiological spectrum of Thoracic Sequelae and Complications of Tuberculosis – B. Alami, O. Addou, M. Jaffal<br>* Tuberculosis from head to toe. A pictorial review – W. Mnari, K. Bouslama, M. Mezri<br>* Pulmonary Mycobacterium Tuberculosis infection: Retrospective Analysis of radiologic findings – G. E. Urquieta; Santa cruz , Santa Cruz /BO<br>* Manifestations of pulmonary tuberculosis: radiographic findings – R. G. Ghinea; Cluj-Napoca/RO<br>* Weak Localization of Radiographic Manifestations in Pulmonary Tuberculosis from Chest X-ray: A Systematic Review – Degaga Wolde Feyisa</span></em></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

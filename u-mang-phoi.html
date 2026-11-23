@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U Màng Phổi</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>U Màng Phổi</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/u-mang-phoi/" target="_blank" rel="noopener">Xray.vn — xray.vn/u-mang-phoi</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Định nghĩa:</span><br>+ U màng phổi (pleural tumors) là nhóm tân sinh liên quan đến màng phổi, gồm u nguyên phát từ các thành phần của màng phổi và tổn thương thứ phát do xâm lấn trực tiếp hoặc di căn.<br>+ Màng phổi gồm lá thành và lá tạng, được phủ bởi lớp tế bào trung biểu mô trên mô liên kết dưới trung mô chứa mạch máu và bạch huyết.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Tổn thương thứ phát do di căn thường gặp hơn u màng phổi nguyên phát.</p>
+<p><span class="c-xanh">– Căn nguyên:</span><br>+ U nguyên phát gồm u trung biểu mô ác tính (malignant pleural mesothelioma), u xơ đơn độc màng phổi (solitary fibrous tumor of the pleura, SFTP), u mỡ màng phổi và một số u trung mô hiếm.<br>+ U xơ đơn độc màng phổi có phổ hành vi sinh học từ lành tính đến ác tính, không nên mặc định xếp vào nhóm u lành.<br>+ Tổn thương thứ phát thường do di căn từ ung thư phổi, ung thư vú hoặc các ung thư ngoài lồng ngực. Phơi nhiễm amiăng là yếu tố nguy cơ quan trọng của u trung biểu mô ác tính; thời gian tiềm tàng thường kéo dài.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> U nguyên phát phát sinh từ tế bào trung biểu mô hoặc mô liên kết dưới trung mô; tổn thương thứ phát lan đến màng phổi qua xâm lấn trực tiếp, đường bạch huyết hoặc đường máu.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span><br>+ Nhiều u khu trú không gây triệu chứng và được phát hiện tình cờ; khi có biểu hiện, thường gặp đau ngực, ho hoặc khó thở.<br>+ Tràn dịch màng phổi thường gặp trong bệnh ác tính lan tỏa nhưng không đặc hiệu và không xuất hiện ở mọi trường hợp.</p>
+<p><span class="c-xanh">– Phân bố:</span><br>+ U xơ đơn độc màng phổi và u mỡ thường khu trú; u trung biểu mô ác tính thường lan tỏa; di căn màng phổi có thể khu trú, nhiều ổ hoặc lan tỏa.<br>+ Kiểu phân bố chỉ gợi ý, không đủ để kết luận lành tính hay ác tính.</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span><br>+ Giúp xác định tổn thương có nguồn gốc màng phổi hay từ phổi/thành ngực, đánh giá kiểu phân bố, phạm vi lan rộng, xâm lấn và tràn dịch phối hợp.<br>+ Hỗ trợ đánh giá giai đoạn và lựa chọn vị trí sinh thiết khi cần; hình ảnh học không phải lúc nào cũng xác định được bản chất mô học.</p>
+<figure><a class="o-anh" href="u-mang-phoi_anh/2015_08_screenshot_1772803572-1.png"><img src="u-mang-phoi_anh/2015_08_screenshot_1772803572-1.png" alt="U màng phổi" width="1092" height="528" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-chan-doan-x-quang">II. Chẩn đoán x-quang</h2>
+<p><span class="c-xanh">=&gt; Xác định tổn thương ngoài phổi</span></p>
+<p>– Phim thẳng, nghiêng và tiếp tuyến giúp đánh giá mối liên quan của khối với thành ngực và nhu mô phổi.<br>– Tổn thương nằm ngoài nhu mô phổi thường tạo góc tù với thành ngực; nếu ở khoang ngoài màng phổi, khối có thể đẩy màng phổi và nhu mô phổi vào trong. Dấu hiệu này gợi ý vị trí ngoài phổi nhưng không phân biệt được tổn thương xuất phát từ màng phổi hay thành ngực.<br>– Dấu hiệu đường bờ không hoàn toàn (incomplete border sign): bờ tiếp giáp nhu mô phổi thường rõ, trong khi phần bờ hướng về thành ngực mờ hoặc không thấy. Đây là dấu hiệu gợi ý, không đặc hiệu cho tổn thương ngoài nhu mô phổi.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_maxresdefault-4.jpg"><img src="u-mang-phoi_anh/2015_08_maxresdefault-4.jpg" alt="" width="1280" height="704" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Bild3-1.jpg"><img src="u-mang-phoi_anh/2015_08_Bild3-1.jpg" alt="" width="944" height="648" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Bild16.png"><img src="u-mang-phoi_anh/2015_08_Bild16.png" alt="" width="1445" height="771" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Bild17.jpg"><img src="u-mang-phoi_anh/2015_08_Bild17.jpg" alt="" width="1476" height="750" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_123-2.jpg"><img src="u-mang-phoi_anh/2015_08_123-2.jpg" alt="" width="1202" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Bild10.jpg"><img src="u-mang-phoi_anh/2015_08_Bild10.jpg" alt="" width="1475" height="519" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_image00893.jpeg"><img src="u-mang-phoi_anh/2015_08_image00893.jpeg" alt="" width="1400" height="1328" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_image00890.jpeg"><img src="u-mang-phoi_anh/2015_08_image00890.jpeg" alt="" width="1500" height="1044" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_871579.png"><img src="u-mang-phoi_anh/2015_08_871579.png" alt="" width="1144" height="582" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_661139.jpg"><img src="u-mang-phoi_anh/2015_08_661139.jpg" alt="" width="720" height="518" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">=&gt; Đặc điểm vị trí tổn thương:</span></p>
+<p>– Tổn thương màng phổi thường có hình bầu dục, bờ thuôn, tạo góc tù với thành ngực và có ranh giới rõ với nhu mô phổi. Khối rất lớn có thể tạo góc nhọn ở cực dưới; vì vậy, góc tiếp xúc không phải tiêu chuẩn tuyệt đối.<br>– Khối thành ngực thường khu trú, hình tròn hoặc bầu dục và cũng có thể tạo góc tù với thành ngực; do đó, góc tù không đủ để phân biệt khối thành ngực với khối màng phổi.<br>– Trên CT, mỡ ngoài màng phổi (extrapleural fat) bị đẩy ra ngoài về phía thành ngực gợi ý khối có nguồn gốc màng phổi; bị đẩy vào trong về phía nhu mô phổi gợi ý khối ngoài màng phổi, thường thuộc thành ngực.<br>– Tổn thương phổi ngoại vi thường tạo góc nhọn với thành ngực và có bờ không đều hoặc tua gai; tổn thương áp sát màng phổi dạng mảng rộng có thể tạo góc tù. Cần phối hợp các dấu hiệu, không kết luận từ góc tiếp xúc đơn độc.</p>
+<figure><a class="o-anh" href="u-mang-phoi_anh/2015_08_871581.jpg"><img src="u-mang-phoi_anh/2015_08_871581.jpg" alt="a-b-c: tổn thương màng phổi - thành ngực / d: tổn thương trong phổi" width="1247" height="503" loading="lazy" decoding="async"></a></figure>
+<figure><a class="o-anh" href="u-mang-phoi_anh/2015_08_mnagphoi.png"><img src="u-mang-phoi_anh/2015_08_mnagphoi.png" alt="" width="1562" height="1080" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"><strong>* U xơ đơn độc màng phổi</strong></span></p>
+<p><span class="c-xanh">– U xơ đơn độc màng phổi (solitary fibrous tumor of the pleura, SFTP)</span> là u trung mô phát sinh từ mô liên kết dưới trung mô, không xuất phát từ tế bào trung biểu mô.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> U hiếm, ước tính chiếm dưới 5% các khối u màng phổi; thường gặp ở tuổi 45–60, tỷ lệ nam/nữ khoảng 1:1 trong một số loạt bệnh. Phần lớn lành tính; tỷ lệ ác tính được báo cáo khoảng 20% nhưng thay đổi giữa các loạt bệnh.</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Không có mối liên quan điển hình với phơi nhiễm amiăng.</p>
+<p><span class="c-xanh">– Vị trí:</span> Thường là khối đơn độc; khoảng 80% xuất phát từ lá tạng, phần còn lại chủ yếu từ lá thành. U có thể nằm trên bề mặt màng phổi hoặc trong rãnh liên thùy.</p>
+<p><span class="c-xanh">– Kích thước:</span> Thay đổi, khoảng 2–30 cm; u lớn có thể có hoại tử, xuất huyết hoặc thoái hóa nhầy/nang.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Tỷ lệ không triệu chứng thay đổi giữa các loạt bệnh, có báo cáo khoảng 25%; khi có triệu chứng thường gặp khó thở, đau ngực hoặc ho. Hiếm khi có hạ đường huyết cận u hoặc phì đại xương khớp.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Cần đưa SFTP vào chẩn đoán phân biệt khi gặp khối màng phổi một bên phát triển chậm; hình ảnh đơn thuần không xác định chắc chắn tính lành hay ác.</p>
+<p><span class="c-xanh">– Theo dõi:</span> Tái phát sau cắt bỏ được báo cáo khoảng 15% trong một số loạt bệnh; tỷ lệ thay đổi theo đặc điểm mô bệnh học và mức độ cắt bỏ.</p>
+<p><span class="c-xanh">– Hình ảnh X-quang:</span><br>+ Thường thấy khối mờ liên quan màng phổi, hình tròn hoặc bầu dục, bờ rõ, tương đối đồng nhất, tạo góc tù với thành ngực; đôi khi có dạng phân thùy.<br>+ U lớn có thể không đồng nhất do hoại tử, xuất huyết hoặc thoái hóa nhầy.<br>+ U có cuống có thể thay đổi vị trí trên các phim chụp liên tiếp theo thì hô hấp.<br>+ Vôi hóa và tràn dịch màng phổi có thể gặp; tỷ lệ báo cáo thay đổi, khoảng 7–26% với vôi hóa và khoảng 17% với tràn dịch trong một số loạt bệnh.<br>+ Vôi hóa, tràn dịch, xẹp phổi, di lệch trung thất hoặc xâm lấn thành ngực/tiêu xương sườn có thể gợi ý hành vi ác tính nhưng không đặc hiệu. Ước tính khoảng 20% nói đến tỷ lệ u ác tính trong một số loạt bệnh, không phải tần suất của các dấu hiệu này..</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_Screenshot-2022-11-01-211824.jpg"><img src="u-mang-phoi_anh/2015_08_Screenshot-2022-11-01-211824.jpg" alt="" width="449" height="984" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/617ec62e5d85946bc30be377223636_jumbo.jpg"><img src="u-mang-phoi_anh/617ec62e5d85946bc30be377223636_jumbo.jpg" alt="" width="967" height="974" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/9ba200dc0e1436e8b133bd5b0a1370_jumbo.jpg"><img src="u-mang-phoi_anh/9ba200dc0e1436e8b133bd5b0a1370_jumbo.jpg" alt="" width="750" height="914" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/ae5a150ec40396caf83ea32b76119d_jumbo.jpg"><img src="u-mang-phoi_anh/ae5a150ec40396caf83ea32b76119d_jumbo.jpg" alt="" width="869" height="814" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/c1f591a06c5e9fac25394403d2bc76_big_gallery.jpg"><img src="u-mang-phoi_anh/c1f591a06c5e9fac25394403d2bc76_big_gallery.jpg" alt="" width="586" height="483" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/5177f8338c15c7ca2536bce82feb66_jumbo.jpeg"><img src="u-mang-phoi_anh/5177f8338c15c7ca2536bce82feb66_jumbo.jpeg" alt="" width="871" height="885" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/5c03a62b15f03e39ed53d0c31c86cc_jumbo.jpeg"><img src="u-mang-phoi_anh/5c03a62b15f03e39ed53d0c31c86cc_jumbo.jpeg" alt="" width="756" height="828" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/0a5897ed46d4431e4b1886bfe12829_big_gallery.jpeg"><img src="u-mang-phoi_anh/0a5897ed46d4431e4b1886bfe12829_big_gallery.jpeg" alt="" width="630" height="510" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/fa383185cee02714d33cfdfa7fa886_jumbo.jpeg"><img src="u-mang-phoi_anh/fa383185cee02714d33cfdfa7fa886_jumbo.jpeg" alt="" width="897" height="781" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/fdfad4b098b7b994524e3ff83c03e9_big_gallery.jpeg"><img src="u-mang-phoi_anh/fdfad4b098b7b994524e3ff83c03e9_big_gallery.jpeg" alt="" width="630" height="454" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_rrrr.png"><img src="u-mang-phoi_anh/2015_08_rrrr.png" alt="" width="1449" height="682" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Screenshot-2022-12-26-225223.jpg"><img src="u-mang-phoi_anh/2015_08_Screenshot-2022-12-26-225223.jpg" alt="" width="1397" height="663" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-mang-phoi_anh/2015_08_a1-2-scaled.jpg"><img src="u-mang-phoi_anh/2015_08_a1-2-scaled.jpg" alt="" width="1600" height="1185" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_a2-1.jpg"><img src="u-mang-phoi_anh/2015_08_a2-1.jpg" alt="" width="1156" height="927" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-mang-phoi_anh/2015_08_b1-1.jpg"><img src="u-mang-phoi_anh/2015_08_b1-1.jpg" alt="" width="931" height="932" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_b2-1.jpg"><img src="u-mang-phoi_anh/2015_08_b2-1.jpg" alt="" width="862" height="628" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_b3-1.jpg"><img src="u-mang-phoi_anh/2015_08_b3-1.jpg" alt="" width="919" height="587" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_c1-2.jpg"><img src="u-mang-phoi_anh/2015_08_c1-2.jpg" alt="" width="964" height="924" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_c2.jpg"><img src="u-mang-phoi_anh/2015_08_c2.jpg" alt="" width="752" height="934" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_c3.jpg"><img src="u-mang-phoi_anh/2015_08_c3.jpg" alt="" width="931" height="658" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_c4.jpg"><img src="u-mang-phoi_anh/2015_08_c4.jpg" alt="" width="913" height="655" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_d1-1.jpg"><img src="u-mang-phoi_anh/2015_08_d1-1.jpg" alt="" width="1180" height="1034" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_d2-2.jpg"><img src="u-mang-phoi_anh/2015_08_d2-2.jpg" alt="" width="962" height="1218" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_d3-1.jpg"><img src="u-mang-phoi_anh/2015_08_d3-1.jpg" alt="" width="1029" height="874" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_d4-1.jpg"><img src="u-mang-phoi_anh/2015_08_d4-1.jpg" alt="" width="904" height="1046" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_e1.jpg"><img src="u-mang-phoi_anh/2015_08_e1.jpg" alt="" width="696" height="659" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_e2.jpg"><img src="u-mang-phoi_anh/2015_08_e2.jpg" alt="" width="966" height="676" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_e3.jpg"><img src="u-mang-phoi_anh/2015_08_e3.jpg" alt="" width="525" height="765" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_e4.jpg"><img src="u-mang-phoi_anh/2015_08_e4.jpg" alt="" width="617" height="758" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-mang-phoi_anh/2015_08_g1.png"><img src="u-mang-phoi_anh/2015_08_g1.png" alt="" width="1437" height="840" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_g2.png"><img src="u-mang-phoi_anh/2015_08_g2.png" alt="" width="1479" height="728" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 7:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-860.jpeg"><img src="u-mang-phoi_anh/2015_08_1-860.jpeg" alt="" width="874" height="948" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-853.jpeg"><img src="u-mang-phoi_anh/2015_08_2-853.jpeg" alt="" width="693" height="907" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_a-50.jpg"><img src="u-mang-phoi_anh/2015_08_a-50.jpg" alt="" width="874" height="948" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_b-46.jpg"><img src="u-mang-phoi_anh/2015_08_b-46.jpg" alt="" width="693" height="907" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-839.jpeg"><img src="u-mang-phoi_anh/2015_08_3-839.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-782.jpeg"><img src="u-mang-phoi_anh/2015_08_4-782.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_5-636.jpeg"><img src="u-mang-phoi_anh/2015_08_5-636.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_6-319.jpeg"><img src="u-mang-phoi_anh/2015_08_6-319.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 8:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-1105.jpg"><img src="u-mang-phoi_anh/2015_08_2-1105.jpg" alt="" width="692" height="696" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-1078.jpg"><img src="u-mang-phoi_anh/2015_08_3-1078.jpg" alt="" width="579" height="709" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-941.jpg"><img src="u-mang-phoi_anh/2015_08_4-941.jpg" alt="" width="557" height="469" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_5-606.jpg"><img src="u-mang-phoi_anh/2015_08_5-606.jpg" alt="" width="621" height="532" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* U mỡ màng phổi<br></strong></span></p>
+<p><span class="c-xanh">– U mỡ màng phổi (pleural lipoma)</span> là u mỡ lành tính, thường phát triển chậm và được phát hiện tình cờ.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Bệnh rất hiếm; các trường hợp được công bố chủ yếu ở người trưởng thành, thường trong khoảng 45–62 tuổi. Do số ca ít, chưa có ước tính tin cậy về phân bố giới; béo phì được ghi nhận ở một số trường hợp nhưng chưa đủ dữ liệu để xác lập là yếu tố nguy cơ.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Phần lớn không triệu chứng; u lớn có thể gây triệu chứng chèn ép như ho khan, đau ngực, khó thở hoặc cảm giác nặng ngực.</p>
+<p><span class="c-xanh">– Vị trí:</span> U màng phổi thật sự thường xuất phát từ lớp mỡ dưới trung mô của lá thành; khối mỡ ngoài màng phổi hoặc thành ngực có thể lồi vào lồng ngực và giả dạng u màng phổi.</p>
+<p><span class="c-xanh">– Kích thước:</span> Thường nhỏ nhưng có thể phát triển lớn; u lớn có thể gây lõm hoặc tái cấu trúc xương sườn do tì đè. Tiêu xương cũng có thể gặp nhưng không điển hình.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ U thường tròn hoặc bầu dục, bờ đều và rõ; một số có cuống.<br>+ U có cuống có thể thay đổi hình dạng hoặc vị trí theo thì hô hấp; có thể nhận biết qua sự thay đổi tương quan với xương sườn hoặc trung thất trên các phim chụp liên tiếp.<br>+ Thường là khối mờ đồng nhất, bờ đều và rõ; hình ảnh này không xác định được thành phần mỡ.<br>+ CT giúp xác nhận thành phần mỡ và đánh giá khoang xuất phát.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-mang-phoi_anh/2015_08_index-2-33.jpg"><img src="u-mang-phoi_anh/2015_08_index-2-33.jpg" alt="" width="1005" height="837" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_screenshot_1772802001-1.png"><img src="u-mang-phoi_anh/2015_08_screenshot_1772802001-1.png" alt="" width="1093" height="529" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-mang-phoi_anh/2018_12_1-15.jpg"><img src="u-mang-phoi_anh/2018_12_1-15.jpg" alt="" width="749" height="637" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2018_12_2-5.png"><img src="u-mang-phoi_anh/2018_12_2-5.png" alt="" width="1094" height="642" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2018_12_3-2.jpg"><img src="u-mang-phoi_anh/2018_12_3-2.jpg" alt="" width="1402" height="773" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-mang-phoi_anh/2015_08_a-34.jpg"><img src="u-mang-phoi_anh/2015_08_a-34.jpg" alt="" width="779" height="567" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_b-29.jpg"><img src="u-mang-phoi_anh/2015_08_b-29.jpg" alt="" width="548" height="535" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_c-23.jpg"><img src="u-mang-phoi_anh/2015_08_c-23.jpg" alt="" width="747" height="629" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-560.jpeg"><img src="u-mang-phoi_anh/2015_08_1-560.jpeg" alt="" width="630" height="465" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-218.png"><img src="u-mang-phoi_anh/2015_08_2-218.png" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-215.png"><img src="u-mang-phoi_anh/2015_08_3-215.png" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-202.png"><img src="u-mang-phoi_anh/2015_08_4-202.png" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_5-175.png"><img src="u-mang-phoi_anh/2015_08_5-175.png" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-1101.jpg"><img src="u-mang-phoi_anh/2015_08_1-1101.jpg" alt="" width="779" height="567" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-1106.jpg"><img src="u-mang-phoi_anh/2015_08_2-1106.jpg" alt="" width="548" height="535" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-1079.jpg"><img src="u-mang-phoi_anh/2015_08_3-1079.jpg" alt="" width="747" height="629" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* U trung biểu mô ác tính</strong></span></p>
+<p><span class="c-xanh">– U trung biểu mô ác tính (malignant pleural mesothelioma)</span> là u ác tính nguyên phát của màng phổi:</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Thường được chẩn đoán ở tuổi 50–70; tỷ lệ nam:nữ khoảng 4:1 trong một số loạt bệnh, nhưng thay đổi theo quần thể. Phơi nhiễm amiăng là yếu tố nguy cơ chính, liên quan khoảng 80% trường hợp trong một số báo cáo; thời gian tiềm tàng thường kéo dài nhiều thập kỷ.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Thường có triệu chứng không đặc hiệu như đau ngực hoặc đau kiểu màng phổi, đau vai, khó thở và ho khan; sụt cân thường xuất hiện khi bệnh tiến triển. Tràn dịch màng phổi một bên gặp ở khoảng 90% trường hợp, thường là dịch tiết và đôi khi lẫn máu; giai đoạn sớm có thể ít triệu chứng.</p>
+<p><span class="c-xanh">– Đặc điểm mô bệnh học:</span> Gồm dạng biểu mô (epithelioid), dạng sarcomatoid và dạng hai thành phần (biphasic).</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh: </span><br>+ Dày màng phổi lan tỏa, dạng nốt, không đều hoặc phân múi; có thể lan vào màng phổi trung thất và khe liên thùy, bao quanh phổi. Giai đoạn tiến triển có thể xâm lấn trực tiếp phổi, trung thất, thành ngực, xương sườn và cơ hoành.<br>+ Dày màng phổi và tràn dịch một bên có thể cùng hiện diện; lượng dịch lớn có thể che lấp tổn thương màng phổi. Mảng màng phổi, đôi khi vôi hóa, có thể đi kèm và gợi ý phơi nhiễm amiăng nhưng không đặc hiệu cho u trung biểu mô.<br>+ Cạm bẫy: Tràn dịch lớn không nhất thiết đẩy trung thất sang bên đối diện; vỏ u hạn chế phổi nở và làm giảm thể tích phổi có thể làm mất dấu đẩy lệch dự kiến.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-mang-phoi_anh/20150505_155237_badamgiak23.jpg"><img src="u-mang-phoi_anh/20150505_155237_badamgiak23.jpg" alt="" width="1200" height="1307" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_917216.jpg"><img src="u-mang-phoi_anh/2015_08_917216.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_mesothelioma_001_Xray.vn_.jpg"><img src="u-mang-phoi_anh/2015_08_mesothelioma_001_Xray.vn_.jpg" alt="" width="1252" height="923" loading="lazy" decoding="async"></a></div>
+<p>+ Phân biệt: Dày màng phổi dạng nốt, bao quanh phổi hoặc liên quan màng phổi trung thất gợi ý ác tính; xâm lấn thành ngực hay di căn càng củng cố. Ngưỡng dày trên 1 cm được đánh giá chủ yếu bằng CT; X-quang không đủ để phân biệt chắc chắn dày màng phổi lành tính với ác tính.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2023_09_Screenshot-2023-09-25-225021.png"><img src="u-mang-phoi_anh/2023_09_Screenshot-2023-09-25-225021.png" alt="Nam 85 tuổi - Khó thở, ho máu, sút cân: U màng phổi" width="867" height="992" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2023_09_Screenshot-2023-09-25-225047.png"><img src="u-mang-phoi_anh/2023_09_Screenshot-2023-09-25-225047.png" alt="" width="1183" height="714" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_b44ae66de70626fb8c792090edb208-e1696876635441.jpg"><img src="u-mang-phoi_anh/2015_08_b44ae66de70626fb8c792090edb208-e1696876635441.jpg" alt="" width="1600" height="1582" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_mesothelioma-2-1_Xray.vn_.jpg"><img src="u-mang-phoi_anh/2015_08_mesothelioma-2-1_Xray.vn_.jpg" alt="" width="842" height="923" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_mesothelioma_plaques_Xray.vn_.jpg"><img src="u-mang-phoi_anh/2015_08_mesothelioma_plaques_Xray.vn_.jpg" alt="" width="898" height="923" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_mesothelioma-30-1.png"><img src="u-mang-phoi_anh/2015_08_mesothelioma-30-1.png" alt="" width="959" height="848" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-353.png"><img src="u-mang-phoi_anh/2015_08_2-353.png" alt="" width="460" height="364" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-344.png"><img src="u-mang-phoi_anh/2015_08_3-344.png" alt="" width="460" height="364" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-303.png"><img src="u-mang-phoi_anh/2015_08_4-303.png" alt="" width="460" height="364" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Di căn màng phổi</strong></span></p>
+<p><span class="c-xanh">– Di căn màng phổi (pleural metastases)</span> là nhóm u ác tính thường gặp nhất ở màng phổi.</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Ung thư phổi và ung thư vú là các nguồn nguyên phát thường gặp; lymphoma, ung thư buồng trứng và đường tiêu hóa cũng có thể di căn màng phổi. Đường lan tràn gồm bạch huyết, đường máu hoặc xâm lấn trực tiếp.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Tràn dịch màng phổi ác tính do di căn thường được xếp sau suy tim trái trong các nguyên nhân gây tràn dịch ở người lớn; thứ hạng thay đổi theo quần thể.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Có thể không triệu chứng; khi có tràn dịch, thường biểu hiện khó thở, ho hoặc đau ngực.</p>
+<p><span class="c-xanh">– Hình ảnh X-quang:</span><br>+ Dày màng phổi dạng nốt, khu trú hoặc lan tỏa, có thể nhiều ổ và liên quan cả lá thành lẫn lá tạng; X-quang thường không xác định chắc chắn lá nào bị ảnh hưởng.<br>+ Tràn dịch màng phổi có thể một bên hoặc hai bên, đôi khi che lấp các nốt màng phổi.<br>+ Hủy xương sườn, hạch trung thất lớn hoặc nốt phổi có thể đi kèm bệnh ác tính lan rộng nhưng không đặc hiệu cho di căn màng phổi.</p>
+<figure><a class="o-anh" href="u-mang-phoi_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.19413.41541.jpg"><img src="u-mang-phoi_anh/2015_08_1.3.6.1.4.1.19179.1.114422618612138215.3.19413.41541.jpg" alt="" width="1600" height="1766" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-324.jpeg"><img src="u-mang-phoi_anh/2015_08_1-324.jpeg" alt="" width="1024" height="948" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-327.jpeg"><img src="u-mang-phoi_anh/2015_08_2-327.jpeg" alt="" width="630" height="591" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-325.jpeg"><img src="u-mang-phoi_anh/2015_08_3-325.jpeg" alt="" width="630" height="600" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-310.jpeg"><img src="u-mang-phoi_anh/2015_08_4-310.jpeg" alt="" width="630" height="544" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* U lympho ác tính</strong></span></p>
+<p><span class="c-xanh">– U lympho màng phổi (pleural lymphoma)</span> là tổn thương lymphoma ác tính ở màng phổi.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Bệnh rất hiếm; một số tài liệu nêu lymphoma chiếm khoảng 2,5% các khối u thành ngực, nhưng tỷ lệ này không phản ánh riêng tần suất lymphoma màng phổi.</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Phần lớn tổn thương màng phổi là thứ phát từ lymphoma hệ thống; lymphoma nguyên phát ở màng phổi rất hiếm.</p>
+<p><span class="c-xanh">– Phân loại:</span> Thường gặp lymphoma không Hodgkin; lymphoma Hodgkin cũng có thể liên quan màng phổi.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Có thể gây khó thở, ho hoặc đau ngực, thường liên quan tràn dịch màng phổi; đôi khi kèm triệu chứng toàn thân của lymphoma như sốt, vã mồ hôi đêm hoặc sụt cân.</p>
+<p><span class="c-xanh">– Hình ảnh X-quang:</span><br>+ Tràn dịch màng phổi thường gặp, có thể một bên hoặc hai bên.<br>+ Dày màng phổi dạng nốt hoặc mảng, khu trú hoặc lan tỏa; đôi khi thấy các khối dưới màng phổi.<br>+ Hạch rốn phổi hoặc trung thất có thể đi kèm; các dấu hiệu này không đặc hiệu và cần được đối chiếu với bệnh lymphoma hệ thống.</p>
+<figure><a class="o-anh" href="u-mang-phoi_anh/a75f98ca7e5a34c03c9f7a7e108f66_jumbo.jpg"><img src="u-mang-phoi_anh/a75f98ca7e5a34c03c9f7a7e108f66_jumbo.jpg" alt="a75f98ca7e5a34c03c9f7a7e108f66_jumbo" width="923" height="803" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_Fig.-1.jpg"><img src="u-mang-phoi_anh/2015_08_Fig.-1.jpg" alt="" width="1600" height="1567" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Fig.-2.jpg"><img src="u-mang-phoi_anh/2015_08_Fig.-2.jpg" alt="" width="1600" height="1906" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Bild15-2.jpg"><img src="u-mang-phoi_anh/2015_08_Bild15-2.jpg" alt="" width="1025" height="1004" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Bild25.jpg"><img src="u-mang-phoi_anh/2015_08_Bild25.jpg" alt="" width="1490" height="771" loading="lazy" decoding="async"></a></div>
+<h2 id="iii-chan-doan-clvt">III. Chẩn đoán CLVT</h2>
+<h3 id="1-u-trung-bieu-mo-ac-tinh">1. U trung biểu mô ác tính</h3>
+<p><span class="c-xanh">– U trung biểu mô ác tính (malignant pleural mesothelioma, MPM)</span> là u ác tính nguyên phát của màng phổi; u xơ đơn độc màng phổi (SFTP) là thực thể riêng, không phải thể lành tính của u trung biểu mô.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ CT thường thấy dày màng phổi lan tỏa, dạng nốt và không đều; tổn thương có thể bao quanh phổi, lan vào màng phổi trung thất và khe liên thùy.<br>+ Dày màng phổi dạng nốt, dày trên 1 cm, bao quanh phổi hoặc liên quan màng phổi trung thất gợi ý ác tính. Sau tiêm thuốc cản quang, tổn thương thường ngấm thuốc; CT có tiêm giúp xác định phạm vi lan tràn và đánh giá xâm lấn.<br>+ Tràn dịch màng phổi một bên thường gặp; có thể khu trú hoặc làm khó đánh giá phần màng phổi bị dịch che phủ.<br>+ Giai đoạn tiến triển có thể xâm lấn cơ hoành, thành ngực, xương sườn hoặc trung thất; có thể kèm giảm thể tích phổi cùng bên và hạch rốn phổi/trung thất.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Xơ màng phổi lành tính thường dày nhẵn, ít tạo nốt; tuy nhiên, hình thái và mức độ ngấm thuốc có thể chồng lấp nên không thể xác định bản chất chỉ dựa vào một dấu hiệu CT.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_837340.jpg"><img src="u-mang-phoi_anh/2015_08_837340.jpg" alt="" width="899" height="664" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_837342.jpg"><img src="u-mang-phoi_anh/2015_08_837342.jpg" alt="" width="1600" height="675" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_871849.gif"><img src="u-mang-phoi_anh/2015_08_871849.gif" alt="" width="926" height="660" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_837344.jpg"><img src="u-mang-phoi_anh/2015_08_837344.jpg" alt="" width="1319" height="770" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_b0b6d3f5844fcc3e2d8fe1660d6998.jpg"><img src="u-mang-phoi_anh/2015_08_b0b6d3f5844fcc3e2d8fe1660d6998.jpg" alt="" width="1023" height="766" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_trungbieumo-1.jpg"><img src="u-mang-phoi_anh/2015_08_trungbieumo-1.jpg" alt="" width="1008" height="386" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_trungbieumo-2.jpg"><img src="u-mang-phoi_anh/2015_08_trungbieumo-2.jpg" alt="" width="1009" height="359" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_trungbieumo-3.jpg"><img src="u-mang-phoi_anh/2015_08_trungbieumo-3.jpg" alt="" width="1024" height="348" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_trungbieumo-4.jpg"><img src="u-mang-phoi_anh/2015_08_trungbieumo-4.jpg" alt="" width="1005" height="488" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_umangphoi22.jpg"><img src="u-mang-phoi_anh/2015_08_umangphoi22.jpg" alt="" width="1022" height="934" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_utrungmo-1.jpg"><img src="u-mang-phoi_anh/2015_08_utrungmo-1.jpg" alt="" width="736" height="554" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_utrungmo-2.jpg"><img src="u-mang-phoi_anh/2015_08_utrungmo-2.jpg" alt="" width="734" height="594" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_764687.jpg"><img src="u-mang-phoi_anh/2015_08_764687.jpg" alt="" width="648" height="568" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_837347.jpg"><img src="u-mang-phoi_anh/2015_08_837347.jpg" alt="" width="1600" height="821" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_837351.jpg"><img src="u-mang-phoi_anh/2015_08_837351.jpg" alt="" width="1039" height="798" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_gh-1.jpg"><img src="u-mang-phoi_anh/2015_08_gh-1.jpg" alt="" width="1019" height="807" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_gh-2.jpg"><img src="u-mang-phoi_anh/2015_08_gh-2.jpg" alt="" width="1193" height="1091" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_gh-3.jpg"><img src="u-mang-phoi_anh/2015_08_gh-3.jpg" alt="" width="1193" height="1112" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_gh-4.jpg"><img src="u-mang-phoi_anh/2015_08_gh-4.jpg" alt="" width="1193" height="987" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_ggdssgfgs.jpg"><img src="u-mang-phoi_anh/2015_08_ggdssgfgs.jpg" alt="" width="1526" height="602" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_661143.jpg"><img src="u-mang-phoi_anh/2015_08_661143.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_661145.jpg"><img src="u-mang-phoi_anh/2015_08_661145.jpg" alt="" width="720" height="413" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_661146.jpg"><img src="u-mang-phoi_anh/2015_08_661146.jpg" alt="" width="720" height="411" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_661148.jpg"><img src="u-mang-phoi_anh/2015_08_661148.jpg" alt="" width="702" height="509" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_949376.gif"><img src="u-mang-phoi_anh/2015_08_949376.gif" alt="" width="961" height="426" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-mang-phoi_anh/2015_08_rg.346130089.fig2a.jpeg"><img src="u-mang-phoi_anh/2015_08_rg.346130089.fig2a.jpeg" alt="" width="800" height="800" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_rg.346130089.fig2b.jpeg"><img src="u-mang-phoi_anh/2015_08_rg.346130089.fig2b.jpeg" alt="" width="834" height="715" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_rg.346130089.fig2c.jpeg"><img src="u-mang-phoi_anh/2015_08_rg.346130089.fig2c.jpeg" alt="" width="741" height="715" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-mang-phoi_anh/2015_08_g07ja14g01x.jpeg"><img src="u-mang-phoi_anh/2015_08_g07ja14g01x.jpeg" alt="" width="1600" height="1341" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_g07ja14g02x.jpeg"><img src="u-mang-phoi_anh/2015_08_g07ja14g02x.jpeg" alt="" width="1584" height="1512" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-478.jpeg"><img src="u-mang-phoi_anh/2015_08_1-478.jpeg" alt="" width="1014" height="919" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-480.jpeg"><img src="u-mang-phoi_anh/2015_08_2-480.jpeg" alt="" width="630" height="544" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-483.jpeg"><img src="u-mang-phoi_anh/2015_08_3-483.jpeg" alt="" width="630" height="564" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-467.jpeg"><img src="u-mang-phoi_anh/2015_08_4-467.jpeg" alt="" width="630" height="577" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_5-374.jpeg"><img src="u-mang-phoi_anh/2015_08_5-374.jpeg" alt="" width="630" height="600" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_6-148.jpeg"><img src="u-mang-phoi_anh/2015_08_6-148.jpeg" alt="" width="630" height="619" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_7-73.jpeg"><img src="u-mang-phoi_anh/2015_08_7-73.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_8-69.jpeg"><img src="u-mang-phoi_anh/2015_08_8-69.jpeg" alt="" width="630" height="559" loading="lazy" decoding="async"></a></div>
+<h3 id="2-di-can-mang-phoi">2. Di căn màng phổi</h3>
+<p>– CLVT có thể thấy nốt hoặc khối bám màng phổi đơn độc hay nhiều ổ; dày màng phổi dạng nốt có thể khu trú hoặc lan tỏa, liên quan một hoặc cả hai lá và rãnh liên thùy.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_871956.gif"><img src="u-mang-phoi_anh/2015_08_871956.gif" alt="" width="820" height="690" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Screenshot-2022-05-04-232923.jpg"><img src="u-mang-phoi_anh/2015_08_Screenshot-2022-05-04-232923.jpg" alt="" width="753" height="616" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_umangphoidondoc-2.jpg"><img src="u-mang-phoi_anh/2015_08_umangphoidondoc-2.jpg" alt="" width="1004" height="358" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_umangphoidondoc-1.jpg"><img src="u-mang-phoi_anh/2015_08_umangphoidondoc-1.jpg" alt="" width="1005" height="403" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_images_large_115184fig02.jpeg"><img src="u-mang-phoi_anh/2015_08_images_large_115184fig02.jpeg" alt="" width="1029" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_265362.jpg"><img src="u-mang-phoi_anh/2015_08_265362.jpg" alt="" width="1024" height="643" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_265368.jpg"><img src="u-mang-phoi_anh/2015_08_265368.jpg" alt="" width="1024" height="619" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_267955.jpg"><img src="u-mang-phoi_anh/2015_08_267955.jpg" alt="" width="637" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_917217.gif"><img src="u-mang-phoi_anh/2015_08_917217.gif" alt="" width="1263" height="687" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/287731.jpg"><img src="u-mang-phoi_anh/287731.jpg" alt="" width="1011" height="831" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/287734.jpg"><img src="u-mang-phoi_anh/287734.jpg" alt="" width="970" height="800" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/287726.jpg"><img src="u-mang-phoi_anh/287726.jpg" alt="" width="984" height="839" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/287728.jpg"><img src="u-mang-phoi_anh/287728.jpg" alt="" width="1024" height="838" loading="lazy" decoding="async"></a></div>
+<p>– Có thể kèm tràn dịch màng phổi, nốt nhu mô phổi hoặc hạch rốn phổi/trung thất tùy ung thư nguyên phát và mức độ lan tràn.<br>– Phân biệt: Dày màng phổi lan tỏa do di căn có thể khó phân biệt với u trung biểu mô ác tính. Tiền sử ung thư hoặc các tổn thương di căn khác hỗ trợ chẩn đoán thứ phát, nhưng hình ảnh CLVT đơn thuần có thể không phân biệt chắc chắn.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/tải-xuống.png"><img src="u-mang-phoi_anh/tải-xuống.png" alt="" width="759" height="590" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/83c57c750616386276d67ff5ef65ff_big_gallery.jpg"><img src="u-mang-phoi_anh/83c57c750616386276d67ff5ef65ff_big_gallery.jpg" alt="" width="630" height="460" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/516c56c39bc61a56b6ed5d46b5e215.jpg"><img src="u-mang-phoi_anh/516c56c39bc61a56b6ed5d46b5e215.jpg" alt="" width="1172" height="901" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/kjr-16-783-g002-l.jpg"><img src="u-mang-phoi_anh/kjr-16-783-g002-l.jpg" alt="" width="862" height="434" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/video_ct-1.jpg"><img src="u-mang-phoi_anh/video_ct-1.jpg" alt="" width="833" height="721" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/379915.jpg"><img src="u-mang-phoi_anh/379915.jpg" alt="" width="876" height="670" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/379926.jpg"><img src="u-mang-phoi_anh/379926.jpg" alt="" width="852" height="680" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/379928.jpg"><img src="u-mang-phoi_anh/379928.jpg" alt="" width="864" height="670" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/379929.jpg"><img src="u-mang-phoi_anh/379929.jpg" alt="" width="790" height="586" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_115184fig02.jpeg"><img src="u-mang-phoi_anh/2015_08_115184fig02.jpeg" alt="" width="1029" height="1280" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-422.jpeg"><img src="u-mang-phoi_anh/2015_08_1-422.jpeg" alt="" width="630" height="399" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-425.jpeg"><img src="u-mang-phoi_anh/2015_08_2-425.jpeg" alt="" width="630" height="399" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-423.jpeg"><img src="u-mang-phoi_anh/2015_08_3-423.jpeg" alt="" width="630" height="402" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-407.jpeg"><img src="u-mang-phoi_anh/2015_08_4-407.jpeg" alt="" width="630" height="406" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_5-329.jpeg"><img src="u-mang-phoi_anh/2015_08_5-329.jpeg" alt="" width="630" height="406" loading="lazy" decoding="async"></a></div>
+<h3 id="3-u-xo-mang-phoi">3. U xơ màng phổi</h3>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ SFTP thường là khối bám màng phổi, ranh giới rõ. U nhỏ có thể có dạng bán nguyệt, tạo góc tù với thành ngực, đậm độ và mức độ ngấm thuốc tương đối đồng nhất.<br>+ U lớn có thể phân thùy và không đồng nhất do hoại tử, xuất huyết hoặc thoái hóa nhầy/nang; vôi hóa cũng có thể gặp.<br>+ Nếu u có cuống, có thể thấy cuống bám vào màng phổi hoặc khe liên thùy; thay đổi vị trí trên các lần chụp theo thì hô hấp hỗ trợ nhận biết tính di động.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-mang-phoi_anh/2015_08_uxo.jpg"><img src="u-mang-phoi_anh/2015_08_uxo.jpg" alt="" width="1000" height="846" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_871949.gif"><img src="u-mang-phoi_anh/2015_08_871949.gif" alt="" width="842" height="668" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-mang-phoi_anh/2018_12_1-5.png"><img src="u-mang-phoi_anh/2018_12_1-5.png" alt="" width="1403" height="826" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2018_12_Bild11.jpg"><img src="u-mang-phoi_anh/2018_12_Bild11.jpg" alt="" width="1403" height="826" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2018_12_Bild12.jpg"><img src="u-mang-phoi_anh/2018_12_Bild12.jpg" alt="" width="1357" height="670" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-550.jpg"><img src="u-mang-phoi_anh/2015_08_1-550.jpg" alt="" width="692" height="696" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-548.jpg"><img src="u-mang-phoi_anh/2015_08_2-548.jpg" alt="" width="579" height="709" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-530.jpg"><img src="u-mang-phoi_anh/2015_08_3-530.jpg" alt="" width="557" height="469" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-471.jpg"><img src="u-mang-phoi_anh/2015_08_4-471.jpg" alt="" width="621" height="532" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2020_08_1-6.jpeg"><img src="u-mang-phoi_anh/2020_08_1-6.jpeg" alt="" width="1024" height="940" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2020_08_2-6.jpeg"><img src="u-mang-phoi_anh/2020_08_2-6.jpeg" alt="" width="630" height="531" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2020_08_3-7.jpeg"><img src="u-mang-phoi_anh/2020_08_3-7.jpeg" alt="" width="630" height="531" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2020_08_4-7.jpeg"><img src="u-mang-phoi_anh/2020_08_4-7.jpeg" alt="" width="630" height="537" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2020_08_5-8.jpeg"><img src="u-mang-phoi_anh/2020_08_5-8.jpeg" alt="" width="630" height="542" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">=&gt; Khu vực trung tâm ngấm thuốc kém tương ứng với vùng hoại tử hoặc xơ.</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_uxophoi1.jpg"><img src="u-mang-phoi_anh/2015_08_uxophoi1.jpg" alt="" width="1600" height="1533" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_917209.gif"><img src="u-mang-phoi_anh/2015_08_917209.gif" alt="" width="1258" height="692" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_917210.gif"><img src="u-mang-phoi_anh/2015_08_917210.gif" alt="" width="1147" height="712" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_917211.gif"><img src="u-mang-phoi_anh/2015_08_917211.gif" alt="" width="1267" height="717" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_PA-chest1-2.jpg"><img src="u-mang-phoi_anh/2015_08_PA-chest1-2.jpg" alt="" width="1250" height="1001" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lateral-chest1.jpg"><img src="u-mang-phoi_anh/2015_08_lateral-chest1.jpg" alt="" width="1038" height="1192" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Bild1-9.jpg"><img src="u-mang-phoi_anh/2015_08_Bild1-9.jpg" alt="" width="1488" height="700" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Bild2-7.jpg"><img src="u-mang-phoi_anh/2015_08_Bild2-7.jpg" alt="" width="1420" height="682" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_Bild16-1.jpg"><img src="u-mang-phoi_anh/2015_08_Bild16-1.jpg" alt="" width="758" height="686" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Bild26.jpg"><img src="u-mang-phoi_anh/2015_08_Bild26.jpg" alt="" width="612" height="683" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Answer1.jpg"><img src="u-mang-phoi_anh/2015_08_Answer1.jpg" alt="" width="1439" height="794" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Answer2.jpg"><img src="u-mang-phoi_anh/2015_08_Answer2.jpg" alt="" width="1469" height="714" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-169.jpeg"><img src="u-mang-phoi_anh/2015_08_1-169.jpeg" alt="" width="894" height="941" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-172.jpeg"><img src="u-mang-phoi_anh/2015_08_2-172.jpeg" alt="" width="756" height="937" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-169.jpeg"><img src="u-mang-phoi_anh/2015_08_3-169.jpeg" alt="" width="630" height="510" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-168.jpeg"><img src="u-mang-phoi_anh/2015_08_4-168.jpeg" alt="" width="630" height="510" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_5-122.jpeg"><img src="u-mang-phoi_anh/2015_08_5-122.jpeg" alt="" width="630" height="510" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-816.jpeg"><img src="u-mang-phoi_anh/2015_08_1-816.jpeg" alt="" width="1024" height="873" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-809.jpeg"><img src="u-mang-phoi_anh/2015_08_2-809.jpeg" alt="" width="630" height="626" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-795.jpeg"><img src="u-mang-phoi_anh/2015_08_3-795.jpeg" alt="" width="630" height="626" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-746.jpeg"><img src="u-mang-phoi_anh/2015_08_4-746.jpeg" alt="" width="630" height="626" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_5-603.jpeg"><img src="u-mang-phoi_anh/2015_08_5-603.jpeg" alt="" width="630" height="626" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_6-301.jpeg"><img src="u-mang-phoi_anh/2015_08_6-301.jpeg" alt="" width="630" height="626" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_7-118.jpeg"><img src="u-mang-phoi_anh/2015_08_7-118.jpeg" alt="" width="630" height="626" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_8-104.jpeg"><img src="u-mang-phoi_anh/2015_08_8-104.jpeg" alt="" width="626" height="630" loading="lazy" decoding="async"></a></div>
+<h3 id="4-u-mo-mang-phoi">4. U mỡ màng phổi</h3>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Khối có đậm độ mỡ đại thể, thường khoảng −120 đến −60 HU, bờ rõ và tạo góc tù với thành ngực.<br>+ Có thể có các vách mô mềm mảnh hoặc vỏ bao mỏng dưới 2 mm; thường không có nốt mô mềm hay thành phần đặc.<br>+ Vôi hóa hiếm gặp.<br><span class="c-xanh">– Phân biệt:</span> Vách dày, nốt mô mềm hoặc thành phần đặc trong khối chứa mỡ làm tăng nghi ngờ u mỡ ác tính (liposarcoma), nhưng không dấu hiệu đơn lẻ nào đủ để khẳng định ác tính.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_871920.jpg"><img src="u-mang-phoi_anh/2015_08_871920.jpg" alt="" width="909" height="670" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_umo.jpg"><img src="u-mang-phoi_anh/2015_08_umo.jpg" alt="" width="1004" height="835" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_fghj-1.jpg"><img src="u-mang-phoi_anh/2015_08_fghj-1.jpg" alt="" width="960" height="623" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_umotyyyu.jpg"><img src="u-mang-phoi_anh/2015_08_umotyyyu.jpg" alt="" width="1485" height="860" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_764695.jpg"><img src="u-mang-phoi_anh/2015_08_764695.jpg" alt="" width="816" height="350" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_939490.jpg"><img src="u-mang-phoi_anh/2015_08_939490.jpg" alt="" width="1346" height="652" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_871920.gif"><img src="u-mang-phoi_anh/2015_08_871920.gif" alt="" width="907" height="668" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_pleural-lipoma-6-1.jpg"><img src="u-mang-phoi_anh/2015_08_pleural-lipoma-6-1.jpg" alt="" width="1600" height="1536" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-1162.jpg"><img src="u-mang-phoi_anh/2015_08_1-1162.jpg" alt="" width="647" height="488" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-1156.jpg"><img src="u-mang-phoi_anh/2015_08_2-1156.jpg" alt="" width="647" height="488" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-1120.jpg"><img src="u-mang-phoi_anh/2015_08_3-1120.jpg" alt="" width="647" height="488" loading="lazy" decoding="async"></a></div>
+<h3 id="5-sarcoma-mang-hoat-dich">5. Sarcoma màng hoạt dịch</h3>
+<p><span class="c-xanh">– Sarcoma màng hoạt dịch (synovial sarcoma, SS)</span> là sarcoma trung mô ác tính; tên gọi không có nghĩa khối u xuất phát từ màng hoạt dịch. Sarcoma màng phổi–phổi nguyên phát là thể rất hiếm.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Thường gặp ở tuổi 30–50; y văn ghi nhận khoảng tuổi rộng hơn, từ 9 đến 77 tuổi. Chưa xác lập được ưu thế giới nhất quán hoặc yếu tố nguy cơ đặc hiệu.</p>
+<p><span class="c-xanh">– Vị trí:</span> Có thể xuất phát từ màng phổi hoặc nhu mô phổi; trong các trường hợp ở lồng ngực, đôi khi khó xác định chính xác vị trí khởi phát. Cần loại trừ sarcoma màng hoạt dịch di căn từ vị trí ngoài lồng ngực.</p>
+<p><span class="c-xanh">– Kích thước:</span> Thường đã lớn khi được phát hiện; các loạt ca nhỏ ghi nhận kích thước khoảng 5–20 cm, nhưng đây không phải khoảng tham chiếu cho mọi trường hợp.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Đa số có chuyển đoạn t(X;18)(p11;q11) tạo gen dung hợp SS18–SSX. Mô bệnh học thường là dạng một pha hình thoi; cũng có thể là dạng hai pha hoặc kém biệt hóa.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Thường không đặc hiệu, gồm khó thở, ho, đau ngực hoặc ho ra máu; có thể kèm tràn dịch màng phổi, đôi khi là tràn máu màng phổi.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ CLVT thường thấy khối mô mềm bờ rõ, xuất phát từ màng phổi hoặc nhu mô phổi; khối có thể lớn và khó xác định chính xác vị trí khởi phát.<br>+ Khối thường không đồng nhất, gồm thành phần đặc và các vùng nang, hoại tử hoặc xuất huyết; sau tiêm thuốc cản quang, thành phần đặc ngấm thuốc không đồng nhất, đôi khi có viền ngoại vi mỏng ngấm thuốc.<br>+ Tràn dịch màng phổi cùng bên thường gặp. Vôi hóa thường không thấy nhưng vẫn có thể xuất hiện; khối lớn có thể gây xẹp phổi hoặc di lệch trung thất.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Quan trọng nhất là sarcoma màng hoạt dịch di căn từ vị trí ngoài lồng ngực; cần tìm ổ nguyên phát và đối chiếu mô bệnh học, hóa mô miễn dịch hoặc xét nghiệm gen dung hợp. Các u phổi nguyên phát, carcinoid, u xơ đơn độc màng phổi và u trung biểu mô ác tính cũng có thể có hình ảnh chồng lấp.</p>
+<p><span class="c-xanh">– Biến chứng:</span> Có thể xâm lấn tại chỗ, gây xẹp phổi hoặc tràn máu màng phổi; di căn thường theo đường máu, có thể đến phổi, xương, tim hoặc não.</p>
+<p><span class="c-xanh">– Theo dõi:</span> Có nguy cơ tái phát tại chỗ và di căn xa sau điều trị. Một loạt nhỏ 12 bệnh nhân ghi nhận tái phát tại chỗ ở 75% trong 2 năm đầu; cần thận trọng khi khái quát tỷ lệ này. Theo dõi hình ảnh kéo dài sau cắt bỏ, với lịch chụp cá thể hóa theo nhóm điều trị sarcoma.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-477.jpeg"><img src="u-mang-phoi_anh/2015_08_1-477.jpeg" alt="" width="969" height="973" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-479.jpeg"><img src="u-mang-phoi_anh/2015_08_2-479.jpeg" alt="" width="630" height="583" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-482.jpeg"><img src="u-mang-phoi_anh/2015_08_3-482.jpeg" alt="" width="591" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-466.jpeg"><img src="u-mang-phoi_anh/2015_08_4-466.jpeg" alt="" width="630" height="565" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_5-373.jpeg"><img src="u-mang-phoi_anh/2015_08_5-373.jpeg" alt="" width="603" height="558" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-sieu-am">IV. Chẩn đoán siêu âm</h2>
+<p><span class="c-xanh">– Dày màng phổi:</span><br>+ Có thể khu trú hoặc lan tỏa; bề mặt dày không đều, dạng nốt hoặc mảng.<br>+ Dày dạng nốt, bờ không đều hoặc có xâm lấn thành ngực làm tăng nghi ngờ tổn thương ác tính nhưng không đặc hiệu.</p>
+<p><span class="c-xanh">– Khối màng phổi:</span> Thường thấy khối mô đặc giảm âm hoặc không đồng nhất, tiếp giáp màng phổi; hình thái và độ hồi âm thay đổi, không đủ để xác định mô học.</p>
+<p><span class="c-xanh">– Tràn dịch màng phổi:</span> Thường đi kèm nhưng không bắt buộc; dịch có thể đơn giản hoặc có hồi âm, vách hóa và khu trú. Dịch tạo cửa sổ âm học giúp đánh giá bề mặt màng phổi và các nốt màng phổi lân cận.</p>
+<p><span class="c-xanh">– Vai trò và giới hạn:</span> Siêu âm phát hiện dịch lượng ít, đánh giá tổn thương sát thành ngực và hướng dẫn chọc hút hoặc sinh thiết khi cần. Xương sườn và khí trong phổi hạn chế vùng khảo sát; siêu âm không xác định chắc chắn bản chất lành–ác hoặc mức độ lan tràn toàn bộ.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_u-mang-phoi-2.png"><img src="u-mang-phoi_anh/2015_08_u-mang-phoi-2.png" alt="" width="1222" height="493" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_u-mang-phoi.png"><img src="u-mang-phoi_anh/2015_08_u-mang-phoi.png" alt="" width="945" height="874" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Picture1.jpg"><img src="u-mang-phoi_anh/2015_08_Picture1.jpg" alt="" width="845" height="766" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Picture2-1.jpg"><img src="u-mang-phoi_anh/2015_08_Picture2-1.jpg" alt="" width="1500" height="1049" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Picture3-1.jpg"><img src="u-mang-phoi_anh/2015_08_Picture3-1.jpg" alt="" width="1451" height="1100" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_43397-Afbeelding1.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_43397-Afbeelding1.jpg" alt="" width="352" height="390" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_43398-Afbeelding2.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_43398-Afbeelding2.jpg" alt="" width="351" height="390" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_43401-Afbeelding5.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_43401-Afbeelding5.jpg" alt="" width="354" height="390" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_43403-Afbeelding7.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_43403-Afbeelding7.jpg" alt="" width="354" height="389" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_43402-Afbeelding6.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_43402-Afbeelding6.jpg" alt="" width="354" height="390" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_21457.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_21457.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_21458.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_21458.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_21460.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_21460.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_21461.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_21461.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_21463.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_21463.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_4456.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_4456.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_4457.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_4457.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_4458.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_4458.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_4459.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_4459.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_4462.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_4462.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_34230-Afbeelding1.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_34230-Afbeelding1.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_34232-Afbeelding3.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_34232-Afbeelding3.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_34233-Afbeelding4.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_34233-Afbeelding4.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_34235-Afbeelding6.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_34235-Afbeelding6.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_lbox_34236-Afbeelding7.jpg"><img src="u-mang-phoi_anh/2015_08_lbox_34236-Afbeelding7.jpg" alt="" width="600" height="450" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5: di căn màng phổi + dịch màng phổi</span></p>
+<h2 id="v-chan-doan-phan-biet">V. Chẩn đoán phân biệt</h2>
+<figure><a class="o-anh" href="u-mang-phoi_anh/2015_08_CDHA-U-Mang-Phoi-scaled.png"><img src="u-mang-phoi_anh/2015_08_CDHA-U-Mang-Phoi-scaled.png" alt="" width="1600" height="900" loading="lazy" decoding="async"></a></figure>
+<h3 id="1-ton-thuong-khu-tru">1. Tổn thương khu trú</h3>
+<p><span class="c-xanh">* Tràn dịch màng phổi khu trú</span><br>– Cơ chế hình thành: Dính giữa hai lá màng phổi làm dịch bị khu trú trong một hoặc nhiều ngăn.<br>– Vị trí và tư thế: Dịch có thể khu trú ở vùng dưới phổi, thành ngực, trung thất hoặc rãnh liên thùy; thường ít hoặc không di chuyển khi thay đổi tư thế.<br>– Hình ảnh X-quang:<br>+ Có thể tạo bóng mờ ngoại vi, giống tổn thương màng phổi hoặc thành ngực; bờ thấy rõ hay không tùy vị trí và hướng chiếu.<br>+ Dịch trong rãnh liên thùy thường có hình thấu kính, hai đầu thuôn nhọn, tạo hình ảnh “u giả”. Dịch khu trú sát thành ngực có thể chỉ thấy một phần đường bờ.<br>+ Dày màng phổi lân cận hoặc các dấu hiệu tràn dịch khác có thể giúp nhận diện, nhưng không đặc hiệu.<br>– Phân biệt: Không nên dựa riêng vào góc tiếp xúc với thành ngực để kết luận. Siêu âm hoặc CLVT giúp xác nhận bản chất dịch và phân biệt với khối mô đặc.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_871998.gif"><img src="u-mang-phoi_anh/2015_08_871998.gif" alt="" width="940" height="594" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_ee3a723d687192d68d908b9849a81e-e1696872960229.jpg"><img src="u-mang-phoi_anh/2015_08_ee3a723d687192d68d908b9849a81e-e1696872960229.jpg" alt="" width="1600" height="1522" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_fghtr.png"><img src="u-mang-phoi_anh/2015_08_fghtr.png" alt="" width="1475" height="665" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_20160310_111420_Xray.vn_.jpg"><img src="u-mang-phoi_anh/2015_08_20160310_111420_Xray.vn_.jpg" alt="" width="774" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_FB_IMG_1536203267151_xray.vn_.jpg"><img src="u-mang-phoi_anh/2015_08_FB_IMG_1536203267151_xray.vn_.jpg" alt="" width="736" height="888" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_20150707_112921_Xray.vn_.jpg"><img src="u-mang-phoi_anh/2015_08_20150707_112921_Xray.vn_.jpg" alt="" width="730" height="888" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_20150707_113012_Xray.vn_.jpg"><img src="u-mang-phoi_anh/2015_08_20150707_113012_Xray.vn_.jpg" alt="" width="1065" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_20150707_113038_20150707121241434_Xray.vn_.jpg"><img src="u-mang-phoi_anh/2015_08_20150707_113038_20150707121241434_Xray.vn_.jpg" alt="" width="1077" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_20150707_113101_Xray.vn_.jpg"><img src="u-mang-phoi_anh/2015_08_20150707_113101_Xray.vn_.jpg" alt="" width="1073" height="938" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">* Khối u thành ngực / xương sườn.</span></p>
+<p>– U xuất phát từ xương sườn hoặc mô mềm thành ngực có thể tạo bóng mờ ngoại vi áp sát màng phổi; thành phần mô mềm phát triển vào lồng ngực dễ giả khối màng phổi.<br>– Trên X-quang, tìm tổn thương xương đi kèm tại vị trí khối như tiêu xương, phá hủy vỏ xương, giãn rộng xương, xơ cứng hoặc phản ứng màng xương. Khối mô mềm thành ngực không nhất thiết gây biến đổi xương.<br>– Bóng mờ ngoài nhu mô phổi có thể có đáy rộng, bờ thuôn và tạo góc tù với thành ngực; các dấu này chỉ gợi ý vị trí ngoài phổi, không đủ để phân biệt chắc chắn khối thành ngực với khối màng phổi.<br>– CLVT giúp xác định tâm tổn thương, liên quan với xương sườn và mô mềm, đồng thời đánh giá phá hủy xương và xâm lấn màng phổi hoặc phổi. Phá hủy xương cũng có thể do u màng phổi xâm lấn thứ phát, nên không tự nó chứng minh khối u xuất phát từ thành ngực.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/b83cf248f4f5b613ad22bbc3b16eb53f.jpg"><img src="u-mang-phoi_anh/b83cf248f4f5b613ad22bbc3b16eb53f.jpg" alt="" width="593" height="557" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/Bild7-1.jpg"><img src="u-mang-phoi_anh/Bild7-1.jpg" alt="" width="1483" height="751" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/Bild8-1.jpg"><img src="u-mang-phoi_anh/Bild8-1.jpg" alt="" width="1461" height="633" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/Bild11.jpg"><img src="u-mang-phoi_anh/Bild11.jpg" alt="" width="1500" height="760" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/Bild3.jpg"><img src="u-mang-phoi_anh/Bild3.jpg" alt="" width="1208" height="509" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_Bild5-1.jpg"><img src="u-mang-phoi_anh/2015_08_Bild5-1.jpg" alt="" width="1484" height="702" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_917213.jpg"><img src="u-mang-phoi_anh/2015_08_917213.jpg" alt="Đa u tủy xương" width="1280" height="720" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">* Tụ máu thành ngực (ngoài màng phổi thành):</span></p>
+<p>– Thường liên quan chấn thương và gãy xương sườn; ổ máu tụ nằm ngoài lá thành màng phổi.<br>– Trên X-quang, có thể tạo bóng mờ ngoại vi dạng thấu kính, đáy rộng, lồi về phía phổi và tạo góc tù với thành ngực; dấu này không đặc hiệu và có thể giống khối màng phổi.<br>– CLVT giúp xác định ổ tụ máu nằm ngoài màng phổi, đánh giá gãy xương sườn và thành phần mô mềm; máu tụ cấp có thể tăng đậm độ.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-mang-phoi_anh/2015_08_115184fig11.jpeg"><img src="u-mang-phoi_anh/2015_08_115184fig11.jpeg" alt="" width="1150" height="1190" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-194.jpg"><img src="u-mang-phoi_anh/2015_08_3-194.jpg" alt="" width="1333" height="946" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_872082.gif"><img src="u-mang-phoi_anh/2015_08_872082.gif" alt="" width="885" height="648" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_image00906.jpeg"><img src="u-mang-phoi_anh/2015_08_image00906.jpeg" alt="" width="1600" height="683" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_image00908.jpeg"><img src="u-mang-phoi_anh/2015_08_image00908.jpeg" alt="" width="993" height="822" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_index-118.jpg"><img src="u-mang-phoi_anh/2015_08_index-118.jpg" alt="" width="1232" height="916" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">* Mảng màng phổi (Pneural plaque):</span></p>
+<p>– Là biểu hiện màng phổi thường gặp nhất của phơi nhiễm amiăng; thường xuất hiện sau thời gian tiềm tàng khoảng 20–30 năm.<br>– Trên hình ảnh, thường là mảng dày khu trú, bờ rõ ở màng phổi thành; hay gặp hai bên, nhất là vùng sau-bên của thành ngực và mặt vòm hoành. Mảng có thể vôi hóa; góc sườn-hoành thường được bảo tồn.<br>– Mảng màng phổi lành tính, không phải u và không được xem là tổn thương tiền ung thư. Tuy nhiên, tiền sử phơi nhiễm amiăng làm tăng nguy cơ các bệnh ác tính liên quan, nên cần phân biệt mảng khu trú với dày màng phổi dạng nốt hoặc lan tỏa.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-551.jpg"><img src="u-mang-phoi_anh/2015_08_1-551.jpg" alt="" width="1600" height="1583" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-549.jpg"><img src="u-mang-phoi_anh/2015_08_2-549.jpg" alt="" width="1600" height="1583" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/Bild13.jpg"><img src="u-mang-phoi_anh/Bild13.jpg" alt="" width="1466" height="650" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_871984.gif"><img src="u-mang-phoi_anh/2015_08_871984.gif" alt="" width="908" height="640" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_images_06_11_7626_03a.jpeg"><img src="u-mang-phoi_anh/2015_08_images_06_11_7626_03a.jpeg" alt="" width="1600" height="1185" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_images_06_11_7626_03b.jpeg"><img src="u-mang-phoi_anh/2015_08_images_06_11_7626_03b.jpeg" alt="" width="1600" height="1148" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-437.jpeg"><img src="u-mang-phoi_anh/2015_08_1-437.jpeg" alt="" width="1280" height="973" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-441.jpeg"><img src="u-mang-phoi_anh/2015_08_2-441.jpeg" alt="" width="1280" height="950" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-439.jpeg"><img src="u-mang-phoi_anh/2015_08_3-439.jpeg" alt="" width="1280" height="987" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="u-mang-phoi_anh/2015_08_a-32.jpeg"><img src="u-mang-phoi_anh/2015_08_a-32.jpeg" alt="" width="1280" height="1084" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_b-26.jpeg"><img src="u-mang-phoi_anh/2015_08_b-26.jpeg" alt="" width="1280" height="606" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_c-20.jpeg"><img src="u-mang-phoi_anh/2015_08_c-20.jpeg" alt="" width="1280" height="1027" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">* U phổi ngoại vi:</span></p>
+<p>– U phổi ngoại vi sát màng phổi có thể tạo bóng mờ giống tổn thương màng phổi. Trên X-quang, bờ tiếp giáp nhu mô phổi có thể không rõ hoặc tua gai; khối thường tạo góc nhọn với thành ngực.<br>– Ngược lại, tổn thương ngoài nhu mô phổi thường có bờ lồi rõ với phổi và tạo góc tù với thành ngực. Đây là dấu gợi ý vị trí, không đủ để xác định nguồn gốc.<br>– CLVT giúp xác định tâm khối nằm trong nhu mô phổi hay ngoài phổi; khi u lớn hoặc xâm lấn, các dấu bờ và góc tiếp xúc có thể không còn điển hình.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/Q1.jpg"><img src="u-mang-phoi_anh/Q1.jpg" alt="" width="1474" height="739" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/Bild1-2.jpg"><img src="u-mang-phoi_anh/Bild1-2.jpg" alt="" width="1286" height="668" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/Bild4-1.jpg"><img src="u-mang-phoi_anh/Bild4-1.jpg" alt="" width="1382" height="773" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2016_09_871580.png"><img src="u-mang-phoi_anh/2016_09_871580.png" alt="" width="972" height="594" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_images_large_115184fig01a.jpeg"><img src="u-mang-phoi_anh/2015_08_images_large_115184fig01a.jpeg" alt="" width="1160" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_images_large_115184fig01b.jpeg"><img src="u-mang-phoi_anh/2015_08_images_large_115184fig01b.jpeg" alt="" width="1162" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_917214.gif"><img src="u-mang-phoi_anh/2015_08_917214.gif" alt="" width="1272" height="540" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">* Dày tổ chức mỡ ngoài màng phổi (Extrapleural fat).</span></p>
+<p>– Tăng lượng mỡ ngoài màng phổi có thể tạo dải hoặc bóng mờ ngoại vi trên X-quang, giả dày màng phổi, tràn dịch khu trú hoặc khối ngoài phổi.<br>– CLVT xác định tổn thương nằm ngoài lá thành màng phổi và có đậm độ mỡ đồng nhất, giúp phân biệt với dịch hoặc khối mô mềm.<br>– Phân biệt dày mỡ thật với dấu dải mỡ ngoài màng phổi bị đẩy lệch vào trong bởi một khối hoặc ổ dịch. Dày không đối xứng, bờ thâm nhiễm hoặc tăng đậm độ không nên mặc nhiên xem là mỡ lành tính.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="u-mang-phoi_anh/2015_08_12345-3.png"><img src="u-mang-phoi_anh/2015_08_12345-3.png" alt="" width="1167" height="1079" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_939437.jpg"><img src="u-mang-phoi_anh/2015_08_939437.jpg" alt="" width="1409" height="402" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_mothanhnguc-1.jpg"><img src="u-mang-phoi_anh/2015_08_mothanhnguc-1.jpg" alt="" width="1181" height="995" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-423.jpeg"><img src="u-mang-phoi_anh/2015_08_4-423.jpeg" alt="" width="1600" height="1260" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_daymangphoi.jpg"><img src="u-mang-phoi_anh/2015_08_daymangphoi.jpg" alt="" width="1009" height="732" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_mothanhnguc-3.jpg"><img src="u-mang-phoi_anh/2015_08_mothanhnguc-3.jpg" alt="" width="908" height="721" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_mothanhnguc-2.jpg"><img src="u-mang-phoi_anh/2015_08_mothanhnguc-2.jpg" alt="" width="1482" height="1072" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_1-175.png"><img src="u-mang-phoi_anh/2015_08_1-175.png" alt="" width="1024" height="1018" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_2-515.jpeg"><img src="u-mang-phoi_anh/2015_08_2-515.jpeg" alt="" width="1024" height="984" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_3-181.png"><img src="u-mang-phoi_anh/2015_08_3-181.png" alt="" width="630" height="426" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_4-170.png"><img src="u-mang-phoi_anh/2015_08_4-170.png" alt="" width="630" height="435" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_5-145.png"><img src="u-mang-phoi_anh/2015_08_5-145.png" alt="" width="630" height="403" loading="lazy" decoding="async"></a></div>
+<h3 id="2-ton-thuong-lan-toa">2. Tổn thương lan tỏa</h3>
+<p><span class="c-xanh">* Dày màng phổi lành tính</span></p>
+<p><span class="c-xanh">– Tiêu chuẩn hình ảnh:</span> Dày màng phổi lan tỏa kiểu xơ hóa thường được mô tả trên CLVT với chiều dày &gt; 3 mm, bề rộng &gt; 5 cm và chiều dài theo trục đầu–chân &gt; 8 cm. Các kích thước này gợi ý kiểu hình lành tính nhưng không đủ để tự xác định bản chất.</p>
+<p><span class="c-xanh">– Vị trí và biểu hiện:</span> Thường ảnh hưởng màng phổi thành vùng sườn và cạnh cột sống; màng phổi trung thất ít bị ảnh hưởng. Đây là bất thường màng phổi thường gặp, nhiều trường hợp không triệu chứng; xơ hóa rộng có thể làm giảm thể tích phổi và hạn chế thông khí.</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Có thể gặp sau phơi nhiễm amiăng, viêm mủ màng phổi, tràn máu màng phổi, lao, chấn thương, xạ trị, phẫu thuật, xơ phổi hoặc do thuốc.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Dày màng phổi dạng xơ thường trơn, liên tục; có thể kèm giảm thể tích phổi, vôi hóa và tăng sinh mỡ ngoài màng phổi. Dày dạng nốt, bao quanh phổi, liên quan màng phổi trung thất hoặc xâm lấn thành ngực làm tăng nghi ngờ ác tính.<br>+ Dày màng phổi đỉnh (apical cap) thường lành tính, liên quan xơ hóa dưới màng phổi theo tuổi; có thể kèm co kéo mỡ ngoài màng phổi. Trên X-quang thường là đám mờ bờ rõ, nhẵn hoặc hơi lượn sóng; thường rõ bên phải hơn nhưng cũng có thể hai bên.<br>+ Dày màng phổi đỉnh &gt; 2 cm cần được đánh giá thêm để loại trừ u rãnh trên (Pancoast tumor) và các nguyên nhân khác. Dày đỉnh cũng có thể liên quan nhiễm trùng, u hoặc tụ máu; xơ hóa thùy trên kèm vôi hóa gợi ý di chứng lao.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="u-mang-phoi_anh/2015_08_04c5f9a753dfdf399b1b53f22fdc8e_jumbo.jpeg"><img src="u-mang-phoi_anh/2015_08_04c5f9a753dfdf399b1b53f22fdc8e_jumbo.jpeg" alt="" width="1024" height="1013" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_837329.jpg"><img src="u-mang-phoi_anh/2015_08_837329.jpg" alt="" width="761" height="559" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/af54b625af8a01f5127c4ed888d8ea.jpg"><img src="u-mang-phoi_anh/af54b625af8a01f5127c4ed888d8ea.jpg" alt="" width="1371" height="1228" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/F2.large_-19.jpg"><img src="u-mang-phoi_anh/F2.large_-19.jpg" alt="" width="1422" height="1114" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/F3.large_-9.jpg"><img src="u-mang-phoi_anh/F3.large_-9.jpg" alt="" width="1600" height="1041" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/jkms-23-616-g001-l.jpg"><img src="u-mang-phoi_anh/jkms-23-616-g001-l.jpg" alt="" width="992" height="337" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/16bf5d20f1908b74f3c8cf9241fba7_big_gallery.jpg"><img src="u-mang-phoi_anh/16bf5d20f1908b74f3c8cf9241fba7_big_gallery.jpg" alt="" width="630" height="447" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/20170523_104253_xray.vn_.png"><img src="u-mang-phoi_anh/20170523_104253_xray.vn_.png" alt="" width="1200" height="1017" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/20170601_150845_xray.vn_.png"><img src="u-mang-phoi_anh/20170601_150845_xray.vn_.png" alt="" width="1200" height="770" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_872015.gif"><img src="u-mang-phoi_anh/2015_08_872015.gif" alt="Lao màng phổi" width="854" height="614" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="u-mang-phoi_anh/2015_08_rg.346130089.fig4a.jpeg"><img src="u-mang-phoi_anh/2015_08_rg.346130089.fig4a.jpeg" alt="" width="900" height="776" loading="lazy" decoding="async"></a><a class="o-anh" href="u-mang-phoi_anh/2015_08_rg.346130089.fig4b.jpeg"><img src="u-mang-phoi_anh/2015_08_rg.346130089.fig4b.jpeg" alt="" width="900" height="710" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><em><span class="c-xanh">* Imaging manifestations of pleural tumors – M C Dynes, E M White, W A Fry, and G G Ghahremani<br>* Tumorlike Conditions of the Pleura – Christopher M. Walker, MD, Julie E. Takasugi, MD<br>* FDG PET/CT in the Management of Primary Pleural Tumors and Pleural Metastases – Matthew Kruse, Steven J. Sherry, Vasavi Paidpally<br>* Pleural and pleural space diseases: a pictorial review – M. Mereu, E. Di Nicola, F. De Filippis<br>* Localized Fibrous Tumors of the Pleura – M. Villanueva Delgado, P. Hernández Palomino, J. Sánchez Hernández<br>* Pleural, or extrapleural, that is the question. Key signs to diagnosis an extrapleural mass on chest radiograph – C. Santos Montón, J. M. Sánchez Barrado , S. F. Pozo González<br>* The Radiological Espectrum Of Pleural Pathology – A. M. Vargas Díaz, J. Grasa Díaz, F. J. Rodríguez Recio<br>* Malignant pleural mesothelioma: radiologic and pathologic findings – A. Thomas, E. Pallisa, O. Persiva Morenza<br>* Multidetector CT for Evaluation of the Extrapleural Space – Mario G. Santamarina , Ignacio Beddings, Guillermo V. Lermanda Holmgren<br>* Tell me your sign! A support for chest x-ray reporting – C. Valdesi, M. Mereu, A. Farchione<br>* Pleural pathology – a primer for radiologists – A. Gangahar<br>* Radiological review of pleural tumors – Binit Sureka, Brij Bhushan Thukral, Mahesh Kumar Mittal<br>* Solid Pleural Lesions – Tamara Hussein-Jelen<br>* Imaging characteristics of pleural tumours – Luca De Paoli, Emilio Quaia, Gabriele Poillucci<br>* Grainger &amp; Allison’s Diagnostic Radiology – Andreas Adam<br>* Asbestos – forbidden, but not forgotten – L. Tamkevičiūtė<br>* Solitary fibrous tumours: radiologic features of thoracic, extrathoracic and malignant disease – L. Cavero Barreras, N. Lizarraga Oroz, A. Espinal Soria<br>* More than just pleural thickening: A multimodality approach to pleural lesions – A. A. A. M. Al-Rashid, A. Kambal, F. S. R. Ameerudeen Moulana, S. B. Ladumor, L. Aker, M. A. M. Mohamed; DOHA/QA</span></em></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cắt Phổi</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>Cắt Phổi</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/cat-phoi/" target="_blank" rel="noopener">Xray.vn — xray.vn/cat-phoi</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Cắt phổi (pneumonectomy)</span> là phẫu thuật cắt bỏ toàn bộ một bên phổi:<br>+ Ở ung thư phổi không tế bào nhỏ, có thể cân nhắc khi không thể đạt diện cắt âm tính bằng phẫu thuật bảo tồn hơn và người bệnh đủ dự trữ tim phổi. Với bệnh lành tính như lao phổi phá hủy hoặc giãn phế quản lan tỏa một bên, chỉ cân nhắc ở trường hợp được tuyển chọn, khi bệnh nặng và không kiểm soát được bằng điều trị bảo tồn.<br>+ Cắt phổi làm giảm dự trữ thông khí và giường mạch phổi; áp lực động mạch phổi và gánh thất phải có thể tăng. Cần đánh giá chức năng hô hấp và tim mạch trước mổ, gồm chức năng phổi dự đoán sau mổ và khả năng gắng sức khi phù hợp.<br>+ Cạm bẫy: Bệnh phổi tắc nghẽn mạn tính đơn thuần không phải chỉ định cắt phổi thường quy; phẫu thuật giảm thể tích phổi là một thủ thuật khác. Cắt phổi do chấn thương rất hiếm, chỉ cân nhắc như biện pháp cứu mạng khi tổn thương rốn phổi không thể kiểm soát bằng cách bảo tồn.<br>+ Dự trữ tim phổi không đủ để chịu đựng phẫu thuật là yếu tố loại trừ quan trọng; tăng áp phổi nặng làm tăng nguy cơ phẫu thuật. Với mục tiêu điều trị triệt căn ung thư, cần đánh giá giai đoạn bệnh và khả năng phẫu thuật theo hội chẩn đa chuyên khoa.</p>
+<figure><a class="o-anh" href="cat-phoi_anh/2015_09_cat-phoi-dai-cuong-ngang.jpg"><img src="cat-phoi_anh/2015_09_cat-phoi-dai-cuong-ngang.jpg" alt="Sơ đồ khoang sau cắt phổi: ban đầu chứa khí, sau đó dịch tích tụ dần." width="1200" height="800" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Hai phẫu thuật thường được phân biệt là cắt phổi chuẩn và cắt phổi ngoài màng phổi:</span><br>+ Cắt phổi chuẩn (standard pneumonectomy) lấy bỏ toàn bộ phổi bên bệnh. Trong phẫu thuật ung thư, thường kèm đánh giá và nạo hạch rốn phổi, trung thất theo chỉ định. Chỉ lựa chọn khi cần cắt toàn bộ phổi để đạt diện cắt âm tính và không thể thực hiện phẫu thuật bảo tồn hơn.<br>+ Cắt phổi ngoài màng phổi (extrapleural pneumonectomy, EPP) lấy bỏ phổi bên bệnh cùng màng phổi, một phần cơ hoành và màng ngoài tim; các cấu trúc đã cắt cần được tái tạo. Phẫu thuật này chỉ được cân nhắc ở người bệnh được tuyển chọn kỹ, thường trong bối cảnh u trung biểu mô màng phổi ác tính tại trung tâm chuyên sâu; không phải lựa chọn thường quy cho ung thư phổi tiến triển tại chỗ.<br>+ Cắt thùy, cắt phân thùy và cắt hình chêm là các phẫu thuật bảo tồn nhu mô. Lựa chọn phụ thuộc vào vị trí và phạm vi u, giai đoạn, mô học, khả năng đạt diện cắt âm tính và dự trữ tim phổi.<br>+ Cạm bẫy: Mức độ xâm lấn tại chỗ trên hình ảnh không tự nó xác định loại phẫu thuật; cần đánh giá tổng hợp giai đoạn bệnh, khả năng cắt bỏ triệt căn và dự trữ tim phổi.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="cat-phoi_anh/2015_09_832700.png"><img src="cat-phoi_anh/2015_09_832700.png" alt="Sơ đồ hai phổi với khối u màu đen ở vùng trung tâm và nét đứt đỏ đánh dấu vị trí cắt." width="1215" height="1111" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_a-10.png"><img src="cat-phoi_anh/2015_09_a-10.png" alt="Sơ đồ hai phổi với khối u ở vùng trên gần rốn phổi; nét đứt đỏ đánh dấu một nhánh phế quản." width="1215" height="1142" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_b-5.png"><img src="cat-phoi_anh/2015_09_b-5.png" alt="Sơ đồ hai phổi với khối u nhỏ ở ngoại vi vùng trên; nét đứt đỏ đánh dấu vị trí cắt gần u." width="1215" height="1142" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-chan-doan-x-quang">II. Chẩn đoán x-quang</h2>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Trong những giờ đầu sau mổ, khoang sau cắt phổi (postpneumonectomy space) thường chủ yếu chứa khí, có thể có ít dịch:<br>+ Trung thất thường gần đường giữa lúc đầu, sau đó lệch dần về bên mổ khi khoang lấp dịch và thể tích lồng ngực giảm.<br>+ Vòm hoành bên mổ nâng cao, khoang liên sườn hẹp dần trong quá trình co kéo hậu phẫu; không mặc định quy những biến đổi này cho liệt cơ hoành.<br>+ Dịch tích tụ dần, tạo mức khí–dịch (air–fluid level). Tốc độ thường được ước lượng khoảng 2 khoang liên sườn mỗi ngày nhưng biến thiên đáng kể; mức dịch có thể lên đến nửa hoặc hai phần ba khoang trong 4–7 ngày, và khoang có thể đầy hoàn toàn sau vài tuần đến vài tháng. So sánh phim nối tiếp quan trọng hơn áp dụng một mốc thời gian cố định.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Cần phân biệt diễn tiến lấp dịch sinh lý với rò phế quản–màng phổi hoặc nhiễm trùng khoang sau mổ:<br>+ Không tăng mức dịch, mức dịch hạ đột ngột hoặc khí xuất hiện trở lại sau khi khoang đã gần đầy dịch, nhất là khi kèm lệch trung thất sang bên đối diện, gợi ý rò phế quản–màng phổi nhưng không đặc hiệu. Hiếm khi mức dịch giảm mà không có rò; cần đối chiếu triệu chứng và phim nối tiếp, đồng thời cân nhắc MDCT ngực và nội soi phế quản khi nghi ngờ.<br>+ Tích dịch nhanh kèm sốt, đau ngực hoặc dấu hiệu nhiễm trùng cần nghĩ đến viêm mủ màng phổi; tốc độ lấp dịch đơn thuần không đủ để xác định biến chứng.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="cat-phoi_anh/2015_09_832658.jpg"><img src="cat-phoi_anh/2015_09_832658.jpg" alt="Ảnh ghép CT trước mổ và X-quang ngực ngày 1, 3, 7, 14 và 1 năm sau cắt phổi; mũi tên vàng chỉ diễn tiến của khoang sau mổ." width="1073" height="744" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_750641.png"><img src="cat-phoi_anh/2015_09_750641.png" alt="Bốn phim X-quang ngực sau cắt phổi, cho thấy mức khí-dịch thay đổi trong khoang ngực sau mổ; mũi tên vàng đánh dấu vùng sát cơ hoành ở phim cuối." width="928" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_678223.jpg"><img src="cat-phoi_anh/2015_09_678223.jpg" alt="Ba phim X-quang ngực sau cắt phổi đặt cạnh nhau, cho thấy mức dịch và các bóng khí thay đổi trong khoang ngực phẫu thuật." width="949" height="366" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_Screenshot-2022-02-24-000902.png"><img src="cat-phoi_anh/2015_09_Screenshot-2022-02-24-000902.png" alt="Ba phim X-quang ngực cho thấy khoang sau cắt phổi lấp đầy dịch tăng dần, với các mức ghi 70%, 90% và 100%." width="1018" height="472" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_Screenshot-2022-02-23-231753.jpg"><img src="cat-phoi_anh/2015_09_Screenshot-2022-02-23-231753.jpg" alt="Ba phim X-quang ngực ngày 1, 4 và 65 sau cắt phổi, thể hiện khoang bên mổ lấp đầy dần; mũi tên trắng đánh dấu các thay đổi sau mổ." width="824" height="808" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/12428-PB10-R1.png"><img src="cat-phoi_anh/12428-PB10-R1.png" alt="Ba phim X-quang ngực ký hiệu A–C, cho thấy mức khí–dịch trong khoang bên phẫu thuật thay đổi qua các thời điểm." width="947" height="329" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_713473.jpg"><img src="cat-phoi_anh/2015_09_713473.jpg" alt="" width="845" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2023_09_p41.png"><img src="cat-phoi_anh/2023_09_p41.png" alt="Nữ 42 tuổi - Sau phẫu thuật K phổi" width="870" height="980" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2023_09_p41b.png"><img src="cat-phoi_anh/2023_09_p41b.png" alt="" width="1187" height="716" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="cat-phoi_anh/ngay1.jpeg"><img src="cat-phoi_anh/ngay1.jpeg" alt="Ngày thứ 1" width="1600" height="1375" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/ngay2.jpeg"><img src="cat-phoi_anh/ngay2.jpeg" alt="Ngày thứ 2" width="1583" height="1375" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/ngay14.jpeg"><img src="cat-phoi_anh/ngay14.jpeg" alt="Ngày thứ 14" width="1600" height="1520" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/ngay30.jpeg"><img src="cat-phoi_anh/ngay30.jpeg" alt="Ngày thứ 30" width="1476" height="1397" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Phân biệt khoang sau cắt phổi (postpneumonectomy space) với tràn dịch màng phổi (pleural effusion):</span><br>+ Khoang sau cắt phổi thường có khí lúc đầu; dịch tích tụ dần, làm mức khí–dịch dâng lên trên các phim nối tiếp. Tràn dịch màng phổi đơn thuần thường không có khí, trừ khi kèm tràn khí, rò phế quản–màng phổi, nhiễm trùng hoặc đã can thiệp.<br>+ Sau cắt phổi, trung thất thường lệch dần về bên mổ do mất thể tích; tràn dịch lượng lớn, tự do thường đẩy trung thất sang bên đối diện. Mức độ lệch còn tùy thời điểm chụp và lượng dịch; dịch ít hoặc khu trú có thể không làm lệch trung thất.<br>+ Clip phẫu thuật vùng rốn phổi, sẹo mở ngực và biến dạng thành ngực gợi ý tiền sử phẫu thuật nhưng không đặc hiệu; đối chiếu phim cũ và hồ sơ mổ khi cần.<br>+ Dẫn lưu màng phổi còn lưu và tràn khí dưới da gợi ý can thiệp gần đây nhưng không chứng minh khoang đang lấp dịch sinh lý; cần đánh giá theo bối cảnh và các dấu hiệu biến chứng.<br>+ Phổi đối bên có thể giãn bù và vượt qua đường giữa. Khi nghi thoát vị phổi, sự liên tục của nhu mô cùng phế quản và mạch máu trên MDCT giúp phân biệt với dịch màng phổi; không xem thoát vị phổi là biến đổi sinh lý mặc định.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="cat-phoi_anh/PneumonectomyXray.png"><img src="cat-phoi_anh/PneumonectomyXray.png" alt="" width="1060" height="901" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_19e1338db5dafdcdfd0594fb5cf274_jumbo.jpeg"><img src="cat-phoi_anh/2015_09_19e1338db5dafdcdfd0594fb5cf274_jumbo.jpeg" alt="" width="931" height="826" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_728faefe04fae2aa9c6ad94c0582ca_jumbo.jpeg"><img src="cat-phoi_anh/2015_09_728faefe04fae2aa9c6ad94c0582ca_jumbo.jpeg" alt="" width="814" height="808" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_974ac2a3d7b9d5ec1e3da7991e72c1_jumbo.jpg"><img src="cat-phoi_anh/2015_09_974ac2a3d7b9d5ec1e3da7991e72c1_jumbo.jpg" alt="" width="829" height="953" loading="lazy" decoding="async"></a></div>
+<h2 id="iii-bien-chung">III. Biến chứng</h2>
+<figure><a class="o-anh" href="cat-phoi_anh/2015_09_CDHA-Cat-Phoi-scaled.png"><img src="cat-phoi_anh/2015_09_CDHA-Cat-Phoi-scaled.png" alt="" width="1600" height="900" loading="lazy" decoding="async"></a></figure>
+<h3 id="viem-mu-mang-phoi">* Viêm mủ màng phổi</h3>
+<p><span class="c-xanh">– Viêm mủ màng phổi sau cắt phổi (postpneumonectomy empyema)</span> là nhiễm trùng khoang sau cắt phổi, có thể xuất hiện sớm hoặc muộn:<br>+ Người bệnh thường có sốt, mệt, đau ngực hoặc khó thở. Viêm mủ sớm có thể xuất hiện trong 14 ngày đầu; phần lớn trường hợp xảy ra trong 3 tháng đầu, nhưng biến chứng muộn vẫn có thể gặp.<br>+ Dịch trong khoang sau cắt phổi có thể bị nhiễm khuẩn; rò phế quản–màng phổi tạo đường thông với đường thở, làm tăng nguy cơ nhiễm trùng và ảnh hưởng tiên lượng. Khi có rò, người bệnh có thể khạc đờm mủ hoặc dịch từ khoang mổ.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ X-quang ngực nối tiếp có thể thấy khoang không lấp dịch theo diễn tiến dự kiến, mức dịch thay đổi đột ngột hoặc khí xuất hiện trở lại sau khi khoang đã gần đầy dịch. Các dấu hiệu này gợi ý rò phế quản–màng phổi, nhưng không đặc hiệu cho viêm mủ.<br>+ MDCT ngực có tiêm thuốc cản quang giúp đánh giá dịch khu trú hoặc nhiều ngăn, dày và tăng quang màng phổi, khí trong khoang và mức độ lan rộng nhiễm trùng; các dấu hiệu hình ảnh cần được đối chiếu với lâm sàng.<br>+ Chọc hút dịch khoang sau cắt phổi để xét nghiệm vi sinh giúp xác nhận nhiễm trùng. Khi nghi có rò, nội soi phế quản có thể giúp khảo sát mỏm phế quản và định vị lỗ rò.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span><br>+ Khí trong khoang ngay sau mổ có thể là bình thường; khí mới xuất hiện sau khi khoang đã gần đầy dịch hoặc mức dịch hạ đột ngột cần làm nghĩ đến rò, nhất là khi kèm sốt, khó thở hoặc lệch trung thất sang bên đối diện.<br>+ Không mặc định viêm mủ màng phổi sẽ vỡ vào phế quản chính. Nếu có rò, dịch mủ có thể tràn vào phổi còn lại, gây viêm phổi hít và suy hô hấp; tình trạng nhiễm trùng cũng có thể tiến triển thành nhiễm khuẩn huyết.<br>+ Rò xuất hiện sớm có thể liên quan đến thất bại liền mỏm phế quản, thiếu máu nuôi hoặc nhiễm trùng; không quy mặc định cho lỗi kỹ thuật khâu.</p>
+<p><span class="c-xanh">– Điều trị:</span><br>+ Kiểm soát nhiễm trùng bằng kháng sinh kinh nghiệm phù hợp bối cảnh, sau đó điều chỉnh theo kết quả vi sinh và kháng sinh đồ; phối hợp dẫn lưu khoang và hồi sức khi cần.<br>+ Nếu có rò, cần xử lý đồng thời nhiễm trùng và lỗ rò. Tùy thời điểm, tình trạng người bệnh và đặc điểm lỗ rò, ngoại lồng ngực có thể cân nhắc dẫn lưu kín, mở cửa sổ màng phổi hoặc phẫu thuật nhiều thì, bao gồm gia cố mỏm phế quản bằng mô có cuống.<br>+ X-quang ngực nối tiếp và MDCT được dùng khi cần để đánh giá khoang, dẫn lưu và nhiễm trùng tồn lưu; quyết định rửa khoang hoặc can thiệp tiếp theo dựa trên diễn tiến lâm sàng và đánh giá của nhóm ngoại lồng ngực.</p>
+<div class="bo-anh cot-2"><a class="o-anh" href="cat-phoi_anh/2015_09_Screenshot-2022-02-23-233020.jpg"><img src="cat-phoi_anh/2015_09_Screenshot-2022-02-23-233020.jpg" alt="" width="1031" height="655" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_755439.png"><img src="cat-phoi_anh/2015_09_755439.png" alt="" width="925" height="768" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="cat-phoi_anh/2015_09_1-488.jpeg"><img src="cat-phoi_anh/2015_09_1-488.jpeg" alt="Ngày 21" width="1584" height="1551" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_2-487.jpeg"><img src="cat-phoi_anh/2015_09_2-487.jpeg" alt="Ngày 52" width="1548" height="1515" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_3-477.jpeg"><img src="cat-phoi_anh/2015_09_3-477.jpeg" alt="Ngày 53" width="1600" height="1426" loading="lazy" decoding="async"></a></div>
+<h3 id="ro-phe-quan-mang-phoi">* Rò phế quản – màng phổi</h3>
+<p><span class="c-xanh">– Rò phế quản–màng phổi (bronchopleural fistula, BPF)</span> là thông thương giữa phế quản, thường tại mỏm phế quản, với khoang màng phổi hoặc khoang sau cắt phổi:<br>+ Thường xuất hiện trong 1–2 tuần đầu sau mổ nhưng có thể xảy ra muộn hơn. Cơ chế thường liên quan đến bục hoặc hoại tử mỏm phế quản do thiếu máu nuôi, nhiễm trùng hay thất bại liền; nguy cơ cao hơn sau cắt phổi phải và hóa-xạ trị trước mổ.<br>+ Biểu hiện có thể gồm ho đột ngột, khạc dịch thanh dịch hoặc mủ, sốt, đau ngực, khó thở, giảm oxy máu hoặc rò khí liên tục qua dẫn lưu. Các triệu chứng này gợi ý nhưng không đặc hiệu cho rò.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ Trên X-quang ngực nối tiếp, khoang sau cắt phổi không lấp dịch theo diễn tiến dự kiến, mức dịch hạ xuống trên 2 cm hoặc khí xuất hiện trở lại sau khi khoang đã gần đầy dịch gợi ý rò. Khí trong khoang ở giai đoạn sớm sau mổ có thể là bình thường; hiếm khi mức dịch giảm mà không có rò.<br>+ Lệch trung thất sang bên đối diện, tràn khí trung thất, tràn khí dưới da tiến triển hoặc rò khí liên tục qua dẫn lưu có thể đi kèm, nhất là khi có rò khí đáng kể; các dấu hiệu này không xác định riêng kích thước lỗ rò.<br>+ MDCT ngực lát mỏng có thể thấy đường thông và giúp đánh giá khoang sau cắt phổi, nhiễm trùng và phổi còn lại, nhưng không phải lúc nào cũng thấy trực tiếp lỗ rò. Nội soi phế quản giúp khảo sát mỏm phế quản và định vị lỗ rò; hai phương tiện bổ trợ nhau khi lập kế hoạch xử trí.<br>+ Rò lớn có thể làm dịch hoặc mủ tràn vào phổi còn lại, gây viêm phổi hít và suy hô hấp.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="cat-phoi_anh/2015_09_832651.jpg"><img src="cat-phoi_anh/2015_09_832651.jpg" alt="" width="905" height="596" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_755438.png"><img src="cat-phoi_anh/2015_09_755438.png" alt="" width="855" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_Screenshot-2022-02-23-232706.jpg"><img src="cat-phoi_anh/2015_09_Screenshot-2022-02-23-232706.jpg" alt="" width="1039" height="446" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/Picture11446039511138.jpg"><img src="cat-phoi_anh/Picture11446039511138.jpg" alt="" width="1200" height="1141" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_a1-5.jpg"><img src="cat-phoi_anh/2015_09_a1-5.jpg" alt="" width="1600" height="1199" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="cat-phoi_anh/Sau-PT.jpeg"><img src="cat-phoi_anh/Sau-PT.jpeg" alt="Sau cắt 18 ngày" width="1512" height="1479" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/Ngay20.jpeg"><img src="cat-phoi_anh/Ngay20.jpeg" alt="Ngày 20" width="1584" height="1536" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/Ngay22.jpeg"><img src="cat-phoi_anh/Ngay22.jpeg" alt="Ngày 22" width="1600" height="1564" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/g06se05g03d.jpeg"><img src="cat-phoi_anh/g06se05g03d.jpeg" alt="" width="1600" height="1574" loading="lazy" decoding="async"></a></div>
+<h3 id="ro-thuc-quan-mang-phoi">* Rò thực quản – màng phổi</h3>
+<p><span class="c-xanh">– Rò thực quản–màng phổi (oesophagopleural fistula, OPF)</span> là thông thương giữa thực quản và khoang màng phổi hoặc khoang sau cắt phổi; biến chứng này có thể gây nhiễm trùng khoang, viêm trung thất và nhiễm khuẩn huyết:<br>+ Đây là biến chứng rất hiếm, tỷ lệ được báo cáo tới 1%. Trong tổng quan các ca bệnh, thời gian trung vị từ cắt phổi đến chẩn đoán là 12,5 tháng; bệnh có thể xuất hiện sau nhiều năm.<br>+ Các nguyên nhân được ghi nhận gồm tổn thương thực quản trong mổ, nhiễm trùng mạn hoặc áp xe quanh phế quản, bệnh lý thực quản và hoại tử thiếu máu. Ca bệnh công bố thường xảy ra sau cắt phổi phải, nhưng dữ liệu ít chưa xác lập đây là yếu tố nguy cơ độc lập.<br>+ Sốt, đau ngực, nuốt khó hoặc đau khi nuốt, ho khi ăn uống và dịch tiêu hóa hoặc thức ăn qua dẫn lưu màng phổi gợi ý rò; không xem riêng một triệu chứng là dấu hiệu đặc hiệu.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ X-quang ngực có thể thấy khí-dịch mới hoặc ổ dịch trong khoang sau cắt phổi, nhưng khó xác định đường thông và không phân biệt tin cậy với rò phế quản–màng phổi.<br>+ MDCT ngực có thể phát hiện đường rò, khí hoặc ổ dịch quanh thực quản, dày thành thực quản và ổ nhiễm trùng trung thất; thuốc cản quang uống có thể giúp làm rõ đường thoát thuốc, nhưng CT không phải lúc nào cũng thấy trực tiếp lỗ rò.<br>+ Chụp thực quản với thuốc cản quang tan trong nước dưới màn huỳnh quang giúp phát hiện thuốc thoát vào khoang màng phổi và xác định vị trí rò. Nội soi thực quản–dạ dày có thể hỗ trợ đánh giá và lập kế hoạch can thiệp.</p>
+<p><span class="c-xanh">– Phân biệt:</span><br>+ Rò phế quản–màng phổi (bronchopleural fistula, BPF) thường gợi ý bởi rò khí liên tục qua dẫn lưu, khí xuất hiện trở lại hoặc mức dịch hạ trong khoang sau cắt phổi; nội soi phế quản giúp khảo sát mỏm phế quản.<br>+ Rò thực quản–màng phổi thường gợi ý bởi ho khi nuốt hoặc dịch tiêu hóa qua dẫn lưu; chụp thực quản có thuốc cản quang tan trong nước hoặc MDCT có thuốc cản quang uống giúp xác định đường thông. Hai loại rò có thể đồng thời hiện diện.</p>
+<p><span class="c-xanh">– Điều trị:</span><br>+ Xử trí ban đầu thường gồm tạm ngừng ăn uống qua đường miệng, kiểm soát nhiễm trùng và dẫn lưu ổ nhiễm khi cần; kháng sinh được điều chỉnh theo kết quả vi sinh và kháng sinh đồ.<br>+ Cần bảo đảm dinh dưỡng, có thể dùng đường nuôi ăn đi vòng qua lỗ rò hoặc dinh dưỡng ngoài đường tiêu hóa tùy tình trạng. Đóng rò qua nội soi hoặc phẫu thuật được cân nhắc theo vị trí, kích thước, tình trạng nhiễm trùng và thể trạng người bệnh.<br>+ Hội chẩn đa chuyên khoa giữa ngoại lồng ngực và ngoại thực quản–dạ dày để lựa chọn xử trí; không mặc định mọi trường hợp đều cần mở thông hỗng tràng hoặc phẫu thuật đóng rò ngay.</p>
+<figure><a class="o-anh" href="cat-phoi_anh/2015_09_713485.jpg"><img src="cat-phoi_anh/2015_09_713485.jpg" alt="" width="846" height="768" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="cat-phoi_anh/g06se05g08a.jpeg"><img src="cat-phoi_anh/g06se05g08a.jpeg" alt="" width="1600" height="1572" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/g06se05g08b.jpeg"><img src="cat-phoi_anh/g06se05g08b.jpeg" alt="" width="1600" height="1399" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/g06se05g08c.jpeg"><img src="cat-phoi_anh/g06se05g08c.jpeg" alt="" width="1215" height="1800" loading="lazy" decoding="async"></a></div>
+<h3 id="phu-phoi">* Phù phổi</h3>
+<p><span class="c-xanh">– Phù phổi sau cắt phổi (postpneumonectomy pulmonary edema, PPE)</span> là biến chứng nặng, thường xuất hiện trong 48–72 giờ đầu nhưng có thể muộn hơn:<br>+ Các tổng quan ghi nhận tỷ lệ khoảng 4–7% và tỷ lệ tử vong được báo cáo tới 64%; các ước tính thay đổi giữa nghiên cứu.<br>+ Người bệnh thường khó thở tăng nhanh, giảm oxy máu và ran phổi; X-quang ngực có thể thấy đám mờ lan tỏa ở phổi còn lại.<br>+ Cơ chế đa yếu tố, gồm tổn thương hàng rào mao mạch–phế nang và tăng tính thấm, giảm dẫn lưu bạch huyết hoặc thay đổi huyết động sau mất một giường mạch phổi. Quá tải dịch, truyền máu và thông khí áp lực dương với thể tích hoặc áp lực cao có thể góp phần.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ X-quang ngực thường thấy mờ mô kẽ hoặc phế nang lan tỏa ở phổi còn lại. MDCT có thể biểu hiện kính mờ, dày vách liên tiểu thùy hoặc đông đặc, nhưng không có dấu hiệu hình ảnh đặc hiệu cho PPE.<br>+ Không có tràn dịch màng phổi lượng lớn hoặc tim to không đủ để loại trừ phù phổi do tim; hình ảnh cần được đối chiếu với lâm sàng và thăm dò tim mạch.<br>+ MDCT chỉ đánh giá thuyên tắc phổi khi thực hiện đúng quy trình chụp mạch phổi; hình ảnh mờ lan tỏa đơn thuần không loại trừ được chẩn đoán này.</p>
+<p><span class="c-xanh">– Phân biệt:</span><br>+ Viêm phổi hít (aspiration pneumonia): tiền sử hít sặc, đờm mủ và tổn thương ưu thế vùng phụ thuộc có thể gợi ý; sốt và đám mờ có thể chồng lấp với PPE, nên cần đối chiếu diễn tiến và xét nghiệm vi sinh khi phù hợp.<br>+ Phù phổi do tim hoặc quá tải dịch (cardiogenic pulmonary edema/volume overload): đánh giá cân bằng dịch, chức năng tim và dấu hiệu sung huyết; các nguyên nhân này có thể cùng hiện diện, còn tim không to trên phim không loại trừ được.<br>+ Hội chứng suy hô hấp cấp tiến triển (acute respiratory distress syndrome, ARDS): giảm oxy máu và đám mờ phổi có thể tương tự; cần đánh giá yếu tố khởi phát và tiêu chuẩn lâm sàng, không phân biệt chỉ bằng hình ảnh.<br>+ Thuyên tắc phổi (pulmonary embolism): có thể gây khó thở và giảm oxy máu đột ngột nhưng X-quang thường không đặc hiệu; chụp CT động mạch phổi khi nghi ngờ trên lâm sàng.</p>
+<p><span class="c-xanh">– Điều trị:</span><br>+ Hồi sức tích cực, hỗ trợ oxy hóa và điều chỉnh cân bằng dịch theo huyết động. Chỉ cân nhắc lợi tiểu khi có quá tải dịch hoặc phù phổi do tim, tránh làm nặng giảm thể tích tuần hoàn.<br>+ Khi cần thông khí xâm lấn, ưu tiên thông khí bảo vệ phổi với thể tích khí lưu thấp và hạn chế áp lực đường thở; đồng thời xử trí nguyên nhân khởi phát.<br>+ Tư thế người bệnh được cá thể hóa theo oxy hóa và huyết động; không xem nằm nghiêng về bên mổ là biện pháp chuẩn áp dụng cho mọi trường hợp.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="cat-phoi_anh/2015_09_832653.jpg"><img src="cat-phoi_anh/2015_09_832653.jpg" alt="" width="1074" height="374" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/g06se05g02x.jpeg"><img src="cat-phoi_anh/g06se05g02x.jpeg" alt="" width="1499" height="1530" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_Screenshot-2022-02-23-235850.png"><img src="cat-phoi_anh/2015_09_Screenshot-2022-02-23-235850.png" alt="" width="1045" height="535" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_755429.png"><img src="cat-phoi_anh/2015_09_755429.png" alt="Ngày 1 - 4" width="1024" height="374" loading="lazy" decoding="async"></a></div>
+<h3 id="thoat-vi-tim">* Thoát vị tim</h3>
+<p><span class="c-xanh">– Thoát vị tim sau cắt phổi (cardiac herniation)</span> là di lệch tim qua khuyết màng ngoài tim vào khoang sau cắt phổi:<br>+ Tim có thể xoay, làm xoắn hoặc gập các mạch lớn, cản trở hồi lưu tĩnh mạch và đổ đầy thất, dẫn đến giảm cung lượng tim và trụy tuần hoàn.<br>+ Biến chứng thường liên quan đến cắt phổi có mở màng ngoài tim hoặc cắt phổi ngoài màng phổi mà khuyết màng ngoài tim không được đóng hoặc tái tạo vững chắc. Thường khởi phát trong mổ hoặc 24 giờ đầu, nhưng có thể xuất hiện muộn hơn.<br>+ Biểu hiện có thể gồm hạ huyết áp đột ngột, ngất, tím tái, loạn nhịp hoặc trụy tuần hoàn, đôi khi sau thay đổi tư thế, ho hoặc thông khí áp lực dương. Đây là tình trạng cấp cứu, nhưng các biểu hiện lâm sàng không đặc hiệu.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ X-quang ngực có thể cho thấy bóng tim di lệch hoặc xoay bất thường vào khoang sau cắt phổi, kèm lệch trung thất và chèn ép phổi còn lại; biểu hiện có thể không điển hình.<br>+ MDCT ngực có tiêm thuốc cản quang giúp xác định tim thoát vị, mức độ xoay, biến dạng hoặc tắc nghẽn mạch lớn và chèn ép phổi còn lại. Điện tâm đồ và siêu âm tim có thể hỗ trợ đánh giá ảnh hưởng huyết động.<br>+ Nếu người bệnh không ổn định huyết động, không trì hoãn xử trí để chờ chụp CT.</p>
+<p><span class="c-xanh">– Điều trị:</span><br>+ Cần hội chẩn cấp cứu ngoại lồng ngực và gây mê hồi sức; điều trị dứt điểm thường là phẫu thuật đưa tim về vị trí giải phẫu và sửa hoặc tái tạo khuyết màng ngoài tim.<br>+ Hỗ trợ huyết động là biện pháp cầu nối, không thay thế giải phóng chèn ép cơ học; lựa chọn tư thế tạm thời và xử trí dẫn lưu cần do nhóm điều trị quyết định theo bên thoát vị và tình trạng huyết động.</p>
+<figure><a class="o-anh" href="cat-phoi_anh/AnnCardAnaesth_2010_13_3_249_69045_u2.jpg"><img src="cat-phoi_anh/AnnCardAnaesth_2010_13_3_249_69045_u2.jpg" alt="AnnCardAnaesth_2010_13_3_249_69045_u2" width="1037" height="453" loading="lazy" decoding="async"></a></figure>
+<figure><a class="o-anh" href="cat-phoi_anh/2015_09_Screenshot-2022-02-23-233543.png"><img src="cat-phoi_anh/2015_09_Screenshot-2022-02-23-233543.png" alt="" width="1045" height="387" loading="lazy" decoding="async"></a></figure>
+<h3 id="thoat-vi-phoi">* Thoát vị phổi</h3>
+<p><span class="c-xanh">– Thoát vị phổi qua trung thất sau cắt phổi (transmediastinal lung herniation)</span> là tình trạng nhu mô phổi còn lại vượt qua đường giữa vào khoang bên đã cắt:<br>+ Mất thể tích sau cắt phổi, thay đổi chênh áp và giãn bù của phổi còn lại có thể làm nhu mô phổi lấn qua trung thất, thường ở phía trước; không quy hiện tượng này đơn thuần cho áp lực âm trong khoang mổ.<br>+ Thường không có triệu chứng và được phát hiện tình cờ. Thoát vị lớn hoặc tiến triển có thể gây chèn ép đường thở hay mạch máu trung thất, dẫn đến khó thở hoặc tức ngực; tổn thương nhu mô do chèn ép hiếm gặp.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ X-quang ngực có thể thấy vùng nhu mô chứa khí vượt đường giữa vào khoang sau cắt phổi. Các vân mạch và phế quản trong vùng này giúp nhận diện đây là phổi, thay vì khí tự do trong khoang màng phổi.<br>+ MDCT ngực với tái tạo đa mặt phẳng giúp xác định sự liên tục của nhu mô, phế quản và mạch máu với phổi còn lại, đồng thời đánh giá chèn ép hoặc tổn thương nhu mô. Tiêm thuốc cản quang khi cần đánh giá mạch máu.</p>
+<p><span class="c-xanh">– Phân biệt:</span><br>+ Tràn khí màng phổi (pneumothorax): thường thấy đường màng phổi tạng và vùng ngoại vi không có vân mạch; thoát vị phổi vẫn có vân mạch, phế quản liên tục với phổi còn lại.<br>+ Bóng khí khổng lồ hoặc kén khí khổng lồ (giant bulla/giant pulmonary cyst): có thể tạo vùng thấu quang lớn nhưng thường có bờ thành riêng; MDCT giúp xác định vị trí trong nhu mô và phân biệt với phổi lấn qua trung thất.</p>
+<p><span class="c-xanh">– Theo dõi:</span><br>+ Có thể theo dõi người bệnh không triệu chứng, hình ảnh ổn định; không có khoảng thời gian chụp lại cố định cho mọi trường hợp. X-quang nối tiếp hoặc MDCT được lựa chọn theo triệu chứng, diễn tiến và mức độ bất thường.<br>+ Cân nhắc hội chẩn ngoại lồng ngực khi thoát vị lớn dần, gây triệu chứng hoặc có dấu hiệu chèn ép đường thở, mạch máu hay tổn thương nhu mô; chỉ định can thiệp cần cá thể hóa.</p>
+<figure><a class="o-anh" href="cat-phoi_anh/2015_09_Screenshot-2022-02-23-235654.png"><img src="cat-phoi_anh/2015_09_Screenshot-2022-02-23-235654.png" alt="" width="913" height="551" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="cat-phoi_anh/g06se05g07a.jpeg"><img src="cat-phoi_anh/g06se05g07a.jpeg" alt="" width="1600" height="1513" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_Screenshot-2022-02-23-235222.png"><img src="cat-phoi_anh/2015_09_Screenshot-2022-02-23-235222.png" alt="" width="1184" height="306" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_a-9.png"><img src="cat-phoi_anh/2015_09_a-9.png" alt="" width="1207" height="301" loading="lazy" decoding="async"></a></div>
+<h3 id="viem-phoi-doi-dien">* Viêm phổi đối diện</h3>
+<p><span class="c-xanh">– Viêm phổi đối diện sau cắt phổi (contralateral pneumonia after pneumonectomy)</span> là nhiễm trùng nhu mô phổi còn lại:<br>+ Có thể xuất hiện sớm sau mổ. Cơ chế gồm hít sặc dịch tiết, máu hoặc dịch nhiễm trùng, giảm thanh thải đờm do đau và ho yếu; rò phế quản–màng phổi có thể tạo đường cho dịch từ khoang sau cắt phổi tràn vào phổi còn lại.<br>+ Sốt mới, đờm mủ, tăng bạch cầu và giảm oxy máu sau giai đoạn ổn định gợi ý nhiễm trùng; biểu hiện có thể không điển hình ở người cao tuổi hoặc suy kiệt.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span><br>+ X-quang ngực có thể thấy đám đông đặc mới, khu trú hoặc lan tỏa, đôi khi có phế quản hơi. MDCT có thể phát hiện đông đặc, kính mờ, nút nhầy hoặc nốt trung tâm tiểu thùy kiểu cây nảy chồi (tree-in-bud pattern); không dấu hiệu nào trong số này đặc hiệu cho viêm phổi.<br>+ Cấy đờm có thể giúp xác định tác nhân; cấy máu phù hợp khi nghi nhiễm khuẩn huyết. Nội soi phế quản và MDCT được cân nhắc khi cần đánh giá đường thở, lấy bệnh phẩm hoặc nghi có rò phế quản–màng phổi; cấy âm tính không loại trừ rò.</p>
+<p><span class="c-xanh">– Phân biệt:</span><br>+ Phù phổi sau cắt phổi (postpneumonectomy pulmonary edema) thường biểu hiện sớm bằng giảm oxy máu và mờ mô kẽ hoặc phế nang lan tỏa. Tuy nhiên, phù phổi cũng có thể chỉ xuất hiện ở phổi còn lại; cần đối chiếu thời điểm khởi phát, tình trạng dịch và chức năng tim, không dựa riêng vào tính khu trú hay lan tỏa.<br>+ Hội chứng suy hô hấp cấp (acute respiratory distress syndrome, ARDS) có thể gây giảm oxy máu nặng và đám mờ phế nang, chồng lấp với viêm phổi; sau cắt phổi, tổn thương chỉ thấy ở phổi còn lại nên kiểu phân bố trên phim không đủ để phân biệt.<br>+ Rò phế quản–màng phổi (bronchopleural fistula, BPF) có thể gây nhiễm trùng phổi còn lại do hít dịch từ khoang sau cắt phổi. Mức dịch hạ đột ngột hoặc khí xuất hiện trở lại trong khoang, rò khí qua dẫn lưu và hình ảnh thông thương trên MDCT gợi ý rò; nội soi phế quản giúp khảo sát mỏm phế quản.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="cat-phoi_anh/g06se05g10a.jpeg"><img src="cat-phoi_anh/g06se05g10a.jpeg" alt="" width="1566" height="1402" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/g06se05g10b.jpeg"><img src="cat-phoi_anh/g06se05g10b.jpeg" alt="" width="1170" height="898" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/g06se05g11a.jpeg"><img src="cat-phoi_anh/g06se05g11a.jpeg" alt="" width="1420" height="1548" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/g06se05g11c.jpeg"><img src="cat-phoi_anh/g06se05g11c.jpeg" alt="" width="1600" height="1172" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/viem-phoi-1.jpeg"><img src="cat-phoi_anh/viem-phoi-1.jpeg" alt="" width="1382" height="1184" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_Screenshot-2022-02-23-232056.png"><img src="cat-phoi_anh/2015_09_Screenshot-2022-02-23-232056.png" alt="" width="554" height="463" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_Screenshot-2022-02-23-232108.png"><img src="cat-phoi_anh/2015_09_Screenshot-2022-02-23-232108.png" alt="" width="553" height="435" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="cat-phoi_anh/2015_09_1-489.jpeg"><img src="cat-phoi_anh/2015_09_1-489.jpeg" alt="Ngày thứ 6" width="1600" height="1559" loading="lazy" decoding="async"></a><a class="o-anh" href="cat-phoi_anh/2015_09_2-488.jpeg"><img src="cat-phoi_anh/2015_09_2-488.jpeg" alt="Ngày thứ 19" width="1332" height="1298" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Radiographic and CT Findings of Thoracic Complications after Pneumonectomy – Eun Jin Chae, MD, Joon Beom Seo, MD<br>* Radiographic imaging features of thoracic complications after pneumonectomy in oncologic patients – K.L. Pool<br>* Imaging the post Thoracotomy patient Anatomic changes and Postoperative Complications – Jeffrey B. Alpert, MD<br>* Postoperative Imaging and Complications in Resection of Lung Cancer – Patricia M. de Groot, MD, Mylene T. Truong, MD, andMyrna C.B. Godoy, MD, PhD<br>* Cardiovascular Computed Tomography Findings after Pneumonectomy: Comparison to Lobectomy – Original InvestigationMaximilian Rauch, MD, Milka Marinova, MD, PhD, Hans Heinz Schild, MD, Holger Strunk, MD<br>* Radiographic and CT Findings in Complica- tions Following Pulmo- nary Resection – Eun A. Kim, MD, Kyung Soo Lee, MD, Young Mog Shim, MDJhingook Kim, MD, Kwanmien Kim, MD, Tae Sung Kim, MDPo Song Yang, MD<br>* Volume-expanding complications after pneumonectomy: comparison of CT findings – Du Hwan Choe<br>* Radiographic evaluation of the pleural fluid accumulation rate after pneumonectomy – Reginald F. Munden<br>* Imaging in postpneumonectomy complications: A pictorial review – S. H.Chandrashekhara,A. S. Bhalla,R. Sharma<br>* Complications secondary to pulmonary resection surgery: what the radiologist should know – I. Sánchez-Serrano, A. Navarro Baño, S. Ibáñez Caturla, L. GONZALEZ RAMOS, F. Sarabia Tirado, D. Rodríguez Sánchez; El Palmar, Murcia/ES<br>* Complications post thoracic surgery for Lung Cancer: Imaging Essentials – R. M. Heaney, C. reid, S. P. Doran, P. Beddy; Dublin/IE<br>* Imaging of postsurgical complications occurring after thoracic surgery: review of the main surgical procedures and early and late complications – G. Cicchetti<br></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

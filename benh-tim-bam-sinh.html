@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bệnh Tim Bẩm Sinh</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · TIM MẠCH</div>
+   <h1>Bệnh Tim Bẩm Sinh</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/benh-tim-bam-sinh/" target="_blank" rel="noopener">Xray.vn — xray.vn/benh-tim-bam-sinh</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Bệnh tim bẩm sinh (congenital heart disease)</span> là bất thường cấu trúc của tim hoặc mạch máu lớn, hình thành trong thời kỳ phôi thai và hiện diện khi trẻ được sinh ra.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Bệnh tim bẩm sinh là nhóm dị tật bẩm sinh phổ biến nhất:<br>+ Phân tích gộp 260 nghiên cứu ghi nhận tỷ lệ khoảng 9,4/1.000 trẻ sinh sống trong giai đoạn 2010–2017.<br>+ Thông liên thất (TLT) là tổn thương đơn lẻ thường gặp nhất; chiếm 35,6% số trường hợp bệnh tim bẩm sinh trong phân tích gộp giai đoạn 1970–2017.<br>+ Một số ước tính quốc gia nêu khoảng 400 trẻ sơ sinh mắc bệnh mỗi năm tại Singapore và 16.440 trẻ mỗi năm tại Việt Nam.</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Phần lớn trường hợp không quy được cho một nguyên nhân đơn lẻ; nguy cơ thường liên quan đến sự phối hợp của yếu tố di truyền và môi trường:<br>+ Bất thường nhiễm sắc thể hoặc gen, hội chứng di truyền và tiền sử gia đình mắc bệnh tim bẩm sinh làm tăng nguy cơ.<br>+ Đái tháo đường trước mang thai ở mẹ, một số nhiễm trùng trong thai kỳ như rubella và phơi nhiễm với một số thuốc hoặc chất gây quái thai có thể liên quan.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Sai lệch trong quá trình hình thành vách tim, van tim, đường ra hoặc mạch máu lớn tạo nên các khiếm khuyết cấu trúc, gây luồng thông, tắc nghẽn hoặc kết nối mạch máu bất thường:<br>+ Hậu quả huyết động phụ thuộc loại và kích thước tổn thương, chênh áp giữa các buồng tim và sức cản mạch phổi; có thể gây quá tải thể tích hoặc áp lực, tái cấu trúc mạch phổi, tăng áp phổi và đảo chiều luồng thông.<br>+ Trên hình ảnh, bất thường cấu trúc giúp xác định vị trí tổn thương; kích thước buồng tim, động mạch phổi và mức tưới máu phổi phản ánh hậu quả huyết động.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Phổ biểu hiện thay đổi theo loại tổn thương và mức độ rối loạn huyết động:<br>+ Tổn thương nhẹ có thể không gây triệu chứng hoặc chỉ phát hiện tiếng thổi khi khám.<br>+ Tổn thương nặng có thể gây tím, khó thở, bú kém, chậm tăng trưởng hoặc suy tim.</p>
+<p><span class="c-xanh">– Phân bố:</span> Tổn thương có thể đơn độc hoặc phối hợp, liên quan đến vách tim, van tim, đường ra hoặc mạch máu lớn; biểu hiện sinh lý có thể không tím hoặc tím tùy hướng luồng thông và mức độ cản trở dòng máu.</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span> CĐHA giúp phát hiện, xác định giải phẫu tổn thương và đánh giá hậu quả huyết động:<br>+ Siêu âm tim thường là phương tiện đầu tay để khảo sát cấu trúc trong tim và huyết động; X-quang ngực đánh giá gián tiếp kích thước tim và tuần hoàn phổi nhưng không xác định đầy đủ loại dị tật.<br>+ CT và MRI bổ sung đánh giá giải phẫu phức tạp, mạch máu lớn và các cấu trúc ngoài tim; MRI còn hỗ trợ định lượng dòng máu và thể tích buồng tim khi cần.</p>
+<figure><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_902884.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_902884.jpg" alt="" width="1024" height="719" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<p><span class="c-xanh"><strong>* Phân loại</strong></span></p>
+<figure><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_Screenshot-2022-01-03-223330.png"><img src="benh-tim-bam-sinh_anh/2015_08_Screenshot-2022-01-03-223330.png" alt="" width="1248" height="864" loading="lazy" decoding="async"></a></figure>
+<h2 id="ii-giai-phau">II. Giải phẫu</h2>
+<h3 id="1-giai-phau-x-quang">1. Giải phẫu x-quang</h3>
+<p><span class="c-xanh">– Tư thế chụp thẳng sau trước (PA):</span> Trên phim chỉ thấy bờ ngoài bóng tim, không phân biệt trực tiếp từng buồng tim:<br>+ Tâm nhĩ trái (Left atrium) nằm chủ yếu ở phía sau, nhận máu từ các tĩnh mạch phổi đi vào gần như theo phương ngang.<br>+ Tiểu nhĩ trái đôi khi tạo đoạn lồi nhỏ ngay dưới thân động mạch phổi, rõ hơn trên phim nghiêng.<br>+ Giãn nhĩ trái có thể làm lồi bờ tim trên-phải và mở rộng góc carina do hai phế quản chính tách xa nhau.<br>+ Tâm nhĩ phải (Right atrium) nhận máu từ tĩnh mạch chủ trên và tĩnh mạch chủ dưới, tạo phần lớn bờ tim phải.<br>+ Giãn nhĩ phải làm bờ tim phải lồi và dịch ra ngoài.<br>+ Tâm thất trái (Left ventricle) nằm lệch trái, ở phía sau tâm thất phải, tạo phần dưới bờ tim trái và mỏm tim.<br>+ Giãn thất trái làm bờ tim trái lồi, mỏm tim thường lệch xuống dưới và sang trái.<br>+ Tâm thất phải (Right ventricle) nằm trước nhất, ngay sau xương ức; trên phim PA thường chồng hình lên bóng tim, không tạo bờ ngoài rõ.<br>+ Giãn thất phải có thể đẩy bóng tim sang trái; chỉ khi giãn nặng, thất phải mới có thể góp phần tạo bờ tim trái.</p>
+<figure><a class="o-anh" href="benh-tim-bam-sinh_anh/2021_07_Screenshot-2021-07-26-210844.png"><img src="benh-tim-bam-sinh_anh/2021_07_Screenshot-2021-07-26-210844.png" alt="" width="1183" height="1080" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Tư thế chụp nghiêng:</span><br>+ Tâm nhĩ trái (Left atrium) tạo phần trên của bờ sau tim.<br>+ Giãn nhĩ trái làm lồi phần trên của bờ sau tim.<br>+ Tâm thất trái (Left ventricle) tạo phần dưới của bờ sau tim.<br>+ Giãn thất trái làm lồi phần dưới của bờ sau tim và đẩy bờ sau tim ra sau.<br>+ Tâm thất phải (Right ventricle) nằm ngay sau xương ức; phần thấp của khoảng sáng sau xương ức được giới hạn bởi mặt trước thất phải.<br>+ Giãn thất phải làm mất dần khoảng sáng sau xương ức, thường từ dưới lên khi thất phải lớn dần.</p>
+<figure><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_a517d01679b356_2HEART-Lateral.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_a517d01679b356_2HEART-Lateral.jpg" alt="" width="876" height="632" loading="lazy" decoding="async"></a></figure>
+<p><strong><span class="c-xanh">* Tư thế thẳng</span></strong></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_a517d008eeb4be_HEART-left-atrium.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_a517d008eeb4be_HEART-left-atrium.jpg" alt="" width="800" height="772" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-286.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_1-286.jpeg" alt="1: TM chủ trên / 2: Nhĩ phải / 3: TM chủ dưới / 4: Quai ĐMC / 5: ĐM phổi / 6: Tiểu nhĩ trái / 7: Thất trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-289.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_2-289.jpeg" alt="TM chủ trên / TM chủ dưới" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-286.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_3-286.jpeg" alt="Tâm nhĩ phải / Van 3 lá" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-276.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_4-276.jpeg" alt="Tâm thất phải / Van động mạch phổi" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_5-211.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_5-211.jpeg" alt="Động mạch phổi" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_6-89.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_6-89.jpeg" alt="4 tĩnh mạch phổi / Tâm nhĩ trái / Van 2 lá" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_7-31.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_7-31.jpeg" alt="Van ĐM chủ / Tâm thất trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_8-28.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_8-28.jpeg" alt="Động mạch chủ" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_9-5.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_9-5.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Tư thế nghiêng</span></strong></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_a517d01679b356_2HEART-Lateral.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_a517d01679b356_2HEART-Lateral.jpg" alt="" width="876" height="632" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-287.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_1-287.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-290.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_2-290.jpeg" alt="TM chủ trên / TM chủ dưới" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-287.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_3-287.jpeg" alt="Tâm nhĩ phải" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-277.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_4-277.jpeg" alt="Tâm thất phải / Van 3 lá / Van ĐM phổi" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_5-212.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_5-212.jpeg" alt="Động mạch phổi" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_6-90.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_6-90.jpeg" alt="Tâm nhĩ trái" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_7-32.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_7-32.jpeg" alt="Tâm thất trái / Van ĐM chủ / Van 2 lá" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_8-29.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_8-29.jpeg" alt="Động mạch chủ" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_9-6.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_9-6.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<h3 id="2-giai-phau-clvt">2. Giải phẫu CLVT</h3>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0017.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0017.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0018.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0018.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0019.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0019.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0020.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0020.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0021.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0021.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0022.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0022.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0023.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0023.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0024.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0024.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0025.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0025.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0026.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0026.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0027.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0027.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0028.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0028.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0029.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0029.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0030.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0030.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0031.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0031.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0032.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0032.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0033.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0033.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_xray.vn-0034.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_xray.vn-0034.jpg" alt="" width="1566" height="1086" loading="lazy" decoding="async"></a></div>
+<h2 id="iii-chan-doan-hinh-anh">III. Chẩn đoán hình ảnh</h2>
+<h3 id="1-thong-lien-that">1. Thông liên thất</h3>
+<p><span class="c-xanh">– Thông liên thất (ventricular septal defect, VSD)</span> là khiếm khuyết của vách liên thất tạo thông thương giữa thất trái và thất phải; tổn thương có thể đơn độc hoặc phối hợp với các dị tật tim khác.</p>
+<p><span class="c-xanh">– Giải phẫu:</span> Vách liên thất gồm phần màng và phần cơ; phần cơ được phân chia theo vùng buồng nhận, bè và đường ra:<br>+ Bó His đi sát vùng phần màng và bờ sau-dưới của một số lỗ thông quanh màng; tổn thương hệ dẫn truyền tại đây có thể gây block nhĩ thất.<br>+ Vách liên thất bình thường ngăn cách hai buồng thất; hệ dẫn truyền nhĩ-thất chạy sát vách, không nằm trong vách như một “phần đầu” riêng biệt.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Nghiên cứu tại Bệnh viện Nhi Đồng I và II, TP. HCM, giai đoạn 1985–1994 ghi nhận:<br>+ Trong 5.442 trẻ mắc bệnh tim, 54% có bệnh tim bẩm sinh.<br>+ Báo cáo nêu tỷ lệ thông liên thất, tứ chứng Fallot và thông liên nhĩ lần lượt là 40%, 16% và 13%.</p>
+<p><span class="c-xanh">– Nguyên nhân:</span> Phần lớn TLT không quy được cho một nguyên nhân đơn lẻ; nguy cơ thường liên quan đến sự phối hợp của yếu tố di truyền và môi trường:<br>+ Tiền sử bệnh tim bẩm sinh ở cha mẹ hoặc anh chị em làm tăng nguy cơ mắc bệnh tim bẩm sinh trong gia đình; điều này không đồng nghĩa mọi trường hợp đều di truyền theo một cơ chế đơn gen.<br>+ Hội chứng Down làm tăng nguy cơ dị tật tim; có thể gặp TLT, dù kênh nhĩ thất là tổn thương điển hình thường gặp hơn.<br>+ Phơi nhiễm rượu ở cha hoặc mẹ được báo cáo có liên quan với bệnh tim bẩm sinh nói chung, nhưng chưa xác lập mối liên quan đặc hiệu với TLT.<br>+ Mối liên quan giữa thuốc hoặc chất gây nghiện của cha mẹ với nguy cơ TLT chưa rõ; cần xác định chất và thời điểm phơi nhiễm, không xem việc sử dụng bất kỳ chất nào là nguyên nhân đã được xác lập.</p>
+<p><span class="c-xanh">– Sinh lý bệnh:</span> Phân loại lỗ thông nhỏ, vừa hoặc lớn cần xét mức độ hạn chế luồng thông và hậu quả huyết động; đường kính lỗ thông đơn độc không đủ để phân tầng:<br>+ TLT nhỏ, hạn chế (bệnh Roger) gây luồng thông trái-phải ít; áp lực động mạch phổi thường bình thường hoặc chỉ tăng nhẹ, không gây quá tải đáng kể các buồng tim.<br>+ TLT vừa vẫn hạn chế một phần luồng thông; lượng máu lên phổi và hồi lưu tĩnh mạch phổi tăng, gây tăng gánh thể tích nhĩ trái và thất trái, đôi khi kèm tăng áp phổi nhẹ đến vừa.<br>+ TLT lớn, không hạn chế, khi không kèm tắc nghẽn đường ra thất phải nặng, làm áp lực hai thất gần cân bằng và tạo luồng thông trái-phải lớn; tăng tuần hoàn phổi, tăng gánh thể tích nhĩ trái và thất trái, đồng thời tăng gánh áp lực thất phải.<br>+ Luồng thông lớn kéo dài có thể gây tái cấu trúc mạch phổi và tăng sức cản mạch phổi không hồi phục; khi sức cản mạch phổi vượt sức cản hệ thống, luồng thông có thể trở nên hai chiều hoặc đảo chiều phải-trái, gây tím và hội chứng Eisenmenger.</p>
+<figure><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_Screenshot-2022-01-04-234413.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_Screenshot-2022-01-04-234413.jpg" alt="" width="1484" height="875" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Phân loại: Dựa vào vị trí giải phẫu:</span><br>+ TLT quanh màng chiếm khoảng 70–80%; thường nằm sát van ba lá và có thể lan vào mô cơ xung quanh.<br>+ TLT cơ bè chiếm khoảng 5–20%; có thể xuất hiện ở nhiều vị trí trong phần cơ và có thể có nhiều lỗ thông.<br>+ TLT đường ra dưới van động mạch phổi (phần thoát) chiếm khoảng 5–7% tại Hoa Kỳ nhưng có thể chiếm khoảng 30% ở một số quần thể Đông Á; có thể kèm sa lá van động mạch chủ và hở van động mạch chủ.<br>+ TLT buồng nhận chiếm khoảng 5–8%; nằm sát vòng van ba lá, phía sau phần màng của vách liên thất.</p>
+<p><strong><span class="c-xanh">* Chẩn đoán X-quang</span></strong></p>
+<p>– Đặc điểm hình ảnh: Mức độ bất thường phụ thuộc lượng luồng thông, áp lực mạch phổi và giai đoạn bệnh:<br>+ TLT nhỏ, hạn chế thường không làm thay đổi bóng tim hoặc tuần hoàn phổi trên X-quang.<br>+ Khi luồng thông trái-phải còn ưu thế và có ý nghĩa, thường thấy tim to do giãn nhĩ trái, thất trái; cung động mạch phổi nổi và mạch máu phổi tăng đậm. Lỗ thông lớn hoặc tăng áp phổi có thể kèm lớn thất phải.<br>+ Cung động mạch chủ thường bình thường, đôi khi nhỏ tương đối; dấu hiệu này không đặc hiệu và không đủ để kết luận giảm cung lượng tim.<br>+ X-quang không thấy trực tiếp lỗ thông và không định lượng đáng tin cậy kích thước hay mức độ luồng thông; cần siêu âm tim để đánh giá giải phẫu và huyết động.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_902662.png"><img src="benh-tim-bam-sinh_anh/2015_08_902662.png" alt="" width="768" height="753" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4175c6fedcadd8259b809ed0c07fbb_jumbo-1.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_4175c6fedcadd8259b809ed0c07fbb_jumbo-1.jpg" alt="" width="1023" height="958" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_84aVSD2_PA_an_d_Lat.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_84aVSD2_PA_an_d_Lat.jpg" alt="" width="845" height="409" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_84bVSD1_PA_and_Lat.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_84bVSD1_PA_and_Lat.jpg" alt="" width="835" height="432" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_c08afe67a97f597dac67a7177a7ba0_jumbo.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_c08afe67a97f597dac67a7177a7ba0_jumbo.jpeg" alt="" width="912" height="885" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_dd83c842a9b2892a8e850d51ee699f_jumbo.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_dd83c842a9b2892a8e850d51ee699f_jumbo.jpg" alt="" width="940" height="833" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_index-30.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_index-30.jpg" alt="" width="1241" height="1147" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_Untitled_jumbo.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_Untitled_jumbo.jpeg" alt="" width="983" height="853" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_903367.png"><img src="benh-tim-bam-sinh_anh/2015_08_903367.png" alt="" width="815" height="682" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Hội chứng Eisenmenger:</span> Luồng thông trái-phải lớn kéo dài có thể gây bệnh mạch máu phổi và tăng áp phổi nặng, không hồi phục; sức cản mạch phổi tăng dần làm luồng thông trở nên hai chiều hoặc đảo chiều phải-trái, gây giảm oxy máu và tím:<br>+ Bóng tim có thể to, thường nổi bật tim phải; khi luồng thông giảm ở giai đoạn muộn, bóng tim đôi khi nhỏ hơn so với giai đoạn tăng tuần hoàn phổi nhưng không nhất thiết trở về bình thường.<br>+ Thất phải lớn có thể làm mỏm tim hếch lên trên vòm hoành; đây không phải dấu hiệu đặc hiệu.<br>+ Thân động mạch phổi và các nhánh trung tâm giãn, làm rốn phổi nổi bật.<br>+ Mạch máu phổi ngoại vi thưa, nhỏ hoặc cắt cụt, tạo tương phản với các động mạch phổi trung tâm giãn và làm phế trường ngoại vi sáng hơn.<br>+ X-quang gợi ý hậu quả của tăng áp phổi nhưng không xác định được hướng luồng thông hay sức cản mạch phổi; cần phối hợp siêu âm tim và, khi phù hợp, thông tim để đánh giá huyết động.</p>
+<figure><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_40f2d8d636b42deb052f905a731510_jumbo.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_40f2d8d636b42deb052f905a731510_jumbo.jpg" alt="40f2d8d636b42deb052f905a731510_jumbo" width="1024" height="1024" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh"><strong>* Cắt lớp vi tính:</strong></span></p>
+<p><span class="c-xanh">– Vai trò:</span> CT tim là phương tiện bổ sung, không phải lựa chọn đầu tay để chẩn đoán TLT; cân nhắc khi siêu âm tim chưa xác định rõ giải phẫu hoặc cần khảo sát tổn thương phối hợp và mạch máu lớn:<br>+ CT hữu ích khi cần lập bản đồ giải phẫu trước can thiệp, nhất là khi siêu âm tim hoặc MRI bị hạn chế.<br>+ Ở trẻ em, chỉ định cần cân nhắc lợi ích chẩn đoán với phơi nhiễm bức xạ.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Dấu hiệu trực tiếp là gián đoạn mô vách tạo đường thông giữa hai thất; đôi khi thấy thuốc cản quang đi qua lỗ thông, tùy thời điểm chụp và mức độ tương phản giữa các buồng tim:<br>+ Mô tả vị trí, số lượng, hình dạng, đường đi và kích thước lỗ thông trên các mặt phẳng phù hợp; lỗ thông có thể có hình dạng khác nhau ở hai mặt vách.<br>+ Khảo sát tổn thương phối hợp, gồm bất thường đường ra, mạch máu lớn và mối liên quan với các van tim; đánh giá chức năng van cần phối hợp siêu âm tim.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> CT đánh giá giải phẫu tốt hơn huyết động:<br>+ TLT nhỏ có thể bị bỏ sót trên CT không đồng bộ điện tâm đồ hoặc ảnh nhiễu do chuyển động; không thấy lỗ thông trên các ảnh này không loại trừ TLT.<br>+ Hướng và mức độ luồng thông thường cần đánh giá bằng Doppler siêu âm tim; CT có thể ước tính Qp/Qs với quy trình đồng bộ điện tâm đồ hồi cứu chuyên biệt, nhưng không phải cách đánh giá thường quy.</p>
+<figure><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_journal.pone_.0187578.g001.png"><img src="benh-tim-bam-sinh_anh/2015_08_journal.pone_.0187578.g001.png" alt="" width="1600" height="534" loading="lazy" decoding="async"></a></figure>
+<h3 id="2-thong-lien-nhi">2. Thông liên nhĩ</h3>
+<p><span class="c-xanh">– Thông liên nhĩ (atrial septal defect, ASD)</span> là khiếm khuyết thật sự của vách liên nhĩ, tạo thông thương giữa hai buồng nhĩ; sau sinh luồng thông thường hướng từ nhĩ trái sang nhĩ phải do áp lực nhĩ trái cao hơn.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Trong bào thai, lỗ bầu dục cho phép máu đi từ nhĩ phải sang nhĩ trái, giúp máu tránh phổi chưa hoạt động; vách nguyên phát đóng vai trò như một van:<br>+ Sau sinh, sức cản mạch phổi giảm, máu trở về nhĩ trái tăng và áp lực nhĩ trái vượt áp lực nhĩ phải, làm vách nguyên phát áp vào vách thứ phát và đóng chức năng lỗ bầu dục.<br>+ Sự đóng chức năng xảy ra sau sinh, nhưng hai vách có thể không dính hoàn toàn về giải phẫu.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Tồn tại lỗ bầu dục (patent foramen ovale, PFO) không phải là một dạng thông liên nhĩ:<br>+ PFO là khe dạng van còn lại do hai vách không dính hoàn toàn, không phải khuyết mô vách; gặp ở khoảng một phần tư người trưởng thành. Khi áp lực nhĩ phải tăng thoáng qua, chẳng hạn lúc ho hoặc nghiệm pháp Valsalva, có thể xuất hiện luồng thông phải-trái tạm thời.<br>+ Thông liên nhĩ là khuyết mô vách thực sự, thường gây luồng thông trái-phải kéo dài và tăng gánh thể tích nhĩ phải, thất phải. Giảm oxy máu động mạch không phải biểu hiện điển hình nếu chưa có tăng áp phổi nặng và đảo chiều luồng thông.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Phân tích gộp 260 nghiên cứu ghi nhận:<br>+ Thông liên nhĩ chiếm 15,4% số trường hợp bệnh tim bẩm sinh được phân loại trong giai đoạn 1970–2017, đứng thứ hai sau thông liên thất.<br>+ Bệnh gặp ở nữ nhiều hơn nam.</p>
+<figure><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_Screenshot-2022-01-04-235615.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_Screenshot-2022-01-04-235615.jpg" alt="" width="1239" height="641" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Phân loại: Dựa vào vị trí giải phẫu</span><br><span class="c-xanh">+ Thông liên nhĩ lỗ tiên phát (ASD-op)</span> nằm ở phần trước-dưới của vách liên nhĩ, sát van nhĩ-thất; thuộc phổ khiếm khuyết vách nhĩ-thất và thường kèm bất thường van nhĩ-thất, không nên xem đơn thuần là lỗ thông đơn độc thông thường.<br><span class="c-xanh">+ Thông liên nhĩ lỗ thứ phát (ASD-os)</span> là thể thường gặp nhất, chiếm khoảng 70% các trường hợp; nằm tại vùng hố bầu dục và có thể xuất hiện đơn độc. Kích thước có thể khoảng 10–30 mm, nhưng không dùng khoảng này làm tiêu chí xác định thể bệnh.<br><span class="c-xanh">+ Thông liên nhĩ xoang tĩnh mạch (ASD-sv)</span> nằm phía sau vách liên nhĩ, sát chỗ đổ của tĩnh mạch chủ trên hoặc tĩnh mạch chủ dưới vào nhĩ phải; thể sát tĩnh mạch chủ trên thường phối hợp với hồi lưu tĩnh mạch phổi bất thường.<br><span class="c-xanh">+ Thông liên nhĩ xoang vành (ASD-cs)</span> do khuyết một phần hoặc toàn bộ trần xoang vành, tạo thông thương giữa xoang vành và nhĩ trái; thể này hiếm gặp và có thể phối hợp với tĩnh mạch chủ trên trái đổ vào xoang vành.</p>
+<p><strong><span class="c-xanh">* Chẩn đoán X-quang<br></span></strong></p>
+<p>– Hình ảnh phản ánh mức độ luồng thông và hậu quả lên buồng tim, tuần hoàn phổi:<br>+ Bóng tim có thể bình thường khi luồng thông nhỏ; một số số liệu nêu tỷ lệ này khoảng 15%.<br>+ Khi luồng thông trái-phải có ý nghĩa, thường thấy giãn nhĩ phải và thất phải, bóng tim to, cung động mạch phổi nổi và mạch máu phổi tăng đậm; mỏm tim có thể chếch lên. Nhĩ trái và thất trái thường không to.<br>+ Cung động mạch chủ thường bình thường, đôi khi nhỏ tương đối; dấu hiệu này không đặc hiệu.<br>+ Khi bệnh mạch máu phổi tiến triển, động mạch phổi trung tâm có thể giãn trong khi mạch máu phổi ngoại vi thưa, nhỏ hoặc cắt cụt, làm phế trường ngoại vi sáng hơn.<br>– Cạm bẫy: Bóng tim to và tăng đậm mạch phổi gợi ý luồng thông có ý nghĩa nhưng không xác định riêng TLN hoặc chứng minh hướng luồng thông; cần siêu âm tim Doppler để xác nhận.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_108d0cf04fcb712906c41782906ea6_jumbo.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_108d0cf04fcb712906c41782906ea6_jumbo.jpg" alt="" width="960" height="955" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_9dc893a7e2ea2733a9bfbecbf6cfaf_jumbo.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_9dc893a7e2ea2733a9bfbecbf6cfaf_jumbo.jpeg" alt="" width="815" height="778" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_07a28798f6bf60126e68beeff9bede_jumbo.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_07a28798f6bf60126e68beeff9bede_jumbo.jpg" alt="" width="1024" height="955" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4ac4a54b9f51092b7e4e441f4db3df_jumbo.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_4ac4a54b9f51092b7e4e441f4db3df_jumbo.jpg" alt="" width="1024" height="934" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1f8178bbb70c581b9a852172dd4c2c_jumbo.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_1f8178bbb70c581b9a852172dd4c2c_jumbo.jpeg" alt="" width="914" height="957" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_index-31.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_index-31.jpg" alt="" width="1600" height="1403" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_secundum-atrial-septal-defect-2.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_secundum-atrial-septal-defect-2.jpeg" alt="" width="1600" height="1629" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_001ASD4PA.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_001ASD4PA.jpg" alt="" width="538" height="540" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_002ASD1Lat.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_002ASD1Lat.jpg" alt="" width="455" height="540" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_001ASD4PA_Lat.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_001ASD4PA_Lat.jpg" alt="" width="809" height="432" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Chẩn đoán CT:</span></strong></p>
+<p>– CT tim có tiêm thuốc cản quang là phương tiện bổ sung khi siêu âm tim chưa đánh giá đủ giải phẫu hoặc cần khảo sát các cấu trúc phối hợp; không phải phương tiện đầu tay.</p>
+<p><span class="c-xanh">– Dấu hiệu trực tiếp:</span> Có thể thấy gián đoạn mô vách liên nhĩ tạo thông thương giữa hai nhĩ:<br>+ Tái tạo đa mặt phẳng theo vách giúp xác định vị trí, hình dạng, kích thước và bờ lỗ thông.<br>+ Khảo sát mối liên quan với tĩnh mạch chủ, tĩnh mạch phổi và xoang vành; đặc biệt tìm hồi lưu tĩnh mạch phổi bất thường ở thể xoang tĩnh mạch và tĩnh mạch chủ trên trái ở thể xoang vành.</p>
+<p><span class="c-xanh">– Đánh giá luồng thông:</span> Nếu quan sát được thuốc cản quang đi từ nhĩ trái sang nhĩ phải ở pha chụp phù hợp, dấu hiệu này gợi ý luồng thông trái-phải; không nên suy ra hướng hoặc mức độ luồng thông chỉ từ phân bố thuốc trên một pha chụp.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Lỗ thông nhỏ có thể bị bỏ sót do chuyển động tim hoặc hiệu ứng thể tích bán phần; CT không thấy lỗ thông không loại trừ thông liên nhĩ. Siêu âm Doppler phù hợp hơn để đánh giá hướng luồng thông, còn MRI thường được ưu tiên khi cần định lượng Qp/Qs.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_F1.large_-15.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_F1.large_-15.jpg" alt="" width="1280" height="1171" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_F2-1.png"><img src="benh-tim-bam-sinh_anh/2015_08_F2-1.png" alt="" width="1280" height="946" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_F4.large_-3.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_F4.large_-3.jpg" alt="" width="1280" height="1105" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_F6.png"><img src="benh-tim-bam-sinh_anh/2015_08_F6.png" alt="" width="1280" height="1107" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_F7.png"><img src="benh-tim-bam-sinh_anh/2015_08_F7.png" alt="" width="1280" height="1114" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_index-2-6.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_index-2-6.jpg" alt="" width="897" height="678" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_index-3-3.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_index-3-3.jpg" alt="" width="584" height="717" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_index-46.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_index-46.jpg" alt="" width="960" height="720" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Hội chứng Eisenmenger</strong></span></p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Ở thông liên nhĩ lớn chưa được sửa chữa, luồng thông trái-phải kéo dài làm tăng lưu lượng máu lên phổi, gây tái cấu trúc mạch phổi và tăng sức cản mạch phổi tiến triển:<br>+ Khi sức cản mạch phổi tăng cao, luồng thông có thể trở nên hai chiều rồi đảo chiều phải-trái; máu ít oxy đi vào tuần hoàn hệ thống, gây giảm oxy máu và tím.</p>
+<p><span class="c-xanh">– Đặc điểm CT:</span> Nếu thấy thuốc cản quang đi qua khuyết vách từ nhĩ phải sang nhĩ trái ở pha chụp phù hợp, dấu hiệu này gợi ý luồng thông phải-trái.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-643.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_1-643.jpg" alt="" width="400" height="381" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-644.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_2-644.jpg" alt="" width="400" height="268" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-614.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_3-614.jpg" alt="" width="400" height="333" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-547.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_4-547.jpg" alt="" width="400" height="332" loading="lazy" decoding="async"></a></div>
+<h3 id="3-con-ong-dong-mach">3. Còn ống động mạch</h3>
+<p><span class="c-xanh">– Còn ống động mạch (patent ductus arteriosus, PDA)</span> là tình trạng ống động mạch của bào thai vẫn thông sau sinh.</p>
+<p><span class="c-xanh">– Giải phẫu:</span> Ống động mạch nối động mạch phổi trái gần chỗ xuất phát với động mạch chủ xuống, ngay sau chỗ xuất phát của động mạch dưới đòn trái; trong bào thai, máu đi từ động mạch phổi qua ống này vào động mạch chủ.</p>
+<p><span class="c-xanh">– Dịch tễ:</span> Còn ống động mạch thuộc nhóm dị tật tim bẩm sinh thường gặp:<br>+ Phân tích gộp 260 nghiên cứu giai đoạn 1970–2017 ghi nhận tổn thương này chiếm khoảng 10,2% số trường hợp bệnh tim bẩm sinh được phân loại.<br>+ Bệnh thường gặp ở nữ hơn nam; một số số liệu ghi nhận tỷ lệ nam:nữ khoảng 1:3.</p>
+<p><span class="c-xanh">– Sinh lý bệnh:</span> Mức độ luồng thông phụ thuộc kích thước ống động mạch, chênh áp giữa động mạch chủ và động mạch phổi, sức cản mạch phổi và tình trạng tim-phổi:<br>+ Sau sinh, khi sức cản mạch phổi giảm, áp lực động mạch chủ cao hơn động mạch phổi nên máu thường đi liên tục từ động mạch chủ qua ống động mạch sang động mạch phổi.<br>+ Luồng thông trái-phải làm tăng lưu lượng máu lên phổi và hồi lưu về nhĩ trái, thất trái, gây quá tải thể tích; shunt lớn có thể làm tăng áp lực tĩnh mạch phổi, gây sung huyết phổi và suy giảm chức năng hô hấp, đặc biệt ở trẻ sinh non.<br>+ Trong thì tâm trương, máu từ động mạch chủ tiếp tục chảy qua ống động mạch vào động mạch phổi, làm giảm áp lực tâm trương động mạch chủ và có thể gây hiệu áp rộng.<br>+ Ống động mạch nhỏ, không có ý nghĩa huyết động thường không gây hậu quả đáng kể; viêm nội tâm mạc nhiễm trùng có thể xảy ra nhưng nguy cơ rất thấp.<br>+ Ống động mạch lớn, có luồng thông đáng kể có thể gây triệu chứng hô hấp, suy tim và tăng áp động mạch phổi; thời điểm và mức độ biểu hiện thay đổi theo lượng shunt, tuổi thai và tình trạng tim-phổi.<br>+ Luồng thông lớn kéo dài có thể dẫn đến bệnh mạch máu phổi và sức cản mạch phổi tăng không hồi phục; luồng thông khi đó có thể trở nên hai chiều hoặc đảo chiều phải-trái, gây hội chứng Eisenmenger.</p>
+<figure><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_bc712ac6ec82f35deb80af6beea89e.png"><img src="benh-tim-bam-sinh_anh/2015_08_bc712ac6ec82f35deb80af6beea89e.png" alt="" width="1128" height="927" loading="lazy" decoding="async"></a></figure>
+<p><strong><span class="c-xanh">* Hình ảnh X-quang</span></strong></p>
+<p>– Dấu hiệu phụ thuộc mức độ luồng thông và tình trạng mạch phổi:<br>+ Ống động mạch nhỏ, không có ý nghĩa huyết động thường không làm thay đổi hình ảnh X-quang.<br>+ Khi luồng thông trái-phải có ý nghĩa, thường thấy bóng tim to do giãn nhĩ trái và thất trái, tăng đậm mạch máu phổi và cung động mạch phổi nổi; động mạch chủ lên có thể nổi bật.<br>+ Khi bệnh mạch máu phổi tiến triển, động mạch phổi trung tâm có thể giãn trong khi các nhánh ngoại vi thưa, nhỏ hoặc cắt cụt; bóng tim có thể không to hoặc giảm kích thước khi luồng thông giảm.<br>– Cạm bẫy: X-quang không thấy trực tiếp ống động mạch và không xác định đáng tin cậy đường kính hoặc mức độ luồng thông; cần siêu âm tim để đánh giá giải phẫu và huyết động.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_Picture10831494072500.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_Picture10831494072500.jpg" alt="" width="856" height="484" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2b547e8ab334e0acfc4fb511c2ab53_jumbo.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_2b547e8ab334e0acfc4fb511c2ab53_jumbo.jpeg" alt="" width="873" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_5e430904b75dbb814669e4f88e5f3a_jumbo.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_5e430904b75dbb814669e4f88e5f3a_jumbo.jpeg" alt="" width="845" height="929" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3876f97dfa00c048a4fe120dede263_jumbo.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_3876f97dfa00c048a4fe120dede263_jumbo.jpeg" alt="" width="911" height="995" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_f6139175749483a2eb9e44364e5776_jumbo.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_f6139175749483a2eb9e44364e5776_jumbo.jpeg" alt="" width="1024" height="929" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_index-32.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_index-32.jpg" alt="" width="1600" height="1378" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Chẩn đoán CT</strong></span></p>
+<p>– CT mạch máu có tiêm thuốc cản quang là phương tiện bổ sung khi cần xác định giải phẫu ống động mạch, khảo sát tổn thương phối hợp hoặc lập bản đồ trước can thiệp; siêu âm tim vẫn là phương tiện đầu tay.</p>
+<p><span class="c-xanh">– Dấu hiệu trực tiếp:</span> Ống động mạch hiện thành cấu trúc có lòng ngấm thuốc, nối động mạch chủ xuống ngay sau chỗ xuất phát động mạch dưới đòn trái với động mạch phổi trái gần chỗ xuất phát:<br>+ Trên mặt cắt ngang, nên tìm ống ở vị trí gần hướng 12 giờ so với động mạch chủ xuống; tái tạo mặt phẳng đứng dọc, đứng ngang hoặc cong giúp theo dõi liên tục đường đi và tránh bỏ sót.<br>+ Có thể đồng bộ điện tâm đồ khi cần đánh giá chi tiết ống nhỏ hoặc phức tạp; CT không đồng bộ vẫn có thể phát hiện ống lớn.</p>
+<p><span class="c-xanh">– Đánh giá hình thái:</span> Mô tả chiều dài, đường kính nhỏ nhất, đường kính ở hai đầu và cấu hình ống để hỗ trợ lập kế hoạch đóng:<br>+ Hình thái có thể dạng phễu với đầu động mạch chủ rộng hơn đầu động mạch phổi, dạng cửa sổ ngắn-rộng, dạng ống, phức tạp hoặc kéo dài.<br>+ Khảo sát phình ống, huyết khối, vôi hóa và mối liên quan với quai động mạch chủ, động mạch chủ xuống và động mạch phổi.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Cửa sổ chủ-phổi nối động mạch chủ lên với thân động mạch phổi; vị trí xuất phát này khác với ống động mạch nối động mạch chủ xuống, ngay sau động mạch dưới đòn trái, với động mạch phổi trái gần gốc.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Ống nhỏ có thể bị bỏ sót trên CT ngực thường quy do kích thước và vị trí; cần xem các mặt phẳng tái tạo thay vì chỉ dựa vào mặt cắt ngang. Ở người lớn, dây chằng động mạch vôi hóa có thể giả dạng lồi thành mạch; cần xác nhận lòng ống ngấm thuốc và thông thương liên tục với hai mạch.</p>
+<p><span class="c-xanh">– Giới hạn:</span> CT mô tả giải phẫu tốt nhưng CT mạch máu thường quy không định lượng đáng tin cậy luồng thông; dùng Doppler siêu âm tim hoặc MRI khi cần đánh giá huyết động. Cân nhắc bức xạ và thuốc cản quang chứa iod, nhất là ở trẻ em.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_903378.gif"><img src="benh-tim-bam-sinh_anh/2015_08_903378.gif" alt="" width="1015" height="354" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_903379.gif"><img src="benh-tim-bam-sinh_anh/2015_08_903379.gif" alt="" width="1006" height="469" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_903380.png"><img src="benh-tim-bam-sinh_anh/2015_08_903380.png" alt="" width="1257" height="493" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_XQ.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_XQ.jpg" alt="" width="1600" height="2133" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-52.png"><img src="benh-tim-bam-sinh_anh/2015_08_1-52.png" alt="" width="1189" height="781" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-57.png"><img src="benh-tim-bam-sinh_anh/2015_08_2-57.png" alt="" width="1197" height="790" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-53.png"><img src="benh-tim-bam-sinh_anh/2015_08_3-53.png" alt="" width="1191" height="793" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-47.png"><img src="benh-tim-bam-sinh_anh/2015_08_4-47.png" alt="" width="1195" height="797" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_5-36.png"><img src="benh-tim-bam-sinh_anh/2015_08_5-36.png" alt="" width="1196" height="799" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_6-25.png"><img src="benh-tim-bam-sinh_anh/2015_08_6-25.png" alt="" width="1197" height="808" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_7-19.png"><img src="benh-tim-bam-sinh_anh/2015_08_7-19.png" alt="" width="1187" height="805" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-386.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_1-386.jpeg" alt="" width="630" height="413" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-390.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_2-390.jpeg" alt="" width="630" height="413" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-390.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_3-390.jpeg" alt="" width="630" height="417" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-374.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_4-374.jpeg" alt="" width="630" height="421" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_5-301.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_5-301.jpeg" alt="" width="630" height="419" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_6-121.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_6-121.jpeg" alt="" width="630" height="420" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_7-56.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_7-56.jpeg" alt="" width="630" height="425" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_8-52.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_8-52.jpeg" alt="" width="630" height="429" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-387.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_1-387.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-391.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_2-391.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-391.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_3-391.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-375.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_4-375.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_5-302.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_5-302.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_6-122.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_6-122.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_7-57.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_7-57.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_8-53.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_8-53.jpeg" alt="" width="630" height="595" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-388.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_1-388.jpeg" alt="" width="536" height="605" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-392.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_2-392.jpeg" alt="" width="542" height="608" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-392.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_3-392.jpeg" alt="" width="540" height="613" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-376.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_4-376.jpeg" alt="" width="545" height="616" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_5-303.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_5-303.jpeg" alt="" width="541" height="619" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-389.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_1-389.jpeg" alt="" width="548" height="350" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-393.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_2-393.jpeg" alt="" width="551" height="347" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-393.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_3-393.jpeg" alt="" width="545" height="356" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-377.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_4-377.jpeg" alt="" width="539" height="359" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_a-5.png"><img src="benh-tim-bam-sinh_anh/2015_08_a-5.png" alt="" width="1279" height="1105" loading="lazy" decoding="async"></a></div>
+<h3 id="4-tu-chung-fallot">4. Tứ chứng Fallot</h3>
+<p><span class="c-xanh">– Tứ chứng Fallot (Tetralogy of Fallot; TOF)</span> là dị tật tim bẩm sinh tím thường gặp nhất, chiếm khoảng 7–10% các dị tật tim bẩm sinh.</p>
+<p><span class="c-xanh">– Gồm bốn tổn thương chính:</span><br>+ Thông liên thất lớn, thường không hạn chế và kiểu lệch hàng (malalignment).<br>+ Động mạch chủ cưỡi ngựa trên vách liên thất, nhận máu từ cả hai thất.<br>+ Tắc nghẽn đường thoát thất phải: có thể ở vùng dưới van (phễu), tại van hoặc trên van/nhánh động mạch phổi; thể nặng có thể tiến tới teo động mạch phổi. Thể vắng van động mạch phổi là biến thể hiếm.<br>+ Phì đại thất phải, thứ phát do tắc nghẽn đường thoát thất phải.</p>
+<p><span class="c-xanh">– Dị tật phối hợp cần lưu ý:</span><br>+ Quai động mạch chủ phải (khoảng 25%) và bất thường động mạch vành (khoảng 5–10%); đặc biệt lưu ý động mạch vành bất thường chạy qua đường thoát thất phải.<br>+ Có thể gặp hẹp nhánh động mạch phổi, động mạch bàng hệ chủ-phổi lớn hoặc còn ống động mạch; còn ống động mạch có thể là nguồn cấp máu phổi quan trọng ở thể teo động mạch phổi.</p>
+<figure><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_tof-updated-1.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_tof-updated-1.jpg" alt="" width="1426" height="896" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">– Biểu hiện lâm sàng</span> thay đổi chủ yếu theo mức độ tắc nghẽn đường thoát thất phải; thông liên thất trong tứ chứng Fallot thường rộng, không hạn chế. Tắc nghẽn rất nặng hoặc teo động mạch phổi có thể gây tím ngay sau sinh; tắc nghẽn nhẹ hơn có thể chưa gây tím lúc nghỉ, với biểu hiện xuất hiện muộn hơn trong giai đoạn nhũ nhi hoặc trẻ nhỏ. Mức độ tắc nghẽn có thể tăng ở một số trẻ, nhưng bệnh không nhất thiết tiến triển nặng dần ở mọi trường hợp.</p>
+<p><span class="c-xanh">– Sinh lý bệnh:</span><br>+ Tắc nghẽn đường thoát thất phải làm tăng hậu tải và gây phì đại thất phải. Vì thông liên thất thường rộng, không hạn chế, mức độ tắc nghẽn đường thoát thất phải cùng tương quan sức cản phổi-hệ thống chi phối hướng luồng thông; tắc nghẽn nặng làm tăng luồng thông phải-trái qua thông liên thất, giảm lưu lượng máu phổi và gây tím.<br>+ Cơn tím kịch phát có thể khởi phát khi trẻ khóc hoặc gắng sức; tăng tắc nghẽn đường thoát thất phải, tăng sức cản mạch phổi hoặc giảm sức cản hệ thống có thể làm tăng luồng thông phải-trái và giảm độ bão hòa oxy.<br>+ Phì đại thất phải là đáp ứng với quá tải áp lực; không nên xem xơ hóa rồi suy tim phải là diễn tiến tất yếu ở mọi bệnh nhân.</p>
+<p><strong><span class="c-xanh">* Hình ảnh X-quang<br></span></strong></p>
+<p>– Bóng tim: thường có kích thước bình thường.<br>– Tim hình chiếc giầy (Boot-shaped): thất phải phì đại, mỏm tim chếch lên.<br>– Đoạn cung động mạch phổi lõm hoặc giảm nổi bật (pulmonary bay), thường liên quan đến thiểu sản thân động mạch phổi và tắc nghẽn đường thoát thất phải.<br>– Tuần hoàn phổi giảm: mạch máu phổi ngoại vi thưa, nhỏ; phế trường có thể tăng sáng. Mức độ thay đổi tùy lưu lượng máu phổi.<br>– Có thể thấy quai động mạch chủ phải (khoảng 25%).</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_27c0aea51217db4843c944283d4ab0_jumbo.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_27c0aea51217db4843c944283d4ab0_jumbo.jpeg" alt="" width="982" height="493" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2397504f7c944b7a70cc749674a712_jumbo.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_2397504f7c944b7a70cc749674a712_jumbo.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_cxr-clinical-tetralogy-pediatrics-peds-original.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_cxr-clinical-tetralogy-pediatrics-peds-original.jpeg" alt="" width="746" height="677" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_d4a689ffbdf67d3cbff512c3c76166_jumbo.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_d4a689ffbdf67d3cbff512c3c76166_jumbo.jpg" alt="" width="814" height="680" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_e1a0dbc7edeb9d866ed1fdb267668e_jumbo.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_e1a0dbc7edeb9d866ed1fdb267668e_jumbo.jpg" alt="" width="879" height="795" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_g07se15g05a.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_g07se15g05a.jpeg" alt="" width="1600" height="1389" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_ch4401.fig3_.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_ch4401.fig3_.jpg" alt="" width="966" height="821" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_IMG_20201121_200440_jumbo.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_IMG_20201121_200440_jumbo.jpeg" alt="" width="893" height="952" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_902663.png"><img src="benh-tim-bam-sinh_anh/2015_08_902663.png" alt="" width="693" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_6b092b2fbf79d78421d3b9246cef909a598fbdda0491c7a129f04a8f561c3a47_jumbo.png"><img src="benh-tim-bam-sinh_anh/2015_08_6b092b2fbf79d78421d3b9246cef909a598fbdda0491c7a129f04a8f561c3a47_jumbo.png" alt="" width="884" height="820" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-Figure1-1.png"><img src="benh-tim-bam-sinh_anh/2015_08_2-Figure1-1.png" alt="" width="662" height="703" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-Figure2-1.png"><img src="benh-tim-bam-sinh_anh/2015_08_3-Figure2-1.png" alt="" width="1091" height="1100" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-Figure3-1-1.png"><img src="benh-tim-bam-sinh_anh/2015_08_4-Figure3-1-1.png" alt="" width="623" height="624" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-882.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_1-882.jpeg" alt="" width="1600" height="1389" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-876.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_2-876.jpeg" alt="" width="1280" height="1111" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-861.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_3-861.jpeg" alt="" width="1044" height="1280" loading="lazy" decoding="async"></a></div>
+<h3 id="5-hep-eo-dm-chu">5. Hẹp eo ĐM chủ</h3>
+<p><span class="c-xanh">– Hẹp eo động mạch chủ (Coarctation of the Aorta; CoA)</span> là tình trạng hẹp khu trú động mạch chủ, thường ở eo động mạch chủ gần chỗ nối ống động mạch và ngay sau chỗ xuất phát động mạch dưới đòn trái. Hẹp gây tăng áp lực và hậu tải thất trái ở phía trên, đồng thời giảm tưới máu các tạng và chi dưới ở phía dưới; trường hợp nặng hoặc kéo dài có thể dẫn đến phì đại thất trái, rối loạn chức năng thất trái và suy tim.<br>– Theo tương quan giải phẫu với ống động mạch, chỗ hẹp có thể ở trước, cạnh hoặc sau ống; đa số nằm cạnh ống. Không nên quy định thể trước ống chỉ gặp ở trẻ em và thể sau ống chỉ gặp ở người lớn:<br>+ Hẹp nặng ở trẻ sơ sinh có thể gây suy tuần hoàn khi ống động mạch co thắt hoặc đóng.<br>+ Hẹp nhẹ hơn có thể được phát hiện muộn, chẳng hạn khi đánh giá tăng huyết áp hoặc chênh lệch mạch và huyết áp giữa chi trên với chi dưới.</p>
+<p><span class="c-xanh">– Dịch tễ và liên quan hội chứng Turner:</span><br>+ CoA chiếm khoảng 5–8% các dị tật tim bẩm sinh; thường gặp ở nam hơn nữ, tỷ lệ khoảng 2:1.<br>+ CoA gặp ở khoảng 10–20% người mắc hội chứng Turner; ngược lại, khoảng 10–15% trẻ em gái mắc CoA có thể có hội chứng Turner.<br>+ CoA có thể đơn độc hoặc phối hợp dị tật tim khác, thường gặp nhất là van động mạch chủ hai mảnh; cũng có thể kèm thông liên thất, còn ống động mạch hoặc các tổn thương tắc nghẽn tim trái như trong hội chứng Shone.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Cơ chế hình thành hẹp eo động mạch chủ chưa được xác định đầy đủ; các giả thuyết chính gồm:<br>+ Giảm dòng máu xuôi chiều qua quai hoặc eo động mạch chủ trong thời kỳ bào thai, có thể liên quan đến các tổn thương tắc nghẽn tim trái, làm hạn chế sự phát triển của quai động mạch chủ.<br>+ Mô ống động mạch lan vào thành động mạch chủ vùng eo; khi ống động mạch co thắt và đóng sau sinh, sự co rút mô này có thể góp phần gây hẹp.<br>+ Bất thường trong quá trình phát triển hoặc di cư của tế bào mào thần kinh cũng có thể tham gia vào cơ chế bệnh sinh.</p>
+<figure><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_coarctation-aorta.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_coarctation-aorta.jpg" alt="" width="1600" height="1129" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-xanh">* Hình ảnh X-quang</span></p>
+<p><span class="c-xanh">– Bóng tim:</span> thường có kích thước bình thường; có thể to khi xuất hiện suy tim hoặc giãn thất trái. X-quang không đánh giá trực tiếp phì đại thất trái; cần phối hợp điện tâm đồ và siêu âm tim.</p>
+<p><span class="c-xanh">– Đường viền quai động mạch chủ:</span><br>+ Có thể biến dạng hoặc kém rõ ở vùng eo; “mất ấn động mạch chủ” không nên xem là dấu hiệu đặc hiệu độc lập.<br>+ Dấu hiệu số 3 thường thấy trên phim thẳng: lồi trước chỗ hẹp do giãn đoạn quai động mạch chủ và vùng gần chỗ hẹp, lõm tại vị trí hẹp, rồi lồi sau chỗ hẹp do giãn động mạch chủ xuống.</p>
+<p><span class="c-xanh">– Khuyết sườn (dấu Roesler):</span> khuyết bờ dưới các xương sườn, thường từ xương sườn 3 đến 8, do các động mạch gian sườn giãn trong tuần hoàn bàng hệ. Đây thường là dấu hiệu muộn, hiếm gặp trước 5 tuổi; không thấy khuyết sườn ở trẻ nhỏ không loại trừ hẹp eo.</p>
+<p><span class="c-xanh">– Tuần hoàn phổi</span> thường bình thường trong hẹp eo đơn thuần; có thể thay đổi nếu phối hợp dị tật gây tăng lưu lượng máu phổi.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> X-quang có thể bình thường và không xác định đáng tin cậy mức độ hẹp; cần phối hợp siêu âm tim, CT hoặc MRI theo chỉ định.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_images_large_g07se15g06c.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_images_large_g07se15g06c.jpeg" alt="" width="1600" height="1583" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_images_large_g07se15c06d.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_images_large_g07se15c06d.jpeg" alt="" width="1280" height="1268" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_COA-1.png"><img src="benh-tim-bam-sinh_anh/2015_08_COA-1.png" alt="" width="923" height="980" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_601318.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_601318.jpg" alt="" width="1600" height="926" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_Coarc1a.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_Coarc1a.jpg" alt="" width="928" height="1248" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_Coarc1bcu.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_Coarc1bcu.jpg" alt="" width="458" height="527" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_Coarc2a.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_Coarc2a.jpg" alt="" width="600" height="636" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_Coarc2b.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_Coarc2b.jpg" alt="" width="490" height="626" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_Coarc2d.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_Coarc2d.jpg" alt="" width="720" height="720" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-425.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_1-425.jpg" alt="" width="962" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-420.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_2-420.jpg" alt="" width="909" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-265.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_3-265.jpeg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-426.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_1-426.jpg" alt="" width="1024" height="1010" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-421.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_2-421.jpg" alt="" width="1024" height="886" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-402.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_3-402.jpg" alt="" width="630" height="567" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-358.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_4-358.jpg" alt="" width="572" height="530" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-482.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_1-482.jpeg" alt="" width="1024" height="839" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-484.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_2-484.jpeg" alt="" width="630" height="557" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-487.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_3-487.jpeg" alt="" width="630" height="560" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-470.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_4-470.jpeg" alt="" width="630" height="558" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_5-376.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_5-376.jpeg" alt="" width="273" height="630" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Giả hẹp eo động mạch chủ</span></strong></p>
+<p><span class="c-xanh">– Giả hẹp eo động mạch chủ (pseudocoarctation)</span> là biến thể hiếm, thường do quai động mạch chủ dài, dư và gấp khúc; hình ảnh có thể giống hẹp eo thật nhưng thường không gây tắc nghẽn huyết động đáng kể.</p>
+<p><span class="c-xanh">– Hình ảnh:</span><br>+ X-quang có thể cho thấy biến dạng đường viền quai động mạch chủ, đôi khi giả hình số 3.<br>+ CT mạch máu hoặc MRI cho thấy quai động mạch chủ dài, dư, gấp khúc/gập góc, có thể hẹp nhẹ nhưng không có hẹp lòng mạch đáng kể.</p>
+<p><span class="c-xanh">– Phân biệt với hẹp eo thật:</span><br>+ Giả hẹp eo thường không có hoặc chỉ có chênh áp nhỏ qua đoạn gấp khúc, không có tuần hoàn bàng hệ đáng kể, khuyết sườn hay biểu hiện phì đại thất trái điển hình.<br>+ Hẹp eo thật thường có chỗ hẹp cấu trúc rõ, kèm tăng áp lực phía trên và giảm tưới máu phía dưới; trường hợp mạn tính có thể hình thành tuần hoàn bàng hệ và khuyết sườn.<br>+ Cần phối hợp hình thái trên CT/MRI với huyết áp hai tay–hai chân, mạch đùi và đánh giá Doppler; không phân biệt chỉ dựa vào một trị số chênh áp.</p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc1a.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc1a.jpg" alt="" width="685" height="815" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc1b.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc1b.jpg" alt="" width="545" height="648" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc1c.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc1c.jpg" alt="" width="1008" height="648" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc1d.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc1d.jpg" alt="" width="1080" height="864" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc2a.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc2a.jpg" alt="" width="651" height="698" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc2b.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc2b.jpg" alt="" width="524" height="714" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc2c.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc2c.jpg" alt="" width="1080" height="864" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc3a.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc3a.jpg" alt="" width="700" height="784" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc3b.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc3b.jpg" alt="" width="1080" height="864" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc_PA.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc_PA.jpg" alt="" width="820" height="1116" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc_Lat.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc_Lat.jpg" alt="" width="722" height="972" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc_CT1.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc_CT1.jpg" alt="" width="1000" height="800" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_PsCoarc_3Da.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_PsCoarc_3Da.jpg" alt="" width="720" height="576" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh"><strong>* Chẩn đoán CT</strong></span></p>
+<p><span class="c-xanh">– Vai trò:</span> CT mạch máu có tiêm thuốc cản quang bổ sung cho siêu âm tim khi cần khảo sát chi tiết quai động mạch chủ, các nhánh bên và tuần hoàn bàng hệ; hữu ích khi cửa sổ siêu âm hạn chế, giải phẫu phức tạp hoặc lập kế hoạch can thiệp/phẫu thuật. Siêu âm tim vẫn là phương tiện đầu tay.</p>
+<p><span class="c-xanh">– Dấu hiệu trực tiếp:</span> Hẹp khu trú hoặc thiểu sản một đoạn động mạch chủ, thường tại eo động mạch chủ, ngay sau chỗ xuất phát động mạch dưới đòn trái:<br>+ Tái tạo đa mặt phẳng và 3D giúp xác định vị trí, chiều dài, đường kính lòng mạch hẹp nhất, mức độ thiểu sản quai và mối liên quan với các nhánh quai động mạch chủ.<br>+ Có thể thấy giãn trước hoặc sau chỗ hẹp; tổn thương có thể dạng gờ khu trú hoặc hẹp dài, kèm thiểu sản quai ngang.</p>
+<p><span class="c-xanh">– Khảo sát tổn thương phối hợp:</span> Đánh giá tuần hoàn bàng hệ liên sườn, ngực trong và quanh vai; tìm phình hoặc tổn thương thành động mạch chủ, van động mạch chủ hai mảnh và các bất thường mạch máu phối hợp. CT cũng hữu ích khi đánh giá đoạn đã đặt stent.</p>
+<p><span class="c-xanh">– Phân biệt giả hẹp eo:</span> Giả hẹp thường biểu hiện quai động mạch chủ dài, cao và gấp khúc nhưng không có hẹp lòng mạch gây cản trở đáng kể hoặc tuần hoàn bàng hệ rõ.</p>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-390.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_1-390.jpeg" alt="" width="630" height="418" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-394.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_2-394.jpeg" alt="" width="630" height="426" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-394.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_3-394.jpeg" alt="" width="630" height="439" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-378.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_4-378.jpeg" alt="" width="515" height="579" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_5-304.jpeg"><img src="benh-tim-bam-sinh_anh/2015_08_5-304.jpeg" alt="" width="630" height="572" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-507.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_1-507.jpg" alt="" width="457" height="252" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-500.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_2-500.jpg" alt="" width="459" height="255" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-483.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_3-483.jpg" alt="" width="460" height="267" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-429.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_4-429.jpg" alt="" width="630" height="575" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_5-263.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_5-263.jpg" alt="" width="585" height="575" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_1-508.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_1-508.jpg" alt="" width="630" height="429" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_2-501.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_2-501.jpg" alt="" width="630" height="433" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_3-484.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_3-484.jpg" alt="" width="630" height="433" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_4-430.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_4-430.jpg" alt="" width="630" height="435" loading="lazy" decoding="async"></a><a class="o-anh" href="benh-tim-bam-sinh_anh/2015_08_5-264.jpg"><img src="benh-tim-bam-sinh_anh/2015_08_5-264.jpg" alt="" width="589" height="607" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Classic Imaging Signs of Congenital Cardiovascular Abnormalities – Emma C. Ferguson, Rajesh Krishnamurthy, Sandra A. A. Oldham<br></em></span><span class="c-xanh"><em>* The tell-tale heart. Chest x-ray revisited in children with congenital heart disease. Pictorial essay – K. Markiet, M. Stankowska, E. Szurowska; Gdansk/PL<br>* Imaging of Adult Atrial Septal Defects With CT Angiography – Hugh D. White, Ethan J. Halpern and Michael P. Savage<br>* Congenital heart disease chest x-ray (an approach) – Dr Henry Knipe<br>* Illustrated Imaging Essay on Congenital Heart Diseases: Multimodality Approach: Acyanotic Congenital Heart Disease and Extracardiac Abnormalities – Venkatraman Bhat<br>* Diagnostic Imaging of Congenital Heart Defects – Matthias Gutberlet<br>* CT of Congenital Heart Disease: Normal Anatomy and Typical Pathologic Conditions – Hyun Woo Goo, In-Sook Park, Jae Kon Ko<br>* Accuracy of chest radiography for evaluating significantly abnormal pulmonary vascularity in children with congenital heart disease – Monravee Tumkosit , Numfon Yingyong, Atchara Mahayosnond<br>* Radiologic evaluation of suspected congenital heart disease in adults – Vincent B Ho<br>* Effects of electrocardiography and chest radiography on the accuracy of preliminary diagnosis of common congenital cardiac defects – D A Danford, C H Gumbiner, A B Martin, S E Fletcher<br>* Imaging Modalities in Congenital Heart Disease – Sakshi Sachdeva, Saurabh Kumar Gupta<br>* Imaging of congenital heart disease in adults – Sonya V Babu-Narayan<br>* Imaging in Adult Congenital Heart Disease – Stephanie S Gaydos<br>* Imaging congenital heart disease in adults – P J Kilner</em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

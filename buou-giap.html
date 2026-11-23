@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bướu Giáp Thòng</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>Bướu Giáp Thòng</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/buou-giap/" target="_blank" rel="noopener">Xray.vn — xray.vn/buou-giap</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Định nghĩa bướu giáp thòng (substernal goiter):</span><br>+ Là mô tuyến giáp lan qua lỗ ngực trên và nằm một phần trong lồng ngực; thường biểu hiện thành khối choán chỗ trung thất trên. Bướu có thể ở khoang trước mạch máu, khoang tạng hoặc lan ra sau; không mặc định mọi trường hợp đều thuộc trung thất trước.<br>+ Phần lớn hình thành do bướu tuyến giáp cổ phát triển kéo dài rồi lan xuống trung thất. Trọng lực và áp lực âm trong lồng ngực góp phần vào sự di chuyển này; đây không phải quá trình xảy ra ở cấp độ vi cấu trúc.</p>
+<p><span class="c-xanh">– Tiêu chuẩn xác định bướu giáp thòng:</span><br>+ Chưa có một định nghĩa thống nhất. Tiêu chuẩn thường dùng là trên 50% thể tích tuyến giáp nằm dưới lỗ ngực trên.<br>+ Một số tài liệu dùng các ngưỡng thay thế như bướu lan quá 3 cm dưới hõm ức hoặc xuống đến mức đốt sống ngực T4. Các tiêu chuẩn này không tương đương và không cần đồng thời thỏa mãn.<br>+ Cần ghi rõ mốc giải phẫu và cách đo khi báo cáo độ lan xuống; chỉ nêu “bướu lớn” hoặc “chìm dưới hõm ức” không đủ để so sánh giữa các tiêu chuẩn.</p>
+<p><span class="c-xanh">– Dịch tễ và bản chất mô học:</span><br>+ Tần suất thay đổi theo định nghĩa, quần thể và cách tuyển chọn bệnh nhân. Các báo cáo được trích dẫn trong tài liệu nêu tỷ lệ 3–20% trong nhóm bướu giáp và khoảng 1% trong nhóm u trung thất, nhưng không nên xem đây là ước tính hiện mắc chung.<br>+ Bướu thường là bướu giáp đa nhân lành tính, hay gặp dạng keo hoặc tăng sản dạng nốt; hình ảnh không thay thế được chẩn đoán mô học.<br>+ Tỷ lệ ác tính thay đổi theo quần thể. Phân tích gộp năm 2025 trên các trường hợp được phẫu thuật ghi nhận tỷ lệ 12,4%; con số này chịu ảnh hưởng của chọn mẫu và không đại diện cho nguy cơ ở mọi người có bướu giáp thòng.<br>+ Bướu thứ phát từ tuyến giáp cổ thường được cấp máu từ hệ động mạch giáp, chủ yếu là động mạch giáp dưới. Tuyến giáp lạc chỗ trong lồng ngực có thể có mạch nuôi riêng từ các mạch trong ngực.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span><br>+ Bướu thường tiến triển chậm; có thể sờ thấy tuyến giáp to ở cổ nhưng một số người bệnh không có triệu chứng rõ dù hình ảnh đã thấy chèn ép.<br>+ Triệu chứng chèn ép gồm khó thở, ho, thở rít hoặc khó thở khi nằm do ảnh hưởng khí quản; khó nuốt do ảnh hưởng thực quản; khàn tiếng có thể gặp khi thần kinh thanh quản quặt ngược bị ảnh hưởng.<br>+ Chèn ép tĩnh mạch lớn có thể gây phù mặt, tĩnh mạch cổ nổi hoặc hội chứng tĩnh mạch chủ trên. Dấu Pemberton (Pemberton sign)—xuất hiện sung huyết mặt hoặc khó thở khi nâng hai tay—có thể gợi ý tắc nghẽn đường thoát tĩnh mạch ở lỗ ngực trên.<br>+ Chức năng tuyến giáp có thể bình thường hoặc bất thường; không thể suy ra tình trạng cường hay suy giáp chỉ từ kích thước bướu.<br>+ Trong phân tích gộp năm 2025 trên các nhóm bệnh nhân phẫu thuật, 27,6% không có triệu chứng, 64,8% có triệu chứng chèn ép; hình ảnh ghi nhận lệch khí quản ở 60,6% và chèn ép khí quản ở 48,6%. Đây là số liệu của nhóm phẫu thuật, không đại diện cho toàn bộ người mắc bệnh.</p>
+<figure><a class="o-anh" href="buou-giap_anh/2015_11_buou-giap-thong-dai-cuong-ngang.jpg"><img src="buou-giap_anh/2015_11_buou-giap-thong-dai-cuong-ngang.jpg" alt="Bướu giáp thòng" width="1200" height="800" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<p><strong><span class="c-xanh">* Nguyên nhân:</span></strong></p>
+<p><span class="c-xanh">– Bướu thứ phát từ tuyến giáp cổ:</span><br>+ Chiếm đa số; một số tài liệu ước tính khoảng 98%, nhưng tỷ lệ thay đổi theo định nghĩa và quần thể nghiên cứu.<br>+ Hình thành khi bướu tuyến giáp cổ, thường là bướu đa nhân phát triển lâu ngày, lan qua lỗ ngực trên. Sự phát triển liên tục, áp lực âm trong lồng ngực và trọng lực góp phần làm mô giáp đi xuống; không nên xem áp lực âm hoặc trọng lực là cơ chế duy nhất.<br>+ Thường còn liên tục với tuyến giáp cổ và được cấp máu từ các động mạch giáp, chủ yếu là động mạch giáp dưới. Bướu lan sâu có thể có tuần hoàn bàng hệ từ các mạch trong ngực, vì vậy không nên mặc định chỉ có một nguồn cấp máu.</p>
+<p><span class="c-xanh">– Tuyến giáp lạc chỗ nguyên phát trong lồng ngực (primary intrathoracic ectopic thyroid):</span><br>+ Là mô tuyến giáp nằm trong lồng ngực, không liên tục với tuyến giáp cổ; nghĩ đến bất thường di chuyển trong quá trình phát triển phôi. Không có tiền sử phẫu thuật tuyến giáp giúp phân biệt với mô giáp còn sót sau mổ.<br>+ Có thể được cấp máu độc lập từ động mạch ngực trong, thân động mạch cánh tay đầu hoặc các nhánh động mạch chủ; cần xác định giải phẫu mạch trước can thiệp vì nguồn cấp máu thay đổi giữa các trường hợp.<br>+ Không thấy dải nhu mô nối với tuyến giáp cổ hỗ trợ chẩn đoán nhưng không đủ để khẳng định đơn độc; cần đối chiếu tiền sử phẫu thuật, hình ảnh cổ-ngực và mạch nuôi.</p>
+<p><span class="c-xanh">– Mô giáp còn sót hoặc tái phát trong trung thất (forgotten goiter):</span><br>+ Là phần mô giáp bị bỏ lại trong trung thất sau phẫu thuật tuyến giáp trước đó, không đồng nghĩa với tuyến giáp lạc chỗ nguyên phát.<br>+ Tiền sử phẫu thuật và vị trí tổn thương trên hình ảnh giúp phân biệt; cần lưu ý khả năng mô giáp còn sót ngay cả khi không thấy liên tục với tuyến giáp cổ.</p>
+<h2 id="ii-giai-phau">II. Giải phẫu</h2>
+<h3 id="1-phan-chia-trung-that">1. Phân chia trung thất</h3>
+<p>– Trung thất là khoang giải phẫu nằm giữa hai lá phổi, được giới hạn phía trước bởi mặt sau xương ức, phía sau bởi mặt trước cột sống và đầu sau xương sườn, hai bên là màng phổi trung thất, giới hạn trên là lỗ cổ ngực của lồng ngực, giới hạn dưới là phần giữa cơ hoành.</p>
+<p><strong><span class="c-xanh">* Phân chia theo phẫu thuật (Thomas. W. Shields)</span></strong><br>– Trung thất trước: giới hạn phía trước bởi xương ức và phía sau bởi các mạch máu lớn và màng ngoài tim.<br>– Trung thất giữa: giới hạn giữa trung thất trước và sau.<br>– Trung thất sau: được giới hạn phía trước bởi thành sau khí phế quản và mặt sau của màng ngoài tim, giới hạn phía sau bởi thân các đốt sống ngực.<br>– Ngoài tính theo mặt phẳng trên-dưới, trung thất được chia thành 3 tầng trên, giữa, dưới bởi 2 mặt phẳng ngang: mặt tiếp giáp với quai động mạch chủ và mặt đi qua chỗ phân đôi của khí quản.</p>
+<figure><a class="o-anh" href="buou-giap_anh/2017-07-25_18-33-02-e1646035096549.png"><img src="buou-giap_anh/2017-07-25_18-33-02-e1646035096549.png" alt="" width="1241" height="617" loading="lazy" decoding="async"></a></figure>
+<p><strong><span class="c-xanh">* Phân chia theo giải phẫu</span></strong><br>– Trung thất trên: thuộc phần trên mặt phẳng đi ngang qua khe gian đốt sống ngực T4-T5 ở phía sau và góc giữa cán – thân xương ức ở phía trước.<br>– Trung thất trước: khoang nằm dưới mặt phẳng kể trên, giữa phía trước màng ngoài tim và mặt sau xương ức.<br>– Trung thất giữa: khoang chứa màng ngoài tim và tim.<br>– Trung thất sau: khoang nằm dưới mặt phẳng kể trên, sau màng ngoài tim và trước thân các đốt sống ngực.</p>
+<figure><a class="o-anh" href="buou-giap_anh/123-3-e1646035143298.png"><img src="buou-giap_anh/123-3-e1646035143298.png" alt="" width="1225" height="560" loading="lazy" decoding="async"></a></figure>
+<div class="bo-anh cot-5"><a class="o-anh" href="buou-giap_anh/2015_09_1-235.jpg"><img src="buou-giap_anh/2015_09_1-235.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_2-231.jpg"><img src="buou-giap_anh/2015_09_2-231.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_3-220.jpg"><img src="buou-giap_anh/2015_09_3-220.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_4-198.jpg"><img src="buou-giap_anh/2015_09_4-198.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_5-152.jpg"><img src="buou-giap_anh/2015_09_5-152.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_6-43.jpg"><img src="buou-giap_anh/2015_09_6-43.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_7-25.jpg"><img src="buou-giap_anh/2015_09_7-25.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_8-19.jpg"><img src="buou-giap_anh/2015_09_8-19.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_9-1.jpg"><img src="buou-giap_anh/2015_09_9-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_10-1.jpg"><img src="buou-giap_anh/2015_09_10-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Phân chia ITMIG (International Thymic Malignancy Interest Group)</span></strong></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="buou-giap_anh/2015_11_Screenshot-2021-05-30-231338.png"><img src="buou-giap_anh/2015_11_Screenshot-2021-05-30-231338.png" alt="" width="900" height="792" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_08_1-914.jpeg"><img src="buou-giap_anh/2015_08_1-914.jpeg" alt="" width="787" height="787" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_08_2-915.jpeg"><img src="buou-giap_anh/2015_08_2-915.jpeg" alt="" width="786" height="787" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_08_3-898.jpeg"><img src="buou-giap_anh/2015_08_3-898.jpeg" alt="" width="787" height="786" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_08_4-835.jpeg"><img src="buou-giap_anh/2015_08_4-835.jpeg" alt="" width="786" height="786" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Khoang trước mạch máu:</span><br>+ Giới hạn phía trước bởi xương ức và phía sau bởi các mạch máu lớn và màng ngoài tim.<br>+ Thành phần: tuyến ức, tổ chức mỡ, hạch bạch huyết, tĩnh mạch cánh tay đầu.<br>+ Bệnh lý thường gặp: bệnh lý tuyến ức, u tế bào mầm, lymphoma, di căn hạch, bướu giáp thòng.</p>
+<p><span class="c-xanh">– Khoang tạng:<br></span>+ Giới hạn phía trước là khoang trước mạch máu, giới hạn phía sau bởi đường thẳng về phía sau cột sống, cách bờ trước cột sống 1cm.<br>+ Thành phần: tim, tĩnh mạch chủ trên, động mạch chủ, động mạch phổi, ống ngực, khí phế quản, thực quản, hạch bạch huyết.<br>+ Bệnh lý thường gặp: bệnh lý tim và mạch máu lớn, bệnh lý khí quản, bệnh lý thực quản, nang đôi (nang màng tim, nang phế quản), bệnh lý hạch.</p>
+<p><span class="c-xanh">– Khoang cạnh cột sống:</span><br>+ Giới hạn phía trước bởi khoang tạng.<br>+ Thành phần: cột sống ngực, mô mềm cạnh cột sống.<br>+ Bệnh lý thường gặp: khối u nguồn gốc thần kinh, nhiễm trùng cột sống, chấn thương cột sống, tạo máu ngoài tủy.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="buou-giap_anh/2015_11_1-17.jpg"><img src="buou-giap_anh/2015_11_1-17.jpg" alt="" width="748" height="568" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_2-16.jpg"><img src="buou-giap_anh/2015_11_2-16.jpg" alt="" width="742" height="556" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_3-16.jpg"><img src="buou-giap_anh/2015_11_3-16.jpg" alt="" width="742" height="556" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_4-13.jpg"><img src="buou-giap_anh/2015_11_4-13.jpg" alt="" width="740" height="556" loading="lazy" decoding="async"></a></div>
+<h3 id="2-khoi-u-trung-that">2. Khối u trung thất</h3>
+<figure><a class="o-anh" href="buou-giap_anh/2015_11_1-6.png"><img src="buou-giap_anh/2015_11_1-6.png" alt="" width="1600" height="900" loading="lazy" decoding="async"></a></figure>
+<h2 id="iii-chan-doan-x-quang">III. Chẩn đoán x-quang</h2>
+<h3 id="1-dac-diem-hinh-anh">1. Đặc điểm hình ảnh</h3>
+<p><span class="c-xanh">– Khối mờ trung thất trên trên X quang quy ước:</span><br>+ Thường biểu hiện bằng rộng trung thất trên hoặc khối cạnh khí quản, bờ có thể rõ và tạo góc tù với trung thất, gợi ý nguồn gốc ngoài nhu mô phổi nhưng không đặc hiệu cho bướu giáp.<br>+ Đậm độ có thể tương đối đồng nhất; vôi hóa hoặc không đồng nhất vẫn có thể gặp. Vị trí lệch phải không phải dấu hiệu bắt buộc.<br>+ Phim nghiêng giúp định khu trước-sau; cần xem cả vùng cổ-ngực và bờ khí quản. Phim chụp trước-sau tại giường, xoay người bệnh hoặc hít vào kém có thể làm trung thất trông rộng giả.<br>+ Không thấy phế quản chứa khí trong khối phù hợp với tổn thương ngoài nhu mô phổi, nhưng dấu này không xác định nguồn gốc tuyến giáp; ngược lại, thấy phế quản chứa khí cần cân nhắc tổn thương nhu mô phổi hoặc phế quản.</p>
+<p><span class="c-xanh">– Dấu hiệu đè ép khi bướu lớn:</span><br>+ Có thể thấy khí quản bị đẩy lệch, hẹp hoặc biến dạng; đoạn hẹp dài, bờ trơn gợi ý chèn ép từ ngoài, nhưng X quang không đánh giá đầy đủ mức độ và chiều dài chèn ép.<br>+ Thực quản có thể bị đẩy lệch hoặc chèn ép. Chụp thực quản cản quang chỉ cân nhắc khi cần làm rõ biểu hiện nuốt nghẹn; CT thường cung cấp đánh giá giải phẫu toàn diện hơn.<br>+ Mức độ lệch trên phim không luôn phản ánh chính xác mức độ triệu chứng hoặc hẹp đường thở.</p>
+<p><span class="c-xanh">– Cạm bẫy thực hành trên X quang quy ước:</span><br>+ X quang không xác định chắc chắn nguồn gốc tuyến giáp hoặc bản chất mô học; không chẩn đoán xác định chỉ dựa vào hình mờ trung thất trên.<br>+ U tuyến ức, lymphoma, u tế bào mầm và tổn thương mạch máu có thể cùng biểu hiện bằng rộng trung thất; X quang thường không phân biệt đáng tin cậy các nguyên nhân này.<br>+ Tổn thương chìa khóa cần tìm là khối vùng cổ-ngực đi kèm đẩy lệch hoặc hẹp khí quản; đối chiếu phim cũ giúp nhận biết tiến triển. Khi nghi ngờ bướu giáp thòng, cần khảo sát tiếp bằng CT cổ-ngực để xác định liên quan với tuyến giáp, đường thở và mạch máu.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="buou-giap_anh/924ecf53798e4601ff271e6c2adf0d_jumbo.jpg"><img src="buou-giap_anh/924ecf53798e4601ff271e6c2adf0d_jumbo.jpg" alt="" width="957" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/accb952fc6c2d9dc07f09bd85a9183_jumbo.jpeg"><img src="buou-giap_anh/accb952fc6c2d9dc07f09bd85a9183_jumbo.jpeg" alt="" width="902" height="902" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/afd81833d59125a035723f08e17f17_jumbo.jpeg"><img src="buou-giap_anh/afd81833d59125a035723f08e17f17_jumbo.jpeg" alt="" width="942" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/f351149143eb1cdd97eb3260ab574d_jumbo.jpg"><img src="buou-giap_anh/f351149143eb1cdd97eb3260ab574d_jumbo.jpg" alt="" width="1024" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/goitre-1.jpg"><img src="buou-giap_anh/goitre-1.jpg" alt="" width="1600" height="1777" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/goitre.jpg"><img src="buou-giap_anh/goitre.jpg" alt="" width="605" height="657" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_xx_jumbo.jpeg"><img src="buou-giap_anh/2015_11_xx_jumbo.jpeg" alt="" width="963" height="988" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_0a2bf65ec57b79b882e1ec01a92358_jumbo.jpeg"><img src="buou-giap_anh/2015_11_0a2bf65ec57b79b882e1ec01a92358_jumbo.jpeg" alt="" width="708" height="1004" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_13257_2009_Article_995_Fig1_HTML.png"><img src="buou-giap_anh/2015_11_13257_2009_Article_995_Fig1_HTML.png" alt="" width="600" height="562" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_zeg0121077160001.jpeg"><img src="buou-giap_anh/2015_11_zeg0121077160001.jpeg" alt="" width="1600" height="1200" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_AnnThoracMed_2012_7_2_57_94520_u4.jpg"><img src="buou-giap_anh/2015_11_AnnThoracMed_2012_7_2_57_94520_u4.jpg" alt="" width="481" height="516" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_633132.jpg"><img src="buou-giap_anh/2015_11_633132.jpg" alt="" width="888" height="541" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="buou-giap_anh/2015_11_Capture.png"><img src="buou-giap_anh/2015_11_Capture.png" alt="" width="864" height="867" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_456.png"><img src="buou-giap_anh/2015_11_456.png" alt="" width="1600" height="759" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_123.png"><img src="buou-giap_anh/2015_11_123.png" alt="" width="1600" height="758" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="buou-giap_anh/2015_11_1-8.jpeg"><img src="buou-giap_anh/2015_11_1-8.jpeg" alt="" width="927" height="805" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_2-8.jpeg"><img src="buou-giap_anh/2015_11_2-8.jpeg" alt="" width="630" height="374" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_3-7.jpeg"><img src="buou-giap_anh/2015_11_3-7.jpeg" alt="" width="630" height="389" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_4-8.jpeg"><img src="buou-giap_anh/2015_11_4-8.jpeg" alt="" width="630" height="404" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_5-7.jpeg"><img src="buou-giap_anh/2015_11_5-7.jpeg" alt="" width="630" height="419" loading="lazy" decoding="async"></a></div>
+<h3 id="2-dau-hieu-co-nguc">2. Dấu hiệu cổ ngực</h3>
+<div class="bo-anh cot-3"><a class="o-anh" href="buou-giap_anh/2016_09_conguc.png"><img src="buou-giap_anh/2016_09_conguc.png" alt="" width="777" height="419" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2016_09_Picture10.png"><img src="buou-giap_anh/2016_09_Picture10.png" alt="" width="732" height="344" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2016_09_index-2.jpg"><img src="buou-giap_anh/2016_09_index-2.jpg" alt="" width="1600" height="1261" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu cổ ngực (cervicothoracic sign):</span><br>+ Là dấu hiệu định khu trên X quang dựa trên nguyên lý xóa bờ; áp dụng cho khối trung thất trên có phần vượt lên trên xương đòn. Dấu hiệu gợi ý vị trí trước hay sau, không xác định bản chất khối.<br>+ Bờ trên bị xóa khi khối tiếp xúc với mô mềm vùng cổ có đậm độ tương tự; bờ còn rõ khi khối được bao quanh bởi khí phổi.</p>
+<p><span class="c-xanh">– Dấu hiệu dương tính gợi ý tổn thương trung thất trước:</span><br>+ Bờ trên của khối mờ bị xóa hoặc không xác định được khi vượt lên trên xương đòn, do chồng với mô mềm vùng cổ; dấu hiệu này gợi ý khối nằm ở trung thất trước.<br>+ Bướu giáp thòng là một nguyên nhân cần nghĩ đến, nhất là khi thấy khối liên tục từ vùng cổ xuống trung thất; dấu hiệu cổ ngực không đặc hiệu và không đủ để xác định chẩn đoán.<br>+ Dấu hiệu kém tin cậy nếu khối không vượt lên trên xương đòn hoặc phim bị xoay, chụp tư thế không chuẩn hay chồng hình; cần khảo sát CT khi cần xác định vị trí và nguồn gốc khối.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="buou-giap_anh/2015_11_633132-1.jpg"><img src="buou-giap_anh/2015_11_633132-1.jpg" alt="Bướu giáp thòng" width="888" height="541" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2016_09_Picture11.jpg"><img src="buou-giap_anh/2016_09_Picture11.jpg" alt="Bướu giáp thòng" width="1026" height="1162" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2016_09_Picture12.png"><img src="buou-giap_anh/2016_09_Picture12.png" alt="Bướu giáp thòng" width="1009" height="948" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2016_09_Picture13.png"><img src="buou-giap_anh/2016_09_Picture13.png" alt="Bướu giáp thòng" width="960" height="902" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="buou-giap_anh/2015_11_Capture.png"><img src="buou-giap_anh/2015_11_Capture.png" alt="" width="864" height="867" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_456.png"><img src="buou-giap_anh/2015_11_456.png" alt="" width="1600" height="759" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_123.png"><img src="buou-giap_anh/2015_11_123.png" alt="" width="1600" height="758" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Dấu hiệu âm tính gợi ý tổn thương trung thất sau:</span><br>+ Khi bờ trên của khối mờ còn thấy rõ phía trên xương đòn, khối có thể được bao quanh bởi khí phổi; dấu hiệu này gợi ý vị trí phía sau.<br>+ Dấu hiệu không khẳng định khối thuộc trung thất sau: tổn thương đỉnh phổi hoặc màng phổi cũng có thể có bờ trên rõ. Chỉ áp dụng khi khối vượt lên trên xương đòn và cần đối chiếu các dấu hiệu định khu khác.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="buou-giap_anh/2016_09_Picture14.png"><img src="buou-giap_anh/2016_09_Picture14.png" alt="" width="1127" height="971" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2016_09_20191209_151712_xray.vn-1.jpg"><img src="buou-giap_anh/2016_09_20191209_151712_xray.vn-1.jpg" alt="" width="927" height="904" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2016_09_Picture15.png"><img src="buou-giap_anh/2016_09_Picture15.png" alt="" width="1148" height="641" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2016_09_q1.png"><img src="buou-giap_anh/2016_09_q1.png" alt="" width="1560" height="759" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2016_09_we3.png"><img src="buou-giap_anh/2016_09_we3.png" alt="" width="1559" height="994" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="buou-giap_anh/2015_09_1-229.jpeg"><img src="buou-giap_anh/2015_09_1-229.jpeg" alt="" width="947" height="954" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_2-228.jpeg"><img src="buou-giap_anh/2015_09_2-228.jpeg" alt="" width="630" height="387" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_3-220.jpeg"><img src="buou-giap_anh/2015_09_3-220.jpeg" alt="" width="630" height="391" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_4-210.jpeg"><img src="buou-giap_anh/2015_09_4-210.jpeg" alt="" width="630" height="394" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_09_5-168.jpeg"><img src="buou-giap_anh/2015_09_5-168.jpeg" alt="" width="630" height="396" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-clvt">IV. Chẩn đoán CLVT</h2>
+<h3 id="1-dac-diem-hinh-anh-2">1. Đặc điểm hình ảnh</h3>
+<p><span class="c-xanh">– Khối có bờ rõ và liên tục với tuyến giáp cổ:</span><br>+ Bờ thường rõ, có thể dạng thùy; dấu hiệu định hướng mạnh nhất cho nguồn gốc tuyến giáp là thấy mô bướu liên tục với tuyến giáp cổ trên các lát cắt mỏng liên tiếp và tái tạo đa mặt phẳng.<br>+ Không thấy dải nối không loại trừ bướu thứ phát: cuống nối có thể rất hẹp, bị che khuất bởi bướu lớn hoặc đã bị gián đoạn sau phẫu thuật. Cần đối chiếu tiền sử và nguồn cấp máu trước khi kết luận tuyến giáp lạc chỗ.</p>
+<p><span class="c-xanh">– Đậm độ và ngấm thuốc:</span><br>+ Trên CT trước tiêm, mô giáp thường tăng đậm độ so với cơ do chứa iod trong keo tuyến giáp; mức đậm độ thay đổi theo thành phần bướu, và đậm độ không cao không loại trừ nguồn gốc tuyến giáp.<br>+ Sau tiêm, bướu thường ngấm thuốc mạnh do tưới máu phong phú; mức độ và tính đồng nhất thay đổi theo thì chụp và các thành phần thoái hóa nang, xuất huyết hoặc xơ hóa.<br>+ Đậm độ cao trước tiêm và ngấm thuốc mạnh là dấu hiệu gợi ý, không đặc hiệu; cần tìm sự liên tục với tuyến giáp cổ và đánh giá hình thái tổng thể.</p>
+<p><span class="c-xanh">– Vôi hóa trong khối:</span><br>+ Có thể gặp vôi hóa thô, lấm tấm hoặc dạng viền; hình thái thay đổi theo thành phần và diễn tiến của bướu.<br>+ Tỷ lệ 62% được nêu trong một số báo cáo nhưng phụ thuộc quần thể và tiêu chí ghi nhận; không nên xem là tần suất áp dụng cho mọi nhóm bệnh nhân.<br>+ Vôi hóa dạng viền không đủ để kết luận lành tính; kiểu vôi hóa đơn độc cũng không phân biệt chắc chắn tổn thương lành và ác tính.</p>
+<p><span class="c-xanh">– Vị trí và hiệu ứng choán chỗ:</span><br>+ Bướu thường lan xuống từ trung thất trên nhưng có thể đến trung thất giữa hoặc nằm lệch trước, sau các mạch máu lớn; cần mô tả mức thấp nhất, kể cả tương quan với quai động mạch chủ và carina.<br>+ Bướu thường đẩy lệch hoặc chèn ép khí quản, thực quản và mạch máu. Vị trí sau mạch không đủ để phân biệt với u tuyến ức, vì bướu giáp có thể nằm ở nhiều khoang trung thất.<br>+ Bờ không đều, xâm lấn cấu trúc lân cận hoặc hạch bất thường làm tăng nghi ngờ ác tính; tuy nhiên, bướu lành tính lớn vẫn có thể gây chèn ép đáng kể.</p>
+<p><span class="c-xanh">– Cạm bẫy thực hành trên MDCT:</span><br>+ U tuyến cận giáp lạc chỗ và hạch tăng sinh mạch cũng có thể tăng đậm độ hoặc ngấm thuốc mạnh; cần đối chiếu tính liên tục với tuyến giáp, vị trí và bối cảnh lâm sàng.<br>+ Xẹp phổi hoặc biến dạng mô phổi cạnh bướu do chèn ép có thể giả xâm lấn. Đọc đa mặt phẳng để đánh giá mặt tiếp xúc, cấu trúc bị đẩy lệch và dấu hiệu xâm lấn thực sự.<br>+ Tổn thương chìa khóa là lần theo mô bướu từ cổ xuống ngực và lập bản đồ quan hệ với khí quản, thực quản, mạch máu cùng các mạch nuôi; không mặc định mọi bướu đều chỉ được cấp máu từ động mạch giáp dưới.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="buou-giap_anh/010b_Xray.vn_.jpg"><img src="buou-giap_anh/010b_Xray.vn_.jpg" alt="" width="718" height="550" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/20170317_132533_Xray.vn_.jpg"><img src="buou-giap_anh/20170317_132533_Xray.vn_.jpg" alt="" width="1200" height="698" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/gr2.jpeg"><img src="buou-giap_anh/gr2.jpeg" alt="" width="1600" height="681" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/IndianJEndocrMetab_2012_16_6_1063_103047_f2.jpg"><img src="buou-giap_anh/IndianJEndocrMetab_2012_16_6_1063_103047_f2.jpg" alt="" width="1228" height="801" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/IndianJEndocrMetab_2012_16_6_1063_103047_f3.jpg"><img src="buou-giap_anh/IndianJEndocrMetab_2012_16_6_1063_103047_f3.jpg" alt="" width="1020" height="727" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/xray.vn-0506_Xray.vn_.jpg"><img src="buou-giap_anh/xray.vn-0506_Xray.vn_.jpg" alt="" width="1200" height="832" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/xray.vn-0508_Xray.vn_.jpg"><img src="buou-giap_anh/xray.vn-0508_Xray.vn_.jpg" alt="" width="1200" height="832" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_rty-2.jpg"><img src="buou-giap_anh/2015_11_rty-2.jpg" alt="" width="1600" height="516" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_rty-1.jpg"><img src="buou-giap_anh/2015_11_rty-1.jpg" alt="" width="1600" height="495" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_501476.jpg"><img src="buou-giap_anh/2015_11_501476.jpg" alt="" width="1343" height="364" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_1-5.png"><img src="buou-giap_anh/2015_11_1-5.png" alt="" width="1051" height="686" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_2-5.png"><img src="buou-giap_anh/2015_11_2-5.png" alt="" width="1051" height="713" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_3-5.png"><img src="buou-giap_anh/2015_11_3-5.png" alt="" width="1045" height="714" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_4-4.png"><img src="buou-giap_anh/2015_11_4-4.png" alt="" width="1033" height="783" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="buou-giap_anh/2015_11_1-1.jpg"><img src="buou-giap_anh/2015_11_1-1.jpg" alt="" width="898" height="925" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_2-1.jpg"><img src="buou-giap_anh/2015_11_2-1.jpg" alt="" width="630" height="488" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_3-1.jpg"><img src="buou-giap_anh/2015_11_3-1.jpg" alt="" width="630" height="529" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_4-1.jpg"><img src="buou-giap_anh/2015_11_4-1.jpg" alt="" width="630" height="565" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_5-1.jpg"><img src="buou-giap_anh/2015_11_5-1.jpg" alt="" width="630" height="585" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="buou-giap_anh/2015_11_1-26.jpeg"><img src="buou-giap_anh/2015_11_1-26.jpeg" alt="" width="550" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_2-27.jpeg"><img src="buou-giap_anh/2015_11_2-27.jpeg" alt="" width="630" height="423" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_3-25.jpeg"><img src="buou-giap_anh/2015_11_3-25.jpeg" alt="" width="630" height="423" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_4-25.jpeg"><img src="buou-giap_anh/2015_11_4-25.jpeg" alt="" width="630" height="423" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_5-22.jpeg"><img src="buou-giap_anh/2015_11_5-22.jpeg" alt="" width="630" height="423" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_6-9.jpeg"><img src="buou-giap_anh/2015_11_6-9.jpeg" alt="" width="630" height="423" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_7-6.jpeg"><img src="buou-giap_anh/2015_11_7-6.jpeg" alt="" width="630" height="504" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="buou-giap_anh/2015_11_1-14.jpg"><img src="buou-giap_anh/2015_11_1-14.jpg" alt="" width="494" height="329" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_2-13.jpg"><img src="buou-giap_anh/2015_11_2-13.jpg" alt="" width="493" height="330" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_3-14.jpg"><img src="buou-giap_anh/2015_11_3-14.jpg" alt="" width="494" height="349" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_4-11.jpg"><img src="buou-giap_anh/2015_11_4-11.jpg" alt="" width="497" height="344" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_5-9.jpg"><img src="buou-giap_anh/2015_11_5-9.jpg" alt="" width="497" height="349" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_6-7.jpg"><img src="buou-giap_anh/2015_11_6-7.jpg" alt="" width="495" height="360" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_7-2.jpg"><img src="buou-giap_anh/2015_11_7-2.jpg" alt="" width="434" height="458" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="buou-giap_anh/2015_11_1-15.jpg"><img src="buou-giap_anh/2015_11_1-15.jpg" alt="" width="630" height="465" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_2-14.jpg"><img src="buou-giap_anh/2015_11_2-14.jpg" alt="" width="630" height="459" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_3-15.jpg"><img src="buou-giap_anh/2015_11_3-15.jpg" alt="" width="630" height="454" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_4-12.jpg"><img src="buou-giap_anh/2015_11_4-12.jpg" alt="" width="630" height="461" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_5-10.jpg"><img src="buou-giap_anh/2015_11_5-10.jpg" alt="" width="630" height="478" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_6-8.jpg"><img src="buou-giap_anh/2015_11_6-8.jpg" alt="" width="629" height="490" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_7-3.jpg"><img src="buou-giap_anh/2015_11_7-3.jpg" alt="" width="585" height="577" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="buou-giap_anh/2015_11_1-30.jpeg"><img src="buou-giap_anh/2015_11_1-30.jpeg" alt="" width="1024" height="959" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_2-32.jpeg"><img src="buou-giap_anh/2015_11_2-32.jpeg" alt="" width="613" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_3-30.jpeg"><img src="buou-giap_anh/2015_11_3-30.jpeg" alt="" width="613" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_4-29.jpeg"><img src="buou-giap_anh/2015_11_4-29.jpeg" alt="" width="613" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_5-26.jpeg"><img src="buou-giap_anh/2015_11_5-26.jpeg" alt="" width="613" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_6-12.jpeg"><img src="buou-giap_anh/2015_11_6-12.jpeg" alt="" width="613" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_7-8.jpeg"><img src="buou-giap_anh/2015_11_7-8.jpeg" alt="" width="613" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_8-3.jpeg"><img src="buou-giap_anh/2015_11_8-3.jpeg" alt="" width="627" height="630" loading="lazy" decoding="async"></a></div>
+<h3 id="2-phan-loai">2. Phân loại</h3>
+<p><span class="c-xanh">– Phân loại hình thái Cvasciuc (2017):</span><br>+ Dựa trên hình dạng bướu trên CT, nhằm hỗ trợ dự đoán mức độ khó khi đưa phần bướu trung thất qua đường mổ cổ và lập kế hoạch tiếp cận.<br>+ Phân loại được đề xuất từ một loạt ca hồi cứu tại một trung tâm; không phải hệ thống duy nhất và không tự quyết định đường mổ.</p>
+<p><span class="c-xanh">– Loại A, hình chóp có đỉnh hướng xuống dưới:</span><br>+ Phần lớn mô giáp còn ở cổ, phần đỉnh kéo dài xuống trung thất; thường còn liên tục với tuyến giáp cổ.<br>+ Trong loạt ca đề xuất phân loại, thường lấy được qua đường cổ; hình thái này không bảo đảm mọi trường hợp đều thuận lợi hoặc có cùng nguồn cấp máu.</p>
+<p><span class="c-xanh">– Loại B, hình chóp có đỉnh hướng lên trên:</span><br>+ Phần đáy rộng nằm trong trung thất, đỉnh hướng lên cổ; bề rộng đáy và mức lan xuống ảnh hưởng khả năng đưa bướu qua lỗ ngực trên.<br>+ Có thể khó lấy qua đường cổ hơn loại A; cần đánh giá CT về kích thước đáy, mức lan, liên quan với khí quản và mạch máu. Không mặc định luôn có chèn ép hoặc cần mở ngực.</p>
+<p><span class="c-xanh">– Loại C, bướu hai thùy có eo hoặc cuống hẹp:</span><br>+ Phần cổ và phần trung thất nối với nhau bằng một đoạn hẹp; hình thái này có thể khiến phần trung thất khó được nhận biết và lấy ra đầy đủ.<br>+ Cần xác định đoạn nối và kích thước phần trung thất trên tái tạo đa mặt phẳng để hỗ trợ lập kế hoạch, giảm nguy cơ để sót mô giáp.</p>
+<p><span class="c-xanh">– Loại D, mô giáp không liên tục với tuyến giáp cổ:</span><br>+ Gồm tuyến giáp lạc chỗ nguyên phát trong lồng ngực hoặc mô giáp còn sót sau phẫu thuật trước đó; không giới hạn ở trung thất trước.<br>+ Tuyến giáp lạc chỗ có thể có mạch nuôi riêng từ các mạch trong ngực; mô giáp còn sót có thể có nguồn cấp máu khác nhau. Cần đối chiếu tiền sử phẫu thuật và lập bản đồ mạch trước can thiệp.<br>+ Trong loạt ca đề xuất phân loại, nhóm này thường cần cân nhắc đường tiếp cận qua lồng ngực; quyết định thực tế phụ thuộc vị trí, mức lan và giải phẫu mạch.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="buou-giap_anh/2015_11_1-18.jpg"><img src="buou-giap_anh/2015_11_1-18.jpg" alt="" width="669" height="466" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_2-17.jpg"><img src="buou-giap_anh/2015_11_2-17.jpg" alt="" width="669" height="466" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_3-17.jpg"><img src="buou-giap_anh/2015_11_3-17.jpg" alt="" width="669" height="466" loading="lazy" decoding="async"></a><a class="o-anh" href="buou-giap_anh/2015_11_4-14.jpg"><img src="buou-giap_anh/2015_11_4-14.jpg" alt="" width="669" height="466" loading="lazy" decoding="async"></a></div>
+<h2 id="v-chan-doan-phan-biet">V. Chẩn đoán phân biệt</h2>
+<p><span class="c-xanh">– Bướu giáp thòng (substernal goiter):</span><br>+ Dấu hiệu định hướng mạnh là mô bướu liên tục với tuyến giáp cổ trên CT cổ-ngực; đậm độ trước tiêm thường cao do iod trong keo tuyến giáp và bướu thường ngấm thuốc mạnh.<br>+ Có thể không đồng nhất, có nang thoái hóa hoặc vôi hóa; các đặc điểm này không tự xác định lành hay ác. Bướu thường đẩy lệch hoặc chèn ép cấu trúc lân cận, nhưng không thể loại trừ xâm lấn chỉ dựa vào dấu hiệu đẩy lệch.<br>+ Không thấy dải nối không loại trừ nguồn gốc tuyến giáp, nhất là khi cuống nối hẹp, có tiền sử phẫu thuật hoặc có tuyến giáp lạc chỗ.</p>
+<p><span class="c-xanh">– U tuyến ức (thymoma):</span><br>+ Thường nằm ở khoang trước mạch máu và không liên tục với tuyến giáp cổ; vị trí này gợi ý nhưng không đủ để phân biệt vì bướu giáp cũng có thể lan vào khoang trước mạch máu.<br>+ Khối có thể đồng nhất hoặc không đồng nhất, có nang hóa hay vôi hóa; ngấm thuốc thay đổi nên không dựa vào mức ngấm thuốc hoặc vôi hóa đơn độc để phân biệt với bướu giáp.<br>+ Nhược cơ hoặc hội chứng tự miễn đi kèm hỗ trợ chẩn đoán nhưng không phải lúc nào cũng hiện diện.</p>
+<p><span class="c-xanh">– Lymphoma trung thất (mediastinal lymphoma):</span><br>+ Thường tạo nhiều nhóm hạch hoặc khối hạch hợp lưu, có thể bao quanh mạch; bướu giáp thường được nhận diện nhờ liên tục với tuyến giáp cổ và có thể tăng đậm độ trước tiêm do iod.<br>+ Hạch cổ, thượng đòn, rốn phổi hoặc nách và lách to hỗ trợ bệnh lý hạch hệ thống. Tuy nhiên, lymphoma cũng có thể gây chèn ép hoặc đẩy lệch khí quản; không dùng riêng dấu hiệu bao quanh mạch để kết luận.<br>+ Đậm độ và mức ngấm thuốc thay đổi theo thể bệnh, hoại tử hoặc điều trị trước đó; cần phối hợp lâm sàng và xét nghiệm, có thể cần lấy mẫu mô.</p>
+<p><span class="c-xanh">– U quái trung thất trưởng thành (mature mediastinal teratoma):</span><br>+ Khối có phối hợp mỡ đại thể, dịch và vôi hóa; đôi khi thấy răng. Khi có nhiều thành phần mô đặc trưng này, chẩn đoán u quái được ưu tiên hơn bướu giáp thòng.<br>+ Thành phần mỡ đại thể có đậm độ HU âm, thường dưới −20 HU. Không thấy mỡ hoặc răng không loại trừ u quái; bướu giáp có thoái hóa nang cũng có thể không đồng nhất nhưng thường không có thành phần mỡ đại thể.<br>+ Khối thường ở khoang trước mạch máu; vị trí và tuổi người bệnh chỉ có giá trị gợi ý, không thay thế phân tích thành phần trên CT.</p>
+<p><span class="c-xanh">– U tuyến cận giáp lạc chỗ (ectopic parathyroid adenoma):</span><br>+ Có thể là khối nhỏ, tăng sinh mạch ở cổ thấp hoặc trung thất, không liên tục với tuyến giáp; mức ngấm thuốc mạnh có thể chồng lấp với bướu giáp.<br>+ Nồng độ calci và hormon tuyến cận giáp, kết hợp đặc điểm ngấm thuốc theo thì, giúp phân biệt khi nghi ngờ.</p>
+<p><span class="c-xanh">– Phình động mạch chủ ngực (thoracic aortic aneurysm):</span><br>+ Khối liên tục với động mạch chủ và ngấm thuốc tương tự lòng mạch; huyết khối thành hoặc vôi hóa thành mạch có thể làm hình ảnh phức tạp hơn.<br>+ Cần loại trừ tổn thương mạch máu trước khi sinh thiết hoặc can thiệp; không dựa riêng vào hình dạng khối hay dấu hiệu chèn ép để phân biệt với bướu giáp.</p>
+<figure><a class="o-anh" href="buou-giap_anh/2015_11_CDHA-Buou-Giap-Thong-rev3-scaled.png"><img src="buou-giap_anh/2015_11_CDHA-Buou-Giap-Thong-rev3-scaled.png" alt="" width="1600" height="900" loading="lazy" decoding="async"></a></figure>
+<h2 id="vi-tien-luong-dieu-tri">VI. Tiên lượng &amp; Điều trị</h2>
+<p><span class="c-xanh">– Tiên lượng:</span><br>+ Bướu giáp thòng thường tiến triển chậm và đa số lành tính; tiên lượng phụ thuộc mức độ chèn ép khí quản và các cơ quan trung thất, chức năng tuyến giáp, bệnh kèm và mô bệnh học.<br>+ Khó thở tăng dần, khó thở khi nằm hoặc thở rít gợi ý chèn ép đường thở đáng kể; khó thở cấp hoặc thở rít cần được đánh giá khẩn.<br>+ Tỷ lệ ác tính là 12,4% trong tổng quan các ca đã phẫu thuật của Cheung và cộng sự (2025); đây là ước tính ở quần thể chọn lọc, không phải nguy cơ chung của mọi người bệnh bướu giáp thòng.</p>
+<p><span class="c-xanh">– Điều trị:</span><br>+ Lựa chọn giữa theo dõi và phẫu thuật dựa trên triệu chứng, mức độ chèn ép trên CT, tiến triển kích thước, nghi ngờ ác tính, chức năng tuyến giáp, nguy cơ phẫu thuật và nguyện vọng người bệnh. Phẫu thuật thường được cân nhắc khi có triệu chứng chèn ép, chèn ép đáng kể hoặc tiến triển trên hình ảnh, bướu tăng kích thước, nghi ngờ ác tính hoặc cường giáp khó kiểm soát.<br>+ Có thể theo dõi chọn lọc người bệnh không triệu chứng, không có chèn ép đáng kể hay dấu hiệu nghi ngờ ác tính, nhất là khi nguy cơ phẫu thuật cao; theo dõi lâm sàng, chức năng tuyến giáp và hình ảnh theo diễn tiến, chưa có khoảng theo dõi đồng nhất áp dụng cho mọi trường hợp.<br>+ Điều trị nội khoa kiểm soát rối loạn chức năng tuyến giáp nhưng không giải quyết đáng tin cậy khối chèn ép. I-131 có thể được cân nhắc ở một số trường hợp bướu tăng chức năng hoặc không phù hợp phẫu thuật; không thay thế phẫu thuật giải ép khi chèn ép nặng.<br>+ Khi phẫu thuật được chỉ định, phạm vi cắt tuyến tùy phân bố tổn thương và tình trạng thùy đối bên. Hướng dẫn AAES (2020) khuyến nghị chụp cắt lớp vi tính khi nghi có thành phần thòng để đánh giá mức lan và lập kế hoạch mổ.<br>+ Đa số trường hợp có thể lấy qua đường cổ; mở xương ức hoặc đường ngực dành cho trường hợp chọn lọc khi khối quá sâu, khó tiếp cận an toàn qua cổ, có vị trí lạc chỗ hoặc giải phẫu phức tạp. Tổng quan hệ thống và phân tích gộp năm 2025 ghi nhận 88,7% ca phẫu thuật thực hiện qua đường cổ đơn thuần và 10,4% cần thêm can thiệp đường ngực; mức độ thòng hay phân loại hình ảnh đơn lẻ không quyết định chắc chắn đường mổ.<br>+ Biến chứng cần lưu ý gồm tổn thương thần kinh thanh quản quặt ngược, suy cận giáp/hạ calci máu, chảy máu hoặc tụ máu và nhuyễn khí quản. Nhóm cần đường mổ ngực có tỷ lệ biến chứng cao hơn trong các nghiên cứu, nhưng chưa thể tách biệt ảnh hưởng của đường mổ với độ phức tạp của bệnh. Sau mổ cần theo dõi đường thở, giọng nói, calci máu và kết quả mô bệnh học; sau cắt toàn bộ tuyến giáp cần điều trị hormone thay thế lâu dài.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Intrathoracic Goiter – James J. McCort, M.D.Boston, Mass<br>* Rare mediastinal masses: Imaging aspects – S. Hantous-Zannad, H. Mhalla, A. Zidi<br>* ITMIG classification of mediastinal anatomy: exposure through augmented reality – M. F. Tapia, D. Hasson, J. Alegria; Santiago/CL, Santiago de Chile/CL<br>* Mediastinal masses: A Systematic Approach to Differential Diagnosis – S. ABU ARIF, V. Helbo Jensen; Herning/DK<br>* Approach to Management of the Patient with Primary or Secondary Intrathoracic Goiter – Laszlo Hegedüs, Steen J. Bonnema<br>* RETROSTERNAL GOITRES: A PRACTICAL CLASSIFICATION – I.T. Cvasciuc, S. Fraser and M. Lansdown<br>* Intrathoracic mediastinal thyroid goiter: imaging manifestations – J A Buckley, P Stark<br>* CT cross-sectional imaging classification system for substernal goiter based on risk factors for an extracervical surgical approach – Giuseppe Mercante, Enrico Gabrielli, Corrado Pedroni, Debora Formisano<br>* Imaging findings of lesions in the middle and posterior mediastinum – Yoshiyuki Ozawa, Marehiko Hiroshima, Hiroyuki Maki</em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

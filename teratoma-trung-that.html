@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U Tế Bào Mầm Trung Thất</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · HÔ HẤP</div>
+   <h1>U Tế Bào Mầm Trung Thất</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/teratoma-trung-that/" target="_blank" rel="noopener">Xray.vn — xray.vn/teratoma-trung-that</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– U tế bào mầm trung thất (mediastinal germ cell tumor)</span> là nhóm u phát sinh từ tế bào mầm lạc chỗ, gồm các thể lành tính và ác tính:<br>+ Sự di trú bị gián đoạn của tế bào mầm nguyên thủy dọc đường giữa trong thời kỳ phôi thai là một giả thuyết giải thích sự hình thành u tế bào mầm ngoài tuyến sinh dục; cơ chế bệnh sinh chưa được xác định hoàn toàn.<br>+ Khả năng biệt hóa đa hướng của tế bào mầm giải thích phổ mô học từ u quái trưởng thành đến các thể ác tính.<br>+ Chỉ chẩn đoán u nguyên phát trung thất sau khi đã loại trừ u nguyên phát tuyến sinh dục hoặc tổn thương di căn đến trung thất.</p>
+<p>– Trung thất là vị trí ngoài tuyến sinh dục thường gặp nhất của u tế bào mầm ở người lớn; trong nhóm u tế bào mầm trung thất, u quái là nhóm mô học thường gặp nhất.</p>
+<p>– U tế bào mầm ngoài tuyến sinh dục hiếm gặp. Trong các loạt bệnh, nhóm này chiếm khoảng 15–20% u trung thất trước ở người lớn và 6–25% u trung thất ở trẻ em.</p>
+<p><span class="c-xanh">– Tuổi và giới có giá trị định hướng:</span><br>+ Ở người lớn, bệnh thường gặp trong độ tuổi 20–40, với đỉnh mắc bệnh khoảng 25–35 tuổi.<br>+ Ở trẻ em, tuổi mắc bệnh có hai đỉnh: nhũ nhi và những năm đầu đời, sau đó là giai đoạn thiếu niên.<br>+ U quái trưởng thành có thể gặp ở cả hai giới; u tế bào mầm ác tính trung thất gặp chủ yếu ở nam giới trẻ.</p>
+<p><span class="c-xanh">– Vị trí:</span> U thường nằm ở trung thất trước, gần tuyến ức. Một số loạt bệnh ghi nhận khoảng 80% ở trung thất trước, 13–15% lan nhiều khoang và 2–8% ở trung thất sau.</p>
+<figure><a class="o-anh" href="teratoma-trung-that_anh/2020_12_xray.vn-0644_Xray.vn_.jpg"><img src="teratoma-trung-that_anh/2020_12_xray.vn-0644_Xray.vn_.jpg" alt="U tế bào mầm trung thất" width="1200" height="523" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<p><strong><span class="c-xanh">* Phân loại<br></span></strong><span class="c-xanh">– Theo phân loại WHO 2021</span>, u tế bào mầm trung thất gồm u tinh bào, u không phải tinh bào và u tế bào mầm kèm bệnh lý huyết học ác tính.<br>– U quái trưởng thành thường lành tính; u tinh bào và các thành phần ác tính không phải tinh bào là ác tính. U quái chưa trưởng thành và u quái có thành phần ác tính kiểu soma cần được phân loại riêng, không xếp chung với u quái trưởng thành.</p>
+<p><span class="c-xanh">– U quái trưởng thành (mature teratoma)</span> là thể mô học thường gặp nhất, chiếm xấp xỉ 60% u tế bào mầm trung thất trong một số loạt bệnh:<br>+ Mô bệnh học gồm các mô trưởng thành, biệt hóa tốt, có thể có nguồn gốc từ các lá mầm như xương, sụn, răng, cơ, mô liên kết, mô thần kinh, tuyến ức, phổi, gan và tụy.<br>+ Cần lấy mẫu mô bệnh học đầy đủ để không bỏ sót thành phần chưa trưởng thành hoặc ác tính.</p>
+<p><span class="c-xanh">– Nang dạng bì (dermoid cyst)</span> là dạng nang của u quái trưởng thành, ưu thế mô ngoại bì:<br>+ Thành nang thường được lót bởi biểu mô lát tầng, kèm phần phụ da như nang lông và tuyến bã; thành phần trung bì và nội bì ít hơn.<br>+ Cạm bẫy: Chỉ dùng thuật ngữ nang dạng bì cho dạng nang ưu thế ngoại bì, không đồng nhất thuật ngữ này với toàn bộ phổ u quái trưởng thành.</p>
+<p><span class="c-xanh">– U tinh bào (seminoma)</span> chiếm khoảng 30–40% u tế bào mầm trung thất và khoảng 1–4% tổng số u trung thất; thường gặp ở trung thất trước của nam giới trẻ:<br>+ Khối thường lớn; có thể xâm lấn cấu trúc lân cận khi tiến triển. Di căn thường gặp ở hạch trung thất, phổi và xương.<br>+ Cần định lượng alpha-fetoprotein (AFP), beta-hCG và lactate dehydrogenase (LDH) trước sinh thiết. AFP thường bình thường trong u tinh bào thuần túy; AFP tăng gợi ý thành phần không phải tinh bào, beta-hCG có thể tăng ở một số trường hợp, còn LDH không đặc hiệu.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Screenshot-2022-05-05-214901.jpg"><img src="teratoma-trung-that_anh/2015_11_Screenshot-2022-05-05-214901.jpg" alt="" width="751" height="715" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Screenshot-2022-05-05-214928.jpg"><img src="teratoma-trung-that_anh/2015_11_Screenshot-2022-05-05-214928.jpg" alt="" width="658" height="847" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-32.jpg"><img src="teratoma-trung-that_anh/2015_11_3-32.jpg" alt="" width="783" height="520" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_4-26.jpg"><img src="teratoma-trung-that_anh/2015_11_4-26.jpg" alt="" width="783" height="536" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– U không phải tinh bào (non-seminomatous germ cell tumor)</span> gồm u quái trưởng thành, u quái chưa trưởng thành, u quái có thành phần ác tính kiểu soma, u túi noãn hoàng (yolk sac tumor), ung thư biểu mô phôi (embryonal carcinoma), ung thư biểu mô màng đệm (choriocarcinoma) và u tế bào mầm hỗn hợp (mixed germ cell tumor):<br>+ Nhóm này không đồng nhất về mô học và hành vi sinh học; các thành phần ác tính thường có thể hoại tử, chảy máu hoặc xâm lấn, nhưng những đặc điểm này không hiện diện ở mọi trường hợp. Dấu ấn sinh học có thể tăng tùy thành phần mô học.<br>+ U hỗn hợp được báo cáo chiếm khoảng 40% trong một số loạt u không phải tinh bào; tỷ lệ thay đổi theo loạt bệnh. Lấy mẫu rộng và đối chiếu dấu ấn sinh học giúp nhận diện các thành phần phối hợp.</p>
+<h2 id="ii-giai-phau">II. Giải phẫu</h2>
+<h3 id="1-phan-chia-trung-that">1. Phân chia trung thất</h3>
+<p>– Trung thất là khoang giải phẫu nằm giữa hai lá phổi, được giới hạn phía trước bởi mặt sau xương ức, phía sau bởi mặt trước cột sống và đầu sau xương sườn, hai bên là màng phổi trung thất, giới hạn trên là lỗ cổ ngực của lồng ngực, giới hạn dưới là phần giữa cơ hoành.</p>
+<p><strong><span class="c-xanh">* Phân chia theo phẫu thuật (Thomas. W. Shields)</span></strong><br>– Trung thất trước: giới hạn phía trước bởi xương ức và phía sau bởi các mạch máu lớn và màng ngoài tim.<br>– Trung thất giữa: giới hạn giữa trung thất trước và sau.<br>– Trung thất sau: được giới hạn phía trước bởi thành sau khí phế quản và mặt sau của màng ngoài tim, giới hạn phía sau bởi thân các đốt sống ngực.<br>– Ngoài tính theo mặt phẳng trên-dưới, trung thất được chia thành 3 tầng trên, giữa, dưới bởi 2 mặt phẳng ngang: mặt tiếp giáp với quai động mạch chủ và mặt đi qua chỗ phân đôi của khí quản.</p>
+<figure><a class="o-anh" href="teratoma-trung-that_anh/2017-07-25_18-33-02-e1646035096549.png"><img src="teratoma-trung-that_anh/2017-07-25_18-33-02-e1646035096549.png" alt="" width="1241" height="617" loading="lazy" decoding="async"></a></figure>
+<p><strong><span class="c-xanh">* Phân chia theo giải phẫu</span></strong><br>– Trung thất trên: thuộc phần trên mặt phẳng đi ngang qua khe gian đốt sống ngực T4-T5 ở phía sau và góc giữa cán – thân xương ức ở phía trước.<br>– Trung thất trước: khoang nằm dưới mặt phẳng kể trên, giữa phía trước màng ngoài tim và mặt sau xương ức.<br>– Trung thất giữa: khoang chứa màng ngoài tim và tim.<br>– Trung thất sau: khoang nằm dưới mặt phẳng kể trên, sau màng ngoài tim và trước thân các đốt sống ngực.</p>
+<figure><a class="o-anh" href="teratoma-trung-that_anh/123-3-e1646035143298.png"><img src="teratoma-trung-that_anh/123-3-e1646035143298.png" alt="" width="1225" height="560" loading="lazy" decoding="async"></a></figure>
+<div class="bo-anh cot-5"><a class="o-anh" href="teratoma-trung-that_anh/2015_09_1-235.jpg"><img src="teratoma-trung-that_anh/2015_09_1-235.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_09_2-231.jpg"><img src="teratoma-trung-that_anh/2015_09_2-231.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_09_3-220.jpg"><img src="teratoma-trung-that_anh/2015_09_3-220.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_09_4-198.jpg"><img src="teratoma-trung-that_anh/2015_09_4-198.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_09_5-152.jpg"><img src="teratoma-trung-that_anh/2015_09_5-152.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_09_6-43.jpg"><img src="teratoma-trung-that_anh/2015_09_6-43.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_09_7-25.jpg"><img src="teratoma-trung-that_anh/2015_09_7-25.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_09_8-19.jpg"><img src="teratoma-trung-that_anh/2015_09_8-19.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_09_9-1.jpg"><img src="teratoma-trung-that_anh/2015_09_9-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_09_10-1.jpg"><img src="teratoma-trung-that_anh/2015_09_10-1.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><strong><span class="c-xanh">* Phân chia ITMIG (International Thymic Malignancy Interest Group)</span></strong></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Screenshot-2021-05-30-231338.png"><img src="teratoma-trung-that_anh/2015_11_Screenshot-2021-05-30-231338.png" alt="" width="900" height="792" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_08_1-914.jpeg"><img src="teratoma-trung-that_anh/2015_08_1-914.jpeg" alt="" width="787" height="787" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_08_2-915.jpeg"><img src="teratoma-trung-that_anh/2015_08_2-915.jpeg" alt="" width="786" height="787" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_08_3-898.jpeg"><img src="teratoma-trung-that_anh/2015_08_3-898.jpeg" alt="" width="787" height="786" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_08_4-835.jpeg"><img src="teratoma-trung-that_anh/2015_08_4-835.jpeg" alt="" width="786" height="786" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Khoang trước mạch máu:</span><br>+ Giới hạn phía trước bởi xương ức và phía sau bởi các mạch máu lớn và màng ngoài tim.<br>+ Thành phần: tuyến ức, tổ chức mỡ, hạch bạch huyết, tĩnh mạch cánh tay đầu.<br>+ Bệnh lý thường gặp: bệnh lý tuyến ức, u tế bào mầm, lymphoma, di căn hạch, bướu giáp thòng.</p>
+<p><span class="c-xanh">– Khoang tạng:<br></span>+ Giới hạn phía trước là khoang trước mạch máu, giới hạn phía sau bởi đường thẳng về phía sau cột sống, cách bờ trước cột sống 1cm.<br>+ Thành phần: tim, tĩnh mạch chủ trên, động mạch chủ, động mạch phổi, ống ngực, khí phế quản, thực quản, hạch bạch huyết.<br>+ Bệnh lý thường gặp: bệnh lý tim và mạch máu lớn, bệnh lý khí quản, bệnh lý thực quản, nang đôi (nang màng tim, nang phế quản), bệnh lý hạch.</p>
+<p><span class="c-xanh">– Khoang cạnh cột sống:</span><br>+ Giới hạn phía trước bởi khoang tạng.<br>+ Thành phần: cột sống ngực, mô mềm cạnh cột sống.<br>+ Bệnh lý thường gặp: khối u nguồn gốc thần kinh, nhiễm trùng cột sống, chấn thương cột sống, tạo máu ngoài tủy.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-17.jpg"><img src="teratoma-trung-that_anh/2015_11_1-17.jpg" alt="" width="748" height="568" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-16.jpg"><img src="teratoma-trung-that_anh/2015_11_2-16.jpg" alt="" width="742" height="556" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-16.jpg"><img src="teratoma-trung-that_anh/2015_11_3-16.jpg" alt="" width="742" height="556" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_4-13.jpg"><img src="teratoma-trung-that_anh/2015_11_4-13.jpg" alt="" width="740" height="556" loading="lazy" decoding="async"></a></div>
+<h3 id="2-khoi-u-trung-that">2. Khối u trung thất</h3>
+<figure><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-6.png"><img src="teratoma-trung-that_anh/2015_11_1-6.png" alt="" width="1600" height="900" loading="lazy" decoding="async"></a></figure>
+<p><strong></strong></p>
+<h3 id="3-dac-diem-lam-sang">3. Đặc điểm lâm sàng</h3>
+<p>– Triệu chứng phụ thuộc kích thước, vị trí, tốc độ phát triển và mức độ xâm lấn của khối u. U lành tính vẫn có thể gây triệu chứng do chèn ép, trong khi một số u ác tính chưa biểu hiện triệu chứng. Biểu hiện thường gặp liên quan đến chèn ép tĩnh mạch chủ trên, đường hô hấp, thần kinh hoặc các cơ quan trung thất.</p>
+<p><span class="c-xanh">* Hội chứng chèn ép tĩnh mạch chủ trên</span><br>– Hội chứng chèn ép tĩnh mạch chủ trên (superior vena cava syndrome) có thể gây phù mi mắt, mặt, cổ và chi trên; phù thường rõ hơn vào buổi sáng hoặc khi cúi người, có thể kèm khó thở, đau đầu, chóng mặt và tuần hoàn bàng hệ tĩnh mạch ở cổ, thành ngực.<br>– Nguyên nhân gồm chèn ép hoặc xâm lấn bởi khối u ác tính như ung thư phổi, lymphoma, u tuyến ức và u tế bào mầm; huyết khối tĩnh mạch, đặc biệt liên quan đến catheter tĩnh mạch trung tâm, cũng là nguyên nhân quan trọng.<br>– Khi không thấy khối trung thất, cần nghĩ đến huyết khối tĩnh mạch chủ trên hoặc viêm xơ trung thất; lao là một nguyên nhân có thể gặp tùy bối cảnh.</p>
+<p><span class="c-xanh">* Triệu chứng chèn ép đường hô hấp</span><br>– Chèn ép khí-phế quản có thể gây khó thở, khó thở khi nằm, thở rít (stridor) hoặc khò khè. Một số liệu được trích dẫn ghi nhận khó thở khoảng 21%; thở rít tăng dần là dấu hiệu cảnh báo hẹp đường thở nặng.<br>– Ho thường khan, đôi khi ho ông ổng hoặc kèm khàn tiếng; một số liệu được trích dẫn ghi nhận ho khoảng 30%.</p>
+<p><span class="c-xanh">* Liệt dây thần kinh quặt ngược trái</span><br>– Liệt dây thần kinh quặt ngược trái gây khàn tiếng, khó phát âm hoặc giọng đôi; nội soi thanh quản có thể xác định giảm hoặc mất vận động dây thanh bên trái.<br>– Cạm bẫy: Dấu hiệu này không định khu riêng ở trung thất giữa; cần đánh giá tổn thương dọc đường đi của thần kinh, đặc biệt vùng trung thất trên trái và cạnh quai động mạch chủ.</p>
+<p><span class="c-xanh">* Liệt thần kinh hoành</span><br>– Liệt thần kinh hoành có thể làm vòm hoành cùng bên nâng cao trên X quang ngực; nghiệm pháp hít nhanh khi chiếu X quang hoặc siêu âm có thể cho thấy vận động nghịch thường của vòm hoành.<br>– Liệt một bên có thể không gây triệu chứng; khó thở thường rõ hơn khi liệt hai bên hoặc dự trữ hô hấp hạn chế. Nguyên nhân có thể là khối u chèn ép hoặc xâm lấn thần kinh.</p>
+<p><span class="c-xanh">* Các dấu hiệu khác của bệnh lý trung thất</span><br>– Nuốt khó có thể do khối trung thất sau chèn ép thực quản hoặc do bệnh lý thực quản nguyên phát; chụp thực quản có cản quang hoặc nội soi được cân nhắc theo bối cảnh lâm sàng.<br>– Đau sau xương ức là triệu chứng không đặc hiệu, có thể liên quan đến chèn ép hoặc xâm lấn cấu trúc trung thất.<br>– Tổn thương chuỗi giao cảm cổ-ngực có thể gây hội chứng Claude–Bernard–Horner, gồm sụp mi, co đồng tử và giảm tiết mồ hôi nửa mặt; có thể gặp trong tổn thương vùng đỉnh phổi hoặc trung thất trên.<br>– U trung thất sau có thể chèn ép tủy sống, gây đau, yếu liệt, rối loạn cảm giác hoặc rối loạn cơ tròn.<br>– Khối u lớn có thể chèn ép hoặc xâm lấn tim, màng tim, mạch máu lớn, động mạch phổi hoặc ống ngực, gây rối loạn nhịp, rối loạn huyết động hoặc tràn dưỡng chấp màng phổi.</p>
+<h2 id="iii-chan-doan-x-quang">III. Chẩn đoán x-quang</h2>
+<h3 id="1-u-trung-that-truoc">1. U trung thất trước</h3>
+<p><span class="c-xanh">– Đặc điểm hình ảnh gợi ý khối trung thất trước:</span><br>+ Trên phim thẳng, khối áp sát bờ trung thất, thường tạo góc tù và có thể làm mất bờ tiếp xúc cùng đậm độ (dấu hiệu xóa bờ).<br>+ Trên phim nghiêng, khối thường làm xóa khoảng sáng sau xương ức; dấu hiệu này giúp định khu tổn thương ra trước.<br>– Khối trung thất nằm ngoài nhu mô phổi nên không có phế quản chứa khí bên trong khối. Tuy nhiên, dấu hiệu này không đủ để phân biệt nguồn gốc: không thấy phế quản chứa khí không loại trừ khối phổi, còn thấy phế quản chứa khí trong vùng mờ gợi ý tổn thương nhu mô phổi nhưng không đặc hiệu.<br>– Dấu hiệu che phủ rốn phổi (hilum overlay sign) xuất hiện khi các mạch máu rốn phổi vẫn nhìn thấy xuyên qua bóng mờ; dấu hiệu này gợi ý khối không xuất phát từ rốn phổi nhưng không tự xác định được khối nằm ở khoang trước hay sau.<br>– Khối lớn có thể đè đẩy khí quản hoặc mạch máu lớn. X-quang ngực thẳng và nghiêng giúp định khu sơ bộ và nhận biết hiệu ứng chèn ép, nhưng không đánh giá đáng tin cậy mức độ xâm lấn mạch máu.<br><span class="c-xanh">– Cạm bẫy:</span><br>+ Khối nhu mô phổi ngoại vi thường tạo góc nhọn với trung thất, còn khối trung thất thường tạo góc tù; quy tắc này không tuyệt đối và cần đối chiếu các dấu hiệu khác.<br>+ Xóa góc tâm hoành chỉ gợi ý tổn thương ở vùng góc tâm hoành, không phải dấu hiệu đặc hiệu cho mọi khối trung thất trước.<br>+ Tràn dịch màng phổi, xẹp phổi hoặc bờ khối không rõ không đủ để kết luận xâm lấn; CT cần thiết khi cần đánh giá chính xác vị trí, cấu trúc lân cận và mức độ xâm lấn.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="teratoma-trung-that_anh/2023_09_p47.png"><img src="teratoma-trung-that_anh/2023_09_p47.png" alt="Nữ 25 tuổi - Khó thở: Khối trung thất trước" width="870" height="999" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2023_09_p47b.png"><img src="teratoma-trung-that_anh/2023_09_p47b.png" alt="" width="1187" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2023_09_p80.png"><img src="teratoma-trung-that_anh/2023_09_p80.png" alt="Nam 22 tuổi - Khó thở, sút cân: U trung thất trước / Dịch màng phổi trái" width="868" height="985" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2023_09_p80b.png"><img src="teratoma-trung-that_anh/2023_09_p80b.png" alt="" width="1187" height="674" loading="lazy" decoding="async"></a></div>
+<h3 id="2-dac-diem-u-quai">2. Đặc điểm u quái</h3>
+<p>– U quái trung thất thường xuất hiện ở khoang trước, có thể tiếp giáp gốc các mạch máu lớn. Nguồn gốc thường được giải thích bằng giả thuyết tế bào mầm lạc chỗ bị giữ lại trong quá trình di cư phôi; mối liên hệ với “vi môi trường tuyến ức” chưa được xác lập.<br>– U quái trưởng thành thường có bờ rõ, hình tròn, bầu dục hoặc thùy múi, và có thể đè đẩy cấu trúc lân cận:<br>+ Hình dạng và bờ rõ không đủ để khẳng định tổn thương lành tính.<br>+ X-quang không đánh giá được mặt phẳng mỡ quanh khối; cần CT để đánh giá quan hệ với cấu trúc lân cận và dấu hiệu xâm lấn.<br>– Trên X-quang, khối có thể có vôi hóa thô, đôi khi dạng răng hoặc xương. CT nhạy hơn trong phát hiện mỡ, thành phần dịch và các ổ vôi hóa.<br>– Mức dịch-mỡ (fat-fluid level) trong khối dạng nang là dấu hiệu rất gợi ý u quái trưởng thành:<br>+ Mức này hình thành khi mỡ hoặc bã nhờn nổi trên dịch trong nang do khác biệt về tỷ trọng; không phải mọi u quái đều có dấu hiệu này.<br>+ Vôi hóa, mỡ hoặc mức dịch-mỡ cần được diễn giải cùng hình thái và vị trí khối; không nên xem từng dấu hiệu riêng lẻ là bằng chứng tuyệt đối.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="teratoma-trung-that_anh/PhotoGrid_1411671435857_badamgiak23.jpg"><img src="teratoma-trung-that_anh/PhotoGrid_1411671435857_badamgiak23.jpg" alt="" width="1200" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_gr1-1.jpg"><img src="teratoma-trung-that_anh/2015_11_gr1-1.jpg" alt="" width="777" height="800" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_gr4.jpg"><img src="teratoma-trung-that_anh/2015_11_gr4.jpg" alt="" width="714" height="462" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_gr7.jpg"><img src="teratoma-trung-that_anh/2015_11_gr7.jpg" alt="" width="714" height="394" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Screenshot-2021-06-01-215433.png"><img src="teratoma-trung-that_anh/2015_11_Screenshot-2021-06-01-215433.png" alt="" width="932" height="795" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Screenshot-2022-11-01-212246.jpg"><img src="teratoma-trung-that_anh/2015_11_Screenshot-2022-11-01-212246.jpg" alt="" width="513" height="849" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Screenshot-2022-05-05-214340.jpg"><img src="teratoma-trung-that_anh/2015_11_Screenshot-2022-05-05-214340.jpg" alt="" width="754" height="773" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_bgd.jpeg"><img src="teratoma-trung-that_anh/2015_11_bgd.jpeg" alt="" width="961" height="831" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-20.jpg"><img src="teratoma-trung-that_anh/2015_11_1-20.jpg" alt="" width="788" height="895" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-18.jpg"><img src="teratoma-trung-that_anh/2015_11_2-18.jpg" alt="" width="630" height="439" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-18.jpg"><img src="teratoma-trung-that_anh/2015_11_3-18.jpg" alt="" width="539" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="teratoma-trung-that_anh/jpg_mediastinal_teratoma_rx0301.jpg"><img src="teratoma-trung-that_anh/jpg_mediastinal_teratoma_rx0301.jpg" alt="" width="818" height="758" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/jpg_mediastinal_teratoma_ct0301.jpg"><img src="teratoma-trung-that_anh/jpg_mediastinal_teratoma_ct0301.jpg" alt="" width="512" height="414" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-8.png"><img src="teratoma-trung-that_anh/2015_11_1-8.png" alt="" width="835" height="847" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-7.png"><img src="teratoma-trung-that_anh/2015_11_2-7.png" alt="" width="754" height="515" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-36.jpeg"><img src="teratoma-trung-that_anh/2015_11_1-36.jpeg" alt="" width="993" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-39.jpeg"><img src="teratoma-trung-that_anh/2015_11_2-39.jpeg" alt="" width="869" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-36.jpeg"><img src="teratoma-trung-that_anh/2015_11_3-36.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_4-1.webp"><img src="teratoma-trung-that_anh/2015_11_4-1.webp" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_5-32.jpeg"><img src="teratoma-trung-that_anh/2015_11_5-32.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_6-15.jpeg"><img src="teratoma-trung-that_anh/2015_11_6-15.jpeg" alt="" width="630" height="413" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_a-4-scaled.jpg"><img src="teratoma-trung-that_anh/2015_11_a-4-scaled.jpg" alt="" width="1600" height="1439" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_b-2.jpg"><img src="teratoma-trung-that_anh/2015_11_b-2.jpg" alt="" width="512" height="431" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_c.jpg"><img src="teratoma-trung-that_anh/2015_11_c.jpg" alt="" width="673" height="460" loading="lazy" decoding="async"></a></div>
+<p>– U quái có thành phần ác tính có thể có bờ không đều, dạng thùy múi, lan qua nhiều khoang hoặc xâm lấn cấu trúc lân cận. Tuy nhiên, kích thước lớn, bờ thùy múi hay lan qua khoang trung thất không đủ để kết luận ác tính.<br><span class="c-xanh">– Dấu hiệu gợi ý xâm lấn hoặc di căn:</span><br>+ Xâm lấn thành ngực, phá hủy xương hoặc lan vào mô mềm; cần CT để đánh giá, vì X-quang quy ước không xác định tin cậy mức độ xâm lấn.<br>+ Tràn dịch màng phổi, tràn dịch màng tim, hạch to hoặc tổn thương di căn làm tăng nghi ngờ ác tính nhưng không đặc hiệu; riêng tràn dịch không chứng minh có xâm lấn.<br><span class="c-xanh">– Cạm bẫy:</span> Vỡ u quái trưởng thành lành tính có thể gây viêm, tràn dịch và thâm nhiễm mô lân cận, mô phỏng xâm lấn ác tính. Cần đối chiếu biểu hiện lâm sàng và hình ảnh CT; không kết luận ác tính chỉ dựa vào mờ hoặc thâm nhiễm quanh khối.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="teratoma-trung-that_anh/kjtcs-46-305-g001.jpg"><img src="teratoma-trung-that_anh/kjtcs-46-305-g001.jpg" alt="" width="793" height="711" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/kjtcs-46-305-g002.jpg"><img src="teratoma-trung-that_anh/kjtcs-46-305-g002.jpg" alt="" width="734" height="329" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/kjtcs-46-305-g004.jpg"><img src="teratoma-trung-that_anh/kjtcs-46-305-g004.jpg" alt="" width="759" height="307" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-clvt">IV. Chẩn đoán CLVT</h2>
+<h3 id="1-u-quai-lanh-tinh">1. U quái lành tính</h3>
+<p><span class="c-xanh">– U quái trưởng thành (mature teratoma)</span> thường là khối giới hạn rõ, có thể tròn hoặc thùy múi, và đè đẩy cấu trúc lân cận. Mặt phẳng mỡ còn bảo tồn trên CT ủng hộ không có xâm lấn đại thể, nhưng không chứng minh khối có vỏ bao hoàn chỉnh hoặc loại trừ hoàn toàn thành phần ác tính.</p>
+<p><span class="c-xanh">– Thành phần trên CT đa dãy (MDCT)</span> thường không đồng nhất, với các vùng mô mềm, dịch, mỡ và vôi hóa:<br>+ Trong một loạt 66 ca, thành phần mô mềm gặp ở 100%, dịch ở 88%, mỡ ở 76% và vôi hóa ở 53%; đây là tỷ lệ của một loạt bệnh, không phải tần suất cố định.<br>+ Thành phần dạng nang có thể một hoặc nhiều ngăn; thành và vách có thể ngấm thuốc. Độ dày thành nang thay đổi, không nên áp dụng một khoảng số cố định.<br>+ Mỡ đại thể thường có tỷ trọng âm, khoảng −40 đến −120 HU. Mức dịch-mỡ gặp khoảng 11% trong loạt bệnh trên; đây là dấu hiệu rất gợi ý nhưng không thường gặp, và sự vắng mặt của nó không loại trừ u quái.<br>+ Vôi hóa có thể dạng thô, viền hoặc dạng răng, xương. Mô mềm có thể ngấm thuốc, nhưng chỉ riêng sự hiện diện hay ngấm thuốc của mô mềm không xác định được bản chất ác tính.</p>
+<p><span class="c-xanh">– U quái chưa trưởng thành hoặc u quái có thành phần ác tính</span> có thể có phần mô mềm đặc, bờ không đều và ngấm thuốc không đồng nhất; các dấu hiệu này chồng lấp với u quái trưởng thành và các khối u khác, nên MDCT không đủ để xác định mô học.</p>
+<p><span class="c-xanh">– Khi u quái vỡ</span>, CT có thể thấy thành không đều hoặc mất liên tục, các thành phần bên trong trở nên không đồng nhất, thâm nhiễm mỡ quanh khối, đông đặc phổi lân cận hoặc tràn dịch màng phổi, màng tim:<br>+ Viêm quanh khối sau vỡ có thể mô phỏng xâm lấn ác tính; không kết luận ác tính chỉ dựa vào bờ mờ hay thâm nhiễm mỡ đơn thuần.<br>+ MRI, bao gồm chuỗi Dixon, có thể hỗ trợ xác định thành phần mỡ khi CT chưa rõ; các chuỗi MRI khác có thể bổ sung đánh giá mô mềm và liên quan với cấu trúc lân cận, nhưng không tự phân biệt chắc chắn viêm với xâm lấn.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_643209.jpg"><img src="teratoma-trung-that_anh/2015_11_643209.jpg" alt="" width="807" height="768" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Screenshot-2021-06-01-212652.png"><img src="teratoma-trung-that_anh/2015_11_Screenshot-2021-06-01-212652.png" alt="" width="1016" height="575" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Screenshot-2021-06-01-215244.png"><img src="teratoma-trung-that_anh/2015_11_Screenshot-2021-06-01-215244.png" alt="" width="976" height="929" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/Mature-Teratoma-3_Xray.vn_.jpg"><img src="teratoma-trung-that_anh/Mature-Teratoma-3_Xray.vn_.jpg" alt="" width="1050" height="914" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/image00750.jpeg"><img src="teratoma-trung-that_anh/image00750.jpeg" alt="" width="988" height="693" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/chapter28-f02.png"><img src="teratoma-trung-that_anh/chapter28-f02.png" alt="" width="802" height="576" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Bild32.jpg"><img src="teratoma-trung-that_anh/2015_11_Bild32.jpg" alt="" width="1439" height="680" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_611136.jpg"><img src="teratoma-trung-that_anh/2015_11_611136.jpg" alt="" width="660" height="439" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Screenshot-2022-05-05-214620.jpg"><img src="teratoma-trung-that_anh/2015_11_Screenshot-2022-05-05-214620.jpg" alt="" width="754" height="571" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Screenshot-2022-05-05-214641.jpg"><img src="teratoma-trung-that_anh/2015_11_Screenshot-2022-05-05-214641.jpg" alt="" width="754" height="805" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_13244_2012_201_Fig26_HTML.jpg"><img src="teratoma-trung-that_anh/2015_11_13244_2012_201_Fig26_HTML.jpg" alt="" width="709" height="495" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-27.jpeg"><img src="teratoma-trung-that_anh/2015_11_1-27.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-29.jpeg"><img src="teratoma-trung-that_anh/2015_11_2-29.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-27.jpeg"><img src="teratoma-trung-that_anh/2015_11_3-27.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_4-26.jpeg"><img src="teratoma-trung-that_anh/2015_11_4-26.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_5-23.jpeg"><img src="teratoma-trung-that_anh/2015_11_5-23.jpeg" alt="" width="630" height="586" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_6-10.jpeg"><img src="teratoma-trung-that_anh/2015_11_6-10.jpeg" alt="" width="524" height="586" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-21.jpg"><img src="teratoma-trung-that_anh/2015_11_1-21.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-19.jpg"><img src="teratoma-trung-that_anh/2015_11_2-19.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-19.jpg"><img src="teratoma-trung-that_anh/2015_11_3-19.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_4-15.jpg"><img src="teratoma-trung-that_anh/2015_11_4-15.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_5-11.jpg"><img src="teratoma-trung-that_anh/2015_11_5-11.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_6-9.jpg"><img src="teratoma-trung-that_anh/2015_11_6-9.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-29.jpeg"><img src="teratoma-trung-that_anh/2015_11_1-29.jpeg" alt="" width="1199" height="1280" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-31.jpeg"><img src="teratoma-trung-that_anh/2015_11_2-31.jpeg" alt="" width="1280" height="959" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-29.jpeg"><img src="teratoma-trung-that_anh/2015_11_3-29.jpeg" alt="" width="1280" height="1171" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_4-28.jpeg"><img src="teratoma-trung-that_anh/2015_11_4-28.jpeg" alt="" width="1280" height="1170" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_5-25.jpeg"><img src="teratoma-trung-that_anh/2015_11_5-25.jpeg" alt="" width="1280" height="1054" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-7.png"><img src="teratoma-trung-that_anh/2015_11_1-7.png" alt="" width="867" height="527" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-6.png"><img src="teratoma-trung-that_anh/2015_11_2-6.png" alt="" width="866" height="569" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-6.png"><img src="teratoma-trung-that_anh/2015_11_3-6.png" alt="" width="867" height="761" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_4-5.png"><img src="teratoma-trung-that_anh/2015_11_4-5.png" alt="" width="682" height="866" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_a-1.png"><img src="teratoma-trung-that_anh/2015_11_a-1.png" alt="" width="958" height="859" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_b.png"><img src="teratoma-trung-that_anh/2015_11_b.png" alt="" width="1104" height="846" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_c.png"><img src="teratoma-trung-that_anh/2015_11_c.png" alt="" width="1039" height="861" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_d.png"><img src="teratoma-trung-that_anh/2015_11_d.png" alt="" width="796" height="831" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 6:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-9.png"><img src="teratoma-trung-that_anh/2015_11_1-9.png" alt="" width="1340" height="938" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-8.png"><img src="teratoma-trung-that_anh/2015_11_2-8.png" alt="" width="1222" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-7.png"><img src="teratoma-trung-that_anh/2015_11_3-7.png" alt="" width="1222" height="880" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 7:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-25.jpg"><img src="teratoma-trung-that_anh/2015_11_1-25.jpg" alt="" width="755" height="750" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-23.jpg"><img src="teratoma-trung-that_anh/2015_11_2-23.jpg" alt="" width="484" height="362" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-23.jpg"><img src="teratoma-trung-that_anh/2015_11_3-23.jpg" alt="" width="1327" height="612" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 8:</span></p>
+<div class="bo-anh cot-2"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-26.jpg"><img src="teratoma-trung-that_anh/2015_11_1-26.jpg" alt="" width="1005" height="880" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-24.jpg"><img src="teratoma-trung-that_anh/2015_11_2-24.jpg" alt="" width="1029" height="880" loading="lazy" decoding="async"></a></div>
+<h3 id="2-u-te-bao-mam-ac-tinh">2. U tế bào mầm ác tính</h3>
+<p><span class="c-xanh">– Đặc điểm CLVT thay đổi theo mô học:</span><br>+ U tinh bào thường là khối mô mềm lớn, thùy múi, tương đối đồng nhất và ngấm thuốc nhẹ; có thể đè đẩy hoặc xâm lấn cấu trúc lân cận.<br>+ U không phải tinh bào, nhất là u hỗn hợp, thường không đồng nhất hơn, có thể gồm mô đặc, nang hóa, hoại tử hoặc xuất huyết. Mỡ và vôi hóa có thể hiện diện khi có thành phần u quái.<br>– Khối có thể lớn, bờ không đều hoặc lan qua nhiều khoang trung thất; các dấu hiệu này không đặc hiệu. Mất mặt phẳng mỡ có thể gợi ý xâm lấn, nhưng cũng gặp do đè ép hoặc viêm, nên cần đánh giá cùng các dấu hiệu khác.<br>– Không nên áp dụng tỷ lệ mỡ khoảng 40% cho mọi u tế bào mầm ác tính: mỡ gợi ý thành phần u quái, nhưng có thể vắng mặt và không giúp loại trừ u hỗn hợp.<br>– Hoại tử, xuất huyết và ngấm thuốc không đồng nhất có thể gặp, đặc biệt ở u không phải tinh bào; không phải đặc điểm bắt buộc của mọi u tế bào mầm ác tính. Vôi hóa cũng có thể có nếu khối chứa thành phần u quái.<br><span class="c-xanh">– Đánh giá xâm lấn và di căn:</span><br>+ Xâm lấn thành ngực, màng phổi, màng tim hoặc mạch máu là lan rộng tại chỗ, không phải di căn. Tràn dịch màng phổi, tràn dịch màng tim hoặc hạch to làm tăng nghi ngờ nhưng không đặc hiệu và không tự chứng minh xâm lấn.<br>+ Di căn có thể đến hạch vùng và các cơ quan xa như phổi, gan hoặc xương; cần đánh giá toàn diện để phân giai đoạn.<br>– FDG PET/CT không thay thế CLVT có tiêm cản quang để đánh giá cấu trúc, mỡ và vôi hóa. Vai trò sau hóa trị tùy mô học: có thể cân nhắc trong một số u tinh bào còn khối tồn dư lớn, nhưng không dùng thường quy để xác định bản chất khối tồn dư của u không phải tinh bào.<br><span class="c-xanh">– Cạm bẫy:</span> Khối tồn dư sau hóa trị có thể gồm mô xơ-hoại tử, u quái trưởng thành hoặc u còn tế bào ác tính. U quái có thể tiếp tục lớn dù dấu ấn sinh học đã bình thường hóa; vì vậy cần đối chiếu hình ảnh với diễn tiến và AFP, β-hCG, LDH. LDH không đặc hiệu, và dấu ấn bình thường không loại trừ u quái tồn dư.</p>
+<figure><a class="o-anh" href="teratoma-trung-that_anh/2015_11_13244_2012_201_Fig28_HTML.jpg"><img src="teratoma-trung-that_anh/2015_11_13244_2012_201_Fig28_HTML.jpg" alt="" width="609" height="252" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_PA1.jpg"><img src="teratoma-trung-that_anh/2015_11_PA1.jpg" alt="" width="697" height="892" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_lateral1.jpg"><img src="teratoma-trung-that_anh/2015_11_lateral1.jpg" alt="" width="567" height="892" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_CT1.jpg"><img src="teratoma-trung-that_anh/2015_11_CT1.jpg" alt="" width="511" height="513" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_CT2.jpg"><img src="teratoma-trung-that_anh/2015_11_CT2.jpg" alt="" width="506" height="514" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Bild19.jpg"><img src="teratoma-trung-that_anh/2015_11_Bild19.jpg" alt="" width="1298" height="755" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-28.jpeg"><img src="teratoma-trung-that_anh/2015_11_1-28.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-30.jpeg"><img src="teratoma-trung-that_anh/2015_11_2-30.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-28.jpeg"><img src="teratoma-trung-that_anh/2015_11_3-28.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_4-27.jpeg"><img src="teratoma-trung-that_anh/2015_11_4-27.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_5-24.jpeg"><img src="teratoma-trung-that_anh/2015_11_5-24.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_6-11.jpeg"><img src="teratoma-trung-that_anh/2015_11_6-11.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_7-7.jpeg"><img src="teratoma-trung-that_anh/2015_11_7-7.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_8-2.jpeg"><img src="teratoma-trung-that_anh/2015_11_8-2.jpeg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-23.jpg"><img src="teratoma-trung-that_anh/2015_11_1-23.jpg" alt="" width="630" height="586" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-21.jpg"><img src="teratoma-trung-that_anh/2015_11_2-21.jpg" alt="" width="630" height="424" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-21.jpg"><img src="teratoma-trung-that_anh/2015_11_3-21.jpg" alt="" width="630" height="456" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_4-17.jpg"><img src="teratoma-trung-that_anh/2015_11_4-17.jpg" alt="" width="630" height="411" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_5-13.jpg"><img src="teratoma-trung-that_anh/2015_11_5-13.jpg" alt="" width="630" height="508" loading="lazy" decoding="async"></a></div>
+<h2 id="v-phan-biet">V. Phân biệt</h2>
+<figure><a class="o-anh" href="teratoma-trung-that_anh/2015_11_CDHA-U-Te-Bao-Mam-Trung-That-rev4-scaled.png"><img src="teratoma-trung-that_anh/2015_11_CDHA-U-Te-Bao-Mam-Trung-That-rev4-scaled.png" alt="" width="1600" height="900" loading="lazy" decoding="async"></a></figure>
+<h3 id="1-lymphoma">1. Lymphoma</h3>
+<p><span class="c-xanh">* Loại Hodgkin</span><br>– U lympho Hodgkin (Hodgkin lymphoma; HL) thường gây hạch lớn ở trung thất trước và vùng cạnh khí quản; hạch có thể rời rạc hoặc hợp lưu thành khối. Bệnh thường lan liên tiếp từ nhóm hạch này sang nhóm hạch kế cận.<br>– Hạch chưa điều trị hiếm khi vôi hóa; vôi hóa gặp thường hơn sau điều trị.<br>– Có thể có tổn thương nhu mô phổi do lan trực tiếp từ khối hạch lớn hoặc do tổn thương ngoài hạch. Tràn dịch màng phổi cũng có thể gặp nhưng không đặc hiệu.<br>– Phân biệt với u tế bào mầm trung thất: Kiểu lan liên tiếp theo chuỗi hạch và ưu thế hạch trước-cạnh khí quản ủng hộ HL; một khối trung thất trước có thành phần mỡ hoặc vôi hóa gợi ý thành phần u quái, còn AFP hoặc β-hCG tăng hỗ trợ chẩn đoán u tế bào mầm. Hai bệnh vẫn có thể chồng lấp hình ảnh, nhất là khi u tế bào mầm là thể tinh bào thuần túy; cần mô bệnh học để xác định.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="teratoma-trung-that_anh/g07ma08g03a.jpeg"><img src="teratoma-trung-that_anh/g07ma08g03a.jpeg" alt="" width="1600" height="1575" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/g07ma08g03b.jpeg"><img src="teratoma-trung-that_anh/g07ma08g03b.jpeg" alt="" width="1600" height="1374" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/871cfdb2c7b2ad95c037b1933f7aad_jumbo.jpg"><img src="teratoma-trung-that_anh/871cfdb2c7b2ad95c037b1933f7aad_jumbo.jpg" alt="" width="931" height="909" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/6472bde05e68caaca32c363431b392_big_gallery.jpg"><img src="teratoma-trung-that_anh/6472bde05e68caaca32c363431b392_big_gallery.jpg" alt="" width="630" height="506" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/604be2115dfa9f342985a74aef656b_jumbo.jpeg"><img src="teratoma-trung-that_anh/604be2115dfa9f342985a74aef656b_jumbo.jpeg" alt="" width="923" height="962" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/6b05907d0245a5db7eace0754f1d87_big_gallery.jpeg"><img src="teratoma-trung-that_anh/6b05907d0245a5db7eace0754f1d87_big_gallery.jpeg" alt="" width="630" height="542" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2aeee533d087e761d34b0f68d7ad38_jumbo.jpeg"><img src="teratoma-trung-that_anh/2aeee533d087e761d34b0f68d7ad38_jumbo.jpeg" alt="" width="959" height="684" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/f7a65f55f5ab22a8ff9d617bb078c6_jumbo.jpeg"><img src="teratoma-trung-that_anh/f7a65f55f5ab22a8ff9d617bb078c6_jumbo.jpeg" alt="" width="1024" height="967" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/ea543c29b4be56056ba6d5538e78ba_big_gallery.jpeg"><img src="teratoma-trung-that_anh/ea543c29b4be56056ba6d5538e78ba_big_gallery.jpeg" alt="" width="630" height="433" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">* Loại không Hodgkin</span><br>– U lympho không Hodgkin (non-Hodgkin lymphoma; NHL) có biểu hiện hình ảnh thay đổi theo phân nhóm mô học và giai đoạn:<br>+ Có thể gặp khối lớn hoặc nhiều nhóm hạch ở trung thất và rốn phổi; một số thể biểu hiện ở một vùng hạch, trong khi các thể khác lan không liên tục hoặc có tổn thương ngoài hạch.<br>+ Một số thể, như lymphoma tế bào B lớn nguyên phát trung thất hoặc lymphoma lymphoblastic tế bào T, thường tạo khối lớn ở trung thất trước. Trung thất sau và góc tâm hoành không phải vị trí điển hình chung của NHL.<br>– Phân biệt với u tế bào mầm trung thất: Một khối hạch lớn ở trung thất trước có thể gặp ở cả NHL và u tế bào mầm. Thành phần mỡ-vôi hóa gợi ý u quái trong nhóm u tế bào mầm; AFP hoặc β-hCG tăng cũng hỗ trợ nhóm này, nhưng dấu ấn bình thường không loại trừ u tế bào mầm. NHL có thể lan hạch không liên tục hoặc ngoài hạch; các dấu hiệu hình ảnh chồng lấp nên cần mô bệnh học để xác định.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="teratoma-trung-that_anh/1-svcs-04.jpg"><img src="teratoma-trung-that_anh/1-svcs-04.jpg" alt="" width="800" height="405" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/a509797a90df2b_9-NHL.jpg"><img src="teratoma-trung-that_anh/a509797a90df2b_9-NHL.jpg" alt="" width="765" height="655" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/a509797a90e9f1_10-NHL.jpg"><img src="teratoma-trung-that_anh/a509797a90e9f1_10-NHL.jpg" alt="" width="671" height="648" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/fd2df01fc01b51bbc738f6709f9dcc_jumbo.jpg"><img src="teratoma-trung-that_anh/fd2df01fc01b51bbc738f6709f9dcc_jumbo.jpg" alt="" width="1024" height="986" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/6a7c9437347fdd1cd3bbaa856cc6e2_big_gallery.jpg"><img src="teratoma-trung-that_anh/6a7c9437347fdd1cd3bbaa856cc6e2_big_gallery.jpg" alt="" width="630" height="527" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/6c8985b6a3c29fd6817b108076a678_big_gallery.jpg"><img src="teratoma-trung-that_anh/6c8985b6a3c29fd6817b108076a678_big_gallery.jpg" alt="" width="630" height="544" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/7fc1228530cdf3b2d1afe425986cca_big_gallery.jpg"><img src="teratoma-trung-that_anh/7fc1228530cdf3b2d1afe425986cca_big_gallery.jpg" alt="" width="621" height="630" loading="lazy" decoding="async"></a></div>
+<h3 id="2-u-mo-tuyen-uc">2. U mỡ tuyến ức</h3>
+<p><span class="c-xanh">– U mỡ tuyến ức (thymolipoma)</span> là u lành hiếm gặp, chiếm khoảng 2–9% các u tuyến ức; thường xuất phát từ trung thất trước. U có thể kéo dài xuống góc tâm hoành, thường gặp ở trẻ em và người trẻ nhưng có thể xuất hiện ở nhiều lứa tuổi, không có ưu thế giới rõ.<br>– Nhiều trường hợp không triệu chứng và được phát hiện tình cờ. Khối lớn có thể gây ho, khó thở hoặc đau ngực do chèn ép; kích thước rất thay đổi, đôi khi đạt tới khoảng 20 cm.<br>– Khối thường giới hạn rõ, có bao, dạng thùy múi và chứa nhiều mỡ. Trên CT, thấy mỡ đại thể xen các dải hoặc đảo mô mềm tương ứng với mô tuyến ức và mô xơ. Khối mềm, có thể phát triển dạng thòng xuống phía cơ hoành, lan quanh tim hoặc vào góc tâm hoành; hình dạng có thể thay đổi theo tư thế.</p>
+<p><span class="c-xanh">– Phân biệt với u tế bào mầm trung thất:</span><br>+ U mỡ tuyến ức thường ưu thế mỡ, có các dải mô mềm mảnh gợi mô tuyến ức, đôi khi có hình dạng thòng và ôm theo các cấu trúc lân cận.<br>+ U quái trưởng thành thường là khối khu trú, không đồng nhất, có thể phối hợp các thành phần dịch/nang, mỡ, mô mềm và vôi hóa; vôi hóa dạng răng hoặc xương và mức dịch-mỡ gợi ý u quái hơn. Không phải mọi u quái đều có đủ các thành phần này.<br>+ U tế bào mầm ác tính thường có thành phần mô mềm đặc nổi trội hơn; hoại tử, xuất huyết, bờ không đều, xâm lấn hoặc di căn làm tăng nghi ngờ ác tính. AFP và β-hCG có thể hỗ trợ đánh giá tùy mô học; dấu ấn bình thường không loại trừ mọi u tế bào mầm.<br>+ Cả hai loại u đều có thể lớn và nằm ở trung thất trước; chỉ vị trí hoặc sự hiện diện của mỡ không đủ để phân biệt. Khi hình ảnh không điển hình, cần đối chiếu toàn bộ đặc điểm CT, lâm sàng và dấu ấn sinh học; xác định mô học khi có chỉ định.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="teratoma-trung-that_anh/1fa02912d1b4ce34ca1f34f2a6d258_jumbo.jpg"><img src="teratoma-trung-that_anh/1fa02912d1b4ce34ca1f34f2a6d258_jumbo.jpg" alt="" width="1024" height="885" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/3d7f725f5a190de6794921d2400600_big_gallery.jpg"><img src="teratoma-trung-that_anh/3d7f725f5a190de6794921d2400600_big_gallery.jpg" alt="" width="630" height="492" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/344b0c75a3dd4c71d2c7649eb4a7d7_jumbo.jpeg"><img src="teratoma-trung-that_anh/344b0c75a3dd4c71d2c7649eb4a7d7_jumbo.jpeg" alt="" width="888" height="927" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2ce605a38f4420ea0f366d120f5658_big_gallery.jpeg"><img src="teratoma-trung-that_anh/2ce605a38f4420ea0f366d120f5658_big_gallery.jpeg" alt="" width="630" height="512" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2601e0ab203eb35ded24cf653fc9e9_big_gallery.jpeg"><img src="teratoma-trung-that_anh/2601e0ab203eb35ded24cf653fc9e9_big_gallery.jpeg" alt="" width="630" height="521" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/40748446446250.jpg"><img src="teratoma-trung-that_anh/40748446446250.jpg" alt="" width="920" height="543" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/kjpathol-47-596-g001.jpg"><img src="teratoma-trung-that_anh/kjpathol-47-596-g001.jpg" alt="" width="756" height="660" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/Picture10746161718750.jpg"><img src="teratoma-trung-that_anh/Picture10746161718750.jpg" alt="" width="1064" height="807" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Bild6-1.png"><img src="teratoma-trung-that_anh/2015_11_Bild6-1.png" alt="" width="1454" height="800" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Case-21-1.jpg"><img src="teratoma-trung-that_anh/2015_11_Case-21-1.jpg" alt="" width="1500" height="921" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_Bild8-1.jpg"><img src="teratoma-trung-that_anh/2015_11_Bild8-1.jpg" alt="U mỡ tuyến ức" width="1454" height="618" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-7.jpg"><img src="teratoma-trung-that_anh/2015_11_1-7.jpg" alt="" width="400" height="278" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-7.jpg"><img src="teratoma-trung-that_anh/2015_11_2-7.jpg" alt="" width="400" height="308" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-7.jpg"><img src="teratoma-trung-that_anh/2015_11_3-7.jpg" alt="" width="400" height="298" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_4-4.jpg"><img src="teratoma-trung-that_anh/2015_11_4-4.jpg" alt="" width="400" height="310" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_5-4.jpg"><img src="teratoma-trung-that_anh/2015_11_5-4.jpg" alt="" width="400" height="311" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_6-2.jpg"><img src="teratoma-trung-that_anh/2015_11_6-2.jpg" alt="" width="400" height="257" loading="lazy" decoding="async"></a></div>
+<h3 id="3-benh-mo-trung-that">3. Bệnh mỡ trung thất</h3>
+<p><span class="c-xanh">– Bệnh mỡ trung thất (mediastinal lipomatosis)</span> là tình trạng tích tụ lan tỏa mô mỡ không vỏ bao, không phải u tân sinh:<br>+ Thường liên quan đến béo phì, dùng glucocorticoid kéo dài hoặc hội chứng Cushing.<br>+ Có thể gặp ở nhiều khoang trung thất; biểu hiện thường lan tỏa, đôi khi tương đối đối xứng.<br>– Đặc điểm trên CT:<br>+ Mỡ có tỷ trọng âm, lan quanh các cấu trúc trung thất, không tạo khối khu trú có bao; thường không gây hiệu ứng choán chỗ đáng kể, nhưng mức độ chèn ép có thể tăng khi lượng mỡ nhiều.<br>+ Không có nốt mô mềm khu trú, vách dày bất thường hoặc vôi hóa dạng răng-xương. MRI Dixon có thể hỗ trợ xác định thành phần mỡ, nhưng không tự phân biệt bệnh mỡ trung thất với các u có chứa mỡ.</p>
+<p><span class="c-xanh">– Phân biệt với u tế bào mầm trung thất (mediastinal germ cell tumor):</span> Bệnh mỡ trung thất là mỡ lan tỏa không vỏ bao; u quái thường là khối khu trú, không đồng nhất, có thể phối hợp dịch/nang, mỡ, mô mềm và vôi hóa. Mức dịch-mỡ hoặc vôi hóa dạng răng-xương gợi ý u quái, nhưng sự vắng mặt của chúng không loại trừ u tế bào mầm.<br>– Phân biệt với u mỡ tuyến ức (thymolipoma): U mỡ tuyến ức thường là khối khu trú, giới hạn rõ, có nguồn gốc vùng tuyến ức, gồm nhiều mỡ xen các dải hoặc đảo mô mềm tuyến ức và có thể phát triển dạng thòng xuống góc tâm hoành; bệnh mỡ trung thất lan tỏa quanh nhiều cấu trúc, không tạo khối riêng biệt có bao.</p>
+<figure><a class="o-anh" href="teratoma-trung-that_anh/2015_11_633130.jpg"><img src="teratoma-trung-that_anh/2015_11_633130.jpg" alt="" width="739" height="589" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">=&gt; Case lâm sàng 1:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_images_11_11_6932_10a.jpeg"><img src="teratoma-trung-that_anh/2015_11_images_11_11_6932_10a.jpeg" alt="" width="1476" height="1476" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_images_11_11_6932_10b.jpeg"><img src="teratoma-trung-that_anh/2015_11_images_11_11_6932_10b.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_images_11_11_6932_10c.jpeg"><img src="teratoma-trung-that_anh/2015_11_images_11_11_6932_10c.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_images_11_11_6932_10d.jpeg"><img src="teratoma-trung-that_anh/2015_11_images_11_11_6932_10d.jpeg" alt="" width="1600" height="1600" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2:</span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="teratoma-trung-that_anh/2015_11_1-24.jpg"><img src="teratoma-trung-that_anh/2015_11_1-24.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_2-22.jpg"><img src="teratoma-trung-that_anh/2015_11_2-22.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_3-22.jpg"><img src="teratoma-trung-that_anh/2015_11_3-22.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_4-18.jpg"><img src="teratoma-trung-that_anh/2015_11_4-18.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="teratoma-trung-that_anh/2015_11_5-14.jpg"><img src="teratoma-trung-that_anh/2015_11_5-14.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a></div>
+<h2 id="vi-tien-luong-dieu-tri">VI. Tiên lượng &amp; Điều trị</h2>
+<p><span class="c-xanh">– Tiên lượng:</span><br>+ U quái trưởng thành (mature teratoma) khu trú, được cắt bỏ hoàn toàn thường có tiên lượng rất tốt; nguy cơ tồn tại hoặc tái phát tăng khi cắt không hoàn toàn. U quái không trưởng thành hoặc có chuyển dạng ác tính thường tiên lượng kém hơn.<br>+ U tinh bào trung thất tiên phát (seminoma) thường đáp ứng tốt với điều trị, tỷ lệ sống còn toàn bộ 5 năm trong các loạt bệnh được báo cáo trên 90%. U không phải tinh bào (non-seminoma) có tiên lượng xấu hơn, thuộc nhóm nguy cơ xấu theo IGCCCG; tỷ lệ sống còn toàn bộ 5 năm khoảng 40–50% sau điều trị đa mô thức.<br>+ Yếu tố tiên lượng xấu gồm di căn tạng ngoài phổi, β-hCG tăng cao, dấu ấn u giảm kém sau hóa trị, còn thành phần u sống hoặc không thể cắt bỏ hoàn toàn khối tồn dư.</p>
+<p><span class="c-xanh">– Điều trị:</span><br>+ Lựa chọn điều trị dựa trên mô bệnh học, giai đoạn, dấu ấn u và phân nhóm nguy cơ IGCCCG; cần hội chẩn đa chuyên khoa tại trung tâm có kinh nghiệm. Theo EAU 2026 và SEOM-GG 2023, các nguyên tắc điều trị u tế bào mầm tinh hoàn được áp dụng cho u tế bào mầm trung thất.<br>+ U quái trưởng thành, không có thành phần ác tính khác: phẫu thuật cắt bỏ hoàn toàn là điều trị chính; hóa trị không có vai trò thường quy. Khối tăng kích thước dù dấu ấn u giảm hoặc bình thường cần nghĩ đến hội chứng u quái phát triển và đánh giá khả năng phẫu thuật.<br>+ U tinh bào ác tính: hóa trị nền cisplatin theo phân nhóm nguy cơ; nhóm nguy cơ tốt thường dùng 3 chu kỳ BEP (bleomycin, etoposide, cisplatin) hoặc 4 chu kỳ EP nếu không dùng được bleomycin; nhóm nguy cơ trung gian thường dùng 4 chu kỳ BEP hoặc VIP (etoposide, ifosfamide, cisplatin) khi bleomycin chống chỉ định.<br>+ U không phải tinh bào ác tính trung thất thường được xếp nhóm nguy cơ xấu, điều trị bằng 4 chu kỳ BEP; dùng VIP khi bleomycin chống chỉ định. Có thể cân nhắc điều trị tăng cường ở một số trường hợp chọn lọc tại trung tâm chuyên sâu hoặc trong nghiên cứu, nhưng không xem là chiến lược thường quy cho mọi người bệnh. Cân nhắc phẫu thuật cắt bỏ khối tồn dư còn khả năng cắt sau hóa trị vì có thể còn u quái hoặc tế bào u sống.<br>+ Đánh giá đáp ứng bằng dấu ấn u và CT. Với u tinh bào còn khối tồn dư &gt;3 cm, có thể cân nhắc FDG-PET/CT sau khi kết thúc hóa trị ít nhất 2 tháng; kết quả dương tính đơn độc không đủ để quyết định điều trị tiếp. Với u không phải tinh bào, FDG-PET/CT không đáng tin cậy để loại trừ u quái tồn dư; quyết định phẫu thuật dựa trên khả năng cắt bỏ và hội chẩn chuyên khoa.<br>+ Tư vấn bảo tồn sinh sản trước hóa trị; theo dõi độc tính muộn trên thận, thính giác, thần kinh, phổi và tim mạch, cũng như nguy cơ ung thư thứ phát.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Mediastinal germ cell tumors: radiologic and pathologic correlation – M L Rosado-de-Christenson, P A Templeton, and C A Moran<br>* Mediastinal mature teratoma: imaging features – K H Moeller, M L Rosado-de-Christenson and P A Templeton<br>* Mediastinal lines, stripes and interfaces on PA chest radiograph with CT correlations – <u>N. Bystrická</u>, H. Poláková, J. Sykora; Bratislava/SK<br>* What the radiologist should know about mediastinum: from anatomy to imaging – L. Mazzamurro, M. Mereu, S. Conte<br>* Positive and differential diagnosis in tumoral pericardial involvement focused on CT examinations – A. Flintoaca-Filip, I. G. Lupescu, D. M. Tabac, M. Ichim, R. A. Capsa; Bucharest/RO<br>* Anterior mediastinum: anatomy and masses – know the normal to find the pathology – B. M. Araujo, A. F. S. Simões, P. M. M. Lopes<br>* Lesions of the anterior mediastinum: radiologic appearance and histologic diagnostic correlation after percutaneous needle biopsy – R. D. T. Mesquita, P. Ananias, P. M. M. Lopes<br>* Fat-containing lesions of the chest – E. Aydın, S. Bayraktaroglu, N. Ceylan, C. Altın, R. Savas; Izmir/TR<br>* Mediastinal masses in children: how helpful is CT in determining their nature? – G. Lembarki, K. Chbani, S. Salam, L. OUZIDANE; Casablanca/MA<br>* A diagnostic approach to the anterior mediastinal masses: Beyond the 4 T’s – R. Grippo, C. A. Mallio, B. Beomonte Zobel<br>* Cystic Mediastinal Lesions: A Pictorial Review – S. Loutfi, M. AL HOURI, E. K. Omar, S. Al Rajhi, S. Al Ghanem; Riyadh/SA<br>* Imaging findings of fat containing mediastinal lesions – H. Maki, Y. Ozawa, Y. Ishihara<br>* Spectrum of Teratoma: From Head to Toe, radiological pathological correlation – T. Raafat, Y. Mahfouz, M. ELshafiey, A. Refaat, I. Gouda ; Cairo/EG<br>* Imaging findings of three cases of large mediastinal mature cystic teratoma – Vo Tan Duc<br>* A diagnostic approach to the mediastinal masses – Sergi Juanpere<br>* Grainger &amp; Allison’s Diagnostic Radiology – Andreas Adam<br></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>

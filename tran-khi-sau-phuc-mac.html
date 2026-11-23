@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="vi" data-nen="sang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Khí Sau Phúc Mạc</title>
+<style>
+:root{
+ --nen:#f2f4f6; --giay:#ffffff; --chu:#172033; --nhat:#5b6675; --vien:#e3e7ec;
+ --do:#b30000; --xanh:#004b87; --diu:#f6f8fa; --danh:#fff3cd;
+}
+:root[data-nen="toi"]{
+ --nen:#12151b; --giay:#1b2029; --chu:#e6eaf0; --nhat:#9aa5b4; --vien:#2c333f;
+ --do:#ff8a8a; --xanh:#7fb6e6; --diu:#232a35; --danh:#5a4a12;
+}
+*{box-sizing:border-box}
+html{font-size:var(--co,16px)}
+body{margin:0;background:var(--nen);color:var(--chu);
+ font-family:"Noto Sans","Segoe UI",Roboto,Arial,sans-serif;
+ font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--xanh)}
+.bo-cuc{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;
+ max-width:1500px;margin:0 auto;padding:22px}
+/* ---- cột mục lục ---- */
+.muc-luc{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);
+ background:var(--giay);border-radius:16px;padding:16px 10px;display:flex;
+ flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ml-dau{display:flex;justify-content:space-between;align-items:center;
+ padding:2px 10px 10px;font-size:.78rem;font-weight:800;letter-spacing:.09em;
+ color:var(--do);border-bottom:1px solid var(--vien)}
+#phanTram{color:var(--nhat)}
+/* Thu gọn / mở lại cột mục lục. Trang nhớ lựa chọn, vì người đọc guideline
+   mở lại nhiều lần và không muốn mỗi lần lại phải thu tay. */
+.ml-dau .nut-thu{margin-left:8px;border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:1px 8px;cursor:pointer;font:inherit;
+ font-size:.9rem;line-height:1.4}
+@media(min-width:981px){
+ :root[data-ml="thu"] .bo-cuc{grid-template-columns:minmax(0,1fr)}
+ :root[data-ml="thu"] .muc-luc{display:none}
+ :root[data-ml="thu"] .hien-ml{display:block}
+}
+.o-tim{padding:10px 8px 6px}
+.o-tim input{width:100%;padding:8px 10px;border:1px solid var(--vien);
+ border-radius:9px;background:var(--diu);color:var(--chu);font:inherit;font-size:.85rem}
+.tim-dieu-khien{display:flex;gap:6px;align-items:center;margin-top:6px;
+ font-size:.76rem;color:var(--nhat)}
+.tim-dieu-khien button{border:1px solid var(--vien);background:var(--giay);
+ color:var(--chu);border-radius:7px;padding:2px 9px;cursor:pointer;font:inherit}
+.ml-cuon{overflow-y:auto;flex:1;margin-top:4px}
+#dsMuc{list-style:none;margin:0;padding:0}
+#dsMuc a{display:block;padding:7px 12px;border-radius:9px;text-decoration:none;
+ color:var(--chu);font-size:.87rem;line-height:1.4}
+#dsMuc a:hover{background:var(--diu)}
+#dsMuc a.dang-doc{background:var(--diu);color:var(--do);font-weight:700;
+ box-shadow:inset 3px 0 0 var(--do)}
+#dsMuc .cap-1>a{font-weight:700}
+#dsMuc .cap-2>a{padding-left:26px;font-size:.85rem}
+#dsMuc .cap-3>a{padding-left:40px;font-size:.82rem;color:var(--nhat)}
+#dsMuc .cap-4>a,#dsMuc .cap-5>a{padding-left:54px;font-size:.8rem;color:var(--nhat)}
+/* ---- thân bài ---- */
+.dau-bai,.to-giay{background:var(--giay);border-radius:16px;
+ box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dau-bai{padding:28px 34px;margin-bottom:22px}
+.nhan{font-size:.76rem;font-weight:800;letter-spacing:.16em;color:var(--nhat)}
+.dau-bai h1{margin:.25em 0 .35em;font-size:2rem;line-height:1.25;color:var(--do)}
+.dich-gia{color:var(--nhat);font-size:.92rem;margin:0}
+.dich-gia b{color:var(--xanh)}
+.to-giay{padding:34px 40px 60px}
+.to-giay h2{color:var(--do);font-size:1.65rem;margin:1.7em 0 .5em;
+ padding-bottom:4px;border-bottom:2px solid var(--vien)}
+.to-giay h2:first-child{margin-top:0}
+.to-giay h3{color:var(--xanh);font-size:1.3rem;margin:1.5em 0 .4em}
+.to-giay h4{font-size:1.08rem;margin:1.3em 0 .3em}
+.to-giay h5,.to-giay h6{font-size:1rem;margin:1.2em 0 .3em;color:var(--nhat)}
+.to-giay p{margin:0 0 .85em;text-align:justify}
+.to-giay p.cham{padding-left:1.35em;text-indent:-1.1em;text-align:left}
+figure{margin:1.4em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--vien);border-radius:10px}
+/* ---- bảng ---- */
+.tham-chieu{color:var(--xanh);font-weight:600;text-decoration:none;
+ border-bottom:1px dotted currentColor}
+.tham-chieu:hover{border-bottom-style:solid}
+.chu-thich-float{font-weight:600;margin:0 0 .4em}
+.khung-bang{overflow-x:auto;margin:1.4em 0;border-radius:10px;
+ border:1px solid var(--vien)}
+.khung-bang table{border-collapse:collapse;width:100%;font-size:.88rem;
+ table-layout:fixed}
+.to-giay p,.to-giay li,.to-giay dd{overflow-wrap:break-word}
+.to-giay sup{overflow-wrap:anywhere}
+.khung-bang td{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;
+ line-height:1.5;word-wrap:break-word}
+.khung-bang td.sat{padding-left:0;padding-right:0}
+.khung-bang td.giua{text-align:center;vertical-align:middle}
+.khung-bang td.ky-hieu{font-weight:800;white-space:nowrap}
+.khung-bang td.nen-toi,.khung-bang td.nen-toi *{color:#fff}
+.khung-bang td.nen-sang,.khung-bang td.nen-sang *{color:#12151b}
+.khung-bang td span{display:block}
+.khung-bang td span.cham{padding-left:1.1em;text-indent:-1em}
+mark.danh{background:var(--danh);color:inherit;border-radius:3px}
+/* Ô có màu ép màu chữ cho cả con cháu, kể cả <mark> của phần tìm trong bài — chữ
+   trắng trên nền vàng nhạt là tìm thấy mà không nhìn thấy. Trả chữ về màu trang. */
+.khung-bang td.nen-toi mark.danh,.khung-bang td.nen-sang mark.danh,
+.khung-bang td.nen-toi mark.danh *,.khung-bang td.nen-sang mark.danh *{color:var(--chu)}
+mark.danh.dang{outline:2px solid var(--do)}
+/* ---- nút nổi ---- */
+.thanh-nut{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:9}
+.thanh-nut button{width:42px;height:42px;border-radius:50%;cursor:pointer;
+ border:1px solid var(--vien);background:var(--giay);color:var(--chu);
+ font-size:1rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hien-ml{display:none}
+/* ---- màn hình hẹp ---- */
+@media(max-width:980px){
+ .bo-cuc{grid-template-columns:minmax(0,1fr);padding:12px}
+ .muc-luc{position:fixed;inset:0 auto 0 0;width:88%;max-width:340px;z-index:20;
+  border-radius:0;height:100vh;transform:translateX(-102%);transition:transform .2s}
+ .muc-luc.mo{transform:none}
+ .hien-ml{display:block}
+ .to-giay{padding:22px 18px 44px}
+ /* Màn hình điện thoại: giữ bề rộng tối thiểu cho bảng rồi cho cuộn ngang,
+    thay vì bóp cột hẹp tới mức "Trung bình" xuống dòng thành "Tr un g bì nh". */
+ .khung-bang table{min-width:620px}
+ .dau-bai{padding:20px}
+ .dau-bai h1{font-size:1.5rem}
+}
+/* ---- in ra giấy ---- */
+@media print{
+ /* Nền tối được nhớ trong localStorage: bật một lần là mọi lần in sau đều dính.
+    Giấy luôn trắng, nên trả bảng màu về bản sáng trước khi in — nếu không, chữ
+    #e6eaf0 in lên giấy trắng là mất hẳn. */
+ :root,:root[data-nen="toi"]{--nen:#fff;--giay:#fff;--chu:#172033;--nhat:#4a5462;
+  --vien:#c9ced5;--do:#b30000;--xanh:#004b87;--diu:#f6f8fa;--danh:#fff3cd}
+ body{background:#fff;font-size:11.5pt}
+ .muc-luc,.thanh-nut{display:none!important}
+ .bo-cuc{display:block;max-width:none;padding:0}
+ .dau-bai,.to-giay{box-shadow:none;border-radius:0;padding:0}
+ .to-giay h2,.to-giay h3{break-after:avoid}
+ .khung-bang,figure{break-inside:avoid}
+ .khung-bang td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.c-xanh{color:var(--xanh)} .c-do{color:var(--do)} .c-luc{color:var(--luc)}
+:root{--luc:#1d7a3a} :root[data-nen="toi"]{--luc:#7fd49a}
+.ban-quyen{display:inline-block;margin:.4em 0 1.2em!important;padding:6px 14px;border-radius:9px;
+ background:var(--diu);border:1px solid var(--vien);color:var(--nhat);font-size:.88rem}
+.note{background:var(--diu);border-left:4px solid var(--xanh);border-radius:0 10px 10px 0;padding:10px 16px;margin:1.1em 0}
+.note p:last-child{margin-bottom:0}
+.canh-bao{background:#fff4d6;border:1px solid #e8c97a;color:#4a3a10;border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:.93em}
+:root[data-nen="toi"] .canh-bao{background:#3a2f12;border-color:#6b5a1a;color:#f0e2bd}
+.to-giay blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--vien);background:var(--diu);border-radius:0 10px 10px 0}
+.to-giay ul,.to-giay ol{padding-left:1.5em;margin:0 0 .9em}
+.to-giay li{margin:.2em 0}
+.to-giay hr{border:0;border-top:1px solid var(--vien);margin:1.6em 0}
+.khung-bang th{border:1px solid var(--vien);padding:9px 11px;vertical-align:top;background:var(--diu);text-align:left;line-height:1.5}
+.khung-bang td[style*="background"],.khung-bang th[style*="background"]{color:#12151b}
+.tk p,.tk li{font-size:.9em;color:var(--nhat);text-align:left}
+figcaption,.chu-thich-anh{font-size:.88rem;color:var(--nhat);margin-top:.45em;text-align:center;line-height:1.55}
+figcaption b{color:var(--chu)}
+figure.anh-dau img{width:100%;max-height:420px;object-fit:cover}
+figure video{width:100%;max-height:78vh;background:#000;border-radius:10px;display:block}
+.khung-video{position:relative;padding-top:56.25%;margin:0;border-radius:10px;overflow:hidden;background:#000}
+.khung-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt{position:relative;width:100%;aspect-ratio:16/9;background:#000;cursor:pointer;display:block;border-radius:10px;overflow:hidden}
+.yt img{width:100%;height:100%;object-fit:cover;display:block;opacity:.86;border:0!important;border-radius:0!important;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt .play svg{width:58px;height:58px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.badge{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11.5px;padding:2px 8px;border-radius:20px;pointer-events:none}
+.ytlink{display:inline-block;margin-left:8px;font-size:.92em;color:var(--xanh);text-decoration:none;border:1px solid var(--vien);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.bo-anh{display:grid;gap:8px;margin:1em 0 1.4em;align-items:start}
+.bo-anh.cot-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+.bo-anh.cot-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bo-anh.cot-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bo-anh.cot-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bo-anh.cot-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bo-anh.cot-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.o-anh{display:block;border-radius:8px;overflow:hidden;background:#000;
+ border:1px solid var(--vien);cursor:zoom-in;line-height:0}
+.o-anh img{display:block;width:100%;height:auto}
+figure .o-anh{display:inline-block;background:none;border:0}
+figure .o-anh img{border:1px solid var(--vien);border-radius:10px}
+@media(max-width:980px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .bo-anh.cot-3,.bo-anh.cot-4,.bo-anh.cot-5,.bo-anh.cot-6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.xem-anh{position:fixed;inset:0;z-index:50;background:rgba(8,10,14,.94);display:none;
+ flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.xem-anh.mo{display:flex}
+.xem-anh img{max-width:100%;max-height:calc(100vh - 110px);object-fit:contain;border-radius:6px;background:#000}
+.xem-anh .xa-chu{color:#dfe5ec;font-size:.85rem;max-width:1100px;margin-top:10px;text-align:center;
+ line-height:1.5;max-height:5.2em;overflow:auto}
+.xem-anh .xa-dem{position:absolute;top:14px;left:18px;color:#c4ccd6;font-size:.85rem}
+.xem-anh button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+.xem-anh button:hover{background:rgba(255,255,255,.25)}
+.xem-anh .xa-dong{top:12px;right:14px}
+.xem-anh .xa-truoc{left:14px;top:50%;transform:translateY(-50%)}
+.xem-anh .xa-sau{right:14px;top:50%;transform:translateY(-50%)}
+@media print{
+ .xem-anh,.canh-bao,.ytlink{display:none!important}
+ .bo-anh{break-inside:avoid}
+ .o-anh{background:none}
+}
+</style>
+</head>
+<body>
+<div class="bo-cuc">
+ <aside class="muc-luc" id="mucLuc">
+  <div class="ml-dau"><span>NỘI DUNG</span><span id="phanTram">0%</span><button
+    id="nutThu" class="nut-thu" type="button" title="Thu gọn mục lục">«</button></div>
+  <div class="o-tim">
+   <input id="oTim" type="search" placeholder="Tìm trong tài liệu…" autocomplete="off">
+   <div class="tim-dieu-khien">
+    <button id="timTruoc" type="button">↑</button>
+    <button id="timSau" type="button">↓</button>
+    <span id="demTim"></span>
+   </div>
+  </div>
+  <div class="ml-cuon"><ul id="dsMuc"></ul></div>
+ </aside>
+ <main>
+  <section class="dau-bai">
+   <div class="nhan">BÀI GIẢNG CHẨN ĐOÁN HÌNH ẢNH · TIÊU HÓA</div>
+   <h1>Khí Sau Phúc Mạc</h1>
+   <p class="dich-gia">Nguồn: <a href="https://xray.vn/tran-khi-sau-phuc-mac/" target="_blank" rel="noopener">Xray.vn — xray.vn/tran-khi-sau-phuc-mac</a></p>
+  </section>
+  <section class="to-giay" id="toGiay">
+<h2 id="i-dai-cuong">I. Đại cương</h2>
+<p><span class="c-xanh">– Tràn khí sau phúc mạc (Pneumoretroperitoneum)</span> là tình trạng tích tụ khí bất thường trong khoang sau phúc mạc (nằm giữa phúc mạc thành sau và mạc ngang), có thể giới hạn trong từng tiểu khoang hoặc lan rộng giữa các khoang giải phẫu.</p>
+<p><span class="c-xanh">– Căn nguyên:</span> Khí xâm nhập vào khoang sau phúc mạc qua các con đường giải phẫu hoặc sinh tại chỗ:<br>+ Thủng tạng rỗng sau phúc mạc hoặc ngoài phúc mạc: vỡ tá tràng đoạn D2–D4 do loét hoặc chấn thương bụng kín, thủng đại tràng lên, đại tràng xuống hoặc trực tràng ngoài phúc mạc do u, viêm túi thừa hay dị vật.<br>+ Thủ thuật nội soi và can thiệp: thủng sau nội soi mật tụy ngược dòng (ERCP) kèm cắt cơ vòng Oddi, nội soi đại trực tràng, sinh thiết qua da, đốt sóng cao tần hoặc dẫn lưu khoang sau phúc mạc.<br>+ Phẫu thuật vùng sau phúc mạc: phẫu thuật hệ tiết niệu, tuyến thượng thận, đại trực tràng hoặc phẫu thuật cột sống thắt lưng theo đường tiếp cận phía trước.<br>+ Nhiễm trùng sinh hơi tại chỗ: viêm tụy cấp hoại tử nhiễm trùng, viêm thận bể thận sinh hơi, áp xe thận hoặc áp xe cơ thắt lưng chậu do vi khuẩn sinh khí.<br>+ Khí từ khoang lân cận lan tới: tràn khí trung thất bóc tách qua các lỗ cơ hoành xuống ổ bụng, hoặc khí từ tầng sinh môn và tiểu khung dưới phúc mạc lan ngược lên.</p>
+<p><span class="c-xanh">– Cơ chế bệnh sinh:</span> Khí di chuyển dọc theo các mặt phẳng cân mạc lỏng lẻo và ranh giới giải phẫu đặc thù của từng tiểu khoang sau phúc mạc, giúp định hướng vị trí tổn thương nguyên phát và đường lan thông qua các lỗ cơ hoành lên trung thất hoặc xuống bẹn – bìu.</p>
+<p><span class="c-xanh">– Biểu hiện lâm sàng:</span> Triệu chứng thường mơ hồ và âm ỉ hơn tràn khí ổ bụng tự do do khoang sau phúc mạc ít kích thích phúc mạc thành trước:<br>+ Toàn thân và cơ năng: đau bụng sâu sau lưng, đau hông lưng, sốt, buồn nôn và hội chứng nhiễm trùng nặng khi kèm hoại tử hoặc áp xe.<br>+ Thực thể: bụng chướng, ít hoặc không có phản ứng thành bụng rõ giai đoạn sớm, có thể sờ thấy tràn khí dưới da vùng thắt lưng, bẹn hoặc bìu khi khí lan rộng.</p>
+<p><span class="c-xanh">– Phân bố:</span> Khí khu trú ở khoang cạnh thận trước, khoang quanh thận, khoang cạnh thận sau hoặc khoang quanh mạch lớn tùy vị trí nguồn gốc, và có thể phối hợp đồng thời với tràn khí ổ bụng tự do hoặc tràn khí trung thất.</p>
+<p><span class="c-xanh">– Vai trò CĐHA:</span> Cắt lớp vi tính giữ vai trò hàng đầu trong chẩn đoán xác định và định hướng xử trí:<br>+ Phát hiện lượng khí rất nhỏ sau phúc mạc mà X-quang bụng quy ước dễ bỏ sót.<br>+ Định khu tiểu khoang chứa khí kết hợp tìm dấu hiệu gián tiếp tại chỗ (dày thành ruột, mất liên tục thành tạng, thâm nhiễm mỡ, ổ tụ dịch) để truy tìm chính xác vị trí thủng hoặc ổ nhiễm trùng nguyên phát.<br>+ Đánh giá mức độ lan rộng lên trung thất, xuống tiểu khung và phát hiện biến chứng đi kèm như áp xe hoặc tràn khí ổ bụng phối hợp.</p>
+<figure><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_875472.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_875472.jpg" alt="Viêm thận bể thận khí thũng" width="1263" height="766" loading="lazy" decoding="async"></a></figure>
+<p><span class="c-do">
+
+© Chẩn Đoán Hình Ảnh Xray.vn
+</span></p>
+<p><span class="c-do"></span></p>
+<h2 id="ii-khoang-sau-phuc-mac">II. Khoang sau phúc mạc</h2>
+<p><span class="c-xanh">– Giới hạn giải phẫu:</span> Khoang sau phúc mạc nằm giữa phúc mạc thành sau ở phía trước và mạc ngang ở phía sau, trải dài từ cơ hoành đến eo trên tiểu khung:<br>+ Bờ trên: mặt dưới cơ hoành, nơi các lá cân nối thông với khoang dưới phúc mạc hoành và trung thất sau qua các khe cơ hoành.<br>+ Bờ dưới: thông liên tục với khoang ngoài phúc mạc tiểu khung (khoang trước bàng quang, quanh trực tràng và trước xương cùng) theo lý thuyết bình diện liên cân (interfascial planes).<br>+ Thành bên: giới hạn bởi các dải mỡ cạnh phúc mạc (flank stripe) và lớp cơ thành bụng sau bên.</p>
+<p><span class="c-xanh">– Phân chia giải phẫu:</span> Tổ chức thành 2 khoang bên đối xứng và 1 khoang quanh mạch máu lớn ở trung tâm, ngăn cách nhau bởi các lá mạc thận và bình diện liên cân:<br>+ Mỗi khoang bên gồm 3 tiểu khoang: khoang cạnh thận trước, khoang quanh thận và khoang cạnh thận sau, phân tách bởi lá trước mạc thận (cân Gerota), lá sau mạc thận (cân Zuckerkandl) và cân bên nón (lateroconal fascia).<br>+ Khoang quanh mạch trung tâm: bao quanh động mạch chủ bụng và tĩnh mạch chủ dưới ở đường giữa, có thể thông thương với khoang sau phúc mạc hai bên khi áp lực khí hoặc dịch tăng cao.</p>
+<p><span class="c-xanh">– Ý nghĩa trong chẩn đoán hình ảnh:</span> Các lá cân sau phúc mạc tạo thành các bình diện tiềm tàng có thể tách lớp (bình diện sau tá tụy, sau đại tràng và bình diện kết hợp), vừa ngăn cản sự lan trực tiếp của dịch/máu ở áp lực thấp vừa đóng vai trò hành lang dẫn khí lan tỏa nhanh chóng dọc theo trục cơ thể.</p>
+<div class="bo-anh cot-3"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_Capture.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_Capture.png" alt="" width="1289" height="1079" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_873776.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_873776.jpg" alt="" width="1268" height="685" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_1.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_1.png" alt="" width="1600" height="1059" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_2.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_2.png" alt="" width="1455" height="977" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_3.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_3.png" alt="" width="1283" height="890" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_sdfg.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_sdfg.jpg" alt="" width="1015" height="412" loading="lazy" decoding="async"></a></div>
+<h3 id="1-khoang-canh-than-truoc">1. Khoang cạnh thận trước</h3>
+<p><span class="c-xanh">– Giới hạn giải phẫu:</span> Nằm ở vùng trước nhất của khoang sau phúc mạc, trải rộng qua đường giữa từ phải sang trái:<br>+ Phía trước: giới hạn bởi phúc mạc thành sau, rễ mạc treo đại tràng ngang và rễ mạc treo ruột non.<br>+ Phía sau: giới hạn bởi lá trước mạc thận (cân Gerota) ở hai bên và mô liên kết quanh mạch lớn ở đường giữa.<br>+ Phía bên: giới hạn bởi cân bên nón (lateroconal fascia), ngăn cách với dải mỡ cạnh phúc mạc.<br>+ Phía trên và dưới: thông liên tục qua đường giữa trước cột sống; phía dưới hợp nhất với mạc sau đại tràng (cân Toldt) và mở xuống bình diện liên cân tiểu khung.</p>
+<p><span class="c-xanh">– Thành phần giải phẫu:</span> Chứa các tạng tiêu hóa cố định thứ phát sau phúc mạc cùng hệ mạch máu – bạch huyết đi kèm:<br>+ Tụy: toàn bộ đầu, cổ, thân và phần lớn đuôi tụy (trừ đoạn chóp đuôi tụy nằm trong dây chằng lách – thận).<br>+ Tá tràng: toàn bộ đoạn sau phúc mạc gồm đoạn xuống (D2), đoạn ngang (D3) và đoạn lên (D4), ngoại trừ hành tá tràng (D1) di động trong phúc mạc.<br>+ Đại tràng cố định: mặt sau đại tràng lên (đại tràng phải) và đại tràng xuống (đại tràng trái) nằm sát lớp mỡ cạnh thận trước, không có phúc mạc bao phủ hoàn toàn.<br>+ Mạch máu và ống dẫn: đoạn cuối ống mật chủ, tĩnh mạch cửa, tĩnh mạch lách và gốc các nhánh mạch mạc treo tràng trên.</p>
+<p><span class="c-xanh">– Ý nghĩa bệnh lý và chẩn đoán hình ảnh:</span> Là vị trí thường gặp nhất của tràn khí sau phúc mạc do nguyên nhân ống tiêu hóa, cho phép khoanh vùng tổn thương khi đọc phim:<br>+ Khí khu trú bên phải hoặc vùng đầu tụy – khung tá tràng gợi ý thủng tá tràng (loét hành – tá tràng D2, chấn thương vỡ D2–D3, biến chứng sau nội soi mật tụy ngược dòng) hoặc thủng đại tràng lên.<br>+ Khí khu trú dọc rãnh cạnh đại tràng trái gợi ý thủng đại tràng xuống do viêm túi thừa hoặc u đại tràng xâm lấn ra sau.<br>+ Do khoang cạnh thận trước thông thương qua đường giữa nên khí hoặc dịch tụy số lượng lớn có thể lan từ bên này sang bên đối diện mà không bị cản trở ở đường giữa.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_khoangcanhthantruoc.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_khoangcanhthantruoc.jpg" alt="" width="1208" height="883" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_873777.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_873777.jpg" alt="" width="958" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_canhthantruoc.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_canhthantruoc.jpg" alt="" width="691" height="690" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_dfrr.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_dfrr.jpg" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_index-2.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_index-2.jpg" alt="" width="688" height="534" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_123.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_123.png" alt="Khí khoang cạnh thận trước" width="1529" height="652" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_45652.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_45652.png" alt="Dịch khoang cạnh thận trước" width="839" height="627" loading="lazy" decoding="async"></a></div>
+<h3 id="2-khoang-canh-than-sau">2. Khoang cạnh thận sau</h3>
+<p><span class="c-xanh">– Giới hạn giải phẫu:</span> Là khoang nằm sau cùng của khoang sau phúc mạc, trải dọc hai bên cột sống thắt lưng và nằm sau bên cơ thắt lưng chậu cùng cơ vuông thắt lưng:<br>+ Phía sau: giới hạn bởi mạc ngang phủ mặt trước cơ vuông thắt lưng và cơ thắt lưng chậu.<br>+ Phía trước: giới hạn bởi lá sau mạc thận (cân Zuckerkandl).<br>+ Phía bên: giới hạn bởi cân bên nón (lateroconal fascia), nơi hợp nhất giữa lá trước và lá sau mạc thận, sau đó lớp mỡ khoang này liên tục ra phía trước thành dải mỡ cạnh phúc mạc (flank stripe) giữa mạc ngang và phúc mạc thành.<br>+ Phía trong: đóng kín dọc theo bờ ngoài cơ vuông thắt lưng và cơ thắt lưng chậu do mạc thận hòa lẫn vào cân cơ, ngăn cách hai bên phải và trái không thông thương trực tiếp qua đường giữa.<br>+ Phía trên và dưới: phía trên thu hẹp và đóng kín tại nơi mạc thận dính vào mạc cơ hoành; phía dưới mở rộng liên tục xuống bình diện liên cân tiểu khung dưới phúc mạc.</p>
+<p><span class="c-xanh">– Thành phần giải phẫu:</span> Khoang không chứa tạng nhu mô hay ống tiêu hóa cố định, chủ yếu gồm lớp mỡ đệm dày, mô liên kết lỏng lẻo, mạch máu nhỏ và các nhánh thần kinh của đám rối thắt lưng (thần kinh chậu hạ vị, chậu bẹn, bìu đùi ngoài).</p>
+<p><span class="c-xanh">– Ý nghĩa bệnh lý và chẩn đoán hình ảnh:</span> Vì không chứa tạng rỗng nên khí tại khoang cạnh thận sau thường bắt nguồn từ tổn thương ngoài phúc mạc tiểu khung hoặc thành bụng lan tới:<br>+ Khí từ thủng trực tràng ngoài phúc mạc, áp xe quanh hậu môn – trực tràng hoặc thủ thuật vùng tầng sinh môn lan ngược lên dọc theo các bình diện liên cân dưới.<br>+ Nhiễm trùng hoại tử thành bụng sau, áp xe cơ thắt lưng chậu, viêm cột sống đĩa đệm sinh hơi hoặc chấn thương xuyên thấu vùng lưng hông.<br>+ Trên phim X-quang và</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_index-2.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_index-2.png" alt="" width="848" height="883" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_873779.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_873779.jpg" alt="" width="1006" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_canhthansau.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_canhthansau.jpg" alt="" width="689" height="681" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_index-5.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_index-5.jpg" alt="" width="709" height="610" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_khoang-canh-than-sau.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_khoang-canh-than-sau.jpg" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_khoangsauthan.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_khoangsauthan.png" alt="" width="1396" height="1038" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_index-1.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_index-1.png" alt="Tụ máu khoang cạnh thận sau" width="1600" height="609" loading="lazy" decoding="async"></a></div>
+<h3 id="3-khoang-quanh-than">3. Khoang quanh thận</h3>
+<p><span class="c-xanh">– Giới hạn giải phẫu:</span> Có hình chóp ngược đặc trưng bao bọc bởi mạc quanh thận (renal fascia), ngăn cách với khoang cạnh thận trước và sau:<br>+ Phía trước: giới hạn bởi lá trước mạc thận (cân Gerota).<br>+ Phía sau: giới hạn bởi lá sau mạc thận (cân Zuckerkandl).<br>+ Phía trên: hai lá mạc thận hòa lẫn vào mạc cơ hoành, riêng phía trên bên phải tạo thành vùng trần của gan (bare area of the liver) cho phép thông thương trực tiếp giữa khoang quanh thận phải và nhu mô gan.<br>+ Phía dưới: hai lá mạc thận hợp nhất quanh niệu quản và mạch sinh dục thành đỉnh hình nón tại hố chậu, đóng kín khoang ở áp lực thấp nhưng vẫn có thể mở ra thành bình diện liên cân dưới khi áp lực khí hoặc dịch tăng cao.<br>+ Phía trong: trước đây quan niệm đóng kín quanh cuống mạch thận, nhưng thực tế hai khoang quanh thận phải và trái thông thương qua đường giữa ở mặt trước động mạch chủ bụng và tĩnh mạch chủ dưới.</p>
+<p><span class="c-xanh">– Thành phần giải phẫu:</span> Chứa thận, tuyến thượng thận (nằm trong một ngăn riêng biệt bởi lá cân mỏng phía trên thận), đoạn gần niệu quản, cuống mạch thận, hệ bạch huyết và lớp mỡ quanh thận dày đặc.</p>
+<p><span class="c-xanh">– Cấu trúc bên trong:</span> Hệ thống vách xơ cầu nối (bridging septa của Kunin) nối bao thận với mạc thận cùng mạng lưới mạch máu – bạch huyết quanh thận phong phú tạo thành các ngăn nhỏ giúp định hướng đường lan của dịch, máu, tế bào u và khí.</p>
+<p><span class="c-xanh">– Ý nghĩa bệnh lý và chẩn đoán hình ảnh:</span> Khoang quanh thận là nơi tích tụ khí phổ biến trong các bệnh lý nhiễm trùng đường tiết niệu trên và là trạm trung chuyển khí giữa các khoang sau phúc mạc:<br>+ Khí khu trú bên trong mạc thận gợi ý viêm thận bể thận sinh hơi, áp xe thận sinh khí, biến chứng sau sinh thiết thận, dẫn lưu bể thận qua da hoặc phẫu thuật thận – thượng thận.<br>+ Khi áp lực khí tăng cao, khí có thể bóc tách dọc theo các vách nối, xuyên qua vùng trần gan lên khoang dưới hoành phải hoặc lan qua đường giữa sang khoang quanh thận đối diện.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_khoangcanhthan.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_khoangcanhthan.png" alt="" width="848" height="883" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_khoang-canh-t-han-343.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_khoang-canh-t-han-343.jpg" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_quanthan.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_quanthan.jpg" alt="" width="631" height="664" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_873778.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_873778.jpg" alt="" width="919" height="678" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_index-4-1.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_index-4-1.jpg" alt="" width="790" height="585" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_2255.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_2255.jpg" alt="" width="1600" height="862" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_647840.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_647840.jpg" alt="Lymphoma" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_647934.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_647934.jpg" alt="Bệnh Erdheim-Chester" width="903" height="619" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_dfgt-2.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_dfgt-2.png" alt="U mỡ tủy bào thượng thận" width="945" height="547" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_1.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_1.jpg" alt="Liposarcoma" width="941" height="552" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_2.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_2.jpg" alt="Hạch di căn" width="940" height="675" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_3.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_3.jpg" alt="U mỡ cơ mạch thận" width="959" height="478" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_648332.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_648332.jpg" alt="RCC" width="869" height="701" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_653680.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_653680.jpg" alt="Tụ máu quanh thận" width="720" height="540" loading="lazy" decoding="async"></a></div>
+<h3 id="4-khoang-quanh-mach">4. Khoang quanh mạch</h3>
+<p><span class="c-xanh">– Giới hạn giải phẫu:</span> Là khoang mạch máu trung tâm nằm dọc đường giữa trước cột sống thắt lưng, có hình dạng dẹt trước – sau và không có vách ngăn thực sự ở đường giữa:<br>+ Phía trước: giới hạn bởi mặt sau của tụy, đoạn ngang tá tràng (D3) và lá phúc mạc thành sau ở vùng dưới đại tràng ngang.<br>+ Phía sau: giới hạn bởi thân đốt sống thắt lưng, đĩa đệm gian đốt sống, dây chằng dọc trước và bờ trong cơ thắt lưng chậu hai bên.<br>+ Phía bên: giới hạn bởi bờ trong của mạc quanh thận hai bên (nơi lá trước và lá sau mạc thận hòa lẫn vào bao mạch máu lớn).<br>+ Phía trên và dưới: thông liên tục qua lỗ động mạch chủ cơ hoành lên trung thất sau và kéo dài xuống chỗ chia đôi động mạch chủ – chậu để thông với khoang dưới phúc mạc tiểu khung.</p>
+<p><span class="c-xanh">– Thành phần giải phẫu:</span> Chứa động mạch chủ bụng cùng các nhánh tận/nhánh bên gốc (thân tạng, mạc treo tràng trên, mạc treo tràng dưới, động mạch thận), tĩnh mạch chủ dưới, chuỗi hạch bạch huyết quanh động – tĩnh mạch chủ, bể dưỡng chấp, đám rối thần kinh giao cảm và mô mỡ – liên kết lỏng lẻo.</p>
+<p><span class="c-xanh">– Bệnh lý hay gặp:</span> Do tập trung mạch máu lớn và hệ bạch huyết nên khoang này thường liên quan đến các tổn thương lan tỏa dọc đường giữa hoặc rò khí/máu từ mạch máu – tạng lân cận:<br>+ Bệnh lý xơ viêm và u hạch: xơ hóa sau phúc mạc (bệnh Ormond), viêm quanh động mạch chủ bụng mạn tính, u lympho (lymphoma) hoặc hạch di căn tạo khối bao bọc quanh động mạch chủ nhưng thường không đẩy lệch động mạch ra trước như u nguyên phát sau phúc mạc khác.<br>+ Bệnh lý mạch máu cấp cứu: vỡ hoặc dọa vỡ phình động mạch chủ bụng gây tụ máu khoang quanh mạch và lan sang khoang cạnh thận/quanh thận; rò động mạch chủ – tá tràng (aortoenteric fistula) thứ phát sau đặt stent-graft hoặc ghép mạch nhân tạo gây xuất hiện bóng khí khu trú trong thành túi phình hay quanh vật liệu ghép.</p>
+<p><span class="c-xanh">– Ý nghĩa trong chẩn đoán hình ảnh:</span> Khí xuất hiện trong khoang quanh mạch có nguy cơ rất cao bóc tách nhanh qua lỗ động mạch chủ cơ hoành gây tràn khí trung thất, đồng thời đòi hỏi loại trừ ngay biến chứng nhiễm trùng mảnh ghép mạch máu hoặc thủng đoạn D3 tá tràng vào đường giữa.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_index-3.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_index-3.png" alt="" width="848" height="883" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_873780.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_873780.jpg" alt="" width="1019" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_khong-gian-quanh-mach-mau.jpg"><img src="tran-khi-sau-phuc-mac_anh/2018_10_khong-gian-quanh-mach-mau.jpg" alt="" width="960" height="720" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2018_10_index-1-1.png"><img src="tran-khi-sau-phuc-mac_anh/2018_10_index-1-1.png" alt="Lymphoma" width="1268" height="518" loading="lazy" decoding="async"></a></div>
+<h2 id="iii-chan-doan-x-quang">III. Chẩn đoán x-quang</h2>
+<p><span class="c-xanh">– Cơ chế tạo hình ảnh:</span> Khí tự do bóc tách dọc theo các mặt phẳng cân mạc và lớp mỡ sau phúc mạc tạo nên các dải sáng dạng vệt, bọt nhỏ hoặc viền khí bao quanh các tạng cố định, khác với mức nước – hơi hoặc liềm hơi di động tự do trong ổ phúc mạc.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh:</span> Tùy tiểu khoang chứa khí, phim X-quang bụng không chuẩn bị bộc lộ các dấu hiệu kinh điển đặc trưng:<br>+ Dấu hiệu viền sáng quanh thận và tuyến thượng thận: khí tích tụ trong khoang quanh thận tạo dải thấu quang sắc nét ôm lấy bờ thận, cực trên thận và tuyến thượng thận (giúp phân biệt với khí trong phúc mạc hiếm khi bao trọn cực trên thận).<br>+ Dấu hiệu nổi rõ bờ cơ thắt lưng chậu: khí bóc tách dọc khoang cạnh thận sau làm tăng tương phản, vẽ rõ đường bờ ngoài cơ thắt lưng chậu hai bên hoặc một bên.<br>+ Dấu hiệu khí bao quanh tụy, động mạch chủ và các đoạn ruột sau phúc mạc: các vệt sáng nhỏ hình bọt hoặc dải khí viền dọc khung tá tràng (D2–D4), bờ đại tràng lên, đại tràng xuống, trực tràng hoặc chồng lấp vùng cột sống thắt lưng tương ứng vị trí động mạch chủ bụng và tụy.<br>+ Dấu hiệu khí dưới hoành cố định và tràn khí trung thất: khí lan qua các khe cơ hoành tạo các vệt sáng dưới vòm hoành không thay đổi vị trí theo tư thế chụp, kèm dải khí dọc bờ trung thất sau hoặc tràn khí dưới da vùng thắt lưng – bẹn.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Cần đối chiếu kỹ với tràn khí ổ phúc mạc tự do và khí trong lòng ống tiêu hóa:<br>+ Tràn khí ổ phúc mạc tự do: tạo liềm hơi dưới vòm hoành di động rõ khi đổi tư thế nằm nghiêng trái, kèm dấu hiệu Rigler (thấy rõ cả hai mặt thành ruột) hoặc dấu hiệu dây chằng liềm, không viền quanh bờ thận hay cơ thắt lưng chậu.<br>+ Khí trong lòng ruột hoặc bã thức ăn/phân trong đại tràng: tạo hình lốm đốm tổ ong nằm đúng theo giải phẫu lòng đại tràng lên/xuống và không lan dọc theo bờ ngoài cơ thắt lưng chậu hay cực trên thận.</p>
+<p><span class="c-xanh">– Cạm bẫy và giới hạn:</span> Độ nhạy của X-quang bụng quy ước thấp trong phát hiện lượng khí ít sau phúc mạc, đồng thời các vệt khí nhỏ dễ bị chồng lấp bởi hơi trong đại tràng hoặc nhầm với lớp mỡ quanh thận bình thường ở bệnh nhân béo phì, nên cần chỉ định cắt lớp vi tính ngay khi nghi ngờ lâm sàng.</p>
+<div class="bo-anh cot-4"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_08_Screenshot-2021-12-18-225400.png"><img src="tran-khi-sau-phuc-mac_anh/2015_08_Screenshot-2021-12-18-225400.png" alt="" width="896" height="425" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_faf7c478eac927b32a05e1a19888f7_jumbo.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_faf7c478eac927b32a05e1a19888f7_jumbo.jpeg" alt="" width="1011" height="1011" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_08_48ae80b5add47ffa7b42991fbad450_jumbo.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_08_48ae80b5add47ffa7b42991fbad450_jumbo.jpg" alt="" width="839" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_08_eb7e816663614868f75ba7cb06164b_jumbo.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_08_eb7e816663614868f75ba7cb06164b_jumbo.jpg" alt="" width="1024" height="996" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_08_ebd69699d0b9897e40eab133d1d589_jumbo.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_08_ebd69699d0b9897e40eab133d1d589_jumbo.jpeg" alt="" width="810" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_08_index-1-69.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_08_index-1-69.jpg" alt="" width="609" height="684" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_TCMJ-29-185-g001.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_TCMJ-29-185-g001.jpg" alt="" width="628" height="587" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_Screenshot-2022-02-05-213002.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_Screenshot-2022-02-05-213002.png" alt="" width="578" height="757" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_Screenshot-2022-02-05-213306.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_Screenshot-2022-02-05-213306.jpg" alt="" width="953" height="733" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_646717.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_646717.jpg" alt="Viêm thận bể thận khí thũng" width="1483" height="1214" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_370522381_6387437008034090_1667898751769338936_n.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_370522381_6387437008034090_1667898751769338936_n.jpg" alt="" width="1600" height="1909" loading="lazy" decoding="async"></a></div>
+<h2 id="iv-chan-doan-clvt">IV. Chẩn đoán CLVT</h2>
+<p><span class="c-xanh">– Kỹ thuật thăm khám:</span> Chụp cắt lớp vi tính đa dãy đầu thu (MDCT) từ vòm hoành đến khớp mu giúp xác định chính xác tràn khí sau phúc mạc và truy tìm nguyên nhân:<br>+ Khảo sát trên cửa sổ phổi hoặc cửa sổ rộng (WL khoảng -400 đến -600 HU, WW 1500–2000 HU) để phát hiện các bóng khí cực nhỏ (tỷ trọng khoảng -1000 HU) dễ bị bỏ sót trên cửa sổ mô mềm thông thường.<br>+ Tiêm thuốc cản quang đường tĩnh mạch thì tĩnh mạch cửa đánh giá mất liên tục thành tạng, áp xe và hoại tử nhu mô; kết hợp thuốc cản quang đường uống hoặc thụt trực tràng tan trong nước trong trường hợp nghi ngờ thủng thực quản bụng, tá tràng sau ERCP hoặc thủng trực tràng kín đáo.<br>+ Tái tạo đa mặt phẳng (MPR) đứng ngang và đứng dọc theo trục động mạch chủ, khung tá tràng và rãnh cạnh đại tràng để lần theo đường lan của khí.</p>
+<p><span class="c-xanh">– Đặc điểm hình ảnh cắt lớp vi tính:</span> Cắt lớp vi tính có độ nhạy gần 100% trong phát hiện các bóng khí nhỏ nằm sau phúc mạc và định khu chính xác từng tiểu khoang:<br>+ Khí khoang cạnh thận trước: các bóng khí nhỏ tập trung quanh đầu tụy, khung tá tràng (D2–D4), mặt sau đại tràng lên hoặc đại tràng xuống, kèm thâm nhiễm mỡ tại chỗ, dày thành ruột khu trú hoặc mất liên tục thành tạng tại ổ thủng.<br>+ Khí khoang quanh thận: khí phân bố bên trong mạc quanh thận, bóc tách dọc các vách xơ cầu nối, ôm lấy vỏ thận, tuyến thượng thận và cuống mạch thận; gặp trong viêm thận bể thận sinh hơi, áp xe thận hoặc biến chứng can thiệp tiết niệu.<br>+ Khí khoang cạnh thận sau: các dải khí chạy dọc mặt trước cơ vuông thắt lưng, bờ ngoài cơ thắt lưng chậu và bóc tách ra trước vào dải mỡ cạnh phúc mạc; thường bắt nguồn từ thủng trực tràng ngoài phúc mạc, áp xe quanh hậu môn hoặc nhiễm trùng hoại tử vùng lưng hông.<br>+ Khí khoang quanh mạch và đường lan trục dọc: khí bao quanh động mạch chủ bụng và tĩnh mạch chủ dưới ở đường giữa, có thể bóc tách lên trung thất sau qua khe cơ hoành gây tràn khí trung thất, hoặc lan xuống khoang ngoài phúc mạc tiểu khung, ống bẹn và bìu.</p>
+<p><span class="c-xanh">– Chiến lược truy tìm vị trí tổn thương nguyên phát:</span> Nguyên tắc thực hành cốt lõi là lần theo vùng tập trung mật độ bóng khí dày đặc nhất kết hợp ổ tụ dịch, thâm nhiễm mỡ nặng nhất hoặc thoát thuốc cản quang ngoài lòng ống tiêu hóa để xác định lỗ thủng hoặc ổ nhiễm trùng khởi phát.</p>
+<p><span class="c-xanh">– Phân biệt:</span> Phân định rõ tràn khí sau phúc mạc với khí ở các khoang lân cận để tránh chẩn đoán nhầm chỉ định phẫu thuật:<br>+ Tràn khí ổ phúc mạc tự do: khí tập trung ở vùng cao phía trước dưới thành bụng trước (tư thế nằm ngửa), quanh dây chằng liềm, rãnh gan – thận, rãnh cạnh đại tràng ngoài phúc mạc và di chuyển theo tư thế, không bao bọc mặt sau tụy hay cơ thắt lưng chậu.<br>+ Khí trong thành ruột (pneumatosis intestinalis): các bóng khí xếp thành chuỗi song song hoặc vòng cung nằm gọn trong lớp dưới niêm mạc hay dưới thanh mạc thành ruột, không tự do trong mô mỡ sau phúc mạc.<br>+ Túi thừa tá tràng hoặc đại tràng: cấu trúc chứa khí có cổ thông trực tiếp với lòng ống tiêu hóa, thành mỏng đều và không kèm thâm nhiễm mỡ hay tụ dịch phản ứng xung quanh.</p>
+<p><span class="c-xanh">– Cạm bẫy:</span> Hai tình huống dễ dẫn đến sai sót trên thực hành cắt lớp vi tính:<br>+ Hạt mỡ tỷ trọng âm sâu (-50 đến -120 HU) xen kẽ các dải xơ quanh thận có thể giả hình bóng khí nhỏ trên cửa sổ nhu mô chuẩn, cần đo tỷ trọng ROI (khí thật &lt; -800 HU) và kiểm tra trên cửa sổ phổi.<br>+ Tràn khí sau phúc mạc lượng lớn có thể vỡ thứ phát qua lá phúc mạc thành sau gây tràn khí ổ phúc mạc phối hợp, dễ làm bác sĩ chỉ tập trung tìm thủng tạng trong phúc mạc mà bỏ sót tổn thương ở tá tràng D2–D4 hoặc trực tràng ngoài phúc mạc.</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_1-458.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_1-458.jpeg" alt="" width="1024" height="873" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_2-456.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_2-456.jpeg" alt="" width="859" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_3-451.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_3-451.jpeg" alt="" width="831" height="1024" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_TCMJ-29-185-g002.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_TCMJ-29-185-g002.jpg" alt="" width="539" height="198" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_10-1055-s-0039-1689681_00058_03.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_10-1055-s-0039-1689681_00058_03.jpg" alt="" width="1600" height="411" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_Screenshot-2022-02-05-213016.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_Screenshot-2022-02-05-213016.png" alt="" width="1176" height="780" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_khi-quanh-than.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_khi-quanh-than.png" alt="Khí quanh thận" width="952" height="217" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_apxe-co-that-lung-chau.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_apxe-co-that-lung-chau.png" alt="Apxe cơ thắt lưng chậu" width="872" height="421" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_apxe-quanh-hau-mon.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_apxe-quanh-hau-mon.png" alt="Apxe quanh hậu môn" width="753" height="495" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_apxe-than.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_apxe-than.png" alt="Apxe thận" width="748" height="435" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_thung-dai-trang-xuong.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_thung-dai-trang-xuong.png" alt="Thủng đại tràng xuống" width="670" height="506" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_thung-dii-a.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_thung-dii-a.png" alt="Thủng DII tá tràng" width="738" height="536" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_thung-dii.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_thung-dii.png" alt="Thủng DII tá tràng" width="831" height="206" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_viem-cot-song.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_viem-cot-song.png" alt="Viêm cột sống khí thũng" width="964" height="504" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_viem-than-b.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_viem-than-b.png" alt="Viêm thận bể thận" width="882" height="238" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_viem-than.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_viem-than.png" alt="Viêm thận bể thận" width="816" height="282" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_viemtuyhoaitu.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_viemtuyhoaitu.png" alt="Viêm tụy hoải tử" width="968" height="247" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_646719.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_646719.jpg" alt="Sau phẫu thuật trực tràng" width="1600" height="909" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_khi-khoang-canh-than.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_khi-khoang-canh-than.jpg" alt="Khí quanh thận" width="1484" height="1155" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_875472.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_875472.jpg" alt="Viêm thận bể thận khí thũng" width="1263" height="766" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_790339.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_790339.jpg" alt="Sau ERCP" width="1058" height="566" loading="lazy" decoding="async"></a></div>
+<p><span class="c-xanh">– Đường lan qua cơ hoành lên trung thất:</span> Khí sau phúc mạc có thể bóc tách qua các khe và lỗ cơ hoành (chủ yếu qua lỗ động mạch chủ, lỗ thực quản và khe sau phúc mạc bên) để đi thẳng vào trung thất sau:<br>+ Trên cắt lớp vi tính, khí tạo thành các dải sáng chạy dọc bao động mạch chủ xuống, quanh thực quản và khoang trước cột sống ngực, từ đó có thể tiếp tục lan lên vùng cổ gây tràn khí dưới da vùng cổ – thượng đòn hoặc vỡ vào khoang màng phổi gây tràn khí màng phổi thứ phát.<br>+ Đây là con đường giải áp hai chiều nên khi gặp tràn khí trung thất kết hợp tràn khí sau phúc mạc, cần đối chiếu bệnh sử và tìm ổ tổn thương nguyên phát để phân biệt khí từ khoang sau phúc mạc lan lên (thủng tá tràng, đại trực tràng, sau ERCP) với khí từ trung thất lan xuống (hội chứng Boerhaave, vỡ phế nang).</p>
+<div class="bo-anh cot-5"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_1-109.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_1-109.png" alt="" width="524" height="636" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_2-117.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_2-117.png" alt="" width="603" height="469" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_3-108.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_3-108.png" alt="" width="603" height="476" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_4-92.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_4-92.png" alt="" width="606" height="435" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_5-84.png"><img src="tran-khi-sau-phuc-mac_anh/2015_09_5-84.png" alt="" width="603" height="377" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 1: khí quanh tụy – ĐM chủ – thận – cơ thắt lưng trái<br></span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_1-460.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_1-460.jpeg" alt="" width="630" height="420" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_2-458.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_2-458.jpeg" alt="" width="630" height="420" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_3-453.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_3-453.jpeg" alt="" width="630" height="420" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_4-419.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_4-419.jpeg" alt="" width="630" height="420" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_5-325.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_5-325.jpeg" alt="" width="630" height="420" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_6-167.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_6-167.jpeg" alt="" width="630" height="420" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 2: khí quanh trực tràng<br></span></p>
+<div class="bo-anh cot-5"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_1-459.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_1-459.jpeg" alt="" width="630" height="447" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_2-457.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_2-457.jpeg" alt="" width="630" height="447" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_3-452.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_3-452.jpeg" alt="" width="630" height="447" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_4-418.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_4-418.jpeg" alt="" width="630" height="447" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_5-324.jpeg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_5-324.jpeg" alt="" width="630" height="447" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 3: khí quanh thận</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/1-142.jpg"><img src="tran-khi-sau-phuc-mac_anh/1-142.jpg" alt="" width="630" height="579" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2-133.jpg"><img src="tran-khi-sau-phuc-mac_anh/2-133.jpg" alt="" width="630" height="630" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/3-122.jpg"><img src="tran-khi-sau-phuc-mac_anh/3-122.jpg" alt="" width="630" height="609" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/4-111.jpg"><img src="tran-khi-sau-phuc-mac_anh/4-111.jpg" alt="" width="590" height="630" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 4:</span></p>
+<div class="bo-anh cot-4"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_08_index-106.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_08_index-106.jpg" alt="Viêm bàng quang khí thũng: khí sau phúc mạc, khí thành bụng" width="769" height="611" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_08_index-1-50.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_08_index-1-50.jpg" alt="" width="948" height="589" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_08_index-2-23.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_08_index-2-23.jpg" alt="" width="974" height="904" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_08_index-3-11.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_08_index-3-11.jpg" alt="" width="930" height="583" loading="lazy" decoding="async"></a></div>
+<p><span class="c-do">=&gt; Case lâm sàng 5:</span></p>
+<div class="bo-anh cot-3"><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_1-508.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_1-508.jpg" alt="" width="970" height="1197" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_2-502.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_2-502.jpg" alt="" width="961" height="1195" loading="lazy" decoding="async"></a><a class="o-anh" href="tran-khi-sau-phuc-mac_anh/2015_09_3-488.jpg"><img src="tran-khi-sau-phuc-mac_anh/2015_09_3-488.jpg" alt="" width="1600" height="1189" loading="lazy" decoding="async"></a></div>
+<h2 id="v-tien-luong-dieu-tri">V. Tiên lượng &amp; Điều trị</h2>
+<h3 id="tien-luong">* Tiên lượng</h3>
+<p>– Diễn tiến và yếu tố tiên lượng hình ảnh: Tiên lượng phụ thuộc trực tiếp vào nguyên nhân gây tràn khí, thời gian từ lúc khởi phát đến khi chẩn đoán và tình trạng nhiễm trùng huyết kèm theo, được phân tầng dựa trên cắt lớp vi tính theo khuyến cáo của Hiệp hội Phẫu thuật Cấp cứu Thế giới (WSES 2020–2023):<br>+ Trường hợp lành tính (tràn khí sau nội soi mật tụy ngược dòng hoặc nội soi đại tràng không kèm thoát thuốc cản quang ngoài lòng ruột và không tụ dịch): tỷ lệ tự hấp thu khí cao và tiên lượng tốt nếu phát hiện sớm.<br>+ Trường hợp nguy cơ tử vong cao (tỷ lệ tử vong lên tới 20–40% khi chẩn đoán muộn): thủng tá tràng do chấn thương kín, thủng đại tràng, viêm tụy cấp hoại tử nhiễm trùng, viêm thận bể thận sinh hơi lan tỏa (độ III–IV theo phân loại Huang và Tseng) hoặc rò động mạch chủ – tá tràng.<br>+ Dấu hiệu tiên lượng nặng trên cắt lớp vi tính: thoát thuốc cản quang ngoài lòng ống tiêu hóa, ổ tụ dịch lớn không đồng nhất có mức khí – dịch (áp xe), hoại tử thành ruột, khí lan rộng đa khoang kèm tràn khí ổ phúc mạc phối hợp hoặc huyết khối tĩnh mạch cửa – mạc treo.</p>
+<h3 id="nguyen-tac-dieu-tri">* Nguyên tắc điều trị</h3>
+<p>– Chiến lược xử trí cá thể hóa: Quyết định điều trị bảo tồn, can thiệp tối thiểu hay phẫu thuật cấp cứu dựa trên huyết động, mức độ viêm phúc mạc và nguyên nhân xác định trên cắt lớp vi tính theo hướng dẫn của Hiệp hội Phẫu thuật Cấp cứu Thế giới (WSES 2020–2023) và Hiệp hội Tiết niệu Châu Âu (EAU 2024):<br>+ Điều trị bảo tồn (nhịn ăn, nuôi dưỡng tĩnh mạch, đặt ống thông mũi dạ dày giảm áp, kháng sinh phổ rộng): chỉ định cho thủng kín sau nội soi mật tụy ngược dòng (tương ứng Stapfer typ III–IV) hoặc sau nội soi đại tràng ở bệnh nhân huyết động ổn định, không có dấu hiệu viêm phúc mạc, không thoát thuốc cản quang ngoài lòng ruột và không tụ dịch ổ lớn trên cắt lớp vi tính.<br>+ Can thiệp điện quang tối thiểu: dẫn lưu ổ áp xe khoang sau phúc mạc hoặc dẫn lưu bể thận qua da (nephrostomy) kết hợp kháng sinh toàn thân là lựa chọn ưu tiên hàng đầu trong áp xe cơ thắt lưng chậu, ổ tụ dịch nhiễm trùng khu trú sau viêm tụy hoại tử và viêm thận bể thận sinh hơi (đặc biệt độ I–IIIa theo Huang và Tseng).<br>+ Phẫu thuật cấp cứu: bắt buộc khi bệnh nhân huyết động không ổn định, có dấu hiệu viêm phúc mạc toàn thể, thủng tá tràng lớn sau nội soi (Stapfer typ I–II kèm dịch tự do), vỡ tá tràng do chấn thương, thủng đại trực tràng, hoại tử lan rộng sau phúc mạc hoặc thất bại với điều trị bảo tồn và dẫn lưu qua da.</p>
+<h3 id="vai-tro-cdha">* Vai trò CĐHA</h3>
+<p>– Hướng dẫn điều trị và theo dõi: Chẩn đoán hình ảnh giữ vai trò trung tâm trong lựa chọn phương thức can thiệp, thực hiện thủ thuật dẫn lưu và theo dõi diễn tiến sau xử trí:<br>+ Đánh giá trước can thiệp: xác định cửa sổ tiếp cận an toàn (tránh quai ruột, mạch máu lớn và khoang màng phổi) để đặt ống dẫn lưu qua da dưới hướng dẫn cắt lớp vi tính hoặc siêu âm, đồng thời lập bản đồ tổn thương cho phẫu thuật viên.<br>+ Theo dõi đáp ứng và phát hiện biến chứng: chụp cắt lớp vi tính kiểm tra khi bệnh nhân sốt kéo dài, tăng bạch cầu hoặc đau tăng sau điều trị bảo tồn để phát hiện sớm ổ áp xe tồn dư, rò tiêu hóa mới hình thành, tắc/tuột ống dẫn lưu hoặc hoại tử lan rộng cần chuyển sang phẫu thuật.</p>
+<p><span class="c-do"></span></p>
+<h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2>
+<div class="tk">
+<p><span class="c-xanh"><em>* Traumatic Retroperitoneal Injuries: Review of Multidetector CT Findings – Kevin P. Daly, MD, Christopher P. Ho, MD, D. Laurie Persson, BA<br>* Imaging of Abnormal Air in the Abdomen and Pelvis – Shobhit Sharma,Jonathan McDougal,Tarun Pandey,Kedar Jambhekar,Roopa Ram<br>* Pneumoperitoneum Imaging – Ali Nawaz Khan, MBBS, FRCS, FRCP, FRCR; Chief Editor: Eugene C Lin, MD<br>* Pneumomediastinum, Pneumoretroperitoneum, Pneumoperitoneum and Subcutaneous Emphysema Secondary to a Penetrating Anal Injury – Yu-Ting Hsiao<br>* Pneumoretroperitoneum, Pneumomediastinum, Pneumothorax, and Subcutaneous Emphysema after Diagnostic Colonoscopy – Hee Sung Lee<br>* Pneumoretroperitoneum Associated with “Dirty Mass”: An Unusual Case of Rectal Perforation – Pasquale Liguori<br>* Massive pneumoretroperitoneum arising from emphysematous cholecystitis: a case report and the literature review – Yasumichi Yagi<br>* Extraperitoneal air: Tracking the source on MDCT in emergency – K. Saggar, A. Ahluwalia, C. Kakkar<br>* Perirenal rindlike lesions. Radiological approach – M.Corral, E. Girela Baena, G. C. Fernández-Pérez<br>* Ectopic gas – S. G. Rizzo, M. Luque, M. ÁLVAREZ GARCÍA, M. Hernandez Herrero, J. Gomez Corral, M. Alonso, S. Marzoa Ruiz, M. Fajardo, M. Mendo; Valladolid/ES<br>* Track the gas to find the hole – localizing the perforation site in CT – A. S. Linhares Moreira<br>* Extraperitoneal Space: Anatomic and Radiologic Overview – M. Horta, N. Neto, C. Couceiro, L. P. Martins; Lisbon/PT<br>* Abdominal air… is it in the right or in the wrong place? – M. Drake Perez<br>* Direct Retroperitoneal Extension from Diseases of Peritoneal Organs – Y. Lim<br>* Etiology of extraluminal gas in plain abdominal radiography – C. P. Fernandez Ruiz<br>* Retroperitoneal necroses: a challenge for the radiologist – G. Columbano<br>* Transdiaphragmatic decompression pathways of pneumomediastinum and pneumoretroperitoneum – J. Isogai, J. Kaneko, S. Maejima; Hasuda/JP<br></em></span></p>
+</div>
+  </section>
+ </main>
+</div>
+<div class="thanh-nut">
+ <button id="nutMl" class="hien-ml" type="button" title="Mục lục">≡</button>
+ <button id="nutGiam" type="button" title="Chữ nhỏ hơn">A-</button>
+ <button id="nutTang" type="button" title="Chữ lớn hơn">A+</button>
+ <button id="nutNen" type="button" title="Nền sáng/tối">◐</button>
+</div>
+<div class="xem-anh" id="xemAnh" role="dialog" aria-label="Xem ảnh">
+ <span class="xa-dem"></span>
+ <button class="xa-dong" type="button" title="Đóng (Esc)">✕</button>
+ <button class="xa-truoc" type="button" title="Ảnh trước (←)">‹</button>
+ <img alt="">
+ <button class="xa-sau" type="button" title="Ảnh sau (→)">›</button>
+ <div class="xa-chu"></div>
+</div>
+<script>
+(function(){
+ var goc=document.documentElement, ds=document.getElementById('dsMuc'),
+     giay=document.getElementById('toGiay'), pt=document.getElementById('phanTram'),
+     ml=document.getElementById('mucLuc');
+ var dau=[].slice.call(giay.querySelectorAll('h2,h3,h4,h5,h6'));
+
+ // mục lục
+ dau.forEach(function(h){
+  var li=document.createElement('li');
+  li.className='cap-'+(+h.tagName[1]-1);
+  var a=document.createElement('a');
+  a.href='#'+h.id; a.textContent=h.textContent;
+  a.addEventListener('click',function(){ ml.classList.remove('mo'); });
+  li.appendChild(a); ds.appendChild(li);
+ });
+ var neo=[].slice.call(ds.querySelectorAll('a'));
+
+ function capNhat(){
+  var i=0;
+  for(var k=0;k<dau.length;k++){ if(dau[k].getBoundingClientRect().top<140) i=k; }
+  neo.forEach(function(a,k){ a.classList.toggle('dang-doc',k===i); });
+  var a=neo[i];
+  if(a){ var cuon=a.closest('.ml-cuon');
+   if(cuon){ var h=a.getBoundingClientRect(), c=cuon.getBoundingClientRect();
+    if(h.top<c.top||h.bottom>c.bottom) cuon.scrollTop+=h.top-c.top-c.height/3; } }
+  var het=document.documentElement.scrollHeight-innerHeight;
+  pt.textContent=(het>0?Math.min(100,Math.round(scrollY/het*100)):100)+'%';
+ }
+ addEventListener('scroll',capNhat,{passive:true});
+ addEventListener('resize',capNhat); capNhat();
+
+ // cỡ chữ + nền tối, nhớ lựa chọn
+ function docNho(k,md){ try{ return localStorage.getItem(k)||md; }catch(e){ return md; } }
+ function ghiNho(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ var co=parseInt(docNho('gl-co','16'),10);
+ function apCo(){ goc.style.setProperty('--co',co+'px'); ghiNho('gl-co',co); capNhat(); }
+ apCo();
+ goc.setAttribute('data-nen',docNho('gl-nen','sang'));
+ document.getElementById('nutTang').onclick=function(){ co=Math.min(24,co+1); apCo(); };
+ document.getElementById('nutGiam').onclick=function(){ co=Math.max(12,co-1); apCo(); };
+ document.getElementById('nutNen').onclick=function(){
+  var v=goc.getAttribute('data-nen')==='toi'?'sang':'toi';
+  goc.setAttribute('data-nen',v); ghiNho('gl-nen',v);
+ };
+ // thu gọn / mở lại cột mục lục (nhớ lựa chọn)
+ goc.setAttribute('data-ml',docNho('gl-ml',''));
+ function datMl(v){ goc.setAttribute('data-ml',v); ghiNho('gl-ml',v); capNhat(); }
+ document.getElementById('nutThu').onclick=function(){ datMl('thu'); };
+ document.getElementById('nutMl').onclick=function(){
+  // màn hình rộng: nút ≡ mở lại cột đã thu; màn hình hẹp: kéo cột ra/vào
+  if(innerWidth>980 && goc.getAttribute('data-ml')==='thu'){ datMl(''); return; }
+  ml.classList.toggle('mo');
+ };
+
+ // tìm trong bài
+ var o=document.getElementById('oTim'), dem=document.getElementById('demTim'), hit=[], vt=-1;
+ function xoaDanh(){
+  hit=[]; vt=-1;
+  var m=giay.querySelectorAll('mark.danh');
+  for(var i=0;i<m.length;i++){ var p=m[i].parentNode;
+   p.replaceChild(document.createTextNode(m[i].textContent),m[i]); p.normalize(); }
+ }
+ function danhDau(q){
+  xoaDanh();
+  if(q.length<2){ dem.textContent=''; return; }
+  var tw=document.createTreeWalker(giay,NodeFilter.SHOW_TEXT,null), nut=[], n;
+  while((n=tw.nextNode())) if(n.nodeValue.trim()) nut.push(n);
+  var kq=q.toLowerCase();
+  nut.forEach(function(n){
+   var s=n.nodeValue, l=s.toLowerCase(), i=l.indexOf(kq);
+   if(i<0) return;
+   var cha=n.parentNode, sau=n, dich=0;
+   while(i>=0){
+    var giua=sau.splitText(i-dich); dich=i+q.length;
+    sau=giua.splitText(q.length);
+    var mk=document.createElement('mark'); mk.className='danh';
+    cha.replaceChild(mk,giua); mk.appendChild(giua); hit.push(mk);
+    i=l.indexOf(kq,dich);
+   }
+  });
+  dem.textContent=hit.length?('1/'+hit.length):'0';
+  if(hit.length){ vt=0; toi(0); }
+ }
+ function toi(i){
+  if(!hit.length) return;
+  hit.forEach(function(m){ m.classList.remove('dang'); });
+  vt=(i+hit.length)%hit.length;
+  hit[vt].classList.add('dang');
+  hit[vt].scrollIntoView({block:'center',behavior:'smooth'});
+  dem.textContent=(vt+1)+'/'+hit.length;
+ }
+ var cho;
+ o.addEventListener('input',function(){ clearTimeout(cho);
+  cho=setTimeout(function(){ danhDau(o.value.trim()); },250); });
+ o.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault();
+  toi(vt+(e.shiftKey?-1:1)); } });
+ document.getElementById('timTruoc').onclick=function(){ toi(vt-1); };
+ document.getElementById('timSau').onclick=function(){ toi(vt+1); };
+ addEventListener('beforeprint',xoaDanh);
+})();
+// xem ảnh phóng to: bấm ảnh để mở, ←/→ chuyển ảnh trong cùng bộ, Esc để đóng
+(function(){
+ var hop=document.getElementById('xemAnh'), anh=hop.querySelector('img'),
+     chu=hop.querySelector('.xa-chu'), dem=hop.querySelector('.xa-dem'), bo=[], vt=0;
+ function hien(i){
+  vt=(i+bo.length)%bo.length; var a=bo[vt], im=a.querySelector('img');
+  anh.src=a.getAttribute('href'); anh.alt=im.alt; chu.textContent=im.alt;
+  chu.style.display=im.alt?'':'none';
+  dem.textContent=bo.length>1?(vt+1)+' / '+bo.length:'';
+  hop.querySelector('.xa-truoc').style.display=hop.querySelector('.xa-sau').style.display=bo.length>1?'':'none';
+ }
+ function dong(){ hop.classList.remove('mo'); anh.removeAttribute('src'); document.body.style.overflow=''; }
+ document.getElementById('toGiay').addEventListener('click',function(e){
+  var a=e.target.closest('a.o-anh'); if(!a) return;
+  e.preventDefault();
+  var cha=a.closest('.bo-anh');
+  bo=cha?[].slice.call(cha.querySelectorAll('a.o-anh')):[a];
+  hien(bo.indexOf(a)); hop.classList.add('mo'); document.body.style.overflow='hidden';
+ });
+ hop.querySelector('.xa-dong').onclick=dong;
+ hop.querySelector('.xa-truoc').onclick=function(e){ e.stopPropagation(); hien(vt-1); };
+ hop.querySelector('.xa-sau').onclick=function(e){ e.stopPropagation(); hien(vt+1); };
+ hop.addEventListener('click',function(e){ if(e.target===hop) dong(); });
+ addEventListener('keydown',function(e){
+  if(!hop.classList.contains('mo')) return;
+  if(e.key==='Escape') dong();
+  else if(e.key==='ArrowLeft') hien(vt-1);
+  else if(e.key==='ArrowRight') hien(vt+1);
+ });
+ var x0=null;
+ hop.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ hop.addEventListener('touchend',function(e){ if(x0===null) return;
+  var dx=e.changedTouches[0].clientX-x0; x0=null;
+  if(Math.abs(dx)>50) hien(vt+(dx<0?1:-1)); });
+})();
+// video YouTube: chỉ tải khi bấm. YouTube trả "Lỗi 153" khi trang không gửi được referrer
+// (mở từ ổ đĩa file:// hoặc khung sandbox) — khi đó mở thẳng tab YouTube.
+(function(){
+ var giay=document.getElementById('toGiay'), ds=giay.querySelectorAll('.yt');
+ if(!ds.length) return;
+ var canEmbed=/^https?:$/.test(location.protocol) &&
+   (typeof window.origin==='undefined' || (window.origin && window.origin!=='null'));
+ var PLAY='<span class="play"><svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34l18-10-18-10z"/></svg></span>';
+ [].forEach.call(ds,function(b){
+  var id=b.getAttribute('data-id'), n=b.getAttribute('data-n')||'Video', watch='https://www.youtube.com/watch?v='+id;
+  b.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+n+'">'+PLAY+'<span class="badge">▶ '+n+'</span>';
+  b.setAttribute('role','button'); b.setAttribute('tabindex','0');
+  var fig=b.closest('figure'), cap=fig&&fig.querySelector('figcaption');
+  if(!cap&&fig){ cap=document.createElement('figcaption'); fig.appendChild(cap); }
+  if(cap){ var a=document.createElement('a'); a.className='ytlink'; a.href=watch; a.target='_blank';
+   a.rel='noopener'; a.textContent='Mở trên YouTube ↗'; cap.appendChild(a); }
+  function load(){
+   if(!canEmbed){ window.open(watch,'_blank','noopener'); return; }
+   b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1" '+
+    'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;'+
+    'encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="'+n+'"></iframe>';
+   b.style.cursor='default';
+  }
+  b.addEventListener('click',load);
+  b.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
+ });
+ if(!canEmbed){
+  var w=document.createElement('div'); w.className='canh-bao';
+  w.innerHTML='<b>Lưu ý:</b> trang đang mở trực tiếp từ ổ đĩa (hoặc trong khung xem trước) nên YouTube chặn phát nhúng '+
+   '(<i>Lỗi 153</i>). Bấm vào video sẽ mở tab YouTube. Đăng trang lên web (https) thì video phát ngay trong trang.';
+  giay.insertBefore(w, giay.firstChild);
+ }
+})();
+</script>
+</body>
+</html>
